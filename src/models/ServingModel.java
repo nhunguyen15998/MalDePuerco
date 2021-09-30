@@ -1,5 +1,5 @@
 package models;
 
 public class ServingModel {
-	private int id, status
+	private int id, status, 
 }
