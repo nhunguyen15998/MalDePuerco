@@ -1,7 +1,6 @@
 package models;
 
 import java.sql.ResultSet;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import utils.CompareOperator;
@@ -10,16 +9,13 @@ import utils.JoinCondition;
 
 public class UserModel extends BaseModel {
 	public static String table = "users";
-	public static String[] columns = {"id", "code", "name", "gender", "birth", "salary", "email",
-									  "phone", "password", "role_id", "created_at", "status"};
+	public static String[] columns = {"id", "code", "name", "email", "phone", "password", "role_id", "created_at", "status"};
 	private UserModel userModel;
+	
 	private int id;
 	private int sequence;
 	private String code;
 	private String name;
-	private int gender;
-	private String birth;
-	private double salary;
 	private String email;
 	private String phone;
 	private String password;
@@ -58,13 +54,9 @@ public class UserModel extends BaseModel {
 		this.setSequence(sequence);
 		this.setCode(code);
 		this.setName(name);
-		this.setGender(gender);
-		this.setBirth(birth);
-		this.setSalary(salary);
 		this.setEmail(email);
 		this.setPhone(phone);
-		this.setBranchName(branchName);
-		this.setUserType(userType);
+		this.setRole(role);
 		this.setCreatedAt(createdAt);
 		this.setStatus(status);
 	}
@@ -90,19 +82,16 @@ public class UserModel extends BaseModel {
 	//get list
 	public ResultSet getUserList(ArrayList<CompareOperator> conditions) {
 		try {
-			String[] selects = {"users.id", "users.name as user_name", "users.user_code", "users.gender", "users.birth", 
-								"users.identity_card", "users.salary", "users.email", "users.phone", "users.password", 
-								"users.created_at", "users.status", "branches.name as branch", "user_types.user_type_code as role_code",
-								"user_types.name as role_name"};
+			String[] selects = {"users.id", "users.name as user_name", "users.code", 
+								"users.email", "users.phone", "users.password", 
+								"users.created_at", "users.status",
+								"roles.name as role_name"};
 			
-			ArrayList<CompareOperator> joinBranch = new ArrayList<CompareOperator>();
-			joinBranch.add(CompareOperator.getInstance("users.branch_id", " = ", "branches.id"));
-			ArrayList<CompareOperator> joinUserType = new ArrayList<CompareOperator>();
-			joinUserType.add(CompareOperator.getInstance("users.user_type_id", " = ", "user_types.id"));
+			ArrayList<CompareOperator> joinRole = new ArrayList<CompareOperator>();
+			joinRole.add(CompareOperator.getInstance("users.role_id", " = ", "roles.id"));
 			
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
-			joins.add(JoinCondition.getInstance(" join ", " branches ", joinBranch));
-			joins.add(JoinCondition.getInstance(" join ", " user_types ", joinUserType));
+			joins.add(JoinCondition.getInstance(" join ", " roles ", joinRole));
 			return this.getData(selects, conditions, joins);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -113,16 +102,16 @@ public class UserModel extends BaseModel {
 	//get user by id
 	public ResultSet getUserById(int id) {
 		try {
-			String[] selects = {"users.*", "users.name as user_name", "user_types.name as role_name"};
+			String[] selects = {"users.*", "users.name as user_name", "roles.name as role_name"};
 			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
 			conditions.add(CompareOperator.getInstance("users.id", "=", String.valueOf(id)));
 			
 			
 			ArrayList<CompareOperator> joinConditions = new ArrayList<CompareOperator>();
-			joinConditions.add(CompareOperator.getInstance("user_types.id", "=", "users.user_type_id"));
+			joinConditions.add(CompareOperator.getInstance("roles.id", "=", "users.role_id"));
 			
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
-			joins.add(JoinCondition.getInstance("join", "user_types", joinConditions));
+			joins.add(JoinCondition.getInstance("join", "roles", joinConditions));
 			
 			
 			
@@ -169,37 +158,6 @@ public class UserModel extends BaseModel {
 		}
 	}
 	
-	//get list user types
-	public ResultSet getUserTypeList() {
-		try {
-			String[] select = {"distinct user_types.name, users.user_type_id, user_types.id"};
-			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
-			conditions.add(CompareOperator.getInstance("users.user_type_id", " = ", "user_types.id"));
-			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
-			joins.add(JoinCondition.getInstance("right join", "user_types", conditions));
-			
-			return this.getData(select, null, joins);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	//get user salary by id
-	public ResultSet getUserSalaryById() {
-		try {
-			String[] selects = {"user_salary.*, users.id"};
-			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
-			conditions.add(CompareOperator.getInstance("user_salary.user_id", " = ", "users.id"));
-			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
-			joins.add(JoinCondition.getInstance("join", "user_salary", conditions));
-			return this.getData(selects, null, joins);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
 	//get & set
 	public int getId() {
 		return id;
@@ -233,30 +191,6 @@ public class UserModel extends BaseModel {
 		this.name = name;
 	}
 
-	public int getGender() {
-		return gender;
-	}
-
-	public void setGender(int gender) {
-		this.gender = gender;
-	}
-
-	public String getBirth() {
-		return birth;
-	}
-
-	public void setBirth(String birth) {
-		this.birth = birth;
-	}
-
-	public double getSalary() {
-		return salary;
-	}
-
-	public void setSalary(double salary) {
-		this.salary = salary;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -285,8 +219,8 @@ public class UserModel extends BaseModel {
 		return role;
 	}
 
-	public void setUserType(String userType) {
-		this.role = userType;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	public String getCreatedAt() {
