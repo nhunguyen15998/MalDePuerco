@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="cuHolder" prefHeight="512.0" prefWidth="610.0" style="-fx-background-color: #ebf2f2;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserUCController">
+    <stylesheets>
+        <URL value="@/css/useruc.css" />
+    </stylesheets>
+   <children>
+      <Pane prefHeight="101.0" prefWidth="618.0" style="-fx-background-color: linear-gradient(to right, #4673db, #4596d9, #55c2e0, #6cd9e6);">
+         <children>
+            <Label layoutX="39.0" layoutY="33.0" prefHeight="19.0" prefWidth="526.0" text="Create/ Update User" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="45.0" layoutY="69.0" prefHeight="398.0" prefWidth="526.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.8),30, 0,10, 10);">
+         <children>
+            <TextField fx:id="tfName" focusTraversable="false" layoutX="172.0" layoutY="32.0" prefHeight="25.0" prefWidth="211.0" promptText="Name" style="-fx-background-color: #f0f9fa; -fx-border-width: 0 0 1 0; -fx-border-color: linear-gradient(to right, #4673db, #4596d9, #55c2e0, #6cd9e6);" />
+            <TextField fx:id="tfCode" disable="true" focusTraversable="false" layoutX="172.0" layoutY="75.0" prefHeight="25.0" prefWidth="211.0" promptText="Code will be ramdom" style="-fx-background-color: #f0f9fa; -fx-border-width: 0 0 1 0; -fx-border-color: linear-gradient(to right, #4673db, #4596d9, #55c2e0, #6cd9e6);" />
+            <TextField fx:id="tfEmail" focusTraversable="false" layoutX="172.0" layoutY="116.0" prefHeight="25.0" prefWidth="211.0" promptText="Email" style="-fx-background-color: #f0f9fa; -fx-border-width: 0 0 1 0; -fx-border-color: linear-gradient(to right, #4673db, #4596d9, #55c2e0, #6cd9e6);" />
+            <TextField fx:id="tfPhone" focusTraversable="false" layoutX="172.0" layoutY="159.0" prefHeight="25.0" prefWidth="211.0" promptText="Phone" style="-fx-background-color: #f0f9fa; -fx-border-width: 0 0 1 0; -fx-border-color: linear-gradient(to right, #4673db, #4596d9, #55c2e0, #6cd9e6);" />
+            <Label layoutX="85.0" layoutY="39.0" text="Name:" />
+            <Label layoutX="85.0" layoutY="82.0" text="Code:" />
+            <Label layoutX="85.0" layoutY="120.0" text="Email:" />
+            <Label layoutX="84.0" layoutY="163.0" prefHeight="17.0" prefWidth="63.0" text="Phone:" />
+            <Label layoutX="84.0" layoutY="205.0" text="Password:" />
+            <Label layoutX="84.0" layoutY="248.0" text="User type:" />
+            <Label layoutX="84.0" layoutY="288.0" text="Status:" />
+            <PasswordField fx:id="tfPass" focusTraversable="false" layoutX="172.0" layoutY="202.0" prefHeight="26.0" prefWidth="211.0" style="-fx-background-color: #f0f9fa; -fx-border-width: 0 0 1 0; -fx-border-color: linear-gradient(to right, #4673db, #4596d9, #55c2e0, #6cd9e6);" />
+            <ComboBox fx:id="cbUserType" focusTraversable="false" layoutX="172.0" layoutY="244.0" prefHeight="25.0" prefWidth="211.0" style="-fx-background-color: linear-gradient(to right, #e6f1f2,#d5e8eb);" />
+            <ComboBox fx:id="cbStatus" focusTraversable="false" layoutX="172.0" layoutY="284.0" prefHeight="25.0" prefWidth="211.0" style="-fx-background-color: linear-gradient(to right, #e6f1f2,#d5e8eb);" />
+            <Button alignment="CENTER" layoutX="189.0" layoutY="331.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: linear-gradient(to right, #8DC9F8, #69B5F2, #4BA4EC, #3292E6); -fx-border-radius: 50px; -fx-background-radius: 50px;" text="Save" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#5873de7d" />
+               </effect>
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
+                     <image>
+                        <Image url="@../../../../../../../../../../Users/LENOVO/Downloads/MuscleBar/MuscleBar/src/images/save.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnCancel" alignment="CENTER" layoutX="277.0" layoutY="331.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="30.0" prefWidth="88.0" style="-fx-background-color: linear-gradient(to right, #fbc6c4, #f4a29f, #fb8b87, #FB6E67); -fx-border-radius: 50px; -fx-background-radius: 50px;" text="Cancel" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#fb6e677d" />
+               </effect>
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
+                     <image>
+                        <Image url="@../../../../../../../../../../Users/LENOVO/Downloads/MuscleBar/MuscleBar/src/images/close.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
