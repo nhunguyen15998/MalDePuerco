@@ -28,7 +28,7 @@
                <children>
                   <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="6.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../../../../Users/NgocTran/Downloads/image/cate.png" />
+                        <Image url="@../assets/cate.png" />
                      </image>
                   </ImageView>
                </children>
@@ -72,7 +72,7 @@
             </Button>
             <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="356.0" layoutY="397.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../../../../Users/NgocTran/Downloads/image/delete.png" />
+                  <Image url="@../assets/delete.png" />
                </image>
             </ImageView>
             <Button layoutX="458.0" layoutY="206.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" styleClass="btnAdd" stylesheets="@../css/sercate.css" text="     Save" textFill="WHITE">
@@ -82,7 +82,7 @@
             </Button>
             <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="465.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../../../../Users/NgocTran/Downloads/image/add.png" />
+                  <Image url="@../assets/add.png" />
                </image>
             </ImageView>
             <Button layoutX="561.0" layoutY="206.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" styleClass="btnUpdate" stylesheets="@../css/sercate.css" text="     Update" textFill="WHITE">
@@ -92,7 +92,7 @@
             </Button>
             <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="568.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../../../../Users/NgocTran/Downloads/image/edit.png" />
+                  <Image url="@../assets/edit.png" />
                </image>
             </ImageView>
             <Button layoutX="667.0" layoutY="205.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" styleClass="btnReset" stylesheets="@../css/sercate.css" text="     Reset" textFill="WHITE">
@@ -102,7 +102,7 @@
             </Button>
             <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="674.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../../../../Users/NgocTran/Downloads/image/clear.png" />
+                  <Image url="@../assets/clear.png" />
                </image>
             </ImageView>
          </children>
