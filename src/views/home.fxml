@@ -9,7 +9,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<FlowPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<FlowPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../css/customer-home.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CustomerHomeController">
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="725.0" style="-fx-background-color: #FBFBFB; -fx-border-color: #f4f2f2;">
          <children>
@@ -606,7 +606,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </Button>
-                              <Button contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Appetizers" textFill="#34495e">
+                              <Button fx:id="btnAppetizer" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Appetizers" textFill="#34495e">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
@@ -621,7 +621,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </Button>
-                              <Button contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Side orders" textFill="#34495e">
+                              <Button fx:id="btnSideOrder" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Side orders" textFill="#34495e">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
@@ -636,7 +636,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </Button>
-                              <Button contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="A la carte" textFill="#34495e">
+                              <Button fx:id="btnALaCarte" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="A la carte" textFill="#34495e">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
@@ -651,7 +651,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </Button>
-                              <Button contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Desserts" textFill="#34495e">
+                              <Button fx:id="btnDessert" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Desserts" textFill="#34495e">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
@@ -666,7 +666,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </Button>
-                              <Button contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Beverages" textFill="#34495e">
+                              <Button fx:id="btnBeverage" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Beverages" textFill="#34495e">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
