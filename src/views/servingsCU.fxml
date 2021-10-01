@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nt.restaurantpj.controller.ServingsController">
+    <stylesheets>
+        <URL value="@/com/nt/restaurantpj/css/servingsCU.css" />
+    </stylesheets>
+   <children>
+      <AnchorPane prefHeight="141.0" prefWidth="838.0" styleClass="anchorTop" stylesheets="@../css/servingsCU.css">
+         <children>
+            <Label layoutX="117.0" layoutY="26.0" text="Create/Update Servings" textFill="#a44e4e">
+               <font>
+                  <Font name="Consolas Bold" size="24.0" />
+               </font>
+            </Label>
+            <AnchorPane layoutX="60.0" layoutY="17.0" prefHeight="46.0" prefWidth="50.0" styleClass="image" stylesheets="@../css/servingsCU.css">
+               <children>
+                  <ImageView fitHeight="45.0" fitWidth="50.0" layoutX="3.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../../../../../Users/NgocTran/Downloads/image/servingCU.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="62.0" layoutY="75.0" prefHeight="429.0" prefWidth="698.0" styleClass="anchorPane" stylesheets="@../css/servingsCU.css">
+         <children>
+            <Label layoutX="127.0" layoutY="40.0" text="Name:">
+               <font>
+                  <Font name="Consolas" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="127.0" layoutY="83.0" text="Category:">
+               <font>
+                  <Font name="Consolas" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="127.0" layoutY="126.0" text="Descriptions:">
+               <font>
+                  <Font name="Consolas" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="127.0" layoutY="170.0" text="Price:">
+               <font>
+                  <Font name="Consolas" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="127.0" layoutY="213.0" text="New:">
+               <font>
+                  <Font name="Consolas" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="127.0" layoutY="255.0" text="Best Seller:">
+               <font>
+                  <Font name="Consolas" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="127.0" layoutY="303.0" text="Status:">
+               <font>
+                  <Font name="Consolas" size="18.0" />
+               </font>
+            </Label>
+            <TextField layoutX="312.0" layoutY="37.0" prefHeight="27.0" prefWidth="222.0" promptText="Name" styleClass="text" stylesheets="@../css/servingsCU.css">
+               <font>
+                  <Font name="Consolas" size="14.0" />
+               </font>
+            </TextField>
+            <TextField layoutX="312.0" layoutY="122.0" prefHeight="27.0" prefWidth="222.0" promptText="Descriptions" styleClass="text" stylesheets="@../css/servingsCU.css">
+               <font>
+                  <Font name="Consolas" size="14.0" />
+               </font>
+            </TextField>
+            <TextField layoutX="312.0" layoutY="169.0" prefHeight="27.0" prefWidth="222.0" promptText="Price" styleClass="text" stylesheets="@../css/servingsCU.css">
+               <font>
+                  <Font name="Consolas" size="14.0" />
+               </font>
+            </TextField>
+            <TextField layoutX="312.0" layoutY="210.0" prefHeight="27.0" prefWidth="222.0" promptText="New" styleClass="text" stylesheets="@../css/servingsCU.css">
+               <font>
+                  <Font name="Consolas" size="14.0" />
+               </font>
+            </TextField>
+            <TextField layoutX="312.0" layoutY="251.0" prefHeight="27.0" prefWidth="222.0" promptText="Best Seller" styleClass="text" stylesheets="@../css/servingsCU.css">
+               <font>
+                  <Font name="Consolas" size="14.0" />
+               </font>
+            </TextField>
+            <ComboBox layoutX="312.0" layoutY="79.0" prefHeight="27.0" prefWidth="222.0" styleClass="text" stylesheets="@../css/servingsCU.css" />
+            <ComboBox layoutX="312.0" layoutY="301.0" prefHeight="27.0" prefWidth="222.0" styleClass="text" stylesheets="@../css/servingsCU.css" />
+            <Button layoutX="349.0" layoutY="356.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" styleClass="btnCancel" stylesheets="@../css/servingsCU.css" text="     Cancel" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="28.0" fitWidth="40.0" layoutX="349.0" layoutY="357.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../../../../Users/NgocTran/Downloads/image/cancel.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="225.0" layoutY="356.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="90.0" styleClass="btnSave" stylesheets="@../css/servingsCU.css" text="       Save" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="28.0" fitWidth="40.0" layoutX="232.0" layoutY="357.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../../../../Users/NgocTran/Downloads/image/save.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

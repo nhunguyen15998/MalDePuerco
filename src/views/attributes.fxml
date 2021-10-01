@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nt.restaurantpj.controller.SerCateController">
+    <stylesheets>
+        <URL value="@/com/nt/restaurantpj/css/sercate.css" />
+    </stylesheets>
+   <children>
+      <AnchorPane prefHeight="141.0" prefWidth="838.0" styleClass="anchorTop" stylesheets="@../css/sercate.css">
+         <children>
+            <Label layoutX="92.0" layoutY="26.0" prefHeight="40.0" prefWidth="284.0" text="Attributes Management" textFill="#c15654">
+               <font>
+                  <Font name="Consolas Bold" size="24.0" />
+               </font>
+            </Label>
+            <AnchorPane layoutX="25.0" layoutY="21.0" prefHeight="50.0" prefWidth="52.0" styleClass="image" stylesheets="@../css/servings.css">
+               <children>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="6.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../../../../../Users/NgocTran/Desktop/MalDePuerco/src/assets/attributes.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="26.0" layoutY="96.0" prefHeight="441.0" prefWidth="785.0" styleClass="anchorPane" stylesheets="@../css/sercate.css">
+         <children>
+            <TableView layoutX="8.0" layoutY="14.0" prefHeight="372.0" prefWidth="463.0">
+              <columns>
+                <TableColumn prefWidth="32.0" style="-fx-background-color: #858B97;" text="#" />
+                <TableColumn prefWidth="118.0" text="id" visible="false" />
+                  <TableColumn prefWidth="106.0" style="-fx-background-color: #858B97;" text="Name" />
+                  <TableColumn prefWidth="121.0" style="-fx-background-color: #858B97;" text="Price" />
+                  <TableColumn prefWidth="102.0" style="-fx-background-color: #858B97;" text="Parent" />
+                  <TableColumn prefWidth="83.0" style="-fx-background-color: #858B97;" text="Status" />
+                  <TableColumn prefWidth="18.0" style="-fx-background-color: #858B97;" />
+              </columns>
+            </TableView>
+            <Label layoutX="496.0" layoutY="63.0" text="Name:">
+               <font>
+                  <Font name="Consolas" size="14.0" />
+               </font>
+            </Label>
+            <TextField layoutX="563.0" layoutY="59.0" prefHeight="25.0" prefWidth="185.0" styleClass="text" stylesheets="@../css/servingsCU.css" />
+            <Label layoutX="496.0" layoutY="150.0" text="Parent:">
+               <font>
+                  <Font name="Consolas" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="496.0" layoutY="199.0" text="Status:">
+               <font>
+                  <Font name="Consolas" size="14.0" />
+               </font>
+            </Label>
+            <ComboBox layoutX="563.0" layoutY="146.0" prefHeight="25.0" prefWidth="185.0" styleClass="text" stylesheets="@../css/servingsCU.css" />
+            <ComboBox layoutX="563.0" layoutY="195.0" prefHeight="25.0" prefWidth="185.0" styleClass="text" stylesheets="@../css/servingsCU.css" />
+            <Button layoutX="384.0" layoutY="396.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" styleClass="btnDelete" stylesheets="@../css/sercate.css" text="     Delete " textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="391.0" layoutY="401.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../../../../Users/NgocTran/Desktop/MalDePuerco/src/assets/delete.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="475.0" layoutY="252.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" styleClass="btnAdd" stylesheets="@../css/sercate.css" text="     Save" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="482.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../../../../Users/NgocTran/Desktop/MalDePuerco/src/assets/save.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="578.0" layoutY="252.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" styleClass="btnUpdate" stylesheets="@../css/sercate.css" text="     Update" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="21.0" fitWidth="17.0" layoutX="585.0" layoutY="259.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../../../../Users/NgocTran/Desktop/MalDePuerco/src/assets/edit.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="684.0" layoutY="251.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" styleClass="btnReset" stylesheets="@../css/sercate.css" text="     Reset" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="691.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../../../../Users/NgocTran/Desktop/MalDePuerco/src/assets/clear.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="496.0" layoutY="107.0" text="Price:">
+               <font>
+                  <Font name="Consolas" size="14.0" />
+               </font>
+            </Label>
+            <TextField layoutX="563.0" layoutY="103.0" prefHeight="25.0" prefWidth="185.0" styleClass="text" stylesheets="@../css/servingsCU.css" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
