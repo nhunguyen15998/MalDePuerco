@@ -16,7 +16,7 @@
    <children>
       <Pane layoutX="38.0" layoutY="67.0" prefHeight="448.0" prefWidth="760.0" style="-fx-background-color: #fff; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.8),30, 0,10, 10);">
          <children>
-            <TableView fx:id="tableRole" editable="true" focusTraversable="false" layoutX="12.0" layoutY="59.0" maxHeight="-Infinity" maxWidth="2157.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#getTableDataByClick" prefHeight="323.0" prefWidth="736.0" stylesheets="@/css/roles.css">
+            <TableView fx:id="tableRole" editable="true" focusTraversable="false" layoutX="12.0" layoutY="59.0" maxHeight="-Infinity" maxWidth="2157.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#getTableDataByClick" prefHeight="323.0" prefWidth="736.0" stylesheets="@../css/roles.css">
                <columns>
                   <TableColumn fx:id="colOrder" maxWidth="66.0" minWidth="0.0" prefWidth="53.0" text="#" />
                   <TableColumn fx:id="colId" prefWidth="228.0" text="ID" visible="false" />

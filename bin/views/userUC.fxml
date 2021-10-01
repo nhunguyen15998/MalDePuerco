@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="cuHolder" prefHeight="512.0" prefWidth="610.0" style="-fx-background-color: #ebf2f2;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.myfx.pjsem2.controller.UserUCController">
+<AnchorPane id="AnchorPane" fx:id="cuHolder" prefHeight="512.0" prefWidth="610.0" style="-fx-background-color: #ebf2f2;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserUCController">
     <stylesheets>
-        <URL value="@/com/myfx/pjsem2/css/useruc.css" />
+        <URL value="@/css/useruc.css" />
     </stylesheets>
    <children>
       <Pane prefHeight="101.0" prefWidth="618.0" style="-fx-background-color: linear-gradient(to right, #4673db, #4596d9, #55c2e0, #6cd9e6);">

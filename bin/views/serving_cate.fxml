@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="562.0" prefWidth="809.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx" fx:controller="controllers.ServingCategoriesController">
+<AnchorPane id="AnchorPane" prefHeight="562.0" prefWidth="809.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="controllers.ServingCategoriesController">
     <stylesheets>
         <URL value="@/css/serving_cate.css" />
     </stylesheets>
