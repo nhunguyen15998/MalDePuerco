@@ -2,6 +2,49 @@
  * Empty Stylesheet file.
  */
 
-.mainFxmlClass {
-
+.anchorPane {
+    -fx-background-color : #FFFFFF;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 10, 0, 0, 0);
+}
+.anchorTop {
+    -fx-background-color : linear-gradient(to right, #FFBE88, #CDB3D4);
+}
+.image {
+    -fx-background-color : linear-gradient(to right, #FA9284, #384E78);
+    -fx-background-radius : 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 0);
+}
+.btnAdd {
+    -fx-background-color : linear-gradient(to right, #1CA7EC, #1F2F98);
+    -fx-background-radius : 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 0);
+    -fx-cursor: hand;
+    -fx-fill: back;
+}
+.btnDelete {
+    -fx-background-color : #FE2238;
+    -fx-background-radius : 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 0);
+    -fx-cursor: hand;
+    -fx-fill: back;
+}
+.btnUpdate {
+    -fx-background-color : linear-gradient(to left, #F9C449, #E8A49C);
+    -fx-background-radius : 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 0);
+    -fx-cursor: hand;
+    -fx-fill: back;
+}
+.btnReset {
+    -fx-background-color : linear-gradient(to left, #C2C8C5, #DDDDDA);
+    -fx-background-radius : 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 0);
+    -fx-cursor: hand;
+    -fx-fill: back;
+}
+.text {
+    -fx-background-color : linear-gradient(to right, #FFBE88, #CDB3D4);
+    -fx-border-style : solid;
+    -fx-border-width : 0 0 3 0;
+    -fx-border-color : #EED2D2;
 }

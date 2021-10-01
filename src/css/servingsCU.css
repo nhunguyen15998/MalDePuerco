@@ -7,10 +7,10 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 10, 0, 0, 0);
 }
 .anchorTop {
-    -fx-background-color : #EED2D2;
+    -fx-background-color : linear-gradient(to right, #FFBE88, #CDB3D4);
 }
 .btnSave {
-    -fx-background-color : #0068f9;
+    -fx-background-color : linear-gradient(to right, #1CA7EC, #1F2F98);
     -fx-background-radius : 20;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 0);
     -fx-cursor: hand;
@@ -24,12 +24,12 @@
     -fx-fill: back;
 }
 .image {
-    -fx-background-color : #d3ab9e;
+    -fx-background-color : linear-gradient(to right, #FA9284, #384E78);
     -fx-background-radius : 10;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 0);
 }
 .text {
-    -fx-background-color : #fffbff;
+    -fx-background-color : linear-gradient(to right, #FFBE88, #CDB3D4);
     -fx-border-style : solid;
     -fx-border-width : 0 0 3 0;
     -fx-border-color : #EED2D2;
