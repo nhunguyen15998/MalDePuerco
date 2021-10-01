@@ -1,5 +1,90 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package controllers;
 
-public class UserController {
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
+/**
+ * FXML Controller class
+ *
+ * @author LENOVO
+ */
+public class UserController implements Initializable {
+
+    @FXML
+    private TableView<?> tableUser;
+    @FXML
+    private TableColumn<?, ?> colOrder;
+    @FXML
+    private TableColumn<?, ?> colId;
+    @FXML
+    private TableColumn<?, ?> colCode;
+    @FXML
+    private TableColumn<?, ?> colName;
+    @FXML
+    private TableColumn<?, ?> colGender;
+    @FXML
+    private TableColumn<?, ?> colBirth;
+    @FXML
+    private TableColumn<?, ?> colCard;
+    @FXML
+    private TableColumn<?, ?> colEmail;
+    @FXML
+    private TableColumn<?, ?> colPhone;
+    @FXML
+    private TableColumn<?, ?> colUserType;
+    @FXML
+    private TableColumn<?, ?> colCreatedAt;
+    @FXML
+    private TableColumn<?, ?> colStatus;
+    @FXML
+    private Button btnCreate;
+    @FXML
+    private TextField tfUser;
+
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+    }    
+
+    @FXML
+    private void getTableDataByClick(MouseEvent event) {
+    }
+
+    @FXML
+    private void btnCreateAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnDeleteAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnUpdateAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnClearAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void onSearch(KeyEvent event) {
+    }
+    
 }

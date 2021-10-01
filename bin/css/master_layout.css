@@ -1,0 +1,26 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+.btn, .btnBar{
+    -fx-cursor:hand;
+    -fx-background-radius:0;
+    -fx-background-color: transparent;
+}
+.btn:focused{
+    -fx-background-color: #752332;
+    -fx-border-color: white;
+    -fx-border-width:0 0 0 3;
+}
+.btnBar:hover{
+	-fx-background-color:#913344;
+}
+.btn:hover{
+    -fx-background-color:#c46a7b;
+    -fx-border-color: white;
+    -fx-border-width:0 0 0 5;
+    -fx-font-size:13;
+}

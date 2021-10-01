@@ -14,4 +14,36 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/app</name>
+			<type>2</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Users/LENOVO/Desktop/MalDePuerco/src/app</locationURI>
+		</link>
+		<link>
+			<name>src/controllers</name>
+			<type>2</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Users/LENOVO/Desktop/MalDePuerco/src/controllers</locationURI>
+		</link>
+		<link>
+			<name>src/db</name>
+			<type>2</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Users/LENOVO/Desktop/MalDePuerco/src/db</locationURI>
+		</link>
+		<link>
+			<name>src/models</name>
+			<type>2</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Users/LENOVO/Desktop/MalDePuerco/src/models</locationURI>
+		</link>
+		<link>
+			<name>src/utils</name>
+			<type>2</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Users/LENOVO/Desktop/MalDePuerco/src/utils</locationURI>
+		</link>
+		<link>
+			<name>src/views</name>
+			<type>2</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Users/LENOVO/Desktop/MalDePuerco/src/views</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>

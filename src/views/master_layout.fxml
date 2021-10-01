@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1000.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MasterController">
+   <stylesheets>
+      <URL value="/css/master_layout.css" />
+   </stylesheets>
+   <children>
+      <Pane prefHeight="54.0" prefWidth="200.0" style="-fx-background-color: #4f272e;">
+         <children>
+            <Label layoutX="12.0" layoutY="16.0" text="M A L D E P U E R C O" textFill="WHITE">
+               <font>
+                  <Font name="Bodoni MT Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="200.0" prefHeight="54.0" prefWidth="838.0" style="-fx-background-color: #4f272e;">
+         <children>
+            <HBox layoutX="630.0" layoutY="1.0" prefHeight="53.0" prefWidth="208.0">
+               <children>
+                  <Button fx:id="btnMyAccount" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnMyAccountAction" prefHeight="52.5" prefWidth="54.0" styleClass="btnBar" stylesheets="@../css/master_layout.css">
+                     <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../asset/myaccount.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnRoles" layoutX="64.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnRolesAction" prefHeight="52.5" prefWidth="54.0" styleClass="btnBar" stylesheets="@../css/master_layout.css">
+                     <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../asset/role.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnSignOut" layoutX="119.0" layoutY="10.0" mnemonicParsing="false" onAction="#logoutAction" prefHeight="52.5" prefWidth="54.0" styleClass="btnBar" stylesheets="@../css/master_layout.css">
+                     <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../asset/signout.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnClose" mnemonicParsing="false" onAction="#btnCloseAction" prefHeight="52.5" prefWidth="54.0" styleClass="btnBar" stylesheets="@../css/master_layout.css">
+                     <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../asset/power.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </Pane>
+      <Pane fx:id="masterHolder" layoutX="200.0" layoutY="54.0" prefHeight="550.0" prefWidth="838.0" />
+      <AnchorPane layoutY="54.0" prefHeight="550.0" prefWidth="200.0" style="-fx-background-color: #913344;">
+         <children>
+            <Pane prefHeight="54.0" prefWidth="200.0" style="-fx-background-color: #c25569;">
+               <children>
+                  <ImageView fitHeight="44.0" fitWidth="52.0" layoutX="10.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../asset/profile.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="lblCurrentUser" layoutX="62.0" layoutY="6.0" text="Name" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblCurrentUserRole" layoutX="62.0" layoutY="30.0" text="Position" textFill="WHITE">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <VBox layoutY="54.0" prefHeight="496.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="btnDashBoard" alignment="BASELINE_LEFT" cache="true" cacheHint="ROTATE" mnemonicParsing="false" onAction="#btnDashBoardAction" prefHeight="44.0" prefWidth="200.0" style="-fx-background-color: #913344;" styleClass="btn" stylesheets="@../css/master_layout.css" text="  DASHBOARD" textAlignment="RIGHT" textFill="WHITE">
+                     <graphic>
+                        <ImageView disable="true" fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../asset/dashboard.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnMenu" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#menuAction" prefHeight="44.0" prefWidth="200.0" styleClass="btn" stylesheets="@../css/master_layout.css" text="  MENU" textAlignment="RIGHT" textFill="WHITE">
+                     <graphic>
+                        <ImageView disable="true" fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../asset/menu%20res.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnUser" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#userAction" prefHeight="44.0" prefWidth="200.0" styleClass="btn" stylesheets="@../css/master_layout.css" text="  USERS" textAlignment="RIGHT" textFill="WHITE">
+                     <graphic>
+                        <ImageView disable="true" fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../asset/users.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnRole" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#roleAction" prefHeight="44.0" prefWidth="200.0" styleClass="btn" stylesheets="@../css/master_layout.css" text="  ROLES" textAlignment="RIGHT" textFill="WHITE">
+                     <graphic>
+                        <ImageView disable="true" fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../asset/roles.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnOrder" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#orderAction" prefHeight="44.0" prefWidth="200.0" styleClass="btn" stylesheets="@../css/master_layout.css" text="  ORDERS" textAlignment="RIGHT" textFill="WHITE">
+                     <graphic>
+                        <ImageView disable="true" fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../asset/order.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnTables" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#tableAction" prefHeight="44.0" prefWidth="200.0" styleClass="btn" stylesheets="@../css/master_layout.css" text="  TABLES" textAlignment="RIGHT" textFill="WHITE">
+                     <graphic>
+                        <ImageView disable="true" fitHeight="19.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../asset/table.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnReservation" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#reservationAction" prefHeight="44.0" prefWidth="200.0" styleClass="btn" stylesheets="@../css/master_layout.css" text="  RESERVATION" textAlignment="RIGHT" textFill="WHITE">
+                     <graphic>
+                        <ImageView disable="true" fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../asset/reservation.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnServingCate" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#servingCateAction" prefHeight="44.0" prefWidth="200.0" styleClass="btn" stylesheets="@../css/master_layout.css" text="  SERVING CATEGORIES" textAlignment="RIGHT" textFill="WHITE">
+                     <graphic>
+                        <ImageView disable="true" fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../asset/serving_cate.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnAttributes" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#attributeAction" prefHeight="44.0" prefWidth="200.0" styleClass="btn" stylesheets="@../css/master_layout.css" text="  ATTRIBUTES" textAlignment="RIGHT" textFill="WHITE">
+                     <graphic>
+                        <ImageView disable="true" fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../asset/attributes.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnDiscount" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#discountAction" prefHeight="44.0" prefWidth="200.0" styleClass="btn" stylesheets="@../css/master_layout.css" text="  DISCOUNTS" textAlignment="RIGHT" textFill="WHITE">
+                     <graphic>
+                        <ImageView disable="true" fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../asset/discount.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnInvoices" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#invoicesAction" prefHeight="44.0" prefWidth="200.0" styleClass="btn" stylesheets="@../css/master_layout.css" text="  INVOICES" textAlignment="RIGHT" textFill="WHITE">
+                     <graphic>
+                        <ImageView disable="true" fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../asset/invoices.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

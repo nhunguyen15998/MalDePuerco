@@ -17,6 +17,7 @@ public class MySQLJDBC {
 	private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/mal_de_puerco";
 	private static final String USER_NAME = "root";
 	private static final String PASSWORD = "";
+        public static MySQLJDBC db=null;
 	public static Connection connection = null;
 	
 	public String table;
@@ -230,6 +231,14 @@ public class MySQLJDBC {
 		}
     }
 	
-	
+	 public static MySQLJDBC Instance() {
+	if(db==null) {
+		db=new MySQLJDBC();
+	}
+	return db;
+}
+    public final Connection getConn() {
+            return connection;
+    }
 	
 }
