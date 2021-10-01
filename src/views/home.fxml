@@ -29,18 +29,46 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Pane layoutX="272.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="331.0">
+                  <Pane layoutX="272.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="268.0">
                      <children>
-                        <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="331.0" promptText="Looking for something?" style="-fx-background-radius: 50px;">
+                        <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="268.0" promptText="Looking for something?" style="-fx-background-radius: 50px;">
                            <font>
                               <Font size="12.0" />
                            </font>
                         </TextField>
-                        <ImageView fitHeight="14.0" fitWidth="14.0" layoutX="303.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="14.0" fitWidth="14.0" layoutX="240.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../assets/search.png" />
                            </image>
                         </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane layoutX="543.0" layoutY="45.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="73.0">
+                     <children>
+                        <Button layoutX="35.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" textFill="#263854">
+                           <font>
+                              <Font name="Georgia" size="8.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="21.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../assets/waiter.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button layoutX="1.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" textFill="#263854">
+                           <font>
+                              <Font name="Georgia" size="8.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="21.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../assets/bell.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                      </children>
                   </Pane>
                </children>
@@ -714,9 +742,9 @@
                   </Button>
                </children>
             </Pane>
-            <AnchorPane layoutY="108.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="493.0" prefWidth="275.0">
+            <AnchorPane layoutY="73.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="528.0" prefWidth="275.0">
                <children>
-                  <ScrollPane hbarPolicy="NEVER" layoutY="28.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="391.0" prefWidth="275.0" style="-fx-background-color: white; -fx-border-color: white;" vbarPolicy="NEVER">
+                  <ScrollPane hbarPolicy="NEVER" layoutY="28.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="275.0" style="-fx-background-color: white; -fx-border-color: white;" vbarPolicy="NEVER">
                     <content>
                       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="562.0" prefWidth="272.0" style="-fx-background-color: white;">
                            <children>
@@ -1004,7 +1032,7 @@
                         </AnchorPane>
                     </content>
                   </ScrollPane>
-                  <Button contentDisplay="RIGHT" layoutX="8.0" layoutY="432.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="260.0" style="-fx-background-color: #ff2351; -fx-background-radius: 50px;" text="Place Order" textFill="WHITE">
+                  <Button contentDisplay="RIGHT" layoutX="8.0" layoutY="472.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="260.0" style="-fx-background-color: #ff2351; -fx-background-radius: 50px;" text="Place" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -1040,70 +1068,6 @@
                   </Pane>
                </children>
             </AnchorPane>
-            <Pane layoutY="72.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="275.0" style="-fx-background-color: white;">
-               <children>
-                  <Button layoutX="99.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" textFill="#263854">
-                     <font>
-                        <Font name="Georgia" size="8.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="21.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../assets/waiter.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button layoutX="53.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" textFill="#263854">
-                     <font>
-                        <Font name="Georgia" size="8.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="21.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../assets/payment.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button layoutX="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" textFill="#263854">
-                     <font>
-                        <Font name="Georgia" size="8.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="21.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../assets/bell.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button layoutX="189.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" textFill="#263854">
-                     <font>
-                        <Font name="Georgia" size="8.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="21.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../assets/dish.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button layoutX="228.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" textFill="#263854">
-                     <font>
-                        <Font name="Georgia" size="8.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="21.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../assets/orders.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-               </children>
-            </Pane>
          </children></AnchorPane>
    </children>
 </FlowPane>
