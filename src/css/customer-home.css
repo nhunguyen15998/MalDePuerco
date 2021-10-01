@@ -1,0 +1,5 @@
+/*sidebar*/
+#btnAll:hover, #btnAppetizer:hover, #btnSideOrder:hover, #btnALaCarte:hover, #btnDessert:hover, #btnBeverage:hover {
+	-fx-background-color: #ff2351;
+	-fx-text-fill: white;
+}
