@@ -10,50 +10,36 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
  *
  * @author LENOVO
  */
-public class UserController implements Initializable {
+public class TablesController implements Initializable {
 
     @FXML
-    private TableView<?> tableUser;
+    private TableView<?> tblTables;
     @FXML
-    private TableColumn<?, ?> colOrder;
+    private TableColumn<?, ?> colNo;
     @FXML
-    private TableColumn<?, ?> colId;
+    private TableColumn<?, ?> colID;
     @FXML
     private TableColumn<?, ?> colCode;
     @FXML
     private TableColumn<?, ?> colName;
     @FXML
-    private TableColumn<?, ?> colGender;
+    private TableColumn<?, ?> colSeats;
     @FXML
-    private TableColumn<?, ?> colBirth;
-    @FXML
-    private TableColumn<?, ?> colCard;
-    @FXML
-    private TableColumn<?, ?> colEmail;
-    @FXML
-    private TableColumn<?, ?> colPhone;
-    @FXML
-    private TableColumn<?, ?> colUserType;
-    @FXML
-    private TableColumn<?, ?> colCreatedAt;
+    private TableColumn<?, ?> colCreated;
     @FXML
     private TableColumn<?, ?> colStatus;
     @FXML
-    private Button btnCreate;
-    @FXML
-    private TextField tfUser;
+    private TextField tfRole;
 
     /**
      * Initializes the controller class.
@@ -62,10 +48,6 @@ public class UserController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-
-    @FXML
-    private void getTableDataByClick(MouseEvent event) {
-    }
 
     @FXML
     private void btnCreateAction(ActionEvent event) {

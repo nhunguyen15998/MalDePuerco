@@ -10,22 +10,24 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
  *
  * @author LENOVO
  */
-public class UserController implements Initializable {
+public class RolesController implements Initializable {
 
     @FXML
-    private TableView<?> tableUser;
+    private AnchorPane roleHolder;
+    @FXML
+    private TableView<?> tableRole;
     @FXML
     private TableColumn<?, ?> colOrder;
     @FXML
@@ -35,25 +37,11 @@ public class UserController implements Initializable {
     @FXML
     private TableColumn<?, ?> colName;
     @FXML
-    private TableColumn<?, ?> colGender;
-    @FXML
-    private TableColumn<?, ?> colBirth;
-    @FXML
-    private TableColumn<?, ?> colCard;
-    @FXML
-    private TableColumn<?, ?> colEmail;
-    @FXML
-    private TableColumn<?, ?> colPhone;
-    @FXML
-    private TableColumn<?, ?> colUserType;
-    @FXML
     private TableColumn<?, ?> colCreatedAt;
     @FXML
     private TableColumn<?, ?> colStatus;
     @FXML
-    private Button btnCreate;
-    @FXML
-    private TextField tfUser;
+    private TextField tfRole;
 
     /**
      * Initializes the controller class.
@@ -65,6 +53,10 @@ public class UserController implements Initializable {
 
     @FXML
     private void getTableDataByClick(MouseEvent event) {
+    }
+
+    @FXML
+    private void btnPermissionAction(ActionEvent event) {
     }
 
     @FXML

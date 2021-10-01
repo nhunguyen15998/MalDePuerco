@@ -10,11 +10,12 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -22,38 +23,40 @@ import javafx.scene.input.MouseEvent;
  *
  * @author LENOVO
  */
-public class UserController implements Initializable {
+public class DiscountController implements Initializable {
 
     @FXML
-    private TableView<?> tableUser;
+    private ImageView btnCancel;
     @FXML
-    private TableColumn<?, ?> colOrder;
+    private TableView<?> tblDiscount;
     @FXML
-    private TableColumn<?, ?> colId;
+    private TableColumn<?, ?> colNo;
     @FXML
     private TableColumn<?, ?> colCode;
     @FXML
     private TableColumn<?, ?> colName;
     @FXML
-    private TableColumn<?, ?> colGender;
+    private TableColumn<?, ?> colDescrip;
     @FXML
-    private TableColumn<?, ?> colBirth;
+    private TableColumn<?, ?> colStartDate;
     @FXML
-    private TableColumn<?, ?> colCard;
-    @FXML
-    private TableColumn<?, ?> colEmail;
-    @FXML
-    private TableColumn<?, ?> colPhone;
-    @FXML
-    private TableColumn<?, ?> colUserType;
+    private TableColumn<?, ?> colPeriod;
     @FXML
     private TableColumn<?, ?> colCreatedAt;
     @FXML
     private TableColumn<?, ?> colStatus;
     @FXML
-    private Button btnCreate;
+    private TextField tfName;
     @FXML
-    private TextField tfUser;
+    private TextField tfCode;
+    @FXML
+    private TextField tfDescript;
+    @FXML
+    private DatePicker dpStart;
+    @FXML
+    private TextField tfPeriod;
+    @FXML
+    private ComboBox<?> cbStatus;
 
     /**
      * Initializes the controller class.
@@ -64,27 +67,15 @@ public class UserController implements Initializable {
     }    
 
     @FXML
-    private void getTableDataByClick(MouseEvent event) {
+    private void btnCancelAction(MouseEvent event) {
     }
 
     @FXML
-    private void btnCreateAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void btnDeleteAction(ActionEvent event) {
+    private void btnSaveAction(ActionEvent event) {
     }
 
     @FXML
     private void btnUpdateAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void btnClearAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void onSearch(KeyEvent event) {
     }
     
 }

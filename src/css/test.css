@@ -1,0 +1,27 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+
+.btn:hover{
+   -fx-border-style:solid;
+   -fx-border-color: white;
+    -fx-border-width: 0 0 5 0;
+    -fx-font-size: 16px; /* 12 */
+    -fx-cursor: hand;
+    
+}
+.btnMenu:hover{
+    -fx-border-style:solid;
+   -fx-border-color:  linear-gradient(to right, #f08794, #f29b95, #f4a895, #f7be95);
+    -fx-border-width: 0 0 0 5;
+    -fx-font-size: 14px; /* 12 */
+    -fx-cursor: hand;
+    -fx-background-color:  #e3bfc3;
+}
+.btnMenu:pressed{
+    -fx-font-size: 13px;
+}
