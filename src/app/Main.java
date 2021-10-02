@@ -21,7 +21,7 @@ public class Main extends Application{
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/views/servingsCU.fxml")); //container
+			Parent root = FXMLLoader.load(getClass().getResource("/views/home.fxml"));
 			Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();//get screen width, height
 			Scene scene = new Scene(root);
 			primaryStage.setWidth(850.0);
