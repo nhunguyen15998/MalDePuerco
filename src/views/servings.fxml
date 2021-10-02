@@ -6,21 +6,23 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
         <URL value="@../css/servings.css" />
     </stylesheets>
    <children>
       <AnchorPane prefHeight="141.0" prefWidth="838.0" styleClass="anchorTop" stylesheets="@../css/servings.css">
          <children>
-            <Label layoutX="96.0" layoutY="34.0" prefHeight="40.0" prefWidth="267.0" text="Servings Management" textFill="#c15654">
+            <Label layoutX="96.0" layoutY="34.0" prefHeight="40.0" prefWidth="267.0" text="Servings Management">
                <font>
-                  <Font name="Consolas Bold" size="24.0" />
+                  <Font name="System Bold" size="22.0" />
                </font>
             </Label>
             <AnchorPane layoutX="29.0" layoutY="29.0" prefHeight="50.0" prefWidth="52.0" styleClass="image" stylesheets="@../css/servings.css">
@@ -34,58 +36,79 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="26.0" layoutY="96.0" prefHeight="430.0" prefWidth="785.0" styleClass="anchorPane" stylesheets="@../css/servings.css">
+      <AnchorPane layoutX="27.0" layoutY="97.0" prefHeight="430.0" prefWidth="785.0" styleClass="anchorPane" stylesheets="@../css/servings.css">
          <children>
-            <TableView layoutX="14.0" layoutY="75.0" prefHeight="319.0" prefWidth="759.0">
+            <TableView fx:id="tbl_servings" layoutX="14.0" layoutY="75.0" prefHeight="319.0" prefWidth="759.0" stylesheets="@../css/servings.css">
               <columns>
-                <TableColumn prefWidth="31.0" style="-fx-background-color: #858B97;" text="#" />
-                <TableColumn prefWidth="119.0" style="-fx-background-color: #858B97; -fx-text-color: white;" text="C2" visible="false" />
-                  <TableColumn prefWidth="70.0" style="-fx-background-color: #858B97;" text="Name" />
-                  <TableColumn style="-fx-background-color: #858B97;" text="Category" />
-                  <TableColumn prefWidth="189.0" style="-fx-background-color: #858B97;" text="Descriptions" />
-                  <TableColumn prefWidth="101.0" style="-fx-background-color: #858B97;" text="Price" />
-                  <TableColumn prefWidth="91.0" style="-fx-background-color: #858B97;" text="New" />
-                  <TableColumn prefWidth="98.0" style="-fx-background-color: #858B97;" text="Best Seller" />
-                  <TableColumn prefWidth="85.0" style="-fx-background-color: #858B97;" text="Status" />
-                  <TableColumn prefWidth="13.0" style="-fx-background-color: #858B97;" />
+                <TableColumn fx:id="col_no" prefWidth="31.0" text="#" />
+                <TableColumn fx:id="col_id" prefWidth="119.0" style="-fx-background-color: #858B97; -fx-text-color: white;" text="C2" visible="false" />
+                  <TableColumn fx:id="col_name" prefWidth="70.0" text="Name" />
+                  <TableColumn fx:id="col_cate" text="Category" />
+                  <TableColumn fx:id="col_des" prefWidth="189.0" text="Descriptions" />
+                  <TableColumn fx:id="col_price" prefWidth="101.0" text="Price" />
+                  <TableColumn fx:id="col_new" prefWidth="91.0" text="New" />
+                  <TableColumn fx:id="col_best" prefWidth="98.0" text="Best Seller" />
+                  <TableColumn fx:id="col_status" prefWidth="85.0" text="Status" />
+                  <TableColumn prefWidth="13.0" />
               </columns>
             </TableView>
-            <Button layoutX="421.0" layoutY="24.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="106.0" styleClass="btnCreate" stylesheets="@../css/servings.css" text="         Create " textFill="WHITE">
+            <Button fx:id="btnCreate" layoutX="421.0" layoutY="24.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="106.0" styleClass="btnCreate" stylesheets="@../css/servings.css" text="         Create " textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.1725490242242813" green="0.4745098054409027" blue="0.8196078538894653" opacity="0.49000000953674316" />
+                     </color>
+                  </DropShadow>
+               </effect>
             </Button>
             <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="434.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assets/add.png" />
+                  <Image url="@../assets/save.png" />
                </image>
             </ImageView>
-            <Button layoutX="665.0" layoutY="24.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="106.0" styleClass="btnDelete" stylesheets="@../css/servings.css" text="         Delete " textFill="WHITE">
+            <Button fx:id="btnDelete" layoutX="665.0" layoutY="24.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="106.0" styleClass="btnDelete" stylesheets="@../css/servings.css" text="       Delete " textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.9803921580314636" green="0.43921568989753723" blue="0.41960784792900085" opacity="0.49000000953674316" />
+                     </color>
+                  </DropShadow>
+               </effect>
             </Button>
             <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="676.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/delete.png" />
                </image>
             </ImageView>
-            <Button layoutX="542.0" layoutY="24.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="106.0" styleClass="btnUpdate" stylesheets="@../css/servings.css" text="         Update " textFill="WHITE">
+            <Button fx:id="btnUpdate" layoutX="542.0" layoutY="24.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="106.0" styleClass="btnUpdate" stylesheets="@../css/servings.css" text="         Update " textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.3843137323856354" green="0.6313725709915161" blue="0.545098066329956" opacity="0.49000000953674316" />
+                     </color>
+                  </DropShadow>
+               </effect>
             </Button>
             <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="558.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/edit.png" />
                </image>
             </ImageView>
-            <TextField layoutX="14.0" layoutY="27.0" prefHeight="25.0" prefWidth="182.0">
+            <TextField fx:id="tfFind" layoutX="14.0" layoutY="27.0" prefHeight="27.0" prefWidth="235.0" promptText="Find servings" style="-fx-background-radius: 50px;">
                <font>
                   <Font name="Consolas" size="14.0" />
                </font>
             </TextField>
-            <Button layoutX="205.0" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" styleClass="clear" stylesheets="@../css/servings.css">
+            <Button fx:id="btnClear" layoutX="264.0" layoutY="28.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" styleClass="Clear" stylesheets="@../css/servings.css">
                <graphic>
                   <ImageView fitHeight="17.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
                      <image>

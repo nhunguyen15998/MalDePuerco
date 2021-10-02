@@ -10,62 +10,53 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
         <URL value="@../css/servingsCU.css" />
     </stylesheets>
    <children>
       <AnchorPane prefHeight="141.0" prefWidth="838.0" styleClass="anchorTop" stylesheets="@../css/servingsCU.css">
          <children>
-            <Label layoutX="117.0" layoutY="26.0" text="Create/Update Servings" textFill="#a44e4e">
+            <Label layoutX="62.0" layoutY="25.0" text="Create/Update Servings" textFill="WHITE">
                <font>
-                  <Font name="Consolas Bold" size="24.0" />
+                  <Font name="System Bold" size="22.0" />
                </font>
             </Label>
-            <AnchorPane layoutX="60.0" layoutY="17.0" prefHeight="46.0" prefWidth="50.0" styleClass="image" stylesheets="@../css/servingsCU.css">
-               <children>
-                  <ImageView fitHeight="45.0" fitWidth="50.0" layoutX="3.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/servingCU.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="62.0" layoutY="75.0" prefHeight="429.0" prefWidth="698.0" styleClass="anchorPane" stylesheets="@../css/servingsCU.css">
          <children>
-            <Label layoutX="127.0" layoutY="40.0" text="Name:">
+            <Label layoutX="127.0" layoutY="40.0" text="Name:" textFill="#e11b46">
                <font>
                   <Font name="Consolas" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="127.0" layoutY="83.0" text="Category:">
+            <Label layoutX="127.0" layoutY="83.0" text="Category:" textFill="#e11b46">
                <font>
                   <Font name="Consolas" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="127.0" layoutY="126.0" text="Descriptions:">
+            <Label layoutX="127.0" layoutY="126.0" text="Descriptions:" textFill="#e11b46">
                <font>
                   <Font name="Consolas" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="127.0" layoutY="170.0" text="Price:">
+            <Label layoutX="127.0" layoutY="170.0" text="Price:" textFill="#e11b46">
                <font>
                   <Font name="Consolas" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="127.0" layoutY="213.0" text="New:">
+            <Label layoutX="127.0" layoutY="213.0" text="New:" textFill="#e11b46">
                <font>
                   <Font name="Consolas" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="127.0" layoutY="255.0" text="Best Seller:">
+            <Label layoutX="127.0" layoutY="255.0" text="Best Seller:" textFill="#e11b46">
                <font>
                   <Font name="Consolas" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="127.0" layoutY="303.0" text="Status:">
+            <Label layoutX="127.0" layoutY="303.0" text="Status:" textFill="#e11b46">
                <font>
                   <Font name="Consolas" size="18.0" />
                </font>
@@ -102,7 +93,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <ImageView fitHeight="28.0" fitWidth="40.0" layoutX="349.0" layoutY="357.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="28.0" fitWidth="40.0" layoutX="355.0" layoutY="357.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/cancel.png" />
                </image>

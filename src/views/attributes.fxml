@@ -7,45 +7,28 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
-        <URL value="@../css/sercate.css" />
+        <URL value="@../css/attributes.css" />
     </stylesheets>
    <children>
-      <AnchorPane prefHeight="141.0" prefWidth="838.0" styleClass="anchorTop" stylesheets="@../css/sercate.css">
+      <AnchorPane layoutX="26.0" layoutY="85.0" prefHeight="415.0" prefWidth="785.0" styleClass="anchorPane" stylesheets="@../css/attributes.css">
          <children>
-            <Label layoutX="92.0" layoutY="26.0" prefHeight="40.0" prefWidth="284.0" text="Attributes Management" textFill="#c15654">
-               <font>
-                  <Font name="Consolas Bold" size="24.0" />
-               </font>
-            </Label>
-            <AnchorPane layoutX="25.0" layoutY="21.0" prefHeight="50.0" prefWidth="52.0" styleClass="image" stylesheets="@../css/servings.css">
-               <children>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="6.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/attributes.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="26.0" layoutY="96.0" prefHeight="441.0" prefWidth="785.0" styleClass="anchorPane" stylesheets="@../css/sercate.css">
-         <children>
-            <TableView layoutX="8.0" layoutY="14.0" prefHeight="372.0" prefWidth="463.0">
+            <TableView layoutX="8.0" layoutY="57.0" prefHeight="321.0" prefWidth="463.0" stylesheets="@../css/attributes.css">
               <columns>
-                <TableColumn prefWidth="32.0" style="-fx-background-color: #858B97;" text="#" />
+                <TableColumn prefWidth="32.0" text="#" />
                 <TableColumn prefWidth="118.0" text="id" visible="false" />
-                  <TableColumn prefWidth="106.0" style="-fx-background-color: #858B97;" text="Name" />
-                  <TableColumn prefWidth="121.0" style="-fx-background-color: #858B97;" text="Price" />
-                  <TableColumn prefWidth="102.0" style="-fx-background-color: #858B97;" text="Parent" />
-                  <TableColumn prefWidth="83.0" style="-fx-background-color: #858B97;" text="Status" />
-                  <TableColumn prefWidth="18.0" style="-fx-background-color: #858B97;" />
+                  <TableColumn prefWidth="131.0" text="Name" />
+                  <TableColumn prefWidth="151.0" text="Parent" />
+                  <TableColumn prefWidth="113.0" text="Status" />
+                  <TableColumn prefWidth="35.0" />
               </columns>
             </TableView>
             <Label layoutX="496.0" layoutY="63.0" text="Name:">
@@ -53,65 +36,94 @@
                   <Font name="Consolas" size="14.0" />
                </font>
             </Label>
-            <TextField layoutX="563.0" layoutY="59.0" prefHeight="25.0" prefWidth="185.0" styleClass="text" stylesheets="@../css/servingsCU.css" />
-            <Label layoutX="496.0" layoutY="150.0" text="Parent:">
+            <TextField layoutX="563.0" layoutY="59.0" prefHeight="25.0" prefWidth="185.0" styleClass="text" stylesheets="@../css/attributes.css" />
+            <Label layoutX="496.0" layoutY="110.0" text="Parent:">
                <font>
                   <Font name="Consolas" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="496.0" layoutY="199.0" text="Status:">
+            <Label layoutX="496.0" layoutY="159.0" text="Status:">
                <font>
                   <Font name="Consolas" size="14.0" />
                </font>
             </Label>
-            <ComboBox layoutX="563.0" layoutY="146.0" prefHeight="25.0" prefWidth="185.0" styleClass="text" stylesheets="@../css/servingsCU.css" />
-            <ComboBox layoutX="563.0" layoutY="195.0" prefHeight="25.0" prefWidth="185.0" styleClass="text" stylesheets="@../css/servingsCU.css" />
-            <Button layoutX="384.0" layoutY="396.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" styleClass="btnDelete" stylesheets="@../css/sercate.css" text="     Delete " textFill="WHITE">
+            <ComboBox layoutX="563.0" layoutY="106.0" prefHeight="25.0" prefWidth="185.0" styleClass="text" stylesheets="@../css/attributes.css" />
+            <ComboBox layoutX="563.0" layoutY="155.0" prefHeight="25.0" prefWidth="185.0" styleClass="text" stylesheets="@../css/attributes.css" />
+            <Button layoutX="684.0" layoutY="212.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" styleClass="btnDelete" stylesheets="@../css/attributes.css" text="     Delete " textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.9803921580314636" green="0.43921568989753723" blue="0.41960784792900085" />
+                     </color>
+                  </DropShadow>
+               </effect>
             </Button>
-            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="391.0" layoutY="401.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="691.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/delete.png" />
                </image>
             </ImageView>
-            <Button layoutX="475.0" layoutY="252.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" styleClass="btnAdd" stylesheets="@../css/sercate.css" text="     Save" textFill="WHITE">
+            <Button layoutX="475.0" layoutY="212.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" styleClass="btnCreate" stylesheets="@../css/attributes.css" text="     Save" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.17820000648498535" green="0.47304001450538635" blue="0.8100000023841858" opacity="0.49000000953674316" />
+                     </color>
+                  </DropShadow>
+               </effect>
             </Button>
-            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="482.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="482.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/save.png" />
                </image>
             </ImageView>
-            <Button layoutX="578.0" layoutY="252.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" styleClass="btnUpdate" stylesheets="@../css/sercate.css" text="     Update" textFill="WHITE">
+            <Button layoutX="578.0" layoutY="212.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" styleClass="btnUpdate" stylesheets="@../css/attributes.css" text="     Update" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.38429999351501465" green="0.6299999952316284" blue="0.5440049767494202" opacity="0.49000000953674316" />
+                     </color>
+                  </DropShadow>
+               </effect>
             </Button>
-            <ImageView fitHeight="21.0" fitWidth="17.0" layoutX="585.0" layoutY="259.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="21.0" fitWidth="17.0" layoutX="587.0" layoutY="219.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/edit.png" />
                </image>
             </ImageView>
-            <Button layoutX="684.0" layoutY="251.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" styleClass="btnReset" stylesheets="@../css/sercate.css" text="     Reset" textFill="WHITE">
-               <font>
-                  <Font size="14.0" />
-               </font>
+            <TextField layoutX="8.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="251.0" promptText="Find attributes" style="-fx-background-radius: 50px;" />
+            <Button layoutX="271.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #9C5978; -fx-background-radius: 50px;" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/clear.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="691.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true">
+         </children>
+      </AnchorPane>
+      <Label layoutX="100.0" layoutY="27.0" prefHeight="40.0" prefWidth="284.0" text="Attributes Management">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="33.0" layoutY="22.0" prefHeight="50.0" prefWidth="52.0" styleClass="image" stylesheets="@../css/attributes.css">
+         <children>
+            <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="6.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assets/clear.png" />
+                  <Image url="@../assets/attributes.png" />
                </image>
             </ImageView>
-            <Label layoutX="496.0" layoutY="107.0" text="Price:">
-               <font>
-                  <Font name="Consolas" size="14.0" />
-               </font>
-            </Label>
-            <TextField layoutX="563.0" layoutY="103.0" prefHeight="25.0" prefWidth="185.0" styleClass="text" stylesheets="@../css/servingsCU.css" />
          </children>
       </AnchorPane>
    </children>
