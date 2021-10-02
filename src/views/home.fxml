@@ -9,41 +9,41 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<FlowPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../css/customer-home.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CustomerHomeController">
+<FlowPane fx:id="customerMasterHolder" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #3B3F40;" stylesheets="@../css/customer-home.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CustomerHomeController">
    <children>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="725.0" style="-fx-background-color: #FBFBFB; -fx-border-color: #f4f2f2;">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="725.0" style="-fx-background-color: #3B3F40; -fx-border-color: #3B3F40;">
          <children>
-            <Pane layoutX="93.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="632.0" style="-fx-background-color: #FBFBFB;">
+            <Pane layoutX="87.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="632.0" style="-fx-background-color: #3B3F40;">
                <children>
                   <Pane layoutY="-2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="84.0" prefWidth="210.0">
                      <children>
-                        <Label layoutX="9.0" layoutY="18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="177.0" text="Mal De Puerco" textFill="#34495e">
+                        <Label layoutX="9.0" layoutY="18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="177.0" text="Mal De Puerco" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="25.0" />
                            </font>
                         </Label>
-                        <Label layoutX="12.0" layoutY="55.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="126.0" text="Tue, Sep 28th, 2021" textFill="#34495e">
+                        <Label layoutX="12.0" layoutY="55.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="126.0" text="Tue, Sep 28th, 2021" textFill="#dfe5e7">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
                      </children>
                   </Pane>
-                  <Pane layoutX="272.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="268.0">
+                  <Pane layoutX="272.0" layoutY="48.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="249.0">
                      <children>
-                        <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="268.0" promptText="Looking for something?" style="-fx-background-radius: 50px;">
+                        <TextField layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="247.0" promptText="Looking for something?" style="-fx-background-color: #2B2B2B;">
                            <font>
                               <Font size="12.0" />
                            </font>
                         </TextField>
-                        <ImageView fitHeight="14.0" fitWidth="14.0" layoutX="240.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="225.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../assets/search.png" />
+                              <Image url="@../assets/search-w.png" />
                            </image>
                         </ImageView>
                      </children>
                   </Pane>
-                  <Pane layoutX="543.0" layoutY="45.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="73.0">
+                  <Pane layoutX="526.0" layoutY="45.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="100.0">
                      <children>
                         <Button fx:id="btnServer" layoutX="35.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" textFill="#263854">
                            <font>
@@ -52,7 +52,7 @@
                            <graphic>
                               <ImageView fitHeight="21.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../assets/waiter.png" />
+                                    <Image url="@../assets/waiter-o.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -64,7 +64,19 @@
                            <graphic>
                               <ImageView fitHeight="21.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../assets/bell.png" />
+                                    <Image url="@../assets/bell-o.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnOrder" layoutX="69.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" textFill="#263854">
+                           <font>
+                              <Font name="Georgia" size="8.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="21.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../assets/order-o.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -73,22 +85,22 @@
                   </Pane>
                </children>
             </Pane>
-            <ScrollPane hbarPolicy="NEVER" layoutX="93.0" layoutY="111.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="632.0" style="-fx-background-color: #FBFBFB;" vbarPolicy="NEVER">
+            <ScrollPane hbarPolicy="NEVER" layoutX="93.0" layoutY="111.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="632.0" style="-fx-background-color: #3B3F40;" vbarPolicy="NEVER">
               <content>
-                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="796.0" style="-fx-background-color: #FBFBFB;">
+                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="796.0" style="-fx-background-color: #3B3F40;">
                      <children>
                         <HBox layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="801.0">
                            <children>
                               <Pane prefHeight="90.0" prefWidth="87.0">
                                  <children>
-                                    <Pane layoutX="9.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="84.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;">
+                                    <Pane layoutX="9.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="84.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: #2B2B2B; -fx-border-radius: 10px; -fx-border-color: #2B2B2B;">
                                        <children>
                                           <ImageView fitHeight="36.0" fitWidth="43.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../assets/dish-1.png" />
                                              </image>
                                           </ImageView>
-                                          <Text fill="#000000c2" layoutX="-1.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vegetables" textAlignment="CENTER" wrappingWidth="73.0">
+                                          <Text fill="#ffffffc2" layoutX="-1.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vegetables" textAlignment="CENTER" wrappingWidth="73.0">
                                              <font>
                                                 <Font name="System Bold" size="9.0" />
                                              </font>
@@ -99,14 +111,14 @@
                               </Pane>
                               <Pane prefHeight="90.0" prefWidth="87.0">
                                  <children>
-                                    <Pane layoutX="9.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="84.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;">
+                                    <Pane layoutX="9.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="84.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: #2B2B2B; -fx-border-radius: 10px; -fx-border-color: #2B2B2B;">
                                        <children>
                                           <ImageView fitHeight="36.0" fitWidth="43.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../assets/dish-1.png" />
                                              </image>
                                           </ImageView>
-                                          <Text fill="#000000c2" layoutX="-1.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vegetables" textAlignment="CENTER" wrappingWidth="73.0">
+                                          <Text fill="#ffffffc2" layoutX="-1.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vegetables" textAlignment="CENTER" wrappingWidth="73.0">
                                              <font>
                                                 <Font name="System Bold" size="9.0" />
                                              </font>
@@ -117,14 +129,14 @@
                               </Pane>
                               <Pane prefHeight="90.0" prefWidth="87.0">
                                  <children>
-                                    <Pane layoutX="9.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="84.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;">
+                                    <Pane layoutX="9.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="84.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: #2B2B2B; -fx-border-radius: 10px; -fx-border-color: #2B2B2B;">
                                        <children>
                                           <ImageView fitHeight="36.0" fitWidth="43.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../assets/dish-1.png" />
                                              </image>
                                           </ImageView>
-                                          <Text fill="#000000c2" layoutX="-1.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vegetables" textAlignment="CENTER" wrappingWidth="73.0">
+                                          <Text fill="#ffffffc2" layoutX="-1.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vegetables" textAlignment="CENTER" wrappingWidth="73.0">
                                              <font>
                                                 <Font name="System Bold" size="9.0" />
                                              </font>
@@ -135,14 +147,14 @@
                               </Pane>
                               <Pane prefHeight="90.0" prefWidth="87.0">
                                  <children>
-                                    <Pane layoutX="9.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="84.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;">
+                                    <Pane layoutX="9.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="84.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: #2B2B2B; -fx-border-radius: 10px; -fx-border-color: #2B2B2B;">
                                        <children>
                                           <ImageView fitHeight="36.0" fitWidth="43.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../assets/dish-1.png" />
                                              </image>
                                           </ImageView>
-                                          <Text fill="#000000c2" layoutX="-1.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vegetables" textAlignment="CENTER" wrappingWidth="73.0">
+                                          <Text fill="#ffffffc2" layoutX="-1.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vegetables" textAlignment="CENTER" wrappingWidth="73.0">
                                              <font>
                                                 <Font name="System Bold" size="9.0" />
                                              </font>
@@ -153,14 +165,14 @@
                               </Pane>
                               <Pane prefHeight="90.0" prefWidth="87.0">
                                  <children>
-                                    <Pane layoutX="9.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="84.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;">
+                                    <Pane layoutX="9.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="84.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: #2B2B2B; -fx-border-radius: 10px; -fx-border-color: #2B2B2B;">
                                        <children>
                                           <ImageView fitHeight="36.0" fitWidth="43.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../assets/dish-1.png" />
                                              </image>
                                           </ImageView>
-                                          <Text fill="#000000c2" layoutX="-1.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vegetables" textAlignment="CENTER" wrappingWidth="73.0">
+                                          <Text fill="#ffffffc2" layoutX="-1.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vegetables" textAlignment="CENTER" wrappingWidth="73.0">
                                              <font>
                                                 <Font name="System Bold" size="9.0" />
                                              </font>
@@ -171,14 +183,14 @@
                               </Pane>
                               <Pane prefHeight="90.0" prefWidth="87.0">
                                  <children>
-                                    <Pane layoutX="9.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="84.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;">
+                                    <Pane layoutX="9.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="84.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: #2B2B2B; -fx-border-radius: 10px; -fx-border-color: #2B2B2B;">
                                        <children>
                                           <ImageView fitHeight="36.0" fitWidth="43.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../assets/dish-1.png" />
                                              </image>
                                           </ImageView>
-                                          <Text fill="#000000c2" layoutX="-1.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vegetables" textAlignment="CENTER" wrappingWidth="73.0">
+                                          <Text fill="#ffffffc2" layoutX="-1.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vegetables" textAlignment="CENTER" wrappingWidth="73.0">
                                              <font>
                                                 <Font name="System Bold" size="9.0" />
                                              </font>
@@ -189,14 +201,14 @@
                               </Pane>
                               <Pane prefHeight="90.0" prefWidth="87.0">
                                  <children>
-                                    <Pane layoutX="9.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="84.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;">
+                                    <Pane layoutX="9.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="84.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: #2B2B2B; -fx-border-radius: 10px; -fx-border-color: #2B2B2B;">
                                        <children>
                                           <ImageView fitHeight="36.0" fitWidth="43.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../assets/dish-1.png" />
                                              </image>
                                           </ImageView>
-                                          <Text fill="#000000c2" layoutX="-1.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vegetables" textAlignment="CENTER" wrappingWidth="73.0">
+                                          <Text fill="#ffffffc2" layoutX="-1.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vegetables" textAlignment="CENTER" wrappingWidth="73.0">
                                              <font>
                                                 <Font name="System Bold" size="9.0" />
                                              </font>
@@ -207,14 +219,14 @@
                               </Pane>
                               <Pane prefHeight="90.0" prefWidth="87.0">
                                  <children>
-                                    <Pane layoutX="9.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="84.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;">
+                                    <Pane layoutX="9.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="84.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: #2B2B2B; -fx-border-radius: 10px; -fx-border-color: #2B2B2B;">
                                        <children>
                                           <ImageView fitHeight="36.0" fitWidth="43.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../assets/dish-1.png" />
                                              </image>
                                           </ImageView>
-                                          <Text fill="#000000c2" layoutX="-1.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vegetables" textAlignment="CENTER" wrappingWidth="73.0">
+                                          <Text fill="#ffffffc2" layoutX="-1.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vegetables" textAlignment="CENTER" wrappingWidth="73.0">
                                              <font>
                                                 <Font name="System Bold" size="9.0" />
                                              </font>
@@ -225,14 +237,14 @@
                               </Pane>
                               <Pane prefHeight="90.0" prefWidth="87.0">
                                  <children>
-                                    <Pane layoutX="9.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="84.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;">
+                                    <Pane layoutX="9.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="84.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: #2B2B2B; -fx-border-radius: 10px; -fx-border-color: #2B2B2B;">
                                        <children>
                                           <ImageView fitHeight="36.0" fitWidth="43.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../assets/dish-1.png" />
                                              </image>
                                           </ImageView>
-                                          <Text fill="#000000c2" layoutX="-1.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vegetables" textAlignment="CENTER" wrappingWidth="73.0">
+                                          <Text fill="#ffffffc2" layoutX="-1.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vegetables" textAlignment="CENTER" wrappingWidth="73.0">
                                              <font>
                                                 <Font name="System Bold" size="9.0" />
                                              </font>
@@ -247,9 +259,9 @@
                   </AnchorPane>
               </content>
             </ScrollPane>
-            <ScrollPane hbarPolicy="NEVER" layoutX="93.0" layoutY="250.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="632.0" style="-fx-background-color: #FBFBFB;" vbarPolicy="NEVER">
+            <ScrollPane hbarPolicy="NEVER" layoutX="93.0" layoutY="250.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="632.0" style="-fx-background-color: #3B3F40;" vbarPolicy="NEVER">
                <content>
-                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="683.0" prefWidth="629.0" style="-fx-background-color: #FBFBFB;">
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="683.0" prefWidth="629.0" style="-fx-background-color: #3B3F40;">
                      <children>
                         <GridPane alignment="CENTER" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="672.0" prefWidth="623.0">
                           <columnConstraints>
@@ -265,308 +277,292 @@
                               <RowConstraints maxHeight="277.0" minHeight="0.0" prefHeight="167.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: #2B2B2B; -fx-border-radius: 10px; -fx-border-color: #2B2B2B;" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                                  <children>
-                                    <ImageView fitHeight="68.0" fitWidth="80.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="65.0" fitWidth="73.0" layoutX="29.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../assets/dish-1.png" />
                                        </image>
                                     </ImageView>
-                                    <Text fill="#000000c2" layoutX="10.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
+                                    <Text fill="#ffffffc2" layoutX="10.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
                                        <font>
                                           <Font name="System Bold" size="9.0" />
                                        </font>
                                     </Text>
-                                    <Label layoutX="49.0" layoutY="115.0" text="\$150" textFill="#ed5575">
+                                    <Label layoutX="49.0" layoutY="105.0" text="\$150" textFill="#ea7c69">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
+                                    <Text fill="#dfe5e7c2" layoutX="11.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20 bowls available" textAlignment="CENTER" wrappingWidth="110.0">
+                                       <font>
+                                          <Font name="System Bold" size="8.0" />
+                                       </font>
+                                    </Text>
                                  </children>
                               </Pane>
-                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: #2B2B2B; -fx-border-radius: 10px; -fx-border-color: #2B2B2B;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                                  <children>
-                                    <ImageView fitHeight="68.0" fitWidth="80.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="65.0" fitWidth="73.0" layoutX="29.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../assets/dish-1.png" />
                                        </image>
                                     </ImageView>
-                                    <Text fill="#000000c2" layoutX="10.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
+                                    <Text fill="#ffffffc2" layoutX="10.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
                                        <font>
                                           <Font name="System Bold" size="9.0" />
                                        </font>
                                     </Text>
-                                    <Label layoutX="49.0" layoutY="115.0" text="\$150" textFill="#ed5575">
+                                    <Label layoutX="49.0" layoutY="105.0" text="\$150" textFill="#ea7c69">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
+                                    <Text fill="#dfe5e7c2" layoutX="11.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20 bowls available" textAlignment="CENTER" wrappingWidth="110.0">
+                                       <font>
+                                          <Font name="System Bold" size="8.0" />
+                                       </font>
+                                    </Text>
                                  </children>
                               </Pane>
-                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: #2B2B2B; -fx-border-radius: 10px; -fx-border-color: #2B2B2B;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                  <children>
-                                    <ImageView fitHeight="68.0" fitWidth="80.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="65.0" fitWidth="73.0" layoutX="29.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../assets/dish-1.png" />
                                        </image>
                                     </ImageView>
-                                    <Text fill="#000000c2" layoutX="10.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
+                                    <Text fill="#ffffffc2" layoutX="10.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
                                        <font>
                                           <Font name="System Bold" size="9.0" />
                                        </font>
                                     </Text>
-                                    <Label layoutX="49.0" layoutY="115.0" text="\$150" textFill="#ed5575">
+                                    <Label layoutX="49.0" layoutY="105.0" text="\$150" textFill="#ea7c69">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
+                                    <Text fill="#dfe5e7c2" layoutX="11.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20 bowls available" textAlignment="CENTER" wrappingWidth="110.0">
+                                       <font>
+                                          <Font name="System Bold" size="8.0" />
+                                       </font>
+                                    </Text>
                                  </children>
                               </Pane>
-                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: #2B2B2B; -fx-border-radius: 10px; -fx-border-color: #2B2B2B;" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                                  <children>
-                                    <ImageView fitHeight="68.0" fitWidth="80.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="65.0" fitWidth="73.0" layoutX="29.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../assets/dish-1.png" />
                                        </image>
                                     </ImageView>
-                                    <Text fill="#000000c2" layoutX="10.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
+                                    <Text fill="#ffffffc2" layoutX="10.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
                                        <font>
                                           <Font name="System Bold" size="9.0" />
                                        </font>
                                     </Text>
-                                    <Label layoutX="49.0" layoutY="115.0" text="\$150" textFill="#ed5575">
+                                    <Label layoutX="49.0" layoutY="105.0" text="\$150" textFill="#ea7c69">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
+                                    <Text fill="#dfe5e7c2" layoutX="11.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20 bowls available" textAlignment="CENTER" wrappingWidth="110.0">
+                                       <font>
+                                          <Font name="System Bold" size="8.0" />
+                                       </font>
+                                    </Text>
                                  </children>
                               </Pane>
-                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: #2B2B2B; -fx-border-radius: 10px; -fx-border-color: #2B2B2B;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                                  <children>
-                                    <ImageView fitHeight="68.0" fitWidth="80.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="65.0" fitWidth="73.0" layoutX="29.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../assets/dish-1.png" />
                                        </image>
                                     </ImageView>
-                                    <Text fill="#000000c2" layoutX="10.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
+                                    <Text fill="#ffffffc2" layoutX="10.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
                                        <font>
                                           <Font name="System Bold" size="9.0" />
                                        </font>
                                     </Text>
-                                    <Label layoutX="49.0" layoutY="115.0" text="\$150" textFill="#ed5575">
+                                    <Label layoutX="49.0" layoutY="105.0" text="\$150" textFill="#ea7c69">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
+                                    <Text fill="#dfe5e7c2" layoutX="11.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20 bowls available" textAlignment="CENTER" wrappingWidth="110.0">
+                                       <font>
+                                          <Font name="System Bold" size="8.0" />
+                                       </font>
+                                    </Text>
                                  </children>
                               </Pane>
-                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: #2B2B2B; -fx-border-radius: 10px; -fx-border-color: #2B2B2B;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                  <children>
-                                    <ImageView fitHeight="68.0" fitWidth="80.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="65.0" fitWidth="73.0" layoutX="29.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../assets/dish-1.png" />
                                        </image>
                                     </ImageView>
-                                    <Text fill="#000000c2" layoutX="10.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
+                                    <Text fill="#ffffffc2" layoutX="10.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
                                        <font>
                                           <Font name="System Bold" size="9.0" />
                                        </font>
                                     </Text>
-                                    <Label layoutX="49.0" layoutY="115.0" text="\$150" textFill="#ed5575">
+                                    <Label layoutX="49.0" layoutY="105.0" text="\$150" textFill="#ea7c69">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
+                                    <Text fill="#dfe5e7c2" layoutX="11.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20 bowls available" textAlignment="CENTER" wrappingWidth="110.0">
+                                       <font>
+                                          <Font name="System Bold" size="8.0" />
+                                       </font>
+                                    </Text>
                                  </children>
                               </Pane>
-                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: #2B2B2B; -fx-border-radius: 10px; -fx-border-color: #2B2B2B;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                  <children>
-                                    <ImageView fitHeight="68.0" fitWidth="80.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="65.0" fitWidth="73.0" layoutX="29.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../assets/dish-1.png" />
                                        </image>
                                     </ImageView>
-                                    <Text fill="#000000c2" layoutX="10.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
+                                    <Text fill="#ffffffc2" layoutX="10.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
                                        <font>
                                           <Font name="System Bold" size="9.0" />
                                        </font>
                                     </Text>
-                                    <Label layoutX="49.0" layoutY="115.0" text="\$150" textFill="#ed5575">
+                                    <Label layoutX="49.0" layoutY="105.0" text="\$150" textFill="#ea7c69">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
+                                    <Text fill="#dfe5e7c2" layoutX="11.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20 bowls available" textAlignment="CENTER" wrappingWidth="110.0">
+                                       <font>
+                                          <Font name="System Bold" size="8.0" />
+                                       </font>
+                                    </Text>
                                  </children>
                               </Pane>
-                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: #2B2B2B; -fx-border-radius: 10px; -fx-border-color: #2B2B2B;" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                  <children>
-                                    <ImageView fitHeight="68.0" fitWidth="80.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="65.0" fitWidth="73.0" layoutX="29.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../assets/dish-1.png" />
                                        </image>
                                     </ImageView>
-                                    <Text fill="#000000c2" layoutX="10.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
+                                    <Text fill="#ffffffc2" layoutX="10.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
                                        <font>
                                           <Font name="System Bold" size="9.0" />
                                        </font>
                                     </Text>
-                                    <Label layoutX="49.0" layoutY="115.0" text="\$150" textFill="#ed5575">
+                                    <Label layoutX="49.0" layoutY="105.0" text="\$150" textFill="#ea7c69">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
+                                    <Text fill="#dfe5e7c2" layoutX="11.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20 bowls available" textAlignment="CENTER" wrappingWidth="110.0">
+                                       <font>
+                                          <Font name="System Bold" size="8.0" />
+                                       </font>
+                                    </Text>
                                  </children>
                               </Pane>
-                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: #2B2B2B; -fx-border-radius: 10px; -fx-border-color: #2B2B2B;" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                                  <children>
-                                    <ImageView fitHeight="68.0" fitWidth="80.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="65.0" fitWidth="73.0" layoutX="29.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../assets/dish-1.png" />
                                        </image>
                                     </ImageView>
-                                    <Text fill="#000000c2" layoutX="10.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
+                                    <Text fill="#ffffffc2" layoutX="10.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
                                        <font>
-                                          <Font name="System Bold" size="10.0" />
+                                          <Font name="System Bold" size="9.0" />
                                        </font>
                                     </Text>
-                                    <Label layoutX="49.0" layoutY="115.0" text="\$150" textFill="#ed5575">
+                                    <Label layoutX="49.0" layoutY="105.0" text="\$150" textFill="#ea7c69">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
+                                    <Text fill="#dfe5e7c2" layoutX="11.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20 bowls available" textAlignment="CENTER" wrappingWidth="110.0">
+                                       <font>
+                                          <Font name="System Bold" size="8.0" />
+                                       </font>
+                                    </Text>
                                  </children>
                               </Pane>
-                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: #2B2B2B; -fx-border-radius: 10px; -fx-border-color: #2B2B2B;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                                  <children>
-                                    <ImageView fitHeight="68.0" fitWidth="80.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="65.0" fitWidth="73.0" layoutX="29.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../assets/dish-1.png" />
                                        </image>
                                     </ImageView>
-                                    <Text fill="#000000c2" layoutX="10.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
+                                    <Text fill="#ffffffc2" layoutX="10.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
                                        <font>
-                                          <Font name="System Bold" size="10.0" />
+                                          <Font name="System Bold" size="9.0" />
                                        </font>
                                     </Text>
-                                    <Label layoutX="49.0" layoutY="115.0" text="\$150" textFill="#ed5575">
+                                    <Label layoutX="49.0" layoutY="105.0" text="\$150" textFill="#ea7c69">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
+                                    <Text fill="#dfe5e7c2" layoutX="11.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20 bowls available" textAlignment="CENTER" wrappingWidth="110.0">
+                                       <font>
+                                          <Font name="System Bold" size="8.0" />
+                                       </font>
+                                    </Text>
                                  </children>
                               </Pane>
-                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: #2B2B2B; -fx-border-radius: 10px; -fx-border-color: #2B2B2B;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                                  <children>
-                                    <ImageView fitHeight="68.0" fitWidth="80.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="65.0" fitWidth="73.0" layoutX="29.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../assets/dish-1.png" />
                                        </image>
                                     </ImageView>
-                                    <Text fill="#000000c2" layoutX="10.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
+                                    <Text fill="#ffffffc2" layoutX="10.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
                                        <font>
-                                          <Font name="System Bold" size="10.0" />
+                                          <Font name="System Bold" size="9.0" />
                                        </font>
                                     </Text>
-                                    <Label layoutX="49.0" layoutY="115.0" text="\$150" textFill="#ed5575">
+                                    <Label layoutX="49.0" layoutY="105.0" text="\$150" textFill="#ea7c69">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
+                                    <Text fill="#dfe5e7c2" layoutX="11.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20 bowls available" textAlignment="CENTER" wrappingWidth="110.0">
+                                       <font>
+                                          <Font name="System Bold" size="8.0" />
+                                       </font>
+                                    </Text>
                                  </children>
                               </Pane>
-                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: #2B2B2B; -fx-border-radius: 10px; -fx-border-color: #2B2B2B;" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                                  <children>
-                                    <ImageView fitHeight="68.0" fitWidth="80.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="65.0" fitWidth="73.0" layoutX="29.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../assets/dish-1.png" />
                                        </image>
                                     </ImageView>
-                                    <Text fill="#000000c2" layoutX="10.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
+                                    <Text fill="#ffffffc2" layoutX="10.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
                                        <font>
-                                          <Font name="System Bold" size="10.0" />
+                                          <Font name="System Bold" size="9.0" />
                                        </font>
                                     </Text>
-                                    <Label layoutX="49.0" layoutY="115.0" text="\$150" textFill="#ed5575">
+                                    <Label layoutX="49.0" layoutY="105.0" text="\$150" textFill="#ea7c69">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                 </children>
-                              </Pane>
-                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
-                                 <children>
-                                    <ImageView fitHeight="68.0" fitWidth="80.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/dish-1.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Text fill="#000000c2" layoutX="10.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
+                                    <Text fill="#dfe5e7c2" layoutX="11.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20 bowls available" textAlignment="CENTER" wrappingWidth="110.0">
                                        <font>
-                                          <Font name="System Bold" size="10.0" />
+                                          <Font name="System Bold" size="8.0" />
                                        </font>
                                     </Text>
-                                    <Label layoutX="49.0" layoutY="115.0" text="\$150" textFill="#ed5575">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </Pane>
-                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
-                                 <children>
-                                    <ImageView fitHeight="68.0" fitWidth="80.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/dish-1.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Text fill="#000000c2" layoutX="10.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
-                                       <font>
-                                          <Font name="System Bold" size="10.0" />
-                                       </font>
-                                    </Text>
-                                    <Label layoutX="49.0" layoutY="115.0" text="\$150" textFill="#ed5575">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </Pane>
-                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
-                                 <children>
-                                    <ImageView fitHeight="68.0" fitWidth="80.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/dish-1.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Text fill="#000000c2" layoutX="10.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
-                                       <font>
-                                          <Font name="System Bold" size="10.0" />
-                                       </font>
-                                    </Text>
-                                    <Label layoutX="49.0" layoutY="115.0" text="\$150" textFill="#ed5575">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </Pane>
-                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="130.0" style="-fx-background-radius: 10px; -fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: #f4f2f2;" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
-                                 <children>
-                                    <ImageView fitHeight="68.0" fitWidth="80.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/dish-1.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Text fill="#000000c2" layoutX="10.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salad Avocado with Chicken" textAlignment="CENTER" wrappingWidth="110.0">
-                                       <font>
-                                          <Font name="System Bold" size="10.0" />
-                                       </font>
-                                    </Text>
-                                    <Label layoutX="49.0" layoutY="115.0" text="\$150" textFill="#ed5575">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                    </Label>
                                  </children>
                               </Pane>
                            </children>
@@ -575,23 +571,23 @@
                   </AnchorPane>
                </content>
             </ScrollPane>
-            <Label layoutX="106.0" layoutY="91.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="110.0" text="Choose category" textFill="#34495e" textOverrun="WORD_ELLIPSIS">
+            <Label layoutX="106.0" layoutY="91.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="110.0" text="Choose category" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                <font>
                   <Font name="Georgia Bold" size="11.0" />
                </font>
             </Label>
-            <Label layoutX="108.0" layoutY="223.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="110.0" text="Choose dishes" textFill="#34495e" textOverrun="WORD_ELLIPSIS">
+            <Label layoutX="108.0" layoutY="223.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="110.0" text="Choose dishes" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                <font>
                   <Font name="Georgia Bold" size="11.0" />
                </font>
             </Label>
-            <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="86.0" style="-fx-background-color: white;" vbarPolicy="NEVER">
+            <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="86.0" style="-fx-background-color: #3B3F40;" vbarPolicy="NEVER">
               <content>
-                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="84.0" style="-fx-background-color: white;">
+                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="84.0" style="-fx-background-color: #2B2B2B;">
                      <children>
-                        <VBox alignment="TOP_CENTER" layoutY="79.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="384.0" prefWidth="86.0" style="-fx-background-color: white;">
+                        <VBox alignment="TOP_CENTER" layoutY="79.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="384.0" prefWidth="86.0" style="-fx-background-color: #2B2B2B;">
                            <children>
-                              <Button fx:id="btnAll" alignment="BOTTOM_CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#sidebarItemPressed" prefHeight="60.0" prefWidth="70.0" style="-fx-background-color: transparent; -fx-background-radius: 10px;" text="All items" textFill="#34495e">
+                              <Button fx:id="btnAll" alignment="BOTTOM_CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#sidebarItemPressed" prefHeight="60.0" prefWidth="70.0" style="-fx-background-color: transparent; -fx-background-radius: 10px;" text="All items" textFill="WHITE">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
@@ -602,7 +598,7 @@
                                     <Insets bottom="10.0" />
                                  </padding>
                               </Button>
-                              <Button fx:id="btnAppetizer" alignment="BOTTOM_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#sidebarItemPressed" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Appetizers" textFill="#34495e">
+                              <Button fx:id="btnAppetizer" alignment="BOTTOM_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#sidebarItemPressed" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Appetizers" textFill="WHITE">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
@@ -613,7 +609,7 @@
                                     <Insets bottom="10.0" />
                                  </padding>
                               </Button>
-                              <Button fx:id="btnSideOrder" alignment="BOTTOM_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#sidebarItemPressed" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Side orders" textFill="#34495e">
+                              <Button fx:id="btnSideOrder" alignment="BOTTOM_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#sidebarItemPressed" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Side orders" textFill="WHITE">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
@@ -624,7 +620,7 @@
                                     <Insets bottom="10.0" />
                                  </padding>
                               </Button>
-                              <Button fx:id="btnALaCarte" alignment="BOTTOM_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#sidebarItemPressed" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="A la carte" textFill="#34495e">
+                              <Button fx:id="btnALaCarte" alignment="BOTTOM_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#sidebarItemPressed" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="A la carte" textFill="WHITE">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
@@ -635,7 +631,7 @@
                                     <Insets bottom="10.0" />
                                  </padding>
                               </Button>
-                              <Button fx:id="btnDessert" alignment="BOTTOM_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#sidebarItemPressed" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Desserts" textFill="#34495e">
+                              <Button fx:id="btnDessert" alignment="BOTTOM_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#sidebarItemPressed" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Desserts" textFill="WHITE">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
@@ -646,7 +642,7 @@
                                     <Insets bottom="10.0" />
                                  </padding>
                               </Button>
-                              <Button fx:id="btnBeverage" alignment="BOTTOM_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#sidebarItemPressed" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Beverages" textFill="#34495e">
+                              <Button fx:id="btnBeverage" alignment="BOTTOM_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#sidebarItemPressed" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Beverages" textFill="WHITE">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
@@ -666,7 +662,7 @@
                            <graphic>
                               <ImageView fitHeight="21.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../assets/settings.png" />
+                                    <Image url="@../assets/settings-o.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -676,16 +672,16 @@
                               <Font name="Georgia" size="8.0" />
                            </font>
                            <graphic>
-                              <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../assets/help.png" />
+                                    <Image url="@../assets/question-mark-o.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Button>
                         <ImageView fitHeight="53.0" fitWidth="50.0" layoutX="17.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../assets/pineapple.png" />
+                              <Image url="@../assets/logo1.png" />
                            </image>
                         </ImageView>
                      </children>
@@ -697,34 +693,34 @@
             </ScrollPane>
          </children>
       </AnchorPane>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="275.0" style="-fx-background-color: white;">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="275.0" style="-fx-background-color: #2B2B2B;">
          <children>
             <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0" prefWidth="275.0">
                <children>
-                  <Label layoutX="15.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="80.0" text="Cart" textFill="#34495e">
+                  <Label layoutX="15.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="143.0" text="Order List" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="25.0" />
+                        <Font name="System Bold" size="19.0" />
                      </font>
                   </Label>
-                  <Label layoutX="15.0" layoutY="48.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="80.0" text="Table 1" textFill="#34495e">
+                  <Label layoutX="15.0" layoutY="48.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="80.0" text="Table 1" textFill="#dfe5e7">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button fx:id="btnClearAll" layoutX="190.0" layoutY="29.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="73.0" style="-fx-background-color: #FBECEE; -fx-background-radius: 50px;" text="Clear all" textFill="#ed5575">
+                  <Button fx:id="btnClearAll" layoutX="209.0" layoutY="29.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="55.0" style="-fx-background-color: #2B2B2B; -fx-background-radius: 10px; -fx-border-color: #EA7C69; -fx-border-radius: 10px;" text="Clear all" textFill="WHITE">
                      <font>
-                        <Font name="Georgia" size="14.0" />
+                        <Font name="Georgia" size="10.0" />
                      </font>
                   </Button>
                </children>
             </Pane>
-            <AnchorPane layoutY="73.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="528.0" prefWidth="275.0">
+            <AnchorPane fx:id="orderListPane" layoutY="73.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="528.0" prefWidth="275.0" style="-fx-background-color: #2B2B2B;">
                <children>
-                  <ScrollPane hbarPolicy="NEVER" layoutY="28.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="275.0" style="-fx-background-color: white; -fx-border-color: white;" vbarPolicy="NEVER">
+                  <ScrollPane hbarPolicy="NEVER" layoutY="28.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="275.0" style="-fx-background-color: #2B2B2B; -fx-border-color: #2B2B2B;" vbarPolicy="NEVER">
                     <content>
-                      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="562.0" prefWidth="272.0" style="-fx-background-color: white;">
+                      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="562.0" prefWidth="272.0" style="-fx-background-color: #2B2B2B;">
                            <children>
-                              <VBox layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="272.0">
+                              <VBox layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="272.0" style="-fx-background-color: #2B2B2B;">
                                  <children>
                                     <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="275.0">
                                        <children>
@@ -733,39 +729,39 @@
                                                 <Image url="@../assets/dish-5.png" />
                                              </image>
                                           </ImageView>
-                                          <Label layoutX="48.0" layoutY="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="139.0" text="Salad Avocado with Chicken" textOverrun="WORD_ELLIPSIS">
+                                          <Label layoutX="48.0" layoutY="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="139.0" text="Salad Avocado with Chicken" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                                              <font>
                                                 <Font name="System Bold" size="9.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="48.0" layoutY="28.0" text="\$150" textFill="#ed5575">
+                                          <Label layoutX="48.0" layoutY="28.0" text="\$150" textFill="#ea7c69">
                                              <font>
                                                 <Font name="System Bold" size="10.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="230.0" layoutY="19.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="\$150" textFill="#ed5575">
+                                          <Label layoutX="230.0" layoutY="19.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="\$150" textFill="#ea7c69">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </Label>
-                                          <TextField layoutX="16.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="205.0" promptText="Looking for something?" style="-fx-background-radius: 5px;">
+                                          <TextField layoutX="16.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="205.0" promptText="Looking for something?" style="-fx-background-color: #3B3F40;">
                                              <font>
                                                 <Font size="12.0" />
                                              </font>
                                           </TextField>
-                                          <Button alignment="CENTER" contentDisplay="CENTER" layoutX="231.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #ff2351; -fx-background-radius: 5px;" textFill="WHITE">
+                                          <Button alignment="CENTER" contentDisplay="CENTER" layoutX="231.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #2B2B2B; -fx-background-radius: 5px; -fx-border-color: #EA7C69; -fx-border-radius: 5px;" textFill="WHITE">
                                              <font>
                                                 <Font size="7.0" />
                                              </font>
                                              <graphic>
                                                 <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../assets/delete.png" />
+                                                      <Image url="@../assets/delete-o.png" />
                                                    </image>
                                                 </ImageView>
                                              </graphic>
                                           </Button>
-                                          <TextField layoutX="190.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 5px;" text="1">
+                                          <TextField layoutX="190.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" promptText="1" style="-fx-background-color: #3B3F40;">
                                              <font>
                                                 <Font size="11.0" />
                                              </font>
@@ -779,39 +775,39 @@
                                                 <Image url="@../assets/dish-5.png" />
                                              </image>
                                           </ImageView>
-                                          <Label layoutX="48.0" layoutY="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="139.0" text="Salad Avocado with Chicken" textOverrun="WORD_ELLIPSIS">
+                                          <Label layoutX="48.0" layoutY="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="139.0" text="Salad Avocado with Chicken" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                                              <font>
                                                 <Font name="System Bold" size="9.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="48.0" layoutY="28.0" text="\$150" textFill="#ed5575">
+                                          <Label layoutX="48.0" layoutY="28.0" text="\$150" textFill="#ea7c69">
                                              <font>
                                                 <Font name="System Bold" size="10.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="230.0" layoutY="19.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="\$150" textFill="#ed5575">
+                                          <Label layoutX="230.0" layoutY="19.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="\$150" textFill="#ea7c69">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </Label>
-                                          <TextField layoutX="16.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="205.0" promptText="Looking for something?" style="-fx-background-radius: 5px;">
+                                          <TextField layoutX="16.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="205.0" promptText="Looking for something?" style="-fx-background-color: #3B3F40;">
                                              <font>
                                                 <Font size="12.0" />
                                              </font>
                                           </TextField>
-                                          <Button alignment="CENTER" contentDisplay="CENTER" layoutX="231.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #ff2351; -fx-background-radius: 5px;" textFill="WHITE">
+                                          <Button alignment="CENTER" contentDisplay="CENTER" layoutX="231.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #2B2B2B; -fx-background-radius: 5px; -fx-border-color: #EA7C69; -fx-border-radius: 5px;" textFill="WHITE">
                                              <font>
                                                 <Font size="7.0" />
                                              </font>
                                              <graphic>
                                                 <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../assets/delete.png" />
+                                                      <Image url="@../assets/delete-o.png" />
                                                    </image>
                                                 </ImageView>
                                              </graphic>
                                           </Button>
-                                          <TextField layoutX="190.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 5px;" text="1">
+                                          <TextField layoutX="190.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" promptText="1" style="-fx-background-color: #3B3F40;">
                                              <font>
                                                 <Font size="11.0" />
                                              </font>
@@ -825,39 +821,39 @@
                                                 <Image url="@../assets/dish-5.png" />
                                              </image>
                                           </ImageView>
-                                          <Label layoutX="48.0" layoutY="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="139.0" text="Salad Avocado with Chicken" textOverrun="WORD_ELLIPSIS">
+                                          <Label layoutX="48.0" layoutY="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="139.0" text="Salad Avocado with Chicken" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                                              <font>
                                                 <Font name="System Bold" size="9.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="48.0" layoutY="28.0" text="\$150" textFill="#ed5575">
+                                          <Label layoutX="48.0" layoutY="28.0" text="\$150" textFill="#ea7c69">
                                              <font>
                                                 <Font name="System Bold" size="10.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="230.0" layoutY="19.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="\$150" textFill="#ed5575">
+                                          <Label layoutX="230.0" layoutY="19.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="\$150" textFill="#ea7c69">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </Label>
-                                          <TextField layoutX="16.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="205.0" promptText="Looking for something?" style="-fx-background-radius: 5px;">
+                                          <TextField layoutX="16.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="205.0" promptText="Looking for something?" style="-fx-background-color: #3B3F40;">
                                              <font>
                                                 <Font size="12.0" />
                                              </font>
                                           </TextField>
-                                          <Button alignment="CENTER" contentDisplay="CENTER" layoutX="231.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #ff2351; -fx-background-radius: 5px;" textFill="WHITE">
+                                          <Button alignment="CENTER" contentDisplay="CENTER" layoutX="231.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #2B2B2B; -fx-background-radius: 5px; -fx-border-color: #EA7C69; -fx-border-radius: 5px;" textFill="WHITE">
                                              <font>
                                                 <Font size="7.0" />
                                              </font>
                                              <graphic>
                                                 <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../assets/delete.png" />
+                                                      <Image url="@../assets/delete-o.png" />
                                                    </image>
                                                 </ImageView>
                                              </graphic>
                                           </Button>
-                                          <TextField layoutX="190.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 5px;" text="1">
+                                          <TextField layoutX="190.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" promptText="1" style="-fx-background-color: #3B3F40;">
                                              <font>
                                                 <Font size="11.0" />
                                              </font>
@@ -871,39 +867,39 @@
                                                 <Image url="@../assets/dish-5.png" />
                                              </image>
                                           </ImageView>
-                                          <Label layoutX="48.0" layoutY="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="139.0" text="Salad Avocado with Chicken" textOverrun="WORD_ELLIPSIS">
+                                          <Label layoutX="48.0" layoutY="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="139.0" text="Salad Avocado with Chicken" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                                              <font>
                                                 <Font name="System Bold" size="9.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="48.0" layoutY="28.0" text="\$150" textFill="#ed5575">
+                                          <Label layoutX="48.0" layoutY="28.0" text="\$150" textFill="#ea7c69">
                                              <font>
                                                 <Font name="System Bold" size="10.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="230.0" layoutY="19.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="\$150" textFill="#ed5575">
+                                          <Label layoutX="230.0" layoutY="19.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="\$150" textFill="#ea7c69">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </Label>
-                                          <TextField layoutX="16.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="205.0" promptText="Looking for something?" style="-fx-background-radius: 5px;">
+                                          <TextField layoutX="16.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="205.0" promptText="Looking for something?" style="-fx-background-color: #3B3F40;">
                                              <font>
                                                 <Font size="12.0" />
                                              </font>
                                           </TextField>
-                                          <Button alignment="CENTER" contentDisplay="CENTER" layoutX="231.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #ff2351; -fx-background-radius: 5px;" textFill="WHITE">
+                                          <Button alignment="CENTER" contentDisplay="CENTER" layoutX="231.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #2B2B2B; -fx-background-radius: 5px; -fx-border-color: #EA7C69; -fx-border-radius: 5px;" textFill="WHITE">
                                              <font>
                                                 <Font size="7.0" />
                                              </font>
                                              <graphic>
                                                 <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../assets/delete.png" />
+                                                      <Image url="@../assets/delete-o.png" />
                                                    </image>
                                                 </ImageView>
                                              </graphic>
                                           </Button>
-                                          <TextField layoutX="190.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 5px;" text="1">
+                                          <TextField layoutX="190.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" promptText="1" style="-fx-background-color: #3B3F40;">
                                              <font>
                                                 <Font size="11.0" />
                                              </font>
@@ -917,85 +913,39 @@
                                                 <Image url="@../assets/dish-5.png" />
                                              </image>
                                           </ImageView>
-                                          <Label layoutX="48.0" layoutY="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="139.0" text="Salad Avocado with Chicken" textOverrun="WORD_ELLIPSIS">
+                                          <Label layoutX="48.0" layoutY="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="139.0" text="Salad Avocado with Chicken" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                                              <font>
                                                 <Font name="System Bold" size="9.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="48.0" layoutY="28.0" text="\$150" textFill="#ed5575">
+                                          <Label layoutX="48.0" layoutY="28.0" text="\$150" textFill="#ea7c69">
                                              <font>
                                                 <Font name="System Bold" size="10.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="230.0" layoutY="19.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="\$150" textFill="#ed5575">
+                                          <Label layoutX="230.0" layoutY="19.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="\$150" textFill="#ea7c69">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </Label>
-                                          <TextField layoutX="16.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="205.0" promptText="Looking for something?" style="-fx-background-radius: 5px;">
+                                          <TextField layoutX="16.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="205.0" promptText="Looking for something?" style="-fx-background-color: #3B3F40;">
                                              <font>
                                                 <Font size="12.0" />
                                              </font>
                                           </TextField>
-                                          <Button alignment="CENTER" contentDisplay="CENTER" layoutX="231.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #ff2351; -fx-background-radius: 5px;" textFill="WHITE">
+                                          <Button alignment="CENTER" contentDisplay="CENTER" layoutX="231.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #2B2B2B; -fx-background-radius: 5px; -fx-border-color: #EA7C69; -fx-border-radius: 5px;" textFill="WHITE">
                                              <font>
                                                 <Font size="7.0" />
                                              </font>
                                              <graphic>
                                                 <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../assets/menu.png" />
+                                                      <Image url="@../assets/delete-o.png" />
                                                    </image>
                                                 </ImageView>
                                              </graphic>
                                           </Button>
-                                          <TextField layoutX="190.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 5px;" text="1">
-                                             <font>
-                                                <Font size="11.0" />
-                                             </font>
-                                          </TextField>
-                                       </children>
-                                    </Pane>
-                                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="275.0">
-                                       <children>
-                                          <ImageView fitHeight="45.0" fitWidth="36.0" layoutX="10.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../assets/dish-5.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Label layoutX="48.0" layoutY="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="139.0" text="Salad Avocado with Chicken" textOverrun="WORD_ELLIPSIS">
-                                             <font>
-                                                <Font name="System Bold" size="9.0" />
-                                             </font>
-                                          </Label>
-                                          <Label layoutX="48.0" layoutY="28.0" text="\$150" textFill="#ed5575">
-                                             <font>
-                                                <Font name="System Bold" size="10.0" />
-                                             </font>
-                                          </Label>
-                                          <Label layoutX="230.0" layoutY="19.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="\$150" textFill="#ed5575">
-                                             <font>
-                                                <Font name="System Bold" size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <TextField layoutX="16.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="205.0" promptText="Looking for something?" style="-fx-background-radius: 5px;">
-                                             <font>
-                                                <Font size="12.0" />
-                                             </font>
-                                          </TextField>
-                                          <Button alignment="CENTER" contentDisplay="CENTER" layoutX="231.0" layoutY="51.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #ff2351; -fx-background-radius: 5px;" textFill="WHITE">
-                                             <font>
-                                                <Font size="7.0" />
-                                             </font>
-                                             <graphic>
-                                                <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../assets/menu.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </graphic>
-                                          </Button>
-                                          <TextField layoutX="190.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 5px;" text="1">
+                                          <TextField layoutX="190.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="30.0" promptText="1" style="-fx-background-color: #3B3F40;">
                                              <font>
                                                 <Font size="11.0" />
                                              </font>
@@ -1008,7 +958,7 @@
                         </AnchorPane>
                     </content>
                   </ScrollPane>
-                  <Button fx:id="btnPlace" contentDisplay="RIGHT" layoutX="8.0" layoutY="472.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="260.0" style="-fx-background-color: #ff2351; -fx-background-radius: 50px;" text="Place" textFill="WHITE">
+                  <Button fx:id="btnPlace" contentDisplay="RIGHT" layoutX="8.0" layoutY="478.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="260.0" style="-fx-border-color: #EA7C69; -fx-background-radius: 10px; -fx-background-color: #2B2B2B; -fx-border-radius: 10px;" text="Place" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -1020,26 +970,26 @@
                         </Label>
                      </graphic>
                   </Button>
-                  <Pane layoutX="6.0" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="260.0" style="-fx-background-color: white;">
+                  <Pane layoutX="6.0" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="260.0" style="-fx-background-color: #2B2B2B;">
                      <children>
-                        <Label layoutX="16.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="38.0" text="Item" textOverrun="WORD_ELLIPSIS">
+                        <Label layoutX="16.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="38.0" text="Item" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                            <font>
                               <Font name="System Bold" size="9.0" />
                            </font>
                         </Label>
-                        <Label layoutX="189.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="23.0" text="Qty" textOverrun="WORD_ELLIPSIS">
+                        <Label layoutX="189.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="23.0" text="Qty" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                            <font>
                               <Font name="System Bold" size="9.0" />
                            </font>
                         </Label>
-                        <Label layoutX="231.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="23.0" text="Total" textOverrun="WORD_ELLIPSIS">
+                        <Label layoutX="231.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="23.0" text="Total" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                            <font>
                               <Font name="System Bold" size="9.0" />
                            </font>
                         </Label>
                      </children>
                      <effect>
-                        <DropShadow color="#dad3d3d4" height="1.0" offsetY="1.0" radius="0.0" width="0.0" />
+                        <DropShadow blurType="ONE_PASS_BOX" color="#513e3efa" height="1.0" offsetY="1.0" radius="0.0" width="0.0" />
                      </effect>
                   </Pane>
                </children>

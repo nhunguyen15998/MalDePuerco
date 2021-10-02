@@ -32,7 +32,7 @@ public class Main extends Application{
 //			primaryStage.setFullScreen(true);
 //			primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 			primaryStage.show();
-			
+			MySQLJDBC db = new MySQLJDBC();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
