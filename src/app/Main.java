@@ -21,11 +21,11 @@ public class Main extends Application{
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/views/sercate.fxml")); //container
+			Parent root = FXMLLoader.load(getClass().getResource("/views/servingsCU.fxml")); //container
 			Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();//get screen width, height
 			Scene scene = new Scene(root);
-			primaryStage.setWidth(screenBounds.getWidth());
-			primaryStage.setHeight(screenBounds.getHeight());
+			primaryStage.setWidth(850.0);
+			primaryStage.setHeight(600.0);
 			primaryStage.setResizable(true);
 			primaryStage.setScene(scene);
 			//primaryStage.initStyle(StageStyle.UNDECORATED);

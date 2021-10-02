@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nt.restaurantpj.controller.ServingsController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" >
     <stylesheets>
-        <URL value="@/com/nt/restaurantpj/css/servings.css" />
+        <URL value="@../css/servings.css" />
     </stylesheets>
    <children>
       <AnchorPane prefHeight="141.0" prefWidth="838.0" styleClass="anchorTop" stylesheets="@../css/servings.css">
