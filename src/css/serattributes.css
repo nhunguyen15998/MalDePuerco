@@ -3,48 +3,51 @@
  */
 
 .anchorPane {
-    -fx-background-color : #FFFFFF;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 10, 0, 0, 0);
+	-fx-background-color : white;
 }
-.anchorTop {
-    -fx-background-color : linear-gradient(to right, #FFBE88, #CDB3D4);
+
+.table-view .column-header{
+    -fx-background-color: #ba1841;
+   
 }
-.image {
-    -fx-background-color : linear-gradient(to right, #FA9284, #384E78);
-    -fx-background-radius : 10;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 0);
+.table-view .column-header .label {
+    -fx-text-fill: white;
 }
-.btnAdd {
-    -fx-background-color : linear-gradient(to right, #1CA7EC, #1F2F98);
-    -fx-background-radius : 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 0);
-    -fx-cursor: hand;
-    -fx-fill: back;
+.table-view *.scroll-bar:horizontal *.increment-button,
+.table-view *.scroll-bar:horizontal *.decrement-button {
+  -fx-background-color: null;
+  -fx-background-radius: 0;
+  -fx-background-insets: 0;
+  -fx-padding: 0;
+}
+
+.btnUpdate {
+	-fx-background-color :  #62A38D;
+	-fx-border-radius : 50px;
+	-fx-background-radius : 50px;
+}
+.btnCreate {
+	-fx-background-color :  #2B79D3;
+	-fx-border-radius : 50px;
+	-fx-background-radius : 50px;
 }
 .btnDelete {
-    -fx-background-color : #FE2238;
-    -fx-background-radius : 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 0);
-    -fx-cursor: hand;
-    -fx-fill: back;
+	-fx-background-color : #FB6E67;
+	-fx-border-radius : 50px;
+	-fx-background-radius : 50px;
 }
-.btnUpdate {
-    -fx-background-color : linear-gradient(to left, #F9C449, #E8A49C);
-    -fx-background-radius : 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 0);
-    -fx-cursor: hand;
-    -fx-fill: back;
-}
-.btnReset {
-    -fx-background-color : linear-gradient(to left, #C2C8C5, #DDDDDA);
-    -fx-background-radius : 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 0);
-    -fx-cursor: hand;
-    -fx-fill: back;
+.image {
+	-fx-background-color :  linear-gradient(to right, #D586F9, #BA6BF8, #A056F7);
+	-fx-background-radius : 5;
 }
 .text {
-    -fx-background-color : linear-gradient(to right, #FFBE88, #CDB3D4);
-    -fx-border-style : solid;
-    -fx-border-width : 0 0 3 0;
-    -fx-border-color : #EED2D2;
+	-fx-background-color :  #fcf7f9;
+	-fx-border-color : linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1)linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1);
+	-fx-border-width : 0 0 1.5 0;
+	-fx-background-radius : 5;
+	-fx-border-radius : 5;
+}
+.btnClear {
+	-fx-background-color :  #9C5978;
+	-fx-background-radius : 50px
 }
