@@ -45,7 +45,7 @@
                   </Pane>
                   <Pane layoutX="543.0" layoutY="45.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="73.0">
                      <children>
-                        <Button layoutX="35.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" textFill="#263854">
+                        <Button fx:id="btnServer" layoutX="35.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" textFill="#263854">
                            <font>
                               <Font name="Georgia" size="8.0" />
                            </font>
@@ -57,7 +57,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button layoutX="1.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" textFill="#263854">
+                        <Button fx:id="btnNoti" layoutX="1.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" textFill="#263854">
                            <font>
                               <Font name="Georgia" size="8.0" />
                            </font>
@@ -591,99 +591,75 @@
                      <children>
                         <VBox alignment="TOP_CENTER" layoutY="79.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="384.0" prefWidth="86.0" style="-fx-background-color: white;">
                            <children>
-                              <Button contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="70.0" style="-fx-background-color: #ff2351; -fx-background-radius: 10px;" text="All items" textFill="WHITE">
-                                 <graphic>
-                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/menu.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <font>
-                                    <Font size="7.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </Button>
-                              <Button fx:id="btnAppetizer" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Appetizers" textFill="#34495e">
+                              <Button fx:id="btnAll" alignment="BOTTOM_CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#sidebarItemPressed" prefHeight="60.0" prefWidth="70.0" style="-fx-background-color: transparent; -fx-background-radius: 10px;" text="All items" textFill="#34495e">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
-                                 <graphic>
-                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/appetizer-d.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
                               </Button>
-                              <Button fx:id="btnSideOrder" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Side orders" textFill="#34495e">
+                              <Button fx:id="btnAppetizer" alignment="BOTTOM_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#sidebarItemPressed" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Appetizers" textFill="#34495e">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
-                                 <graphic>
-                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/side-order-d.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
                               </Button>
-                              <Button fx:id="btnALaCarte" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="A la carte" textFill="#34495e">
+                              <Button fx:id="btnSideOrder" alignment="BOTTOM_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#sidebarItemPressed" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Side orders" textFill="#34495e">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
-                                 <graphic>
-                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/alacarte-d.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
                               </Button>
-                              <Button fx:id="btnDessert" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Desserts" textFill="#34495e">
+                              <Button fx:id="btnALaCarte" alignment="BOTTOM_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#sidebarItemPressed" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="A la carte" textFill="#34495e">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
-                                 <graphic>
-                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/dessert-d.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
                               </Button>
-                              <Button fx:id="btnBeverage" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Beverages" textFill="#34495e">
+                              <Button fx:id="btnDessert" alignment="BOTTOM_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#sidebarItemPressed" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Desserts" textFill="#34495e">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
-                                 <graphic>
-                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/cocktail-d.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
+                              </Button>
+                              <Button fx:id="btnBeverage" alignment="BOTTOM_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#sidebarItemPressed" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Beverages" textFill="#34495e">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
                               </Button>
                            </children>
                         </VBox>
-                        <Button layoutX="28.0" layoutY="556.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" textFill="#263854">
+                        <Button fx:id="btnSetting" layoutX="28.0" layoutY="556.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" textFill="#263854">
                            <font>
                               <Font name="Georgia" size="8.0" />
                            </font>
@@ -695,7 +671,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button layoutX="28.0" layoutY="516.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" textFill="#263854">
+                        <Button fx:id="btnHelp" layoutX="28.0" layoutY="516.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" textFill="#263854">
                            <font>
                               <Font name="Georgia" size="8.0" />
                            </font>
@@ -735,7 +711,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button layoutX="190.0" layoutY="29.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="73.0" style="-fx-background-color: #FBECEE; -fx-background-radius: 50px;" text="Clear all" textFill="#ed5575">
+                  <Button fx:id="btnClearAll" layoutX="190.0" layoutY="29.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="73.0" style="-fx-background-color: #FBECEE; -fx-background-radius: 50px;" text="Clear all" textFill="#ed5575">
                      <font>
                         <Font name="Georgia" size="14.0" />
                      </font>
@@ -1032,7 +1008,7 @@
                         </AnchorPane>
                     </content>
                   </ScrollPane>
-                  <Button contentDisplay="RIGHT" layoutX="8.0" layoutY="472.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="260.0" style="-fx-background-color: #ff2351; -fx-background-radius: 50px;" text="Place" textFill="WHITE">
+                  <Button fx:id="btnPlace" contentDisplay="RIGHT" layoutX="8.0" layoutY="472.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="260.0" style="-fx-background-color: #ff2351; -fx-background-radius: 50px;" text="Place" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

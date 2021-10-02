@@ -1,5 +1,55 @@
 /*sidebar*/
+/*btn hover*/
 #btnAll:hover, #btnAppetizer:hover, #btnSideOrder:hover, #btnALaCarte:hover, #btnDessert:hover, #btnBeverage:hover {
-	-fx-background-color: #ff2351;
-	-fx-text-fill: white;
+	-fx-background-color:  #ff2351 !important;
+	-fx-background-radius: 10px !important;
+	-fx-border-color:  #ff2351;
+	-fx-border-radius: 10px;
+	-fx-text-fill: #fff;
+	-fx-background-size: 20px 20px; 
+    -fx-background-repeat: no-repeat; 
+    -fx-background-position: 25px 10px;
 }
+#btnAll:hover {
+	-fx-background-image: url("../assets/menu.png");
+}
+#btnAppetizer:hover {
+	-fx-background-image: url("../assets/appetizer.png");	
+}
+#btnSideOrder:hover {
+	-fx-background-image: url("../assets/side-order.png");	
+}
+#btnALaCarte:hover {
+	-fx-background-image: url("../assets/alacarte.png");	
+}
+#btnDessert:hover {
+	-fx-background-image: url("../assets/dessert.png");	
+}
+#btnBeverage:hover {
+	-fx-background-image: url("../assets/beverage.png");	
+}
+/*btn*/
+#btnAll, #btnAppetizer, #btnSideOrder, #btnALaCarte, #btnDessert, #btnBeverage {
+	-fx-background-size: 20px 20px; 
+    -fx-background-repeat: no-repeat; 
+    -fx-background-position: 25px 10px;
+}
+#btnAll {
+	-fx-background-image: url("../assets/menu-b.png");
+}
+#btnAppetizer {
+	-fx-background-image: url("../assets/appetizer-d.png");
+}
+#btnSideOrder {
+	-fx-background-image: url("../assets/side-order-d.png");
+}
+#btnALaCarte {
+	-fx-background-image: url("../assets/alacarte-d.png");
+}
+#btnDessert {
+	-fx-background-image: url("../assets/dessert-d.png");
+}
+#btnBeverage {
+	-fx-background-image: url("../assets/cocktail-d.png");
+}
+

@@ -22,7 +22,7 @@ public class Main extends Application{
 			Parent root = FXMLLoader.load(getClass().getResource("/views/home.fxml")); //container
 			Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();//get screen width, height
 			Scene scene = new Scene(root, 1000.1, 600);
-			scene.getStylesheets().add("/css/customer-home.css");
+			scene.getStylesheets().add(getClass().getResource("/css/customer-home.css").toExternalForm());
 			primaryStage.setX((screenBounds.getWidth() - 1000)/2);
 			primaryStage.setY((screenBounds.getHeight() - 600)/2);
 			primaryStage.setResizable(true);
