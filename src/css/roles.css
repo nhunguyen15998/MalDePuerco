@@ -29,3 +29,6 @@
   -fx-padding: 0;
   -fx-shape: null;
 }
+.btnRoles{
+	-fx-cursor: hand;
+}
