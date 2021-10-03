@@ -38,7 +38,7 @@
                      <graphic>
                         <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
                            <image>
-                              <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/permission.png" />
+                              <Image url="@../../../../netbeans-workspace/pjsem2/src/main/resources/com/myfx/pjsem2/asset/permission.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -57,7 +57,7 @@
                      <graphic>
                         <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
                            <image>
-                              <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/add.png" />
+                              <Image url="@../../../../netbeans-workspace/pjsem2/src/main/resources/com/myfx/pjsem2/asset/add.png" />
                            </image>
                         </ImageView>
                      </graphic>

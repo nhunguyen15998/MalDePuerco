@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -14,12 +13,12 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="702.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="com.myfx.pjsem2.controller.PermissionController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="702.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PermissionController">
 
    <children>
-      <Pane prefHeight="105.0" prefWidth="703.0" style="-fx-background-color: linear-gradient(to right, #4673db, #4596d9, #55c2e0, #6cd9e6);">
+      <Pane prefHeight="119.0" prefWidth="702.0" style="-fx-background-color: linear-gradient(to right, #ff304f,#ffabb7);">
          <children>
-            <Label layoutX="39.0" layoutY="33.0" prefHeight="19.0" prefWidth="526.0" text="Assign Permission" textFill="WHITE">
+            <Label fx:id="lblRole" layoutX="46.0" layoutY="29.0" prefHeight="30.0" prefWidth="526.0" text="Assign Permission" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -30,12 +29,12 @@
          <children>
             <Pane layoutX="101.0" layoutY="32.0" prefHeight="40.0" prefWidth="437.0">
                <children>
-                  <Label fx:id="lblName" layoutX="14.0" layoutY="7.0" prefHeight="27.0" prefWidth="180.0" style="-fx-background-color: #f0f9fa; -fx-border-width: 0 0 1 0; -fx-border-color: linear-gradient(to right, #4673db, #4596d9, #55c2e0, #6cd9e6);" text="Name:">
+                  <Label fx:id="lblName" layoutX="14.0" layoutY="7.0" prefHeight="27.0" prefWidth="180.0" style="-fx-background-color: #fcf7f9; -fx-border-width: 0 0 1 0; -fx-border-color: linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1)linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1);" text="Name:">
                      <font>
                         <Font size="12.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblCode" layoutX="227.0" layoutY="7.0" prefHeight="27.0" prefWidth="193.0" style="-fx-border-color: linear-gradient(to right, #4673db, #4596d9, #55c2e0, #6cd9e6); -fx-background-color: #f0f9fa; -fx-border-width: 0 0 1 0;" text="Code:">
+                  <Label fx:id="lblCode" layoutX="227.0" layoutY="7.0" prefHeight="27.0" prefWidth="193.0" style="-fx-border-color: linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1)linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1); -fx-background-color: #fcf7f9; -fx-border-width: 0 0 1 0;" text="Code:">
                      <font>
                         <Font size="12.0" />
                      </font>
@@ -56,7 +55,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
                      <image>
-                        <Image url="@../../../../../../../../../../Users/LENOVO/Downloads/MuscleBar/MuscleBar/src/images/save.png" />
+                        <Image url="@../assets/save.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -71,12 +70,12 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
                      <image>
-                        <Image url="@../../../../../../../../../../Users/LENOVO/Downloads/MuscleBar/MuscleBar/src/images/close.png" />
+                        <Image url="@../assets/close.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="CENTER" layoutX="19.0" layoutY="22.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="119.0" style="-fx-background-color: linear-gradient(to right, #fbc6c4, #f4a29f, #fb8b87, #FB6E67); -fx-border-radius: 50px; -fx-background-radius: 50px;" text="Remove All" textFill="WHITE">
+            <Button alignment="CENTER" layoutX="19.0" layoutY="22.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#removeAll" prefHeight="30.0" prefWidth="119.0" style="-fx-background-color: linear-gradient(to right, #fbc6c4, #f4a29f, #fb8b87, #FB6E67); -fx-border-radius: 50px; -fx-background-radius: 50px;" text="Remove All" textFill="WHITE">
                <effect>
                   <DropShadow color="#fb6e677d" />
                </effect>
@@ -86,12 +85,12 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
                      <image>
-                        <Image url="@../../../../../../../../../../Users/LENOVO/Downloads/MuscleBar/MuscleBar/src/images/close.png" />
+                        <Image url="@../assets/close.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="CENTER" layoutX="147.0" layoutY="22.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="99.0" style="-fx-background-color: linear-gradient(to right, #8DC9F8, #69B5F2, #4BA4EC, #3292E6); -fx-border-radius: 50px; -fx-background-radius: 50px;" text="Add All" textFill="WHITE">
+            <Button alignment="CENTER" layoutX="147.0" layoutY="22.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#selectAll" prefHeight="30.0" prefWidth="97.0" style="-fx-background-color: linear-gradient(to right, #8DC9F8, #69B5F2, #4BA4EC, #3292E6); -fx-border-radius: 50px; -fx-background-radius: 50px;" text="Select All" textFill="WHITE">
                <effect>
                   <DropShadow color="#5873de7d" />
                </effect>
@@ -101,7 +100,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
                      <image>
-                        <Image url="@../../../../../../../../../../Users/LENOVO/Downloads/MuscleBar/MuscleBar/src/images/save.png" />
+                        <Image url="@../../../../../Users/LENOVO/Desktop/MalDePuerco/src/assets/ticked.png" />
                      </image>
                   </ImageView>
                </graphic>

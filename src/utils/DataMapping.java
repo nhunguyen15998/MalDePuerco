@@ -7,10 +7,10 @@ public class DataMapping {
 	
 	public static DataMapping getInstance(String key, String value) {
 		if(dataMapping == null) {
-			dataMapping = new DataMapping();
-			dataMapping.key = key;
-			dataMapping.value = value;
-			return dataMapping;
+			DataMapping item = new DataMapping();
+			item.key = key;
+			item.value = value;
+			return item;
 		}
 		return dataMapping;
 	}

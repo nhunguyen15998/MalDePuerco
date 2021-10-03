@@ -20,9 +20,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -153,19 +155,100 @@ public class RolesController implements Initializable {
 
     @FXML
     void btnPermissionAction(ActionEvent event) {
+    	try {
+			Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+			if(this.roleId != 0) {
+//				if(!RoleModel.isShown) {
+//					RoleModel.isShown = true;
+					this.showAssignRoleForm();
+				//}
+			} else {
+				//panel
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setHeaderText("Please select a row");
+				alert.setX(screenBounds.getWidth() - 726);
+				alert.setY(screenBounds.getHeight() - 410);
+				alert.showAndWait();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
     }
+  //show form assign
+  	public void showAssignRoleForm() {
+  		try {
+  			Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+  			//draw
+  			if(this.roleId == 0) {
+  				//panel
+  				Alert alert = new Alert(AlertType.ERROR);
+  				alert.setHeaderText("Please select a row");
+  				alert.setX(screenBounds.getWidth() - 900);
+  				alert.setY(screenBounds.getHeight() - 610);
+  				alert.showAndWait();
+  			}
+  			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/permission_assign.fxml"));
+  			roleHolder = root.load();
+  			
+  			//controller
+  			PermissionController controller = root.<PermissionController>getController();
+  			controller.loadDataUpdateById(this);
+  			
+  			Scene scene = new Scene(roleHolder, 702, 600);
+  			Stage createStage = new Stage();
+  			createStage.setX(screenBounds.getWidth() - 1120);
+  			createStage.setY(screenBounds.getHeight() - 750);
+  			createStage.initStyle(StageStyle.UNDECORATED);
+  			createStage.setScene(scene);
+  			createStage.show();			
+  			
+  		} catch (Exception e) {
+  			e.printStackTrace();
+  		}
+  	}
+
 
     @FXML
     void btnUpdateAction(ActionEvent event) {
+    	try {
+			Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+			if(this.roleId != 0) {
+//				if(!RoleModel.isShown) {
+//					RoleModel.isShown = true;
+					this.showCreateForm();
+				//}
+			} else {
+				//panel
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setHeaderText("Please select a row");
+				alert.setX(screenBounds.getWidth() - 900);
+				alert.setY(screenBounds.getHeight() - 610);
+				alert.showAndWait();
+			}
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     }
 
    
 
     @FXML
     void getTableDataByClick(MouseEvent event) {
-
+    	try {
+			if(event.getClickCount() > 0) {
+				RoleModel item = tableRole.getSelectionModel().getSelectedItem();
+				if(item != null) {
+					this.roleId = item.getId();
+					this.roleName = item.getName();
+					System.out.println(this.roleId);
+				}
+			}
+		} catch (Exception err) {
+			err.printStackTrace();
+		}
     }
   //show form assign
   	public void showCreateForm() {
