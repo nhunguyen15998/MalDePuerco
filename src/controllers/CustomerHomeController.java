@@ -12,7 +12,8 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
 
 public class CustomerHomeController implements Initializable {
-
+	public static boolean isSelected = false;
+	private int btnId;
 	//sidebar btn
 	@FXML
 	private Button btnAll;
@@ -53,8 +54,7 @@ public class CustomerHomeController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
 			//empty order list
-			emptyOrderList = FXMLLoader.load(getClass().getResource("/views/emptycart.fxml"));
-			
+			emptyOrderList = FXMLLoader.load(getClass().getResource("/views/emptycart.fxml"));	
 			orderListPane.getChildren().setAll(emptyOrderList);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,15 +64,19 @@ public class CustomerHomeController implements Initializable {
 	//sidebarItemPressed
 	public void sidebarItemPressed() {
 		try {
-			btnAll.setStyle("-fx-background-color:  #EA7C69 !important;\r\n"
-					+ "	-fx-background-radius: 10px !important;\r\n"
-					+ "	-fx-border-color:  #EA7C69;\r\n"
-					+ "	-fx-border-radius: 10px;\r\n"
-					+ "	-fx-text-fill: #fff;\r\n"
-					+ "	-fx-background-size: 20px 20px; \r\n"
-					+ " -fx-background-repeat: no-repeat; \r\n"
-					+ " -fx-background-position: 25px 10px; "
-					+ " -fx-background-image: url(\"../assets/menu.png\");");
+//			if(CustomerHomeController.isSelected != true) {
+//				CustomerHomeController.isSelected = true;
+//				btnAll.setStyle("-fx-background-color: #EA7C69 !important;\r\n"
+//						+ "	-fx-background-radius: 10px !important;\r\n"
+//						+ "	-fx-border-color:  #EA7C69;\r\n"
+//						+ "	-fx-border-radius: 10px;\r\n"
+//						+ "	-fx-text-fill: #fff;\r\n"
+//						+ "	-fx-background-size: 20px 20px; \r\n"
+//						+ " -fx-background-repeat: no-repeat; \r\n"
+//						+ " -fx-background-position: 25px 10px; "
+//						+ " -fx-background-image: url(\"../assets/menu.png\");");
+//			}
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();

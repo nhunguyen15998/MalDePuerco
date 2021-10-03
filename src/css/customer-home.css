@@ -1,6 +1,7 @@
 /*sidebar*/
 /*btn hover*/
-#btnAll:hover, #btnAppetizer:hover, #btnSideOrder:hover, #btnALaCarte:hover, #btnDessert:hover, #btnBeverage:hover {
+#btnAll:hover, #btnAppetizer:hover, #btnSideOrder:hover, #btnALaCarte:hover, #btnDessert:hover, #btnBeverage:hover, 
+#btnAll:focused, #btnAppetizer:focused, #btnSideOrder:focused, #btnALaCarte:focused, #btnDessert:focused, #btnBeverage:focused {
 	-fx-background-color:   #EA7C69 !important;
 	-fx-background-radius: 10px !important;
 	-fx-border-color:   #EA7C69;
@@ -10,22 +11,22 @@
     -fx-background-repeat: no-repeat; 
     -fx-background-position: 25px 10px;
 }
-#btnAll:hover {
+#btnAll:hover, #btnAll:focused {
 	-fx-background-image: url("../assets/menu.png");
 }
-#btnAppetizer:hover {
+#btnAppetizer:hover, #btnAppetizer:focused {
 	-fx-background-image: url("../assets/appetizer.png");	
 }
-#btnSideOrder:hover {
+#btnSideOrder:hover, #btnSideOrder:focused {
 	-fx-background-image: url("../assets/side-order.png");	
 }
-#btnALaCarte:hover {
+#btnALaCarte:hover, #btnALaCarte:focused {
 	-fx-background-image: url("../assets/alacarte.png");	
 }
-#btnDessert:hover {
+#btnDessert:hover, #btnDessert:focused {
 	-fx-background-image: url("../assets/dessert.png");	
 }
-#btnBeverage:hover {
+#btnBeverage:hover, #btnBeverage:focused {
 	-fx-background-image: url("../assets/beverage.png");	
 }
 /*btn*/
@@ -52,10 +53,11 @@
 #btnBeverage {
 	-fx-background-image: url("../assets/cocktail-o.png");
 }
-
+/*------------------------- */
 /*icon btn */
 /*hover */
-#btnHelp:hover, #btnSetting:hover, #btnNoti:hover, #btnServer:hover, #btnOrder:hover, #btnClearAll:hover, #btnPlace:hover {
+#btnHelp:hover, #btnSetting:hover, #btnNoti:hover, #btnServer:hover, #btnOrder:hover, #btnClearAll:hover, #btnPlace:hover,
+#btnHelp:focused, #btnSetting:focused, #btnNoti:focused, #btnServer:focused, #btnOrder:focused {
 	-fx-background-color:   #EA7C69 !important;
 	-fx-background-radius: 10px !important;
 	-fx-border-color:   #EA7C69;
@@ -63,22 +65,43 @@
 	-fx-text-fill: #fff;
 	-fx-background-size: 20px 20px; 
     -fx-background-repeat: no-repeat; 
-    -fx-background-position: 25px 10px;
+    -fx-background-position: 5px 5px;
 }
-#btnHelp:hover {
-	-fx-background-image: url("../assets/cocktail-o.png");
+#btnHelp:hover, #btnHelp:focused {
+	-fx-background-image: url("../assets/question-mark-w.png");
 }
-#btnSetting:hover {
-	
+#btnSetting:hover, #btnSetting:focused {
+	-fx-background-image: url("../assets/settings-w.png");
 }
-#btnNoti:hover {
-	
+#btnNoti:hover, #btnNoti:focused {
+	-fx-background-image: url("../assets/bell-w.png");
 }
-#btnServer:hover {
-	
+#btnServer:hover, #btnServer:focused {
+	-fx-background-image: url("../assets/waiter-w.png");
 }
-#btnOrder:hover {
-	
+#btnOrder:hover, #btnOrder:focused {
+	-fx-background-image: url("../assets/order-w.png");
+}
+/*btn*/
+#btnHelp, #btnSetting, #btnNoti, #btnServer, #btnOrder {
+	-fx-background-size: 20px 20px; 
+    -fx-background-repeat: no-repeat; 
+    -fx-background-position: 5px 5px;
+}
+#btnHelp {
+	-fx-background-image: url("../assets/question-mark-o.png");
+}
+#btnSetting {
+	-fx-background-image: url("../assets/settings-o.png");
+}
+#btnNoti {
+	-fx-background-image: url("../assets/bell-o.png");
+}
+#btnServer {
+	-fx-background-image: url("../assets/waiter-o.png");
+}
+#btnOrder {
+	-fx-background-image: url("../assets/order-o.png");
 }
 
 

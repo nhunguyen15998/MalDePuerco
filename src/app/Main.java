@@ -1,5 +1,7 @@
 package app;
 
+import java.util.ArrayList;
+
 import db.MySQLJDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +11,8 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import models.ServingCategoryModel;
+import utils.DataMapping;
 
 public class Main extends Application{
 
@@ -32,7 +36,7 @@ public class Main extends Application{
 //			primaryStage.setFullScreen(true);
 //			primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 			primaryStage.show();
-			MySQLJDBC db = new MySQLJDBC();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

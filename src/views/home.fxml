@@ -49,37 +49,16 @@
                            <font>
                               <Font name="Georgia" size="8.0" />
                            </font>
-                           <graphic>
-                              <ImageView fitHeight="21.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../assets/waiter-o.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
                         </Button>
                         <Button fx:id="btnNoti" layoutX="1.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" textFill="#263854">
                            <font>
                               <Font name="Georgia" size="8.0" />
                            </font>
-                           <graphic>
-                              <ImageView fitHeight="21.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../assets/bell-o.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
                         </Button>
                         <Button fx:id="btnOrder" layoutX="69.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" textFill="#263854">
                            <font>
                               <Font name="Georgia" size="8.0" />
                            </font>
-                           <graphic>
-                              <ImageView fitHeight="21.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../assets/order-o.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
                         </Button>
                      </children>
                   </Pane>
@@ -263,7 +242,7 @@
                <content>
                   <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="683.0" prefWidth="629.0" style="-fx-background-color: #3B3F40;">
                      <children>
-                        <GridPane alignment="CENTER" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="672.0" prefWidth="623.0">
+                        <GridPane alignment="CENTER" layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="672.0" prefWidth="623.0">
                           <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -659,25 +638,11 @@
                            <font>
                               <Font name="Georgia" size="8.0" />
                            </font>
-                           <graphic>
-                              <ImageView fitHeight="21.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../assets/settings-o.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
                         </Button>
                         <Button fx:id="btnHelp" layoutX="28.0" layoutY="516.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" textFill="#263854">
                            <font>
                               <Font name="Georgia" size="8.0" />
                            </font>
-                           <graphic>
-                              <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../assets/question-mark-o.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
                         </Button>
                         <ImageView fitHeight="53.0" fitWidth="50.0" layoutX="17.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
