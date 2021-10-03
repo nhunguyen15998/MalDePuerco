@@ -7,23 +7,34 @@ package controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
+
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import models.AuthenticationModel;
+import models.UserModel;
 
 /**
  * FXML Controller class
@@ -44,34 +55,83 @@ public class SignInController implements Initializable {
     private CheckBox chkRemember;
     @FXML
     private PasswordField tfPassHidden;
+    @FXML
+    private Label lblErrorMessage;
+    private UserModel userModel = new UserModel();
 
+	public Parent root;
+	Preferences preference;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-       tfUsername.setText("okconde");
-       tfPassHidden.setText("123456");
-       chkRemember.setSelected(true);
+    	//remember login
+    	preference = Preferences.userNodeForPackage(SignInController.class);
+       if(preference != null) {
+    	   if(!preference.get("tfUsername", "").isEmpty() && preference.get("tfUsername", "") != null) {
+    		   tfUsername.setText(preference.get("tfUsername", ""));
+    	       tfPassHidden.setText(preference.get("tfPassHidden", ""));
+    	   }
+       }else {
+    	  
+       }
       
      
     }    
-
+// 
     @FXML
     private void signinAction() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/myfx/pjsem2/view/master_layout.fxml"));
-                        try{
-                            AnchorPane managerPane = loader.load();
-                            Stage substage=new Stage();
-                            substage.initModality(Modality.WINDOW_MODAL);
-                            substage.setScene(new Scene(managerPane));
-                            substage.show();
-                            btnSignin.getScene().getWindow().hide();
-                        }catch(IOException ex){
-                            ex.printStackTrace();
-                            
-                        }
+    	Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+    	lblErrorMessage.setText("");
+		try {
+			ResultSet sign = userModel.loginSupport(tfUsername.getText());
+
+			
+			boolean signedIn = userModel.doLogin(tfUsername.getText(), tfPassHidden.getText());
+			
+			System.out.println("signIn:" + signedIn);
+			if(signedIn&&sign.next()) {
+				System.out.println("fereee");
+				//remember login
+				if(chkRemember.isSelected()) {
+					preference.put("tfUsername", tfUsername.getText());
+					preference.put("tfPassHidden", tfPassHidden.getText());
+				}else {
+					preference.put("tfUsername","");
+					preference.put("tfPassHidden", "");
+				}
+				AuthenticationModel.id = sign.getInt("id");
+				AuthenticationModel.name = sign.getString("name");
+				 FXMLLoader loader = new FXMLLoader(SignInController.this.getClass().getResource("/views/master_layout.fxml"));
+		         AnchorPane managerPane;
+				try {
+					managerPane = loader.load();
+					Stage substage=new Stage();
+			         substage.initModality(Modality.WINDOW_MODAL);
+			         substage.initStyle(StageStyle.UNDECORATED);
+			         substage.setScene(new Scene(managerPane));
+			         substage.show();  
+			         btnSignin.getScene().getWindow().hide();
+			    	 System.out.println("ABC");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}else {
+				lblErrorMessage.setText("Invalid login. Please try again");
+				
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+    	
+       
+         
     }
 
     @FXML

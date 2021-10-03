@@ -23,6 +23,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import models.AuthenticationModel;
 
 /**
  * FXML Controller class
@@ -75,6 +76,8 @@ public class MasterController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         btnDashBoardAction();
+		lblCurrentUser.setText(AuthenticationModel.name);
+		lblCurrentUserRole.setText(AuthenticationModel.roleName);
         
     }    
 
@@ -88,7 +91,7 @@ public class MasterController implements Initializable {
 
     @FXML
     private void logoutAction() {
-        FXMLLoader loader = new FXMLLoader(MasterController.this.getClass().getResource("/com/myfx/pjsem2/view/sign_in.fxml"));
+        FXMLLoader loader = new FXMLLoader(MasterController.this.getClass().getResource("/views/sign_in.fxml"));
                                   try{
                                       AnchorPane managerPane = loader.load();
                                     
@@ -97,23 +100,15 @@ public class MasterController implements Initializable {
                                       substage.initStyle(StageStyle.UNDECORATED);
                                       substage.setScene(new Scene(managerPane));
                                       substage.show();  
-                                     btnSignOut.getScene().getWindow().hide();
+                                      btnSignOut.getScene().getWindow().hide();
                                   }catch(IOException ex){
                                       ex.printStackTrace();
                                   }
     }
-    private void redirect(String value){
-        AnchorPane anchor;
-		try {
-			anchor = FXMLLoader.load(getClass().getResource("/view/"+value));
-			masterHolder.getChildren().setAll(anchor);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    }
+ 
 
     @FXML
-    private void btnMyAccountAction() {
+    private void myAccountAction() {
     }
 
     @FXML
@@ -170,6 +165,15 @@ public class MasterController implements Initializable {
     private void btnRolesAction() { //bar
     }
     
+    private void redirect(String value){
+        AnchorPane anchor;
+		try {
+			anchor = FXMLLoader.load(getClass().getResource("/views/"+value));
+			masterHolder.getChildren().setAll(anchor);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
     
     
     

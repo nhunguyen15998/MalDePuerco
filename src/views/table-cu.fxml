@@ -13,10 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="417.0" prefWidth="603.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="com.myfx.pjsem2.controller.TableCUController">
-    <stylesheets>
-        <URL value="@/com/myfx/pjsem2/css/table-cu.css" />
-    </stylesheets>
+<AnchorPane id="AnchorPane" prefHeight="417.0" prefWidth="603.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx" fx:controller="controllers.TableCUController">
    <children>
       <Pane prefHeight="117.0" prefWidth="602.0" style="-fx-background-color: linear-gradient(to right, #ff304f,#ffabb7);">
          <children>
@@ -63,7 +60,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
                      <image>
-                        <Image url="@../../../../../../../../../../Users/LENOVO/Downloads/MuscleBar/MuscleBar/src/images/save.png" />
+                        <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/save.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -78,7 +75,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
                      <image>
-                        <Image url="@../../../../../../../../../../Users/LENOVO/Downloads/MuscleBar/MuscleBar/src/images/close.png" />
+                        <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/close.png" />
                      </image>
                   </ImageView>
                </graphic>

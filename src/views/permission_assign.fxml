@@ -15,9 +15,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="702.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="com.myfx.pjsem2.controller.PermissionController">
-    <stylesheets>
-        <URL value="@/com/myfx/pjsem2/css/permission_assign.css" />
-    </stylesheets>
+
    <children>
       <Pane prefHeight="105.0" prefWidth="703.0" style="-fx-background-color: linear-gradient(to right, #4673db, #4596d9, #55c2e0, #6cd9e6);">
          <children>

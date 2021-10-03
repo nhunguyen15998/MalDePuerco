@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -14,11 +15,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" stylesheets="@../css/user.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.myfx.pjsem2.controller.UserController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.UserController">
    <children>
       <Pane layoutX="38.0" layoutY="67.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="448.0" prefWidth="760.0" style="-fx-background-color: #FFFFFF; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.8),30, 0,10, 10);">
          <children>
-            <TableView fx:id="tableUser" editable="true" focusTraversable="false" layoutX="12.0" layoutY="59.0" maxHeight="-Infinity" maxWidth="2080.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#getTableDataByClick" prefHeight="362.0" prefWidth="736.0" stylesheets="@../css/user.css">
+            <TableView fx:id="tableUser" editable="true" layoutX="12.0" layoutY="59.0" maxHeight="-Infinity" maxWidth="2080.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#getTableDataByClick" prefHeight="362.0" prefWidth="736.0" stylesheets="@../css/user.css">
                <columns>
                   <TableColumn fx:id="colOrder" maxWidth="66.0" minWidth="0.0" prefWidth="40.0" text="#" />
                   <TableColumn fx:id="colId" prefWidth="53.0" text="Id" visible="false" />
@@ -36,7 +37,7 @@
             </TableView>
             <Pane layoutX="15.0" layoutY="11.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="708.0">
                <children>
-                  <Button fx:id="btnCreate" alignment="CENTER" layoutX="530.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnCreateAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: #2B79D3; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btn" text="Create" textFill="WHITE">
+                  <Button fx:id="btnCreate" alignment="CENTER" layoutX="530.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnCreateAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: #2B79D3; -fx-border-radius: 50px; -fx-background-radius: 50px;" text="Create" textFill="WHITE">
                      <effect>
                         <DropShadow color="#2b79d37d" />
                      </effect>
@@ -44,14 +45,14 @@
                         <Font size="12.0" />
                      </font>
                      <graphic>
-                        <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
                            <image>
-                              <Image url="@../../../../../../../../../../Users/LENOVO/Downloads/MuscleBar/MuscleBar/src/images/add.png" />
+                              <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/add.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button alignment="CENTER" layoutX="622.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: #FB6E67; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btn" text="Delete" textFill="WHITE">
+                  <Button alignment="CENTER" layoutX="622.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: #FB6E67; -fx-border-radius: 50px; -fx-background-radius: 50px;" text="Delete" textFill="WHITE">
                      <effect>
                         <DropShadow color="#fb6e677d" />
                      </effect>
@@ -59,14 +60,14 @@
                         <Font size="12.0" />
                      </font>
                      <graphic>
-                        <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
                            <image>
-                              <Image url="@../../../../../../../../../../Users/LENOVO/Downloads/MuscleBar/MuscleBar/src/images/delete.png" />
+                              <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/delete.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button alignment="CENTER" layoutX="436.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: #62A38D; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btn" text="Update" textFill="WHITE">
+                  <Button alignment="CENTER" layoutX="436.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: #62A38D; -fx-border-radius: 50px; -fx-background-radius: 50px;" text="Update" textFill="WHITE">
                      <effect>
                         <DropShadow color="#62a38d7d" />
                      </effect>
@@ -74,28 +75,32 @@
                         <Font size="12.0" />
                      </font>
                      <graphic>
-                        <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../../../../../Users/LENOVO/Downloads/MuscleBar/MuscleBar/src/images/edit.png" />
+                              <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/edit.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button layoutX="223.5" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnClearAction" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #9C5978; -fx-background-radius: 50px;" styleClass="btn" textFill="WHITE">
+                  <Button layoutX="223.5" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnClearAction" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #9C5978; -fx-background-radius: 50px;" textFill="WHITE">
                      <graphic>
-                        <ImageView disable="true" fitHeight="15.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="15.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../assets/delete_key.png" />
+                              <Image url="@../asset/delete_key.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
                   <TextField fx:id="tfUser" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#onSearch" prefHeight="30.0" prefWidth="211.0" promptText="Find a user" style="-fx-background-radius: 50px;" />
-                  <ImageView fitHeight="21.0" fitWidth="22.0" layoutX="180.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/search-g.png" />
-                     </image>
-                  </ImageView>
+                  <Pane layoutX="177.0" layoutY="7.0" prefHeight="30.0" prefWidth="30.0">
+                     <children>
+                        <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="7.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/search-g.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
                </children>
             </Pane>
          </children>
@@ -120,7 +125,7 @@
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../assets/user.png" />
+                        <Image url="@../asset/users.png" />
                      </image>
                   </ImageView>
                </graphic>

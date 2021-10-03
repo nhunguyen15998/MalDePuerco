@@ -16,13 +16,13 @@ public class Main extends Application{
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/views/home.fxml")); 
+			Parent root = FXMLLoader.load(getClass().getResource("/views/sign_in.fxml")); 
 			Scene scene = new Scene(root);
-                        primaryStage.setResizable(true);
+            //primaryStage.setResizable(true);
 			primaryStage.initStyle(StageStyle.UNDECORATED);;
 			primaryStage.setScene(scene);
 			//primaryStage.initStyle(StageStyle.UNDECORATED);

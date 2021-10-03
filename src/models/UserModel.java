@@ -1,17 +1,23 @@
 package models;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import utils.CompareOperator;
 import utils.DataMapping;
+import utils.Helpers;
 import utils.JoinCondition;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
+import db.MySQLJDBC;
 public class UserModel extends BaseModel {
 	public static String table = "users";
 	public static String[] columns = {"id", "code", "name", "email", "phone", "password", "role_id", "created_at", "status"};
 	private UserModel userModel;
-	
+	private static CompareOperator cp;
 	private int id;
 	private int sequence;
 	private String code;
@@ -62,14 +68,33 @@ public class UserModel extends BaseModel {
 	}
 	
 	//login
-	public ResultSet doLogin(String phone, String password) {
+	public boolean doLogin(String phone, String password) {
+		boolean check= false;
 		try {
-			//String hashPassword = Helpers.sha256(password);
+			String[] selects = {"phone", "password"};
+			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
+			conditions.add(CompareOperator.getInstance("phone", "=", phone));
+			ResultSet rs = this.getData(selects, conditions, null);
+			if(rs.next()) { 
+				boolean checkpass = BCrypt.checkpw(password,rs.getString("password"));
+				System.out.println("check pass:"+checkpass);
+				if(checkpass) {
+					check=true;
+					loginSupport(rs.getString("phone"));
+				}
+			}
+			
+		} catch (Exception eLogin) {
+			eLogin.printStackTrace();
+		}
+		return check;
+	}
+	public ResultSet loginSupport(String phone) {
+		try {
 			
 			String[] selects = {"id", "name"};
 			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
 			conditions.add(CompareOperator.getInstance("phone", "=", phone));
-			//conditions.add(CompareOperator.getInstance("password", "=", hashPassword));
 			conditions.add(CompareOperator.getInstance("status", "=", String.valueOf(USER_ACTIVATED)));
 			ResultSet results = this.getData(selects, conditions, null);
 			return results;

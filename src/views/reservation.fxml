@@ -8,10 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="com.myfx.pjsem2.controller.ReservationController">
-    <stylesheets>
-        <URL value="@/com/myfx/pjsem2/css/reservation.css" />
-    </stylesheets>
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx" fx:controller="controllers.ReservationController">
    <children>
       <Pane layoutX="660.0" prefHeight="550.0" prefWidth="177.0" style="-fx-background-color: pink;" />
       <Pane layoutX="42.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="737.0">

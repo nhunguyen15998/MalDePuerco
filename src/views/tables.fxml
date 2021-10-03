@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.myfx.pjsem2.controller.TablesController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.TablesController">
     <stylesheets>
-        <URL value="@/com/myfx/pjsem2/css/tables.css" />
+        <URL value="@/css/tables.css" />
     </stylesheets>
    <children>
       <Label layoutX="92.0" layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="685.0" text="Tables management">
@@ -26,7 +26,7 @@
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="38.0" layoutY="18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: linear-gradient(to right, #D586F9, #BA6BF8, #A056F7); -fx-background-radius: 5;" />
       <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="47.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assets/table.png" />
+            <Image url="@../asset/table.png" />
          </image>
       </ImageView>
       <Pane layoutX="38.0" layoutY="67.0" prefHeight="448.0" prefWidth="760.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.8),30, 0,10, 10);">
@@ -52,7 +52,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
                      <image>
-                        <Image url="@../../../../../../../../../../Users/LENOVO/Downloads/MuscleBar/MuscleBar/src/images/add.png" />
+                        <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/add.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -67,7 +67,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
                      <image>
-                        <Image url="@../../../../../../../../../../Users/LENOVO/Downloads/MuscleBar/MuscleBar/src/images/delete.png" />
+                        <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/delete.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -82,7 +82,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
                      <image>
-                        <Image url="@../../../../../../../../../../Users/LENOVO/Downloads/MuscleBar/MuscleBar/src/images/edit.png" />
+                        <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/edit.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -91,7 +91,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../../../Users/LENOVO/Downloads/MuscleBar/MuscleBar/src/images/clear.png" />
+                        <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/clear.png" />
                      </image>
                   </ImageView>
                </graphic>

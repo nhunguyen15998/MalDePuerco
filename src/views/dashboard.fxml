@@ -12,10 +12,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="com.myfx.pjsem2.controller.DashboardController">
-    <stylesheets>
-        <URL value="@/com/myfx/pjsem2/css/dashboard.css" />
-    </stylesheets>
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+   
    <children>
       <Pane layoutX="53.0" layoutY="79.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="231.0" style="-fx-background-color: linear-gradient(to right, #f7be95, #f4a895, #f29b95, #f08794); -fx-background-radius: 5;">
          <effect>
@@ -36,7 +34,7 @@
                   </Label>
                   <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="181.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../../../Users/LENOVO/Downloads/MuscleBar/MuscleBar/src/images/salary.png" />
+                        <Image url="@../assets/dashboard.png" />
                      </image>
                   </ImageView>
                   <Label layoutX="2.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" text="Increased by 4%" textFill="WHITE">
@@ -69,7 +67,7 @@
                   </Label>
                   <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="181.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../../../Users/LENOVO/Downloads/MuscleBar/MuscleBar/src/images/customers.png" />
+                        <Image url="@../assets/bell.png" />
                      </image>
                   </ImageView>
                </children>
@@ -85,7 +83,7 @@
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../../../Users/LENOVO/Downloads/MuscleBar/MuscleBar/src/images/dashboard.png" />
+                  <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/dashboard.png" />
                </image>
             </ImageView>
          </graphic>
@@ -114,7 +112,7 @@
                   </Label>
                   <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="181.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../../../Users/LENOVO/Downloads/MuscleBar/MuscleBar/src/images/companies.png" />
+                        <Image url="@../assets/appetizer.png" />
                      </image>
                   </ImageView>
                   <Label layoutX="2.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" text="Increased by 4%" textFill="WHITE">

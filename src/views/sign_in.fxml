@@ -11,13 +11,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="797.0" style="-fx-background-color: #f7f0f2;" styleClass="mainFxmlClass" stylesheets="@../css/sign_in.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignInController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="797.0" style="-fx-background-color: #f7f0f2;" styleClass="mainFxmlClass" stylesheets="@../css/sign_in.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.SignInController">
    <children>
       <Pane fx:id="paneLeft" prefHeight="496.0" prefWidth="329.0">
          <children>
             <ImageView fitHeight="519.0" fitWidth="329.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../asset/home%20signin.jpg" />
+                  <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/home%20signin.jpg" />
                </image>
             </ImageView>
          </children>
@@ -31,13 +31,18 @@
             </Label>
             <TextField fx:id="tfUsername" focusTraversable="false" layoutX="107.0" layoutY="171.0" prefHeight="35.0" prefWidth="248.0" promptText="  username" style="-fx-background-color: #fcf7f9; -fx-border-color: linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1)linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1); -fx-border-width: 0 0 1.5 0; -fx-background-radius: 5; -fx-border-radius: 5;" />
             <CheckBox fx:id="chkRemember" focusTraversable="false" layoutX="107.0" layoutY="273.0" mnemonicParsing="false" style="-fx-cursor: hand;" stylesheets="@../css/sign_in.css" text="Remeber me" textFill="#d91f48" />
-            <Button fx:id="btnSignin" layoutX="181.0" layoutY="314.0" mnemonicParsing="false" onAction="#signinAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 20; -fx-effect: dropshadow(two-pass-box, #ffcbab,10, 0,0,0); -fx-cursor: hand;" styleClass="btnSignIn" stylesheets="@../css/sign_in.css" text="Sign In" textFill="WHITE" />
+            <Button fx:id="btnSignin" layoutX="185.0" layoutY="320.0" mnemonicParsing="false" onAction="#signinAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 20; -fx-effect: dropshadow(two-pass-box, #ffcbab,10, 0,0,0); -fx-cursor: hand;" styleClass="btnSignIn" stylesheets="@../css/sign_in.css" text="Sign In" textFill="WHITE" />
             <ImageView fitHeight="45.0" fitWidth="41.0" layoutX="417.0" layoutY="4.0" onDragDetected="#closeSignIn" onMouseClicked="#closeSignIn" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                <image>
-                  <Image url="@../asset/close_sigin.png" />
+                  <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/close_sigin.png" />
                </image>
             </ImageView>
             <PasswordField fx:id="tfPassHidden" focusTraversable="false" layoutX="107.0" layoutY="223.0" prefHeight="35.0" prefWidth="248.0" promptText="  password" style="-fx-background-color: #fcf7f9; -fx-border-color: linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1); -fx-border-width: 0 0 1.5 0; -fx-background-radius: 5; -fx-border-radius: 5;" />
+            <Label fx:id="lblErrorMessage" layoutX="158.0" layoutY="297.0" textFill="#a17064">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>

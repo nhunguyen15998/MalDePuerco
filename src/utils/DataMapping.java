@@ -17,10 +17,10 @@ public class DataMapping {
 	
 	public static DataMapping getInstance(int key, String value) {
 		if(dataMapping == null) {
-			dataMapping = new DataMapping();
-			dataMapping.key = String.valueOf(key);
-			dataMapping.value = value;
-			return dataMapping;
+			DataMapping item = new DataMapping();
+			item.key = String.valueOf(key);
+			item.value = value;
+			return item;
 		}
 		return dataMapping;
 	}

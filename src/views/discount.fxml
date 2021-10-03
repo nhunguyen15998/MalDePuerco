@@ -15,10 +15,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.myfx.pjsem2.controller.DiscountController">
-    <stylesheets>
-        <URL value="@/com/myfx/pjsem2/css/discount.css" />
-    </stylesheets>
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.DiscountController">
    <children>
       <Pane layoutX="37.0" layoutY="68.0" prefHeight="426.0" prefWidth="765.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.8),30, 0,10, 10);">
          <children>
@@ -57,7 +54,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
                      <image>
-                        <Image url="@../../../../../../../../../../Users/LENOVO/Downloads/MuscleBar/MuscleBar/src/images/save.png" />
+                        <Image url="@../assets/dessert.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -72,7 +69,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../../../Users/LENOVO/Downloads/MuscleBar/MuscleBar/src/images/edit.png" />
+                        <Image url="@../assets/order.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -87,7 +84,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../asset/reset.png" />
+                        <Image url="@../assets/beverage.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -103,7 +100,7 @@
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../asset/discount.png" />
+                  <Image url="@../assets/delete_key.png" />
                </image>
             </ImageView>
          </graphic>

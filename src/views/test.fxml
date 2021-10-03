@@ -10,10 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="510.0" prefWidth="816.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.myfx.pjsem2.controller.TestController">
-    <stylesheets>
-        <URL value="@/com/myfx/pjsem2/css/test.css" />
-    </stylesheets>
+<AnchorPane id="AnchorPane" prefHeight="510.0" prefWidth="816.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TestController">
    <children>
       <AnchorPane prefHeight="54.0" prefWidth="816.0" style="-fx-background-color: linear-gradient(to right, #f08794, #f29b95, #f4a895, #f7be95);">
          <children>
