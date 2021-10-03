@@ -13,19 +13,18 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class Main extends Application{
-
-	public static void main(String[] args) {
-		launch(args);
-	}
+//
+//	public static void main(String[] args) {
+//		launch(args);
+//	}
 
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/views/home.fxml")); //container
-			Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();//get screen width, height
+			Parent root = FXMLLoader.load(getClass().getResource("/views/servings.fxml"));
 			Scene scene = new Scene(root);
-			primaryStage.setWidth(screenBounds.getWidth());
-			primaryStage.setHeight(screenBounds.getHeight());
+			primaryStage.setWidth(850.0);
+			primaryStage.setHeight(600.0);
 			primaryStage.setResizable(true);
 			primaryStage.setScene(scene);
 			//primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -38,5 +37,4 @@ public class Main extends Application{
 			e.printStackTrace();
 		}
 	}
-
 }
