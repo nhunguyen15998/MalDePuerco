@@ -13,7 +13,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ServingsController">
     <stylesheets>
         <URL value="@../css/servings.css" />
     </stylesheets>
@@ -52,7 +52,7 @@
                   <TableColumn prefWidth="13.0" />
               </columns>
             </TableView>
-            <Button fx:id="btnCreate" layoutX="421.0" layoutY="24.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="106.0" styleClass="btnCreate" stylesheets="@../css/servings.css" text="         Create " textFill="WHITE">
+            <Button layoutX="421.0" layoutY="24.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="106.0" styleClass="btnCreate" stylesheets="@../css/servings.css" text="         Create " textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -69,7 +69,7 @@
                   <Image url="@../assets/save.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnDelete" layoutX="665.0" layoutY="24.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="106.0" styleClass="btnDelete" stylesheets="@../css/servings.css" text="       Delete " textFill="WHITE">
+            <Button  layoutX="665.0" layoutY="24.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="106.0" styleClass="btnDelete" stylesheets="@../css/servings.css" text="       Delete " textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -86,7 +86,7 @@
                   <Image url="@../assets/delete.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnUpdate" layoutX="542.0" layoutY="24.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="106.0" styleClass="btnUpdate" stylesheets="@../css/servings.css" text="         Update " textFill="WHITE">
+            <Button  layoutX="542.0" layoutY="24.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="106.0" styleClass="btnUpdate" stylesheets="@../css/servings.css" text="         Update " textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -103,12 +103,12 @@
                   <Image url="@../assets/edit.png" />
                </image>
             </ImageView>
-            <TextField fx:id="tfFind" layoutX="14.0" layoutY="27.0" prefHeight="27.0" prefWidth="235.0" promptText="Find servings" style="-fx-background-radius: 50px;">
+            <TextField layoutX="14.0" layoutY="27.0" prefHeight="27.0" prefWidth="235.0" promptText="Find servings" style="-fx-background-radius: 50px;">
                <font>
                   <Font name="Consolas" size="14.0" />
                </font>
             </TextField>
-            <Button fx:id="btnClear" layoutX="264.0" layoutY="28.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" styleClass="Clear" stylesheets="@../css/servings.css">
+            <Button layoutX="264.0" layoutY="28.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" styleClass="Clear" stylesheets="@../css/servings.css">
                <graphic>
                   <ImageView fitHeight="17.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
                      <image>
