@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.TablesController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TablesController">
     <stylesheets>
         <URL value="@/css/tables.css" />
     </stylesheets>
@@ -26,7 +26,7 @@
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="38.0" layoutY="18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: linear-gradient(to right, #D586F9, #BA6BF8, #A056F7); -fx-background-radius: 5;" />
       <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="47.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../asset/table.png" />
+            <Image url="@../assets/table.png" />
          </image>
       </ImageView>
       <Pane layoutX="38.0" layoutY="67.0" prefHeight="448.0" prefWidth="760.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.8),30, 0,10, 10);">
@@ -91,7 +91,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/clear.png" />
+                        <Image url="@../assets/delete_key.png" />
                      </image>
                   </ImageView>
                </graphic>
