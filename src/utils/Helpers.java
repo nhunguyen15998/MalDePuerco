@@ -44,7 +44,18 @@ public class Helpers {
 	    return sb.toString();
 	}
 	
-	//bcrypt
+	  public static String randomCode(String ob){
+	        int max = 10000000;
+	        int min = 0;
+	        int random = 0;
+	        int range = (max-min)+1;
+	        random =(int)(Math.random()*range)+min;
+	        String c = String.valueOf(random);
+	        String code = ob+c;
+	        return code;
+	  }
+	
+	
 	
 	
 }

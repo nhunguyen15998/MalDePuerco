@@ -12,6 +12,8 @@ import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
 import javafx.animation.TranslateTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +24,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -34,7 +37,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import models.AuthenticationModel;
+import models.RoleModel;
 import models.UserModel;
+import utils.DataMapping;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 /**
  * FXML Controller class
@@ -58,9 +64,23 @@ public class SignInController implements Initializable {
     @FXML
     private Label lblErrorMessage;
     private UserModel userModel = new UserModel();
-
+   /* @FXML
+    private ComboBox<String> cbb;
+    ObservableList<String> status = FXCollections.observableArrayList("ok","ok0");
+		cbb.setItems(status);
+		abc =(preference.get("okokok", ""));
+    	System.out.println("old: "+abc);
+    	
+    	if(cbb.getValue()!=null) {
+					abc=(preference.get("cbb", cbb.getValue().toString()));
+					preference.put("okokok", abc);
+					 System.out.println("new:"+abc);
+				}
+*/
 	public Parent root;
 	Preferences preference;
+	private static String abc;
+	
     /**
      * Initializes the controller class.
      */
@@ -68,12 +88,19 @@ public class SignInController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     	//remember login
+
+    	
+		 
+    	
     	preference = Preferences.userNodeForPackage(SignInController.class);
+    	
        if(preference != null) {
     	   if(!preference.get("tfUsername", "").isEmpty() && preference.get("tfUsername", "") != null) {
     		   tfUsername.setText(preference.get("tfUsername", ""));
     	       tfPassHidden.setText(preference.get("tfPassHidden", ""));
-    	   }
+    	       
+    	   } 
+    	   
        }else {
     	  
        }
@@ -98,10 +125,12 @@ public class SignInController implements Initializable {
 				if(chkRemember.isSelected()) {
 					preference.put("tfUsername", tfUsername.getText());
 					preference.put("tfPassHidden", tfPassHidden.getText());
+					
 				}else {
 					preference.put("tfUsername","");
 					preference.put("tfPassHidden", "");
 				}
+				
 				AuthenticationModel.id = sign.getInt("id");
 				AuthenticationModel.name = sign.getString("name");
 				 FXMLLoader loader = new FXMLLoader(SignInController.this.getClass().getResource("/views/master_layout.fxml"));

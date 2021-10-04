@@ -261,7 +261,7 @@ public class RolesController implements Initializable {
   			RoleCUController controller = root.<RoleCUController>getController();
   			controller.loadDataUpdateById(this);
   			
-  			Scene scene = new Scene(createHolder, 570,376);
+  			Scene scene = new Scene(createHolder, 596,376);
   			Stage createStage = new Stage();
   			createStage.setX(screenBounds.getWidth() - 1000);
   			createStage.setY(screenBounds.getHeight() - 700);

@@ -7,6 +7,9 @@ package controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,6 +27,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import models.AuthenticationModel;
+import models.PermissionModel;
+import models.UserModel;
 
 /**
  * FXML Controller class
@@ -31,7 +36,10 @@ import models.AuthenticationModel;
  * @author LENOVO
  */
 public class MasterController implements Initializable {
-
+	private UserModel userModel = new UserModel();
+	private PermissionModel permissionModel = new PermissionModel();
+	private SignInController signInController;
+	
     @FXML
     private Label lblCurrentUser;
     @FXML
@@ -76,8 +84,37 @@ public class MasterController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         btnDashBoardAction();
+        try {
 		lblCurrentUser.setText(AuthenticationModel.name);
 		lblCurrentUserRole.setText(AuthenticationModel.roleName);
+		ResultSet currentUser = userModel.getUserById(AuthenticationModel.id);
+		if(!currentUser.next()) {
+			System.exit(1);
+		}
+		AuthenticationModel.roleName = currentUser.getString("role_name");
+		AuthenticationModel.name = currentUser.getString("user_name");
+		lblCurrentUser.setText(AuthenticationModel.name);
+		lblCurrentUserRole.setText(AuthenticationModel.roleName);
+		
+		
+		//load permission
+		ResultSet permissions = permissionModel.getByUserId(AuthenticationModel.id);
+		ArrayList<PermissionModel> currentPermissions = new ArrayList<PermissionModel>();
+		while(permissions.next()) {
+			PermissionModel permission = new PermissionModel();
+			permission.setId(permissions.getInt("permission_id"));
+			permission.setPermissionCode(permissions.getString("permissions.code"));
+			permission.setName(permissions.getString("permission_name"));
+			currentPermissions.add(permission);
+		}
+		
+	
+			
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+
         
     }    
 

@@ -17,9 +17,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import models.RoleModel;
+import models.UserModel;
 import utils.DataMapping;
 
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import utils.ValidationDataMapping;
 import utils.Validations;
@@ -45,7 +47,9 @@ public class RoleCUController implements Initializable {
 	    @FXML
 	    private ComboBox<DataMapping> cbStatus;
 	    @FXML
-	    private Label lblNameError;	    
+	    private Label lblNameError;	 
+	    @FXML
+	    private Label lblCodeError;	
 	    @FXML
 	    private Label lblRole;
 
@@ -59,35 +63,68 @@ public class RoleCUController implements Initializable {
         // TODO
     	ObservableList<DataMapping> status = FXCollections.observableArrayList(RoleModel.isActivated, RoleModel.isDeactivated);
 		cbStatus.setItems(status);
+		cbStatus.setValue(RoleModel.isActivated);
     }
   //validate
-  	public boolean validated(String code, String name) {
-  		try {
-  			lblNameError.setText("");
-  			
-  			ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
-  			data.add(new ValidationDataMapping("name", name, "lblNameError", "required|string|min:5"));
-  			
-  			ArrayList<DataMapping> messages = Validations.validated(data);
-  			if(messages.size() > 0) {
-  				for(DataMapping message : messages) {
-  					switch(message.key) {
-  						case "lblNameError":
-  							lblNameError.setText(message.value);
-  							break;
-  						default:
-  							System.out.println("abcde");
-  					}
-  				return false;
-  				}
-  			}
-  			return true;
-  		} catch (Exception e) {
-  			e.printStackTrace();
-  			return false;
-  		}
-  	}
+    public boolean validated(String code, String name) {
+		try {
+			lblCodeError.setText("");
+			lblNameError.setText("");
+			
+			ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
+			data.add(new ValidationDataMapping("code", code, "lblCodeError", "required|string"));
+			data.add(new ValidationDataMapping("name", name, "lblNameError", "required|string|min:5"));
+			
+			ArrayList<DataMapping> messages = Validations.validated(data);
+			if(messages.size() > 0) {
+				for(DataMapping message : messages) {
+					switch(message.key) {
+						case "lblCodeError":
+							lblCodeError.setText(message.value);
+							break;
+						case "lblNameError":
+							lblNameError.setText(message.value);
+							break;
+						default:
+							System.out.println("abcde");
+					}
+				return false;
+				}
+			}
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	//btnSave
+	public void btnSaveAction() {
+		try {
+			String code = tfCode.getText();
+			String name = tfName.getText();
+			String status = cbStatus.getValue() != null ? cbStatus.getValue().key : String.valueOf(UserModel.USER_DEACTIVATED);
 
+			if(validated(code, name)) {
+				ArrayList<DataMapping> roles = new ArrayList<DataMapping>();
+				roles.add(DataMapping.getInstance("code", code));
+				roles.add(DataMapping.getInstance("name", name));
+				roles.add(DataMapping.getInstance("status", status));
+
+				if(this.roleId == 0) {
+					roleModel.createRole(roles);
+				} else {
+					roleModel.updateRoleById(this.roleId, roles);
+				}
+				roleController.parseData(null);
+				this.btnCancelAction();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
   	public void loadDataUpdateById(RolesController roleController) {
 		try {
 			this.roleController = roleController;
@@ -114,13 +151,15 @@ public class RoleCUController implements Initializable {
 		}
 	}
     @FXML
-    void btnCancelAction() {
+    public void btnCancelAction() {
+		try {
+			Stage stage = (Stage) btnCancel.getScene().getWindow();
+			stage.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 
-    }
-
-    @FXML
-    void btnSaveAction() {
-
-    }
     
 }
