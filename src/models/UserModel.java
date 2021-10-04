@@ -17,7 +17,6 @@ public class UserModel extends BaseModel {
 	public static String table = "users";
 	public static String[] columns = {"id", "code", "name", "email", "phone", "password", "role_id", "created_at", "status"};
 	private UserModel userModel;
-	private static CompareOperator cp;
 	private int id;
 	private int sequence;
 	private String code;
@@ -54,7 +53,7 @@ public class UserModel extends BaseModel {
 		}
 	}
 	
-	public UserModel(int id, int sequence, String code, String name, int gender, String birth, double salary, String email, String phone, String role, String createdAt, int status) {
+	public UserModel(int id, int sequence, String code, String name,String email, String phone, String role, String createdAt, int status) {
 		super(table, columns);
 		this.setId(id);
 		this.setSequence(sequence);
@@ -110,7 +109,7 @@ public class UserModel extends BaseModel {
 			String[] selects = {"users.id", "users.name as user_name", "users.code", 
 								"users.email", "users.phone", "users.password", 
 								"users.created_at", "users.status",
-								"roles.name as role_name"};
+								"roles.name as role_name", "roles.code as role_code"};
 			
 			ArrayList<CompareOperator> joinRole = new ArrayList<CompareOperator>();
 			joinRole.add(CompareOperator.getInstance("users.role_id", " = ", "roles.id"));

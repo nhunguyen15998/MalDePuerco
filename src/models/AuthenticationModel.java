@@ -7,14 +7,13 @@ public class AuthenticationModel {
 	public static String name;
 	public static String roleName;
 	public static ArrayList<PermissionModel> permissions;
-	public static int branchId;
 	
 	public static boolean hasPermission(String permissionCode) {
-//		for(PermissionModel permission : permissions) {
-//			if(permission.getPermissionCode().equals(permissionCode)) {
-//				return true;
-//			}
-//		}
+		for(PermissionModel permission : permissions) {
+			if(permission.getPermissionCode().equals(permissionCode)) {
+				return true;
+			}
+		}
 		return false;
 	}
 	

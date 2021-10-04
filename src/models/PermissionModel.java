@@ -64,7 +64,7 @@ public class PermissionModel extends BaseModel{
 	//get data by id
 	public ResultSet getByUserId(int id) {
 		try {
-			String[] selects = {"permissions.id as permission_id", "permission_code", "permissions.name as permission_name"};
+			String[] selects = {"permissions.id as permission_id", "permissions.code", "permissions.name as permission_name"};
 			
 			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
 			conditions.add(CompareOperator.getInstance("users.id", "=", String.valueOf(id)));
@@ -82,7 +82,7 @@ public class PermissionModel extends BaseModel{
 			userTypeUserCondition.add(CompareOperator.getInstance("users.id", "=", "roles.id"));
 			
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
-			joins.add( JoinCondition.getInstance("join", "role_permission", pUserTypePermissionCondition));
+			joins.add( JoinCondition.getInstance("join", "role_permissions", pUserTypePermissionCondition));
 			joins.add(JoinCondition.getInstance("join", "roles", userTypePermissionUserTypeCondition));
 			joins.add(JoinCondition.getInstance("join", "users", userTypeUserCondition));
 			
