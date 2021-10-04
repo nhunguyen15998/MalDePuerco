@@ -101,7 +101,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <TextField fx:id="tfRole" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#onSearch" prefHeight="30.0" prefWidth="277.0" promptText="Find a role" style="-fx-background-radius: 50px;" />
+                  <TextField fx:id="tfRole" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#onSearch" prefHeight="30.0" prefWidth="277.0" promptText="Find by code, name" style="-fx-background-radius: 50px;" />
                   <ImageView fitHeight="21.0" fitWidth="22.0" layoutX="250.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/search-g.png" />

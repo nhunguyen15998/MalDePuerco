@@ -9,6 +9,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -21,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -94,6 +96,7 @@ public class RolesController implements Initializable {
 					cellData.getValue().getStatus() == RoleModel.ROLE_ACTIVATED ? String.valueOf(RoleModel.isActivated) : String.valueOf(RoleModel.isDeactivated)));
 			
 			//get data from db
+			
 			ResultSet roles = roleModel.getRoleList(conditions);
 			while(roles.next()) {
 				roleList.add(RoleModel.getInstance(
@@ -115,7 +118,7 @@ public class RolesController implements Initializable {
 		try {
 			String code = tfRole.getText();
 			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
-			conditions.add(CompareOperator.getInstance("code", " like ", "%"+ code + "%"));
+			conditions.add(CompareOperator.getInstance("code or name", " like ", "%"+ code + "%"));
 			//conditions.add(new CompareOperators("", name, name))
 			return conditions;
 		} catch (Exception e) {
@@ -150,6 +153,33 @@ public class RolesController implements Initializable {
 
     @FXML
     void btnDeleteAction(ActionEvent event) {
+    	try {
+			Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+			if(this.roleId != 0) {
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Delete Role Confirmation");
+				alert.setHeaderText("Are you sure you want to delete this item ?");
+				alert.setContentText("Name: ".concat(this.roleName));
+				alert.setX(screenBounds.getWidth() - 900);
+				alert.setY(screenBounds.getHeight() - 610);
+				
+				Optional<ButtonType> options = alert.showAndWait();
+				if(options.get() == ButtonType.OK) {
+					this.roleModel.deleteRoleById(this.roleId);
+					this.parseData(null);
+				}
+				
+			} else {
+				//panel
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setHeaderText("Please select a row");
+				alert.setX(screenBounds.getWidth() - 900);
+				alert.setY(screenBounds.getHeight() - 610);
+				alert.showAndWait();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
     }
 
@@ -166,8 +196,8 @@ public class RolesController implements Initializable {
 				//panel
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setHeaderText("Please select a row");
-				alert.setX(screenBounds.getWidth() - 726);
-				alert.setY(screenBounds.getHeight() - 410);
+				alert.setX(screenBounds.getWidth() - 900);
+				alert.setY(screenBounds.getHeight() - 610);
 				alert.showAndWait();
 			}
 

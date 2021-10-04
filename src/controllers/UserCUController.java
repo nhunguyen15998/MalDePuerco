@@ -9,6 +9,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -17,11 +18,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import models.AuthenticationModel;
 import models.RoleModel;
@@ -144,6 +150,7 @@ public class UserCUController implements Initializable {
 	
 	//btnSave
 	public void btnSaveAction() {
+		Rectangle2D screenBounds = Screen.getPrimary().getBounds();
 		try {
 			String name = tfName.getText();
 			String phone = tfPhone.getText();
@@ -165,18 +172,40 @@ public class UserCUController implements Initializable {
 				users.add(DataMapping.getInstance("status", status));
 
 				if(this.userId == 0) {
+					
 					userModel.createUser(users);
+					success();
 				} else {
-					userModel.updateUserById(this.userId, users);
+					Alert alert = new Alert(AlertType.CONFIRMATION);
+					alert.setTitle("Update Role Confirmation");
+					alert.setHeaderText("Do you want to make this change?");
+					alert.setX(screenBounds.getWidth() - 1000);
+					alert.setY(screenBounds.getHeight() - 810);
+					Optional<ButtonType> option = alert.showAndWait();
+					if (option.get() == ButtonType.OK) {
+						userModel.updateUserById(this.userId, users);
+						success();
+					} 
+					
 				}
 				userController.parseData(null);
 				this.close();
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
+	public void success() {
+		Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Done");
+		alert.setHeaderText("Save success");
+		alert.setX(screenBounds.getWidth() - 900);
+		alert.setY(screenBounds.getHeight() - 610);
+		alert.showAndWait();
+	}
 	
 	//btnCancel
 	public void btnCancelAction() {

@@ -38,7 +38,6 @@ import models.UserModel;
 public class MasterController implements Initializable {
 	private UserModel userModel = new UserModel();
 	private PermissionModel permissionModel = new PermissionModel();
-	private SignInController signInController;
 	
     @FXML
     private Label lblCurrentUser;
@@ -50,8 +49,6 @@ public class MasterController implements Initializable {
     private Button btnClose;
     @FXML
     private Button btnMenu;
-    @FXML
-    private Button btnRoles;
     @FXML
     private Button btnTables;
     @FXML
@@ -84,6 +81,7 @@ public class MasterController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         btnDashBoardAction();
+        
         try {
 		lblCurrentUser.setText(AuthenticationModel.name);
 		lblCurrentUserRole.setText(AuthenticationModel.roleName);
@@ -107,6 +105,64 @@ public class MasterController implements Initializable {
 			permission.setName(permissions.getString("permission_name"));
 			currentPermissions.add(permission);
 		}
+		AuthenticationModel.permissions = currentPermissions;
+		btnRole.setVisible(false);
+		btnRole.setManaged(false);
+//		
+		if( AuthenticationModel.roleName.equals("Super Admin")) {
+			btnRole.setVisible(true);
+			btnRole.setManaged(true);
+		
+		}
+		
+		//user
+		btnUser.setVisible(false);
+		btnUser.setManaged(false);
+		
+		if(AuthenticationModel.hasPermission("VIEW_USERS") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnUser.setVisible(true);
+			btnUser.setManaged(true);
+		}
+		
+		//tables
+		btnTables.setVisible(false);
+		btnTables.setManaged(false);
+		
+		if(AuthenticationModel.hasPermission("VIEW_TABLES") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnTables.setVisible(true);
+			btnTables.setManaged(true);
+		}
+		
+	
+		
+		//reservation
+		btnReservation.setVisible(false);
+		btnReservation.setManaged(false);
+		
+		if(AuthenticationModel.hasPermission("VIEW_RESERVATIONS") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnReservation.setVisible(true);
+			btnReservation.setManaged(true);
+		}
+		
+		//discount
+		btnDiscount.setVisible(false);
+		btnDiscount.setManaged(false);
+		
+		if(AuthenticationModel.hasPermission("VIEW_DISCOUNTS") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnDiscount.setVisible(true);
+			btnDiscount.setManaged(true);
+		}
+		
+	/*
+		//invoice
+		btnInvoices.setVisible(false);
+		btnInvoices.setManaged(false);
+		
+		if(AuthenticationModel.hasPermission("VIEW_INVOICE") || AuthenticationModel.roleName.equals("Admin")) {
+			btnInvoices.setVisible(true);
+			btnInvoices.setManaged(true);
+		}
+		*/
 		
 	
 			
@@ -143,9 +199,16 @@ public class MasterController implements Initializable {
                                   }
     }
  
-
+    
     @FXML
     private void myAccountAction() {
+    	btnMyAccount.setStyle("-fx-background-color:#913344;");
+    	    btnMyAccount.getStyleClass().removeAll("btnBar, hover"); 
+    	    btnMyAccount.getStyleClass().add("btnBar");
+    	    
+
+        	btnRole.setStyle("-fx-background-color:transparent;");
+    
     }
 
     @FXML
@@ -165,6 +228,11 @@ public class MasterController implements Initializable {
     @FXML
     private void roleAction() {
         redirect("roles.fxml");
+        btnMyAccount.setStyle("-fx-background-color:transparent;");
+    	btnRole.setStyle("-fx-background-color:#913344;");
+    	    btnRole.getStyleClass().removeAll("btnBar, hover"); 
+    	    btnRole.getStyleClass().add("btnBar");
+
     }
 
     @FXML

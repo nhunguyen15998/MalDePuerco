@@ -8,12 +8,14 @@ package controllers;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import models.RoleModel;
@@ -21,8 +23,12 @@ import models.UserModel;
 import utils.DataMapping;
 
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import utils.ValidationDataMapping;
 import utils.Validations;
 
@@ -100,7 +106,9 @@ public class RoleCUController implements Initializable {
 	
 	//btnSave
 	public void btnSaveAction() {
+		Rectangle2D screenBounds = Screen.getPrimary().getBounds();
 		try {
+			
 			String code = tfCode.getText();
 			String name = tfName.getText();
 			String status = cbStatus.getValue() != null ? cbStatus.getValue().key : String.valueOf(UserModel.USER_DEACTIVATED);
@@ -113,17 +121,38 @@ public class RoleCUController implements Initializable {
 
 				if(this.roleId == 0) {
 					roleModel.createRole(roles);
+					success();
 				} else {
-					roleModel.updateRoleById(this.roleId, roles);
+					Alert alert = new Alert(AlertType.CONFIRMATION);
+					alert.setTitle("Update Role Confirmation");
+					alert.setHeaderText("Do you want to make this change?");
+					alert.setX(screenBounds.getWidth() - 900);
+					alert.setY(screenBounds.getHeight() - 610);
+					Optional<ButtonType> option = alert.showAndWait();
+					if (option.get() == ButtonType.OK) {
+						roleModel.updateRoleById(this.roleId, roles);
+						success();
+					} 
+					
 				}
 				roleController.parseData(null);
 				this.btnCancelAction();
+				
+				
 			}
-		} catch (Exception e) {
+		} catch (Exception e) { 
 			e.printStackTrace();
 		}
 	}
-	
+	public void success() {
+		Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Done");
+		alert.setHeaderText("Save success");
+		alert.setX(screenBounds.getWidth() - 900);
+		alert.setY(screenBounds.getHeight() - 610);
+		alert.showAndWait();
+	}
 	
   	public void loadDataUpdateById(RolesController roleController) {
 		try {

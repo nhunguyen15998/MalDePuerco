@@ -25,7 +25,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnRoles" layoutX="64.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnRolesAction" prefHeight="52.5" prefWidth="54.0" styleClass="btnBar" stylesheets="@../css/master_layout.css">
+                  <Button fx:id="btnRole" layoutX="64.0" layoutY="10.0" mnemonicParsing="false" onAction="#roleAction" prefHeight="52.5" prefWidth="54.0" styleClass="btnBar" stylesheets="@../css/master_layout.css">
                      <graphic>
                         <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -117,15 +117,6 @@
                         <ImageView disable="true" fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../assets/users.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="btnRole" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#roleAction" prefHeight="44.0" prefWidth="200.0" styleClass="btn" stylesheets="@../css/master_layout.css" text="  ROLES" textAlignment="RIGHT" textFill="WHITE">
-                     <graphic>
-                        <ImageView disable="true" fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../assets/roles.png" />
                            </image>
                         </ImageView>
                      </graphic>

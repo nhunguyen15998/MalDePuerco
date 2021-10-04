@@ -189,11 +189,18 @@ public class UserController  implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
+	public void error() {//not select row
+		Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setHeaderText("Please select a row");
+		alert.setX(screenBounds.getWidth() - 900);
+		alert.setY(screenBounds.getHeight() - 610);
+		alert.showAndWait();
+	}
 	//update
 	public void btnUpdateAction() {
 		try {
-			Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+			
 			if(this.userId != 0) {
 //				if(!UserModel.isShown) {
 //					UserModel.isShown = true;
@@ -201,11 +208,7 @@ public class UserController  implements Initializable {
 			//	}
 			} else {
 				//panel
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setHeaderText("Please select a row");
-				alert.setX(screenBounds.getWidth() - 726);
-				alert.setY(screenBounds.getHeight() - 410);
-				alert.showAndWait();
+				error();
 			}
 
 		} catch (Exception e) {
@@ -223,8 +226,8 @@ public class UserController  implements Initializable {
 				alert.setTitle("Delete User Confirmation");
 				alert.setHeaderText("Are you sure you want to delete this item ?");
 				alert.setContentText("Name: ".concat(this.userName));
-				alert.setX(screenBounds.getWidth() - 726);
-				alert.setY(screenBounds.getHeight() - 410);
+				alert.setX(screenBounds.getWidth() - 900);
+				alert.setY(screenBounds.getHeight() - 610);
 				
 				Optional<ButtonType> options = alert.showAndWait();
 				if(options.get() == ButtonType.OK) {
@@ -233,12 +236,7 @@ public class UserController  implements Initializable {
 				}
 				
 			} else {
-				//panel
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setHeaderText("Please select a row");
-				alert.setX(screenBounds.getWidth() - 726);
-				alert.setY(screenBounds.getHeight() - 410);
-				alert.showAndWait();
+				error();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -301,10 +299,7 @@ public class UserController  implements Initializable {
 		}
 	}
 	
-	//attendance
-	public void btnAttendanceAction() {
-		
-	}
+
 	
 	//get & set
 	public int getUserId() {
