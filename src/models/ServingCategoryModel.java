@@ -8,11 +8,12 @@ import utils.JoinCondition;
 
 public class ServingCategoryModel extends BaseModel {
 	private static String table = "serving_categories";
-	private static String[] columns = {"id, name, parent_id, created_at, status"};
+	private static String[] columns = {"id, name, thumbnail, parent_id, created_at, status"};
 	
 	private int id;
 	private int sequence;
 	private String name;
+	private String thumbnail;
 	private String parent;
 	private String createdAt;
 	private String status;	
@@ -26,11 +27,12 @@ public class ServingCategoryModel extends BaseModel {
 		super(table, columns);
 	}
 	
-	public ServingCategoryModel(int id, int sequence, String name, String parent, String createdAt, String status) {
+	public ServingCategoryModel(int id, int sequence, String name, String thumbnail, String parent, String createdAt, String status) {
 		super(table, columns);
 		this.setId(id);
 		this.setSequence(sequence);
 		this.setName(name);
+		this.setThumbnail(thumbnail);
 		this.setParent(parent);
 		this.setCreatedAt(createdAt);
 		this.setStatus(status);
@@ -123,6 +125,14 @@ public class ServingCategoryModel extends BaseModel {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 
 }

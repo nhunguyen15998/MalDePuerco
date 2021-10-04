@@ -9,13 +9,15 @@ import utils.JoinCondition;
 
 public class ServingModel extends BaseModel {
 	private static String table = "servings";
-	private static String[] columns = {"id, name, category_id, descriptions, price, is_new, is_best_seller, created_at, status"};
+	private static String[] columns = {"id, name, thumbnail, category_id, descriptions, quantity, price, is_new, is_best_seller, created_at, status"};
 	
 	private int id;
 	private int sequence;
 	private String name;
+	private String thumbnail;
 	private String categoryName;
 	private String descriptions;
+	private int quantity;
 	private double price;
 	private int isNew;
 	private int isBestSeller;
@@ -31,14 +33,16 @@ public class ServingModel extends BaseModel {
 		super(table, columns);
 	}
 	
-	public ServingModel(int id, int sequence, String name, String categoryName, String descriptions, double price, 
-						int isNew, int isBestSeller, String createdAt, String status) {
+	public ServingModel(int id, int sequence, String name, String thumbnail, String categoryName, String descriptions, 
+						int quantity, double price, int isNew, int isBestSeller, String createdAt, String status) {
 		super(table, columns);
 		this.setId(id);
 		this.setSequence(sequence);
 		this.setName(name);
+		this.setThumbnail(thumbnail);
 		this.setCategoryName(categoryName);
 		this.setDescriptions(descriptions);
+		this.setQuantity(quantity);
 		this.setPrice(price);
 		this.setIsNew(isNew);
 		this.setIsBestSeller(isBestSeller);
@@ -173,5 +177,21 @@ public class ServingModel extends BaseModel {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}	
 }
