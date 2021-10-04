@@ -5,3 +5,6 @@
 .mainFxmlClass {
 
 }
+.btnRoleCU:hover{
+ -fx-cursor: hand;
+}

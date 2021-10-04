@@ -5,3 +5,6 @@
 .mainFxmlClass {
 
 }
+.btnPermission:hover{
+-fx-cursor:hand;
+}
