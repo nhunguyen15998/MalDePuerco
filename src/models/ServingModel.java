@@ -53,11 +53,14 @@ public class ServingModel extends BaseModel {
 	//get list
 	public ResultSet getServingList(ArrayList<CompareOperator> conditions) {
 		try {
-			String[] selects = {"servings.*, sc.name as category_name"};
-			ArrayList<CompareOperator> joinCondition = new ArrayList<CompareOperator>();
-			joinCondition.add(CompareOperator.getInstance("servings.category_id", "=", "sc.id"));
+			String[] selects = {"servings.*, sc.name as category_name, scs.name as category_parent_name"};
+			ArrayList<CompareOperator> cateCondition = new ArrayList<CompareOperator>();
+			cateCondition.add(CompareOperator.getInstance("servings.category_id", "=", "sc.id"));
+			ArrayList<CompareOperator> cateParentCondition = new ArrayList<CompareOperator>();
+			cateParentCondition.add(CompareOperator.getInstance("scs.id", "=", "sc.parent_id"));
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
-			joins.add(JoinCondition.getInstance("join", "serving_categories sc", joinCondition));
+			joins.add(JoinCondition.getInstance("left join", "serving_categories sc", cateCondition));
+			joins.add(JoinCondition.getInstance("left join", "serving_categories scs", cateParentCondition));
 			return this.getData(selects, conditions, joins);
 		} catch (Exception e) {
 			e.printStackTrace();

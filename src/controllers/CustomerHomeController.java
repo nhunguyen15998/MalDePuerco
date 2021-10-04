@@ -4,6 +4,9 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,6 +36,15 @@ import utils.CompareOperator;
 public class CustomerHomeController implements Initializable {
 	private ServingCategoryModel servingCategoryModel = new ServingCategoryModel();
 	private ServingModel servingModel = new ServingModel();
+	public static boolean isActive = false;
+	
+
+	//main category
+	public static final String APPETIZERS = "Appetizers";
+	public static final String SIDE_ORDERS = "Side orders";
+	public static final String A_LA_CARTE = "A La Carte";
+	public static final String DESSERTS = "Desserts";
+	public static final String BEVERAGES = "Beverages";
 	
 	//sidebar btn
 	@FXML
@@ -85,7 +97,6 @@ public class CustomerHomeController implements Initializable {
 	@FXML
 	private GridPane servingGridPane;
 	
-	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
@@ -97,7 +108,6 @@ public class CustomerHomeController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
 	
 	//draw hbox
 	public void hboxLayout(Pane categoryPane, Pane hBoxChild, ImageView categoryImage, Text categoryName) {
@@ -134,6 +144,8 @@ public class CustomerHomeController implements Initializable {
 	//draw gridpane
 	public void gridPaneLayout(Pane servingPane, ImageView servingImage, Text servingName, Label servingPrice, Text servingStock) {
 		try {
+			servingGridPane.getStylesheets().add(getClass().getResource("/css/gridpane.css").toExternalForm());
+			
 			//servingpane
 			servingPane.setPrefWidth(130);
 			servingPane.setPrefHeight(150);
@@ -177,6 +189,7 @@ public class CustomerHomeController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
 	//sidebar btn
 	//btnall
 	public void btnAllAction() {
@@ -228,12 +241,15 @@ public class CustomerHomeController implements Initializable {
 				//add
 				servingPane.getChildren().addAll(servingImage, servingName, servingPrice, servingStock);
 				this.servingGridPane.add(servingPane, x, y);//0,0 1,0 2,0 3,0
-															//1,0 1,1 2,1 3,1
-															//2,0 1,2 2,2 3,2
+															//0,1 1,0 1,1 2,1 
+															//0,2 2,0 1,2 2,2 
 				count++;
 				x++;
-				if(count%5 == 0) {
+				if(count % 4 == 0) {
 					y++;
+					if(x > 1) {
+						x = 0;
+					}
 				}
 
 				
@@ -244,9 +260,76 @@ public class CustomerHomeController implements Initializable {
 	}
 
 	//btnappetizer
+	//select serving_categories.name, sc.name as parent_name from serving_categories left join serving_categories sc 
+	//on serving_categories.parent_id = sc.id where serving_categories.parent_id = 3
+	//select servings.name, serving_categories.name, sc.name as parent_name 
+	//from servings
+	//left join serving_categories on serving_categories.id = servings.category_id
+	//left join serving_categories sc on serving_categories.parent_id = sc.id 
+	//where serving_categories.parent_id = 2 
 	public void btnAppetizerAction() {
+		this.categoryHBox.getChildren().clear();
+		this.servingGridPane.getChildren().clear();
 		try {
+			//category
+			ArrayList<CompareOperator> subCategoryCondition = new ArrayList<CompareOperator>();
+			subCategoryCondition.add(CompareOperator.getInstance("sc.name", "=", CustomerHomeController.APPETIZERS));
+			ResultSet subCategories = this.servingCategoryModel.getServingCategoryList(subCategoryCondition);
+			while(subCategories.next()) {
+				//hbox
+				Pane categoryPane = new Pane();
+				Pane hBoxChild = new Pane();
+				ImageView categoryImage = new ImageView();
+				Text categoryName = new Text();
+				this.hboxLayout(categoryPane, hBoxChild, categoryImage, categoryName);
+				//set
+				categoryName.setText(subCategories.getString("name"));
+				Image image = new Image(subCategories.getString("thumbnail"));
+				categoryImage.setImage(image);
+				System.out.println(categoryName);
+				//add
+				categoryPane.getChildren().addAll(categoryName, categoryImage);
+				hBoxChild.getChildren().addAll(categoryPane);
+				this.categoryHBox.getChildren().addAll(hBoxChild);		
+			}
 			
+			//serving
+			ArrayList<CompareOperator> servingCondition = new ArrayList<CompareOperator>();
+			servingCondition.add(CompareOperator.getInstance("scs.name", "=", CustomerHomeController.APPETIZERS));
+			ResultSet servings = this.servingModel.getServingList(servingCondition);
+			int x = 0;
+			int y = 0;
+			int count = 0;
+			while(servings.next()) {
+				//grid
+				Pane servingPane = new Pane();
+				ImageView servingImage = new ImageView();
+				Text servingName = new Text();
+				Label servingPrice = new Label();
+				Text servingStock = new Text();
+				this.gridPaneLayout(servingPane, servingImage, servingName, servingPrice, servingStock);
+				//set
+				servingName.setText(servings.getString("name"));
+				Image image = new Image(servings.getString("thumbnail"));
+				servingImage.setImage(image);
+				servingPrice.setText("$"+servings.getString("price"));
+				servingStock.setText(servings.getString("quantity")+" bowls in stock");
+				System.out.println(servingName);
+				//add
+				servingPane.getChildren().addAll(servingImage, servingName, servingPrice, servingStock);
+				this.servingGridPane.add(servingPane, x, y);//0,0 1,0 2,0 3,0
+															//0,1 1,0 1,1 2,1 
+															//0,2 2,0 1,2 2,2 
+				count++;
+				x++;
+				if(count % 4 == 0) {
+					y++;
+					if(x > 1) {
+						x = 0;
+					}
+				}
+	
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -254,8 +337,68 @@ public class CustomerHomeController implements Initializable {
 
 	//btnsideorder
 	public void btnSideOrderAction() {
+		this.categoryHBox.getChildren().clear();
+		this.servingGridPane.getChildren().clear();
 		try {
+			//category
+			ArrayList<CompareOperator> subCategoryCondition = new ArrayList<CompareOperator>();
+			subCategoryCondition.add(CompareOperator.getInstance("sc.name", "=", CustomerHomeController.SIDE_ORDERS));
+			ResultSet subCategories = this.servingCategoryModel.getServingCategoryList(subCategoryCondition);
+			while(subCategories.next()) {
+				//hbox
+				Pane categoryPane = new Pane();
+				Pane hBoxChild = new Pane();
+				ImageView categoryImage = new ImageView();
+				Text categoryName = new Text();
+				this.hboxLayout(categoryPane, hBoxChild, categoryImage, categoryName);
+				//set
+				categoryName.setText(subCategories.getString("name"));
+				Image image = new Image(subCategories.getString("thumbnail"));
+				categoryImage.setImage(image);
+				System.out.println(categoryName);
+				//add
+				categoryPane.getChildren().addAll(categoryName, categoryImage);
+				hBoxChild.getChildren().addAll(categoryPane);
+				this.categoryHBox.getChildren().addAll(hBoxChild);		
+			}
 			
+			//serving
+			ArrayList<CompareOperator> servingCondition = new ArrayList<CompareOperator>();
+			servingCondition.add(CompareOperator.getInstance("scs.name", "=", CustomerHomeController.SIDE_ORDERS));
+			ResultSet servings = this.servingModel.getServingList(servingCondition);
+			int x = 0;
+			int y = 0;
+			int count = 0;
+			while(servings.next()) {
+				//grid
+				Pane servingPane = new Pane();
+				ImageView servingImage = new ImageView();
+				Text servingName = new Text();
+				Label servingPrice = new Label();
+				Text servingStock = new Text();
+				this.gridPaneLayout(servingPane, servingImage, servingName, servingPrice, servingStock);
+				//set
+				servingName.setText(servings.getString("name"));
+				Image image = new Image(servings.getString("thumbnail"));
+				servingImage.setImage(image);
+				servingPrice.setText("$"+servings.getString("price"));
+				servingStock.setText(servings.getString("quantity")+" bowls in stock");
+				System.out.println(servingName);
+				//add
+				servingPane.getChildren().addAll(servingImage, servingName, servingPrice, servingStock);
+				this.servingGridPane.add(servingPane, x, y);//0,0 1,0 2,0 3,0
+															//0,1 1,0 1,1 2,1 
+															//0,2 2,0 1,2 2,2 
+				count++;
+				x++;
+				if(count % 4 == 0) {
+					y++;
+					if(x > 1) {
+						x = 0;
+					}
+				}
+	
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -263,8 +406,68 @@ public class CustomerHomeController implements Initializable {
 	
 	//btnalacarte
 	public void btnALaCarteAction() {
+		this.categoryHBox.getChildren().clear();
+		this.servingGridPane.getChildren().clear();
 		try {
+			//category
+			ArrayList<CompareOperator> subCategoryCondition = new ArrayList<CompareOperator>();
+			subCategoryCondition.add(CompareOperator.getInstance("sc.name", "=", CustomerHomeController.A_LA_CARTE));
+			ResultSet subCategories = this.servingCategoryModel.getServingCategoryList(subCategoryCondition);
+			while(subCategories.next()) {
+				//hbox
+				Pane categoryPane = new Pane();
+				Pane hBoxChild = new Pane();
+				ImageView categoryImage = new ImageView();
+				Text categoryName = new Text();
+				this.hboxLayout(categoryPane, hBoxChild, categoryImage, categoryName);
+				//set
+				categoryName.setText(subCategories.getString("name"));
+				Image image = new Image(subCategories.getString("thumbnail"));
+				categoryImage.setImage(image);
+				System.out.println(categoryName);
+				//add
+				categoryPane.getChildren().addAll(categoryName, categoryImage);
+				hBoxChild.getChildren().addAll(categoryPane);
+				this.categoryHBox.getChildren().addAll(hBoxChild);		
+			}
 			
+			//serving
+			ArrayList<CompareOperator> servingCondition = new ArrayList<CompareOperator>();
+			servingCondition.add(CompareOperator.getInstance("scs.name", "=", CustomerHomeController.A_LA_CARTE));
+			ResultSet servings = this.servingModel.getServingList(servingCondition);
+			int x = 0;
+			int y = 0;
+			int count = 0;
+			while(servings.next()) {
+				//grid
+				Pane servingPane = new Pane();
+				ImageView servingImage = new ImageView();
+				Text servingName = new Text();
+				Label servingPrice = new Label();
+				Text servingStock = new Text();
+				this.gridPaneLayout(servingPane, servingImage, servingName, servingPrice, servingStock);
+				//set
+				servingName.setText(servings.getString("name"));
+				Image image = new Image(servings.getString("thumbnail"));
+				servingImage.setImage(image);
+				servingPrice.setText("$"+servings.getString("price"));
+				servingStock.setText(servings.getString("quantity")+" bowls in stock");
+				System.out.println(servingName);
+				//add
+				servingPane.getChildren().addAll(servingImage, servingName, servingPrice, servingStock);
+				this.servingGridPane.add(servingPane, x, y);//0,0 1,0 2,0 3,0
+															//0,1 1,0 1,1 2,1 
+															//0,2 2,0 1,2 2,2 
+				count++;
+				x++;
+				if(count % 4 == 0) {
+					y++;
+					if(x > 1) {
+						x = 0;
+					}
+				}
+	
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -272,8 +475,68 @@ public class CustomerHomeController implements Initializable {
 	
 	//btndessert
 	public void btnDessertAction() {
+		this.categoryHBox.getChildren().clear();
+		this.servingGridPane.getChildren().clear();
 		try {
+			//category
+			ArrayList<CompareOperator> subCategoryCondition = new ArrayList<CompareOperator>();
+			subCategoryCondition.add(CompareOperator.getInstance("sc.name", "=", CustomerHomeController.DESSERTS));
+			ResultSet subCategories = this.servingCategoryModel.getServingCategoryList(subCategoryCondition);
+			while(subCategories.next()) {
+				//hbox
+				Pane categoryPane = new Pane();
+				Pane hBoxChild = new Pane();
+				ImageView categoryImage = new ImageView();
+				Text categoryName = new Text();
+				this.hboxLayout(categoryPane, hBoxChild, categoryImage, categoryName);
+				//set
+				categoryName.setText(subCategories.getString("name"));
+				Image image = new Image(subCategories.getString("thumbnail"));
+				categoryImage.setImage(image);
+				System.out.println(categoryName);
+				//add
+				categoryPane.getChildren().addAll(categoryName, categoryImage);
+				hBoxChild.getChildren().addAll(categoryPane);
+				this.categoryHBox.getChildren().addAll(hBoxChild);		
+			}
 			
+			//serving
+			ArrayList<CompareOperator> servingCondition = new ArrayList<CompareOperator>();
+			servingCondition.add(CompareOperator.getInstance("scs.name", "=", CustomerHomeController.DESSERTS));
+			ResultSet servings = this.servingModel.getServingList(servingCondition);
+			int x = 0;
+			int y = 0;
+			int count = 0;
+			while(servings.next()) {
+				//grid
+				Pane servingPane = new Pane();
+				ImageView servingImage = new ImageView();
+				Text servingName = new Text();
+				Label servingPrice = new Label();
+				Text servingStock = new Text();
+				this.gridPaneLayout(servingPane, servingImage, servingName, servingPrice, servingStock);
+				//set
+				servingName.setText(servings.getString("name"));
+				Image image = new Image(servings.getString("thumbnail"));
+				servingImage.setImage(image);
+				servingPrice.setText("$"+servings.getString("price"));
+				servingStock.setText(servings.getString("quantity")+" bowls in stock");
+				System.out.println(servingName);
+				//add
+				servingPane.getChildren().addAll(servingImage, servingName, servingPrice, servingStock);
+				this.servingGridPane.add(servingPane, x, y);//0,0 1,0 2,0 3,0
+															//0,1 1,0 1,1 2,1 
+															//0,2 2,0 1,2 2,2 
+				count++;
+				x++;
+				if(count % 4 == 0) {
+					y++;
+					if(x > 1) {
+						x = 0;
+					}
+				}
+	
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -281,8 +544,68 @@ public class CustomerHomeController implements Initializable {
 	
 	//btnbeverage
 	public void btnBeverageAction() {
+		this.categoryHBox.getChildren().clear();
+		this.servingGridPane.getChildren().clear();
 		try {
+			//category
+			ArrayList<CompareOperator> subCategoryCondition = new ArrayList<CompareOperator>();
+			subCategoryCondition.add(CompareOperator.getInstance("sc.name", "=", CustomerHomeController.BEVERAGES));
+			ResultSet subCategories = this.servingCategoryModel.getServingCategoryList(subCategoryCondition);
+			while(subCategories.next()) {
+				//hbox
+				Pane categoryPane = new Pane();
+				Pane hBoxChild = new Pane();
+				ImageView categoryImage = new ImageView();
+				Text categoryName = new Text();
+				this.hboxLayout(categoryPane, hBoxChild, categoryImage, categoryName);
+				//set
+				categoryName.setText(subCategories.getString("name"));
+				Image image = new Image(subCategories.getString("thumbnail"));
+				categoryImage.setImage(image);
+				System.out.println(categoryName);
+				//add
+				categoryPane.getChildren().addAll(categoryName, categoryImage);
+				hBoxChild.getChildren().addAll(categoryPane);
+				this.categoryHBox.getChildren().addAll(hBoxChild);		
+			}
 			
+			//serving
+			ArrayList<CompareOperator> servingCondition = new ArrayList<CompareOperator>();
+			servingCondition.add(CompareOperator.getInstance("scs.name", "=", CustomerHomeController.BEVERAGES));
+			ResultSet servings = this.servingModel.getServingList(servingCondition);
+			int x = 0;
+			int y = 0;
+			int count = 0;
+			while(servings.next()) {
+				//grid
+				Pane servingPane = new Pane();
+				ImageView servingImage = new ImageView();
+				Text servingName = new Text();
+				Label servingPrice = new Label();
+				Text servingStock = new Text();
+				this.gridPaneLayout(servingPane, servingImage, servingName, servingPrice, servingStock);
+				//set
+				servingName.setText(servings.getString("name"));
+				Image image = new Image(servings.getString("thumbnail"));
+				servingImage.setImage(image);
+				servingPrice.setText("$"+servings.getString("price"));
+				servingStock.setText(servings.getString("quantity")+" bowls in stock");
+				System.out.println(servingName);
+				//add
+				servingPane.getChildren().addAll(servingImage, servingName, servingPrice, servingStock);
+				this.servingGridPane.add(servingPane, x, y);//0,0 1,0 2,0 3,0
+															//0,1 1,0 1,1 2,1 
+															//0,2 2,0 1,2 2,2 
+				count++;
+				x++;
+				if(count % 4 == 0) {
+					y++;
+					if(x > 1) {
+						x = 0;
+					}
+				}
+	
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
