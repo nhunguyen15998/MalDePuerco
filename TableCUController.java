@@ -14,7 +14,7 @@ import javafx.fxml.Initializable;
  *
  * @author LENOVO
  */
-public class ServingCategoriesController implements Initializable {
+public class TableCUController implements Initializable {
 
     /**
      * Initializes the controller class.

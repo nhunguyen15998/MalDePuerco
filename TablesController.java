@@ -10,53 +10,36 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.KeyEvent;
 
 /**
  * FXML Controller class
  *
  * @author LENOVO
  */
-public class DiscountController implements Initializable {
+public class TablesController implements Initializable {
 
     @FXML
-    private ImageView btnCancel;
-    @FXML
-    private TableView<?> tblDiscount;
+    private TableView<?> tblTables;
     @FXML
     private TableColumn<?, ?> colNo;
+    @FXML
+    private TableColumn<?, ?> colID;
     @FXML
     private TableColumn<?, ?> colCode;
     @FXML
     private TableColumn<?, ?> colName;
     @FXML
-    private TableColumn<?, ?> colDescrip;
+    private TableColumn<?, ?> colSeats;
     @FXML
-    private TableColumn<?, ?> colStartDate;
-    @FXML
-    private TableColumn<?, ?> colPeriod;
-    @FXML
-    private TableColumn<?, ?> colCreatedAt;
+    private TableColumn<?, ?> colCreated;
     @FXML
     private TableColumn<?, ?> colStatus;
     @FXML
-    private TextField tfName;
-    @FXML
-    private TextField tfCode;
-    @FXML
-    private TextField tfDescript;
-    @FXML
-    private DatePicker dpStart;
-    @FXML
-    private TextField tfPeriod;
-    @FXML
-    private ComboBox<?> cbStatus;
+    private TextField tfRole;
 
     /**
      * Initializes the controller class.
@@ -67,15 +50,23 @@ public class DiscountController implements Initializable {
     }    
 
     @FXML
-    private void btnCancelAction(MouseEvent event) {
+    private void btnCreateAction(ActionEvent event) {
     }
 
     @FXML
-    private void btnSaveAction(ActionEvent event) {
+    private void btnDeleteAction(ActionEvent event) {
     }
 
     @FXML
     private void btnUpdateAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnClearAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void onSearch(KeyEvent event) {
     }
     
 }
