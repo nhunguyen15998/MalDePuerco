@@ -29,65 +29,45 @@
             <Image url="@../assets/table.png" />
          </image>
       </ImageView>
-      <Pane layoutX="38.0" layoutY="67.0" prefHeight="448.0" prefWidth="760.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.8),30, 0,10, 10);">
+      <Pane layoutX="257.0" layoutY="67.0" prefHeight="448.0" prefWidth="566.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.8),30, 0,10, 10);">
          <children>
-            <TableView fx:id="tblTables" focusTraversable="false" layoutX="12.0" layoutY="59.0" prefHeight="362.0" prefWidth="736.0" stylesheets="@../css/tables.css">
+            <TableView fx:id="tblTables" focusTraversable="false" layoutX="14.0" layoutY="67.0" prefHeight="328.0" prefWidth="541.0" stylesheets="@../css/tables.css">
               <columns>
-                <TableColumn fx:id="colNo" prefWidth="60.0" text="#" />
+                <TableColumn fx:id="colNo" prefWidth="30.0" text="#" />
                 <TableColumn fx:id="colID" prefWidth="75.0" text="ID" visible="false" />
-                  <TableColumn fx:id="colCode" prefWidth="136.80006408691406" text="Code" />
-                  <TableColumn fx:id="colName" prefWidth="167.2000274658203" text="Name" />
-                  <TableColumn fx:id="colSeats" prefWidth="136.79998779296875" text="Seats" />
-                  <TableColumn fx:id="colCreated" prefWidth="135.199951171875" text="Created at" />
-                  <TableColumn fx:id="colStatus" prefWidth="99.39996337890625" text="Status" />
+                  <TableColumn fx:id="colCode" prefWidth="117.60003662109375" text="Code" />
+                  <TableColumn fx:id="colName" prefWidth="123.20004272460938" text="Name" />
+                  <TableColumn fx:id="colSeats" prefWidth="36.0" text="Seats" />
+                  <TableColumn fx:id="colCreated" prefWidth="107.99993896484375" text="Created at" />
+                  <TableColumn fx:id="colSet" prefWidth="46.4000244140625" text="Is Set" />
+                  <TableColumn fx:id="colStatus" prefWidth="77.0" text="Status" />
               </columns>
             </TableView>
-            <Button alignment="CENTER" layoutX="540.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnCreateAction" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #2B79D3; -fx-border-radius: 50px; -fx-background-radius: 50px;" text="Create" textFill="WHITE">
+            <Button alignment="CENTER_RIGHT" layoutX="315.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnCreateAction" prefHeight="30.0" prefWidth="68.0" style="-fx-background-color: #2B79D3; -fx-border-radius: 50px; -fx-background-radius: 50px;" text="Create" textFill="WHITE">
                <effect>
                   <DropShadow color="#2b79d37d" />
                </effect>
                <font>
                   <Font size="12.0" />
                </font>
-               <graphic>
-                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
-                     <image>
-                        <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/add.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
             </Button>
-            <Button alignment="CENTER" layoutX="646.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #FB6E67; -fx-border-radius: 50px; -fx-background-radius: 50px;" text="Delete" textFill="WHITE">
+            <Button alignment="CENTER_RIGHT" layoutX="390.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="30.0" prefWidth="66.0" style="-fx-background-color: #FB6E67; -fx-border-radius: 50px; -fx-background-radius: 50px;" text="Delete" textFill="WHITE">
                <effect>
                   <DropShadow color="#fb6e677d" />
                </effect>
                <font>
                   <Font size="12.0" />
                </font>
-               <graphic>
-                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
-                     <image>
-                        <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/delete.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
             </Button>
-            <Button alignment="CENTER" layoutX="432.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #62A38D; -fx-border-radius: 50px; -fx-background-radius: 50px;" text="Update" textFill="WHITE">
+            <Button alignment="CENTER_RIGHT" layoutX="240.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="30.0" prefWidth="68.0" style="-fx-background-color: #62A38D; -fx-border-radius: 50px; -fx-background-radius: 50px;" text="Update" textFill="WHITE">
                <effect>
                   <DropShadow color="#62a38d7d" />
                </effect>
                <font>
                   <Font size="12.0" />
                </font>
-               <graphic>
-                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
-                     <image>
-                        <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/edit.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
             </Button>
-            <Button layoutX="300.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnClearAction" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #9C5978; -fx-background-radius: 50px;" textFill="WHITE">
+            <Button layoutX="177.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnClearAction" prefHeight="30.0" prefWidth="31.0" style="-fx-background-color: #9C5978; -fx-background-radius: 50px;" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -96,8 +76,37 @@
                   </ImageView>
                </graphic>
             </Button>
-            <TextField fx:id="tfRole" layoutX="14.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#onSearch" prefHeight="30.0" prefWidth="277.0" promptText="Find a role" style="-fx-background-radius: 50px;" />
+            <TextField fx:id="tfRole" layoutX="14.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#onSearch" prefHeight="30.0" prefWidth="155.0" promptText="Find by code, name, seats" style="-fx-background-radius: 50px;" />
+            <Button fx:id="btnOrder" alignment="CENTER_RIGHT" layoutX="463.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnMakeOrder" prefHeight="30.0" prefWidth="92.0" style="-fx-background-color: #9758b0; -fx-border-radius: 50px; -fx-background-radius: 50px;" text="Make order" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#fb6e677d" />
+               </effect>
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="245.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/edit.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="322.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/add.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="396.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/delete.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="468.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/order.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
+      <Pane fx:id="paneSchedule" layoutX="14.0" layoutY="67.0" prefHeight="448.0" prefWidth="233.0" style="-fx-background-color: white;" />
    </children>
 </AnchorPane>
