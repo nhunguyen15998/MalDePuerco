@@ -29,3 +29,8 @@
   -fx-padding: 0;
   -fx-shape: null;
 }
+.btnTables:hover {
+	
+	-fx-cursor:hand;
+
+}

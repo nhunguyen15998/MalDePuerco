@@ -5,6 +5,7 @@
 .mainFxmlClass {
 
 }
-.btnCUTable:hover{
--fx-cursor: hand;
+
+.btnSetting:hover{
+ -fx-cursor:hand;
 }
