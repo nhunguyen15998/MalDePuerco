@@ -14,8 +14,17 @@
    <children>
       <Pane layoutX="200.0" layoutY="-2.0" prefHeight="54.0" prefWidth="838.0" style="-fx-background-color: #4f272e;">
          <children>
-            <HBox layoutX="630.0" layoutY="1.0" prefHeight="53.0" prefWidth="208.0">
+            <HBox layoutX="582.0" layoutY="1.0" prefHeight="53.0" prefWidth="256.0">
                <children>
+                  <Button fx:id="btnSetting" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#settingAction" prefHeight="52.5" prefWidth="54.0" styleClass="btnBar" stylesheets="@../css/master_layout.css">
+                     <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/settings.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                   <Button fx:id="btnMyAccount" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#myAccountAction" prefHeight="52.5" prefWidth="54.0" styleClass="btnBar" stylesheets="@../css/master_layout.css">
                      <graphic>
                         <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
