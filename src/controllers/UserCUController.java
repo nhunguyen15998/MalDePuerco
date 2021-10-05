@@ -86,7 +86,7 @@ public class UserCUController implements Initializable {
 	private RoleModel roleModel = new RoleModel();
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		this.getRoleList();
+		this.getUserList();
 		
 		
 		
@@ -221,7 +221,7 @@ public class UserCUController implements Initializable {
 	
 	
 	//load user type
-	public ResultSet getRoleList() {
+	public ResultSet getUserList() {
 		try {
 			ArrayList<DataMapping> userTypeOptions = new ArrayList<DataMapping>();
 			ResultSet userTypes = roleModel.getRoleList(null);

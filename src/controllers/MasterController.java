@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,6 +25,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import models.AuthenticationModel;
@@ -73,6 +75,11 @@ public class MasterController implements Initializable {
     private Button btnUser;
     @FXML
     private Button btnOrder;
+
+	@FXML
+	private AnchorPane settingHolder;
+    @FXML
+    private Button btnSetting;
 
     /**
      * Initializes the controller class.
@@ -260,6 +267,29 @@ public class MasterController implements Initializable {
     @FXML
     private void discountAction() {
          redirect("discount.fxml");
+    }
+    @FXML
+    private void settingAction() {
+    	try {
+			//draw
+			Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/setting.fxml"));
+			settingHolder = root.load();
+			
+			//controller
+			SettingController controller = root.<SettingController>getController();
+			
+			Scene scene = new Scene(settingHolder, 546, 512);
+			Stage createStage = new Stage();
+			createStage.setX(screenBounds.getWidth() - 1000);
+			createStage.setY(screenBounds.getHeight() - 750);
+			createStage.initStyle(StageStyle.UNDECORATED);
+			createStage.setScene(scene);
+			createStage.show();			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     }
 
     @FXML
