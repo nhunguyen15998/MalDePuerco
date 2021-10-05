@@ -1,8 +1,12 @@
 package utils;
 
-import java.security.SecureRandom;
 import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
+
+import javafx.geometry.Rectangle2D;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Screen;
 
 public class Helpers {
 	
@@ -35,14 +39,14 @@ public class Helpers {
 	}
 	
 	//
-	public static String randomString(int len){
+	/*public static String randomString(int len){
 		String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 		SecureRandom rnd = new SecureRandom();
 	    StringBuilder sb = new StringBuilder(len);
 	    for(int i = 0; i < len; i++)
 	       sb.append(AB.charAt(rnd.nextInt(AB.length())));
 	    return sb.toString();
-	}
+	}*/
 	
 	  public static String randomCode(String ob){
 	        int max = 10000000;
@@ -55,7 +59,24 @@ public class Helpers {
 	        return code;
 	  }
 	
-	
+	  public static void  status(String type) {
+			Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+			if(type.equals("success")) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Done");
+			alert.setHeaderText("Save success");
+			alert.setX(screenBounds.getWidth() - 900);
+			alert.setY(screenBounds.getHeight() - 610);
+			alert.showAndWait();
+			}
+			if(type.equals("error")) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setHeaderText("Please select a row");
+				alert.setX(screenBounds.getWidth() - 900);
+				alert.setY(screenBounds.getHeight() - 610);
+				alert.showAndWait();
+			}
+		}
 	
 	
 }
