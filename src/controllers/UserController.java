@@ -189,14 +189,6 @@ public class UserController  implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	public void error() {//not select row
-		Rectangle2D screenBounds = Screen.getPrimary().getBounds();
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setHeaderText("Please select a row");
-		alert.setX(screenBounds.getWidth() - 900);
-		alert.setY(screenBounds.getHeight() - 610);
-		alert.showAndWait();
-	}
 	//update
 	public void btnUpdateAction() {
 		try {
@@ -208,7 +200,7 @@ public class UserController  implements Initializable {
 			//	}
 			} else {
 				//panel
-				error();
+				Helpers.status("error");
 			}
 
 		} catch (Exception e) {
@@ -236,7 +228,7 @@ public class UserController  implements Initializable {
 				}
 				
 			} else {
-				error();
+				Helpers.status("error");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

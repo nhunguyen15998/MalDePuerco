@@ -231,7 +231,7 @@ public class MySQLJDBC {
 		}
     }
 	
-	 public static MySQLJDBC Instance() {
+ public static MySQLJDBC Instance() {
 	if(db==null) {
 		db=new MySQLJDBC();
 	}

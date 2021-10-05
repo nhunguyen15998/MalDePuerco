@@ -174,7 +174,7 @@ public class UserCUController implements Initializable {
 				if(this.userId == 0) {
 					
 					userModel.createUser(users);
-					success();
+					Helpers.status("success");
 				} else {
 					Alert alert = new Alert(AlertType.CONFIRMATION);
 					alert.setTitle("Update Role Confirmation");
@@ -184,7 +184,7 @@ public class UserCUController implements Initializable {
 					Optional<ButtonType> option = alert.showAndWait();
 					if (option.get() == ButtonType.OK) {
 						userModel.updateUserById(this.userId, users);
-						success();
+						Helpers.status("success");
 					} 
 					
 				}
@@ -197,15 +197,7 @@ public class UserCUController implements Initializable {
 		}
 	}
 	
-	public void success() {
-		Rectangle2D screenBounds = Screen.getPrimary().getBounds();
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Done");
-		alert.setHeaderText("Save success");
-		alert.setX(screenBounds.getWidth() - 900);
-		alert.setY(screenBounds.getHeight() - 610);
-		alert.showAndWait();
-	}
+	
 	
 	//btnCancel
 	public void btnCancelAction() {

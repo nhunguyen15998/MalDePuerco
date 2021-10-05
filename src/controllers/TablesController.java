@@ -10,10 +10,12 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 
 /**
  * FXML Controller class
@@ -21,26 +23,41 @@ import javafx.scene.input.KeyEvent;
  * @author LENOVO
  */
 public class TablesController implements Initializable {
-
     @FXML
     private TableView<?> tblTables;
+
     @FXML
     private TableColumn<?, ?> colNo;
+
     @FXML
     private TableColumn<?, ?> colID;
+
     @FXML
     private TableColumn<?, ?> colCode;
+
     @FXML
     private TableColumn<?, ?> colName;
+
     @FXML
     private TableColumn<?, ?> colSeats;
+
     @FXML
     private TableColumn<?, ?> colCreated;
+
+    @FXML
+    private TableColumn<?, ?> colSet;
+
     @FXML
     private TableColumn<?, ?> colStatus;
+
     @FXML
     private TextField tfRole;
 
+    @FXML
+    private Button btnOrder;
+
+    @FXML
+    private Pane paneSchedule;
     /**
      * Initializes the controller class.
      */
@@ -48,25 +65,35 @@ public class TablesController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-
     @FXML
-    private void btnCreateAction(ActionEvent event) {
+    void btnClearAction(ActionEvent event) {
+
     }
 
     @FXML
-    private void btnDeleteAction(ActionEvent event) {
+    void btnCreateAction(ActionEvent event) {
+
     }
 
     @FXML
-    private void btnUpdateAction(ActionEvent event) {
+    void btnDeleteAction(ActionEvent event) {
+
     }
 
     @FXML
-    private void btnClearAction(ActionEvent event) {
+    void btnMakeOrder(ActionEvent event) {
+
     }
 
     @FXML
-    private void onSearch(KeyEvent event) {
+    void btnUpdateAction(ActionEvent event) {
+
     }
-    
+
+    @FXML
+    void onSearch(KeyEvent event) {
+
+    }
+  
+
 }
