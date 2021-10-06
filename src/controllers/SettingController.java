@@ -123,8 +123,9 @@ public class SettingController implements Initializable {
 			 ArrayList<DataMapping> code = new ArrayList<DataMapping>();
 				code.add(DataMapping.getInstance("is_set", "1"));
 						tableModel.updateTableById(SettingController.tableId, code);
-						Helpers.status("success");
 						updateData();
+						Helpers.status("success");
+						
 		} 
 		
 		
@@ -151,36 +152,25 @@ public class SettingController implements Initializable {
 	}
 	private void isSet() {
 		lblStatus.setText("You HAVE set \n the number for this tablet");
-	
-		Path imageFile = Paths.get("@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/tablet_yes.png");
-		btnClear.setDisable(false);
+		Image im = new Image("/assets/tablet_yes.png");  
+        imgStatus.setImage(im);
+	    btnClear.setDisable(false);
 		btnSave.setDisable(true);
 		cbbCode.setDisable(true);
 		lblWarn.setText("You must clear to be re-selected number of this tablet");
-		try {
-			imgStatus.setImage(new Image(imageFile.toUri().toURL().toExternalForm()));
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 	private void notSet() {
 		lblStatus.setText("You HAVE NOT set \n the number for this tablet");
-		Path imageFile = Paths.get("@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/tablet_no.png");
+		Image im = new Image("/assets/tablet_no.png");  
+        imgStatus.setImage(im);
 		btnClear.setDisable(true);
 		btnSave.setDisable(false);
 		lblWarn.setText("");
 		cbbCode.setDisable(false);
 		lblTableInfo.setText("");
-		try {
-			cbbCode.setValue("");
-			imgStatus.setImage(new Image(imageFile.toUri().toURL().toExternalForm()));
-			getTableInfo();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		
-		}
+		cbbCode.setValue("");
+		getTableInfo();
 	}
 	
 }
