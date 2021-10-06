@@ -34,7 +34,9 @@ import utils.Helpers;
 
 public class SettingController implements Initializable {
 	TableModel tableModel= new TableModel();
-	private int tableId;
+	public  static String tablet_code;
+	public static int tableId;
+	
 	@FXML
 	private Label lblRole;
 	@FXML
@@ -101,12 +103,12 @@ public class SettingController implements Initializable {
 		}
 	@FXML
 	public void btnClearAction(ActionEvent event) {
-		TableModel.tablet_code="";
-		preference.put("tabletCode", TableModel.tablet_code);
-		System.out.println("new:"+TableModel.tablet_code);
+		SettingController.tablet_code="";
+		preference.put("tabletCode", SettingController.tablet_code);
+		System.out.println("new:"+SettingController.tablet_code);
 		ArrayList<DataMapping> code = new ArrayList<DataMapping>();
 		code.add(DataMapping.getInstance("is_set", "0"));
-		tableModel.updateTableById(this.tableId, code);
+		tableModel.updateTableById(SettingController.tableId, code);
 		notSet();
 		this.getTableCodeList();
 		Helpers.status("success");
@@ -115,12 +117,12 @@ public class SettingController implements Initializable {
 	@FXML
 	public void btnSaveAction(ActionEvent event) {
 		if(cbbCode.getValue()!=null) {
-			TableModel.tablet_code=(preference.get("cbb", cbbCode.getValue().toString()));
-			preference.put("tabletCode", TableModel.tablet_code);
-			 System.out.println("new:"+TableModel.tablet_code);
+			SettingController.tablet_code=(preference.get("cbb", cbbCode.getValue().toString()));
+			preference.put("tabletCode", SettingController.tablet_code);
+			 System.out.println("new:"+SettingController.tablet_code);
 			 ArrayList<DataMapping> code = new ArrayList<DataMapping>();
 				code.add(DataMapping.getInstance("is_set", "1"));
-						tableModel.updateTableById(this.tableId, code);
+						tableModel.updateTableById(SettingController.tableId, code);
 						Helpers.status("success");
 						updateData();
 		} 
@@ -132,9 +134,9 @@ public class SettingController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		preference = Preferences.userNodeForPackage(SettingController.class);
-		TableModel.tablet_code =(preference.get("tabletCode", ""));
-		System.out.println("old: "+ TableModel.tablet_code);
-		cbbCode.setValue(TableModel.tablet_code);
+		SettingController.tablet_code =(preference.get("tabletCode", ""));
+		System.out.println("old: "+ SettingController.tablet_code );
+		cbbCode.setValue(SettingController.tablet_code );
 		updateData();
 		this.getTableCodeList();
 		this.getTableInfo();
@@ -149,6 +151,7 @@ public class SettingController implements Initializable {
 	}
 	private void isSet() {
 		lblStatus.setText("You HAVE set \n the number for this tablet");
+	
 		Path imageFile = Paths.get("@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/tablet_yes.png");
 		btnClear.setDisable(false);
 		btnSave.setDisable(true);
@@ -179,4 +182,5 @@ public class SettingController implements Initializable {
 		
 		}
 	}
+	
 }
