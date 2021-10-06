@@ -331,6 +331,7 @@ public class DiscountController implements Initializable {
 	}
 	
 	public ArrayList<CompareOperator> getFilter(){
+		
 		try {
 			String code = tfDiscount.getText();
 			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();

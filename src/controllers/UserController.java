@@ -238,6 +238,7 @@ public class UserController  implements Initializable {
 	//show form create
 	public void showCreateForm() {
 		try {
+			
 			//draw
 			Rectangle2D screenBounds = Screen.getPrimary().getBounds();
 			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/userUC.fxml"));

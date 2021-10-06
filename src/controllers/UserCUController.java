@@ -177,7 +177,7 @@ public class UserCUController implements Initializable {
 					Helpers.status("success");
 				} else {
 					Alert alert = new Alert(AlertType.CONFIRMATION);
-					alert.setTitle("Update Role Confirmation");
+					alert.setTitle("Update User Confirmation");
 					alert.setHeaderText("Do you want to make this change?");
 					alert.setX(screenBounds.getWidth() - 1000);
 					alert.setY(screenBounds.getHeight() - 810);
