@@ -53,7 +53,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
                      <image>
-                        <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/save.png" />
+                        <Image url="@../assets/save.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -68,7 +68,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
                      <image>
-                        <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/close.png" />
+                        <Image url="@../assets/close.png" />
                      </image>
                   </ImageView>
                </graphic>

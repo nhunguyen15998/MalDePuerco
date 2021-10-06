@@ -103,7 +103,7 @@
             </Pane>
             <VBox layoutY="54.0" prefHeight="496.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="btnDashBoard" alignment="BASELINE_LEFT" cache="true" cacheHint="ROTATE" mnemonicParsing="false" onAction="#btnDashBoardAction" prefHeight="44.0" prefWidth="200.0" style="-fx-background-color: #913344;" styleClass="btn" stylesheets="@../css/master_layout.css" text="  DASHBOARD" textAlignment="RIGHT" textFill="WHITE">
+                  <Button fx:id="btnDashBoard" alignment="BASELINE_LEFT" cache="true" cacheHint="ROTATE" mnemonicParsing="false" onAction="#btnDashBoardAction" prefHeight="44.0" prefWidth="200.0" styleClass="btn" stylesheets="@../css/master_layout.css" text="  DASHBOARD" textAlignment="RIGHT" textFill="WHITE">
                      <graphic>
                         <ImageView disable="true" fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                            <image>
