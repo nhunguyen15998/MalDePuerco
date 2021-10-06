@@ -10,7 +10,6 @@ public class TableModel extends BaseModel{
 	private static String table = "tables";
 	private static String[] columns = {"id, code, name, seats, created_at, status, is_set"};
 	private static TableModel tableModel;
-	public static String tablet_code;
 	private int id;
 	private int sequence;
 	private String code;
