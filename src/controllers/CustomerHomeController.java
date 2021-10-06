@@ -4,31 +4,34 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import javafx.event.EventHandler;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import models.PermissionModel;
+import models.OrderListModel;
 import models.ServingCategoryModel;
 import models.ServingModel;
 import utils.CompareOperator;
@@ -38,7 +41,6 @@ public class CustomerHomeController implements Initializable {
 	private ServingModel servingModel = new ServingModel();
 	public static boolean isActive = false;
 	
-
 	//main category
 	public static final String APPETIZERS = "Appetizers";
 	public static final String SIDE_ORDERS = "Side orders";
@@ -48,6 +50,12 @@ public class CustomerHomeController implements Initializable {
 	
 	private String mainCategorySelected;
 	private String categorySelected;
+	private int servingId;
+	
+	
+	
+	private static ObservableList<OrderListModel> list = FXCollections.observableArrayList();
+	private OrderListModel selected;
 	
 	//sidebar btn
 	@FXML
@@ -72,29 +80,40 @@ public class CustomerHomeController implements Initializable {
 	private Button btnSetting;
 	@FXML
 	private Button btnHelp;
-	
-	@FXML
-	private Button btnPlace;
-	
+
 	//pane
 	@FXML
 	private FlowPane customerMasterHolder;
+	//parent
 	@FXML
 	private AnchorPane orderListPane;
-	@FXML
-	private AnchorPane emptyOrderList;
+	//1
+	private ScrollPane spOrderList = new ScrollPane();
+	private VBox vboxOrderList = new VBox();
+	//2
+	private Pane titlePane = new Pane();
+	//3
+	private Button btnPlace = new Button();
+	private Label lblPlaceTotal = new Label();
+
+	//serving grid
+	private Pane servingPane;
+	private ImageView servingImage;
+	private Text servingName;
+	private Label servingPrice;
+	private Text servingStock;
+	
+	//list
+	private ImageView ivImageView;
+	private Label lblServingName;
+	private Label lblItemPrice;
+	private Label lblTotalPrice;
+	private TextField tfNote;
+	private TextField tfQuantity;
 	
 	//hbox
 	@FXML
 	private HBox categoryHBox;
-//	@FXML
-//	private Pane categoryPane;
-//	@FXML
-//	private Pane hBoxChild;
-//	@FXML
-//	private ImageView categoryImage;
-//	@FXML
-//	private Text categoryName;
 	
 	//grid
 	@FXML
@@ -106,13 +125,52 @@ public class CustomerHomeController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
-			//empty order list
-			emptyOrderList = FXMLLoader.load(getClass().getResource("/views/emptycart.fxml"));	
-			orderListPane.getChildren().setAll(emptyOrderList);
+			this.vboxOrderList.getChildren().clear();
+//			list.add(new OrderListModel(1, "/assets/dish-2.png", "bbbbbbbbbb", "$2.3", "$4.6", "No spice", 2));
+//			list.add(new OrderListModel(2, "/assets/dish-3.png", "cccccccccc", "$2.3", "$4.6", "No spice", 2));
+//			list.add(new OrderListModel(3, "/assets/dish-4.png", "dddddddddd", "$2.3", "$4.6", "No spice", 2));
+//			list.add(new OrderListModel(4, "/assets/dish-1.png", "eeeeeeeeee", "$2.3", "$4.6", "No spice", 2));
+			this.addItemToOrderList();
+
 			this.btnAllAction();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	//add to order list
+	public void addItemToOrderList() {	
+		if(list.size() > 0) {
+			this.orderListLayout();
+			vboxOrderList.getChildren().clear();
+			for(OrderListModel item : list) {
+				this.vboxLayout(item);
+			}
+		} else {
+			this.emptyOrderList();
+		}
+	}
+	
+	//empty order list
+	public void emptyOrderList() {
+		//empty order list
+		orderListPane.getChildren().removeAll(titlePane, btnPlace);	
+		spOrderList.setVisible(false);
+		//imageview
+		Label lblEmptyOrder = new Label("Your order list is empty");
+		lblEmptyOrder.setLayoutX(33);
+		lblEmptyOrder.setLayoutY(280);
+		lblEmptyOrder.setPrefWidth(209);
+		lblEmptyOrder.setAlignment(Pos.CENTER);
+		lblEmptyOrder.setTextFill(Color.web("#e87968"));
+		ImageView emptyOrder = new ImageView();
+		Image image = new Image(CustomerHomeController.class.getResourceAsStream("/assets/empty-cart.png"));
+		emptyOrder.setImage(image);
+		emptyOrder.setFitWidth(133);
+		emptyOrder.setFitHeight(122);
+		emptyOrder.setLayoutX(71);
+		emptyOrder.setLayoutY(163);
+		orderListPane.getChildren().addAll(emptyOrder, lblEmptyOrder);
 	}
 	
 	//draw hbox
@@ -196,13 +254,95 @@ public class CustomerHomeController implements Initializable {
 		}
 	}
 	
-	//on click category pane
-	public void onClickCategoryPane() {
+	//draw vbox
+	public void vboxLayout(OrderListModel item) {
 		try {
+			//Pane
+			Pane vboxPane = new Pane();
+			vboxPane.setPrefWidth(275);
+			vboxPane.setPrefHeight(90);
+			//ImageView 
+			ivImageView = new ImageView();
+			Image image = new Image(CustomerHomeController.class.getResourceAsStream(item.getThumbnail()));
+			ivImageView.setImage(image);
+			ivImageView.setFitWidth(36);
+			ivImageView.setFitHeight(36);
+			ivImageView.setLayoutX(10);
+			ivImageView.setLayoutY(9);
+			//Label 
+			lblServingName = new Label(item.getServingName());
+			lblServingName.setPrefSize(139, 20);
+			lblServingName.setLayoutX(48);
+			lblServingName.setLayoutY(9);
+			lblServingName.setTextFill(Color.WHITE);
+			lblServingName.setFont(Font.font("System Bold", 9));
+			lblItemPrice = new Label("$"+item.getItemPrice());
+			lblItemPrice.setLayoutX(48);
+			lblItemPrice.setLayoutY(28);
+			lblItemPrice.setTextFill(Color.web("#ea7c69"));
+			lblItemPrice.setFont(Font.font("System Bold", 9));
+			lblTotalPrice = new Label("$"+(item.getItemPrice()*item.getQuantity()));
+			lblTotalPrice.setLayoutX(230);
+			lblTotalPrice.setLayoutY(19);
+			lblTotalPrice.setTextFill(Color.web("#ea7c69"));
+			lblTotalPrice.setFont(Font.font("System Bold", 14));
+			//TextField 
+			tfNote = new TextField(item.getNote());
+			tfNote.setPrefSize(205, 30);
+			tfNote.setLayoutX(16);
+			tfNote.setLayoutY(51);
+			tfNote.setStyle("-fx-background-color: #3B3F40; -fx-text-fill: white;");
+			tfNote.setPromptText("Leave a note");
+			tfNote.setOnKeyPressed(event -> {
+				if(event.getCode().equals(KeyCode.ENTER)) {
+					item.setNote(tfNote.getText());
+				}
+			});
+			tfQuantity = new TextField(String.valueOf(item.getQuantity()));
+			tfQuantity.setPrefSize(30, 30);
+			tfQuantity.setLayoutX(190);
+			tfQuantity.setLayoutY(13);
+			tfQuantity.setStyle("-fx-background-color: #3B3F40; -fx-text-fill: white;");
+			tfQuantity.setOnKeyPressed(event -> {
+				int qty = Integer.parseInt(!tfQuantity.getText().isEmpty() ? tfQuantity.getText() : "1");
+				System.out.println(qty);
+				if(event.getCode().equals(KeyCode.ENTER)) {
+					if(qty > 0) {
+						item.setQuantity(qty);
+						tfQuantity.setText(String.valueOf(qty));
+					} else {
+						this.deleteItemOrder(item);
+					}
+		        }
+			});
+			Button btnDeleteNote = new Button();
+			btnDeleteNote.setStyle("-fx-background-color: #2B2B2B; -fx-background-radius: 5px; "
+									+ "-fx-border-color: #EA7C69; -fx-border-radius: 5px");
+			btnDeleteNote.setPrefSize(30, 30);
+			btnDeleteNote.setLayoutX(231);
+			btnDeleteNote.setLayoutY(51);
+			btnDeleteNote.setOnMouseClicked(event -> {
+				System.out.println(item);
+				this.deleteItemOrder(item);
+			});
+			ImageView deleteIcon = new ImageView(getClass().getResource("/assets/delete-o.png").toExternalForm());
+			deleteIcon.setFitHeight(15);
+			deleteIcon.setFitWidth(15);
+			btnDeleteNote.setGraphic(deleteIcon);
+			vboxPane.getChildren().addAll(ivImageView, lblServingName, lblItemPrice, lblTotalPrice, 
+											   tfNote, tfQuantity, btnDeleteNote);
+			vboxOrderList.getChildren().addAll(vboxPane);
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
+	}
+	
+	//delete list item
+	public void deleteItemOrder(OrderListModel item) {
+		System.out.println(list.indexOf(item));
+		list.remove(item);
+		this.addItemToOrderList();
 	}
 	
 	//render
@@ -255,20 +395,52 @@ public class CustomerHomeController implements Initializable {
 			int count = 0;
 			while(servings.next()) {
 				//grid
-				Pane servingPane = new Pane();
-				ImageView servingImage = new ImageView();
-				Text servingName = new Text();
-				Label servingPrice = new Label();
-				Text servingStock = new Text();
+				servingPane = new Pane();
+				servingImage = new ImageView();
+				servingName = new Text();
+				servingPrice = new Label();
+				servingStock = new Text();
+				Button addItem = new Button("Add");
+				Label prodId = new Label();
 				this.gridPaneLayout(servingPane, servingImage, servingName, servingPrice, servingStock);
 				//set
-				servingName.setText(servings.getString("name"));
-				Image image = new Image(servings.getString("thumbnail"));
+				int id = servings.getInt("id");
+				String thumbnail = servings.getString("thumbnail");
+				String name = servings.getString("name");
+				double price = servings.getDouble("price");
+				String note = "";
+				int quantity = 1;
+				prodId.setText(String.valueOf(id));
+				servingName.setText(name);
+				Image image = new Image(thumbnail);
 				servingImage.setImage(image);
-				servingPrice.setText("$"+servings.getString("price"));
-				servingStock.setText(servings.getString("quantity")+" bowls in stock");
+				servingPrice.setText("$"+price);
+				servingStock.setText(servings.getInt("quantity") + " bowls in stock");
 				//add
-				servingPane.getChildren().addAll(servingImage, servingName, servingPrice, servingStock);
+				//onclick to add				 
+				addItem.setOnMouseClicked(event -> {
+					boolean isExisted = false;
+					for(OrderListModel item : list) {
+						if(item.getServingId() == id) {
+							int indexItem = list.indexOf(item);
+							OrderListModel currentItem = list.get(indexItem);
+							currentItem.setQuantity(currentItem.getQuantity()+1);
+							currentItem.setTotalPrice(currentItem.getItemPrice()*currentItem.getQuantity());
+							isExisted = true;
+						} 	
+					}
+					if(!isExisted) {
+						list.add(new OrderListModel(id, 
+								thumbnail, 
+								name, 
+								price, 
+								price, 
+								note, 
+								quantity));	
+					}	
+					this.addItemToOrderList();
+				});
+				servingPane.getChildren().addAll(prodId, servingImage, servingName, servingPrice, servingStock, addItem);
 				this.servingGridPane.add(servingPane, x, y);//0,0 1,0 2,0 3,0
 															//0,1 1,0 1,1 2,1 
 															//0,2 2,0 1,2 2,2 
@@ -280,7 +452,6 @@ public class CustomerHomeController implements Initializable {
 						x = 0;
 					}
 				}
-
 				
 			}
 		} catch (Exception e) {
@@ -316,8 +487,9 @@ public class CustomerHomeController implements Initializable {
 		}
 		this.renderGrid(ssubCategoryCondition, sservingCondition);
 	}	
+
 	
-	//sidebar btn
+	//------------sidebar btn--------------------
 	//btnall
 	public void btnAllAction() {
 		this.mainCategorySelected = "";
@@ -335,13 +507,6 @@ public class CustomerHomeController implements Initializable {
 	}
 
 	//btnappetizer
-	//select serving_categories.name, sc.name as parent_name from serving_categories left join serving_categories sc 
-	//on serving_categories.parent_id = sc.id where serving_categories.parent_id = 3
-	//select servings.name, serving_categories.name, sc.name as parent_name 
-	//from servings
-	//left join serving_categories on serving_categories.id = servings.category_id
-	//left join serving_categories sc on serving_categories.parent_id = sc.id 
-	//where serving_categories.parent_id = 2 
 	public void btnAppetizerAction() {
 		this.mainCategorySelected = this.APPETIZERS;
 		this.categorySelected = "";
@@ -475,8 +640,71 @@ public class CustomerHomeController implements Initializable {
 	
 	//category
 	
-	
-
-	
+	//draw order list pane
+	public void orderListLayout() {
+		orderListPane.getChildren().clear();
+		//pane
+		titlePane = new Pane();
+		titlePane.setPrefSize(260, 30);
+		titlePane.setLayoutX(6);
+		titlePane.setLayoutY(0);
+		DropShadow ds = new DropShadow();
+        ds.setOffsetY(1.0);
+        ds.setHeight(1);
+        ds.setColor(Color.web("#513e3e"));
+		titlePane.setEffect(ds);
+		//label
+		Label item = new Label("Item");
+		item.setLayoutX(16);
+		item.setLayoutY(4);
+		item.setTextFill(Color.WHITE);
+		item.setFont(Font.font("System Bold", 9));
+		Label qty = new Label("Qty");
+		qty.setLayoutX(189);
+		qty.setLayoutY(4);
+		qty.setTextFill(Color.WHITE);
+		qty.setFont(Font.font("System Bold", 9));
+		Label total = new Label("Total");
+		total.setLayoutX(231);
+		total.setLayoutY(4);
+		total.setTextFill(Color.WHITE);
+		total.setFont(Font.font("System Bold", 9));
+		titlePane.getChildren().addAll(item, qty, total);	
+		
+		//btn + label
+		btnPlace.setText("Place");
+		btnPlace.setTextFill(Color.WHITE);
+		btnPlace.setFont(Font.font("System Bold", 14));
+		btnPlace.setPrefSize(260, 36);
+		btnPlace.setLayoutX(8);
+		btnPlace.setLayoutY(478);
+		btnPlace.setStyle("-fx-border-color: #EA7C69; -fx-background-radius: 10px; "
+							+ "-fx-background-color: #2B2B2B; -fx-border-radius: 10px");
+		lblPlaceTotal.setTextFill(Color.WHITE);
+		lblPlaceTotal.setFont(Font.font("System Bold", 14));
+		lblPlaceTotal.setText("");
+		btnPlace.setGraphic(lblPlaceTotal);
+		//scroll+anchorpane+vbox+pane
+		spOrderList = new ScrollPane();
+		spOrderList.setHbarPolicy(ScrollBarPolicy.NEVER);
+		spOrderList.setVbarPolicy(ScrollBarPolicy.NEVER);
+		spOrderList.setLayoutX(0);
+		spOrderList.setLayoutY(28);
+		spOrderList.setPrefSize(275, 440);
+		spOrderList.setStyle("-fx-background-color: #2B2B2B; -fx-border-color: #2B2B2B");
+		AnchorPane anchorPane = new AnchorPane();
+		anchorPane.setPrefSize(272, 703);
+		anchorPane.setStyle("-fx-background-color: #2B2B2B;");
+		
+		vboxOrderList.setStyle("-fx-background-color: #2B2B2B;");
+		vboxOrderList.setPrefSize(272, 711);
+		Pane vboxPane = new Pane();
+		vboxPane.setPrefSize(275, 90);
+		vboxOrderList.getChildren().add(vboxPane);
+		anchorPane.getChildren().add(vboxOrderList);
+		spOrderList.setContent(anchorPane);
+		orderListPane.getChildren().addAll(titlePane, spOrderList, btnPlace);
+		
+	}
 	
 }
