@@ -48,7 +48,7 @@ public class Validations {
 				}
 				
 				//numeric
-				if(Arrays.asList(patternDatas).contains("numeric")) {
+				if(Arrays.asList(patternDatas).contains("numeric")&&!value.isEmpty()) {
 					if(!Helpers.isNumeric(value)) {
 						message.value = "Field "+item.getFieldName()+" is numeric";
 						messages.add(message);
@@ -89,9 +89,17 @@ public class Validations {
 				}
 				
 				
-				
+				//time
+				if(Arrays.asList(patternDatas).contains("time")) {
+					String regex = "^(?:[01]?\\d|2[0-3])(?::[0-5]\\d){1,2}$"; 
+					if(!value.matches(regex)) {
+						message.value = "Invalid time";
+						messages.add(message);
+						continue;
+					}
+				}
 				//numeric
-				if(Arrays.asList(patternDatas).contains("string")) {
+				if(Arrays.asList(patternDatas).contains("string")&&!value.isEmpty()) {
 					for (String patternData : patternDatas) {
 						if(patternData.contains("min")) {
 							double min = Double.parseDouble(patternData.replace("min:", ""));
@@ -115,7 +123,7 @@ public class Validations {
 				}
 				
 				//email
-				if(Arrays.asList(patternDatas).contains("email")) {
+				if(Arrays.asList(patternDatas).contains("email")&& !value.isEmpty()) {
 					String regex = "[a-zA-Z0-9][a-zA-Z0-9._]*@[a-zA-Z0-9-]+([.][a-zA-Z]+)+";
 					if(!value.matches(regex)) {
 						message.value = "Invalid email address";
