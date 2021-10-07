@@ -61,7 +61,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <TextField fx:id="tfCode" focusTraversable="false" layoutX="151.0" layoutY="77.0" prefHeight="30.0" prefWidth="248.0" promptText="  code will be random" style="-fx-background-color: #fcf7f9; -fx-border-color: linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1)linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1); -fx-border-width: 0 0 1.5 0; -fx-background-radius: 5; -fx-border-radius: 5;" />
+            <TextField fx:id="tfCode" focusTraversable="false" layoutX="151.0" layoutY="77.0" prefHeight="30.0" prefWidth="248.0" promptText="  code" style="-fx-background-color: #fcf7f9; -fx-border-color: linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1)linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1); -fx-border-width: 0 0 1.5 0; -fx-background-radius: 5; -fx-border-radius: 5;" />
             <ComboBox fx:id="cbStatus" layoutX="154.0" layoutY="123.0" prefHeight="25.0" prefWidth="129.0" style="-fx-background-color: linear-gradient(to right, #fcebee,#fcd7dd);" />
             <TextField fx:id="tfName" focusTraversable="false" layoutX="151.0" layoutY="33.0" prefHeight="30.0" prefWidth="248.0" promptText="  name" style="-fx-background-color: #fcf7f9; -fx-border-color: linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1)linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1); -fx-border-width: 0 0 1.5 0; -fx-background-radius: 5; -fx-border-radius: 5;" />
             <Label fx:id="lblNameError" layoutX="151.0" layoutY="16.0" prefHeight="9.0" prefWidth="234.0" textFill="#a17064">

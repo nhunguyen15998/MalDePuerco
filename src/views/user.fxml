@@ -43,12 +43,12 @@
                      <graphic>
                         <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
                            <image>
-                              <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/add.png" />
+                              <Image url="@../assets/add.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button alignment="CENTER" layoutX="622.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: #FB6E67; -fx-border-radius: 50px; -fx-background-radius: 50px; -fx-cursor: hand;" styleClass="btnUser" stylesheets="@../css/user.css" text="Delete" textFill="WHITE">
+                  <Button fx:id="btnDelete" alignment="CENTER" layoutX="622.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: #FB6E67; -fx-border-radius: 50px; -fx-background-radius: 50px; -fx-cursor: hand;" styleClass="btnUser" stylesheets="@../css/user.css" text="Delete" textFill="WHITE">
                      <effect>
                         <DropShadow color="#fb6e677d" />
                      </effect>
@@ -58,12 +58,12 @@
                      <graphic>
                         <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
                            <image>
-                              <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/delete.png" />
+                              <Image url="@../assets/delete.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button alignment="CENTER" layoutX="436.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: #62A38D; -fx-border-radius: 50px; -fx-background-radius: 50px; -fx-cursor: hand;" styleClass="btnUser" stylesheets="@../css/user.css" text="Update" textFill="WHITE">
+                  <Button fx:id="btnUpdate" alignment="CENTER" layoutX="436.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: #62A38D; -fx-border-radius: 50px; -fx-background-radius: 50px; -fx-cursor: hand;" styleClass="btnUser" stylesheets="@../css/user.css" text="Update" textFill="WHITE">
                      <effect>
                         <DropShadow color="#62a38d7d" />
                      </effect>
@@ -73,7 +73,7 @@
                      <graphic>
                         <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/edit.png" />
+                              <Image url="@../assets/edit.png" />
                            </image>
                         </ImageView>
                      </graphic>

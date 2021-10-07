@@ -25,21 +25,24 @@
             <Image url="@../assets/table.png" />
          </image>
       </ImageView>
-      <Pane layoutX="257.0" layoutY="67.0" prefHeight="448.0" prefWidth="566.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.8),30, 0,10, 10);">
+      <Pane fx:id="paneSchedule" layoutX="10.0" layoutY="67.0" prefHeight="448.0" prefWidth="219.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.5),30, 0,10, 10);" />
+      <Pane layoutX="235.0" layoutY="67.0" prefHeight="448.0" prefWidth="596.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.8),30, 0,10, 10);">
          <children>
-            <TableView fx:id="tblTables" layoutX="14.0" layoutY="67.0" onMouseClicked="#getTableDataByClick" prefHeight="328.0" prefWidth="541.0" stylesheets="@../css/tables.css">
+            <TableView fx:id="tblTables" layoutX="4.0" layoutY="67.0" onMouseClicked="#getTableDataByClick" prefHeight="328.0" prefWidth="586.0" stylesheets="@../css/tables.css">
               <columns>
                 <TableColumn fx:id="colNo" prefWidth="30.0" text="#" />
                 <TableColumn fx:id="colID" prefWidth="75.0" text="ID" visible="false" />
-                  <TableColumn fx:id="colCode" prefWidth="117.60003662109375" text="Code" />
-                  <TableColumn fx:id="colName" prefWidth="123.20004272460938" text="Name" />
-                  <TableColumn fx:id="colSeats" prefWidth="36.0" text="Seats" />
-                  <TableColumn fx:id="colCreated" prefWidth="107.99993896484375" text="Created at" />
-                  <TableColumn fx:id="colSet" prefWidth="46.4000244140625" text="Is Set" />
-                  <TableColumn fx:id="colStatus" prefWidth="77.0" text="Status" />
+                  <TableColumn fx:id="colCode" prefWidth="84.0" text="Code" />
+                  <TableColumn fx:id="colName" prefWidth="100.79998779296875" text="Name" />
+                  <TableColumn fx:id="colSeats" prefWidth="40.79998779296875" text="Seats" />
+                  <TableColumn fx:id="colCreated" prefWidth="77.5999755859375" text="Created at" />
+                  <TableColumn fx:id="colSet" prefWidth="41.60003662109375" text="Is Set" />
+                  <TableColumn fx:id="colShift" prefWidth="56.7999267578125" text="Shift of" />
+                  <TableColumn fx:id="colReser" prefWidth="72.80010986328125" text="Reservation" />
+                  <TableColumn fx:id="colStatus" prefWidth="79.9998779296875" text="Status" />
               </columns>
             </TableView>
-            <Button alignment="CENTER_RIGHT" layoutX="315.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnCreateAction" prefHeight="30.0" prefWidth="68.0" style="-fx-background-color: #2B79D3; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnTables" stylesheets="@../css/tables.css" text="Create" textFill="WHITE">
+            <Button alignment="CENTER_RIGHT" layoutX="332.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnCreateAction" prefHeight="30.0" prefWidth="68.0" style="-fx-background-color: #2B79D3; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnTables" stylesheets="@../css/tables.css" text="Create" textFill="WHITE">
                <effect>
                   <DropShadow color="#2b79d37d" />
                </effect>
@@ -47,7 +50,7 @@
                   <Font size="12.0" />
                </font>
             </Button>
-            <Button alignment="CENTER_RIGHT" layoutX="390.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="30.0" prefWidth="66.0" style="-fx-background-color: #FB6E67; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnTables" stylesheets="@../css/tables.css" text="Delete" textFill="WHITE">
+            <Button alignment="CENTER_RIGHT" layoutX="407.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="30.0" prefWidth="66.0" style="-fx-background-color: #FB6E67; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnTables" stylesheets="@../css/tables.css" text="Delete" textFill="WHITE">
                <effect>
                   <DropShadow color="#fb6e677d" />
                </effect>
@@ -55,7 +58,7 @@
                   <Font size="12.0" />
                </font>
             </Button>
-            <Button alignment="CENTER_RIGHT" layoutX="240.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="30.0" prefWidth="68.0" style="-fx-background-color: #62A38D; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnTables" stylesheets="@../css/tables.css" text="Update" textFill="WHITE">
+            <Button alignment="CENTER_RIGHT" layoutX="257.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="30.0" prefWidth="68.0" style="-fx-background-color: #62A38D; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnTables" stylesheets="@../css/tables.css" text="Update" textFill="WHITE">
                <effect>
                   <DropShadow color="#62a38d7d" />
                </effect>
@@ -73,7 +76,7 @@
                </graphic>
             </Button>
             <TextField fx:id="tfTable" layoutX="14.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#onSearch" prefHeight="30.0" prefWidth="155.0" promptText="Find by code, name, seats" style="-fx-background-radius: 50px;" />
-            <Button fx:id="btnOrder" alignment="CENTER_RIGHT" layoutX="463.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnMakeOrder" prefHeight="30.0" prefWidth="92.0" style="-fx-background-color: #9758b0; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnTables" stylesheets="@../css/tables.css" text="Make order" textFill="WHITE">
+            <Button fx:id="btnOrder" alignment="CENTER_RIGHT" layoutX="480.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnMakeOrder" prefHeight="30.0" prefWidth="92.0" style="-fx-background-color: #9758b0; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnTables" stylesheets="@../css/tables.css" text="Make order" textFill="WHITE">
                <effect>
                   <DropShadow color="#fb6e677d" />
                </effect>
@@ -81,28 +84,27 @@
                   <Font size="12.0" />
                </font>
             </Button>
-            <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" layoutX="245.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" layoutX="262.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/edit.png" />
+                  <Image url="@../assets/edit.png" />
                </image>
             </ImageView>
-            <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" layoutX="322.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" layoutX="339.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/add.png" />
+                  <Image url="@../assets/add.png" />
                </image>
             </ImageView>
-            <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" layoutX="396.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" layoutX="413.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/delete.png" />
+                  <Image url="@../assets/delete.png" />
                </image>
             </ImageView>
-            <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" layoutX="468.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" layoutX="485.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/order.png" />
                </image>
             </ImageView>
          </children>
       </Pane>
-      <Pane fx:id="paneSchedule" layoutX="14.0" layoutY="67.0" prefHeight="448.0" prefWidth="233.0" style="-fx-background-color: white;" />
    </children>
 </AnchorPane>
