@@ -230,7 +230,7 @@ public class MySQLJDBC {
 			return false;
 		}
     }
-	
+	 
  public static MySQLJDBC Instance() {
 	if(db==null) {
 		db=new MySQLJDBC();
