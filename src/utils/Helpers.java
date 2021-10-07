@@ -1,7 +1,11 @@
 package utils;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Alert;
@@ -28,6 +32,20 @@ public class Helpers {
 		return dateFormat;	
 	}
 	
+	//format time
+	public static String formatTime(String time) {
+		 
+		    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		    Date date = null;
+		    try {
+		        date = sdf.parse(time);
+		    } catch (ParseException e) {
+		        e.printStackTrace();
+		    }
+		    String formattedTime = sdf.format(date);
+			return formattedTime;
+
+	}
 	//numeric
 	public static boolean isNumeric(String str) { 
 		try {  
@@ -60,20 +78,15 @@ public class Helpers {
 	  }
 	
 	  public static void  status(String type) {
-			Rectangle2D screenBounds = Screen.getPrimary().getBounds();
 			if(type.equals("success")) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Done");
 			alert.setHeaderText("Save success");
-			alert.setX(screenBounds.getWidth() - 900);
-			alert.setY(screenBounds.getHeight() - 610);
 			alert.showAndWait();
 			}
 			if(type.equals("error")) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setHeaderText("Please select a row");
-				alert.setX(screenBounds.getWidth() - 900);
-				alert.setY(screenBounds.getHeight() - 610);
 				alert.showAndWait();
 			}
 		}
