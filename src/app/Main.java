@@ -1,8 +1,5 @@
 package app;
 
-import java.util.ArrayList;
-
-import db.MySQLJDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -10,9 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import models.ServingCategoryModel;
-import utils.DataMapping;
 
 public class Main extends Application{
 

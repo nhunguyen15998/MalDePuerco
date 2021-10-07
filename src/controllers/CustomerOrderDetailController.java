@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import models.ServingCategoryModel;
 
-public class CustomerServingCategoryController implements Initializable {
+public class CustomerOrderDetailController implements Initializable {
 	private ServingCategoryModel servingCategoryModel = new ServingCategoryModel();
 	
 	

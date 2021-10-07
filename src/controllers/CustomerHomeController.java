@@ -11,7 +11,9 @@ import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
+import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
@@ -31,14 +33,22 @@ import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import models.OrderDetailModel;
 import models.OrderListModel;
+import models.OrderModel;
 import models.ServingCategoryModel;
 import models.ServingModel;
 import utils.CompareOperator;
+import utils.DataMapping;
+import utils.Helpers;
 
 public class CustomerHomeController implements Initializable {
 	private ServingCategoryModel servingCategoryModel = new ServingCategoryModel();
 	private ServingModel servingModel = new ServingModel();
+	private OrderModel orderModel = new OrderModel();
+	private OrderDetailModel orderDetailModel = new OrderDetailModel();
+
+//	private TableModel tableModel = ;
 	public static boolean isActive = false;
 	
 	//main category
@@ -50,12 +60,12 @@ public class CustomerHomeController implements Initializable {
 	
 	private String mainCategorySelected;
 	private String categorySelected;
-	private int servingId;
-	
-	
-	
+		
 	private static ObservableList<OrderListModel> list = FXCollections.observableArrayList();
 	private OrderListModel selected;
+	private int tableId = 1;
+	private int userId = 3;
+	private int orderId;
 	
 	//sidebar btn
 	@FXML
@@ -80,7 +90,9 @@ public class CustomerHomeController implements Initializable {
 	private Button btnSetting;
 	@FXML
 	private Button btnHelp;
-
+	@FXML
+	private Button btnOrder;
+	
 	//pane
 	@FXML
 	private FlowPane customerMasterHolder;
@@ -122,17 +134,32 @@ public class CustomerHomeController implements Initializable {
 	//search 
 	@FXML
 	private TextField searchBox;
+	@FXML
+	private Label tableCode;
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
+			this.tableCode.setText("Table "+this.tableId);
 			this.vboxOrderList.getChildren().clear();
-//			list.add(new OrderListModel(1, "/assets/dish-2.png", "bbbbbbbbbb", "$2.3", "$4.6", "No spice", 2));
-//			list.add(new OrderListModel(2, "/assets/dish-3.png", "cccccccccc", "$2.3", "$4.6", "No spice", 2));
-//			list.add(new OrderListModel(3, "/assets/dish-4.png", "dddddddddd", "$2.3", "$4.6", "No spice", 2));
-//			list.add(new OrderListModel(4, "/assets/dish-1.png", "eeeeeeeeee", "$2.3", "$4.6", "No spice", 2));
 			this.addItemToOrderList();
-
 			this.btnAllAction();
+			//btns
+			btnOrder.setOnMouseClicked(event -> {
+				this.btnOrderAction();
+			});
+			btnServer.setOnMouseClicked(event -> {
+				
+			});
+			btnNoti.setOnMouseClicked(event -> {
+				
+			});
+			btnHelp.setOnMouseClicked(event -> {
+				
+			});
+			btnHelp.setOnMouseClicked(event -> {
+				
+			});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -143,9 +170,13 @@ public class CustomerHomeController implements Initializable {
 		if(list.size() > 0) {
 			this.orderListLayout();
 			vboxOrderList.getChildren().clear();
+			double total = 0;
 			for(OrderListModel item : list) {
 				this.vboxLayout(item);
-			}
+				total += (item.getItemPrice()*item.getQuantity());
+			}			
+			//this.totalPlace = Double.parseDouble(Helpers.formatNumber(null).format(total));
+			lblPlaceTotal.setText("$"+Helpers.formatNumber(null).format(total));
 		} else {
 			this.emptyOrderList();
 		}
@@ -276,12 +307,12 @@ public class CustomerHomeController implements Initializable {
 			lblServingName.setLayoutY(9);
 			lblServingName.setTextFill(Color.WHITE);
 			lblServingName.setFont(Font.font("System Bold", 9));
-			lblItemPrice = new Label("$"+item.getItemPrice());
+			lblItemPrice = new Label("$"+ Helpers.formatNumber(null).format(item.getItemPrice()));
 			lblItemPrice.setLayoutX(48);
 			lblItemPrice.setLayoutY(28);
 			lblItemPrice.setTextFill(Color.web("#ea7c69"));
 			lblItemPrice.setFont(Font.font("System Bold", 9));
-			lblTotalPrice = new Label("$"+(item.getItemPrice()*item.getQuantity()));
+			lblTotalPrice = new Label("$"+Helpers.formatNumber(null).format(item.getTotalPrice()));
 			lblTotalPrice.setLayoutX(230);
 			lblTotalPrice.setLayoutY(19);
 			lblTotalPrice.setTextFill(Color.web("#ea7c69"));
@@ -309,10 +340,11 @@ public class CustomerHomeController implements Initializable {
 				if(event.getCode().equals(KeyCode.ENTER)) {
 					if(qty > 0) {
 						item.setQuantity(qty);
-						tfQuantity.setText(String.valueOf(qty));
+						item.setTotalPrice(qty*item.getItemPrice());
 					} else {
 						this.deleteItemOrder(item);
 					}
+					this.addItemToOrderList();
 		        }
 			});
 			Button btnDeleteNote = new Button();
@@ -420,16 +452,19 @@ public class CustomerHomeController implements Initializable {
 				//onclick to add				 
 				addItem.setOnMouseClicked(event -> {
 					boolean isExisted = false;
+//					double total = 0;
 					for(OrderListModel item : list) {
 						if(item.getServingId() == id) {
 							int indexItem = list.indexOf(item);
 							OrderListModel currentItem = list.get(indexItem);
+//							total = currentItem.getItemPrice()*currentItem.getQuantity();
 							currentItem.setQuantity(currentItem.getQuantity()+1);
 							currentItem.setTotalPrice(currentItem.getItemPrice()*currentItem.getQuantity());
 							isExisted = true;
 						} 	
 					}
 					if(!isExisted) {
+//						total = price;
 						list.add(new OrderListModel(id, 
 								thumbnail, 
 								name, 
@@ -438,6 +473,9 @@ public class CustomerHomeController implements Initializable {
 								note, 
 								quantity));	
 					}	
+					//lbltotalplace
+//					this.totalPlace += Double.parseDouble(Helpers.formatNumber(null).format(total));
+//					lblPlaceTotal.setText("$"+this.totalPlace);
 					this.addItemToOrderList();
 				});
 				servingPane.getChildren().addAll(prodId, servingImage, servingName, servingPrice, servingStock, addItem);
@@ -636,10 +674,7 @@ public class CustomerHomeController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	//category
-	
+		
 	//draw order list pane
 	public void orderListLayout() {
 		orderListPane.getChildren().clear();
@@ -680,10 +715,13 @@ public class CustomerHomeController implements Initializable {
 		btnPlace.setLayoutY(478);
 		btnPlace.setStyle("-fx-border-color: #EA7C69; -fx-background-radius: 10px; "
 							+ "-fx-background-color: #2B2B2B; -fx-border-radius: 10px");
+		btnPlace.setContentDisplay(ContentDisplay.RIGHT);
 		lblPlaceTotal.setTextFill(Color.WHITE);
-		lblPlaceTotal.setFont(Font.font("System Bold", 14));
-		lblPlaceTotal.setText("");
+		lblPlaceTotal.setFont(Font.font("System Bold", 14));		
 		btnPlace.setGraphic(lblPlaceTotal);
+		btnPlace.setOnMouseClicked(event -> {
+			this.btnPlaceAction();
+		});
 		//scroll+anchorpane+vbox+pane
 		spOrderList = new ScrollPane();
 		spOrderList.setHbarPolicy(ScrollBarPolicy.NEVER);
@@ -706,5 +744,37 @@ public class CustomerHomeController implements Initializable {
 		orderListPane.getChildren().addAll(titlePane, spOrderList, btnPlace);
 		
 	}
+	
+	public void btnPlaceAction() {
+		try {
+			ArrayList<DataMapping> orderData = new ArrayList<DataMapping>();
+			orderData.add(DataMapping.getInstance("code", "OC"+Helpers.randomString(6)));
+			orderData.add(DataMapping.getInstance("table_id", String.valueOf(this.tableId)));
+			orderData.add(DataMapping.getInstance("user_id", String.valueOf(this.userId)));
+			this.orderId = this.orderModel.createOrder(orderData);
+			ArrayList<DataMapping> orderDetailData = new ArrayList<DataMapping>();
+			int result = 0;
+			for(OrderListModel item : list) {
+				orderDetailData.add(DataMapping.getInstance("order_id", String.valueOf(this.orderId)));
+				orderDetailData.add(DataMapping.getInstance("serving_id", String.valueOf(item.getServingId())));
+				orderDetailData.add(DataMapping.getInstance("serving_note", item.getThumbnail()));
+				orderDetailData.add(DataMapping.getInstance("serving_status", String.valueOf(OrderDetailModel.PENDING)));
+				orderDetailData.add(DataMapping.getInstance("quantity", String.valueOf(item.getQuantity())));
+				orderDetailData.add(DataMapping.getInstance("price", String.valueOf(item.getItemPrice())));
+				orderDetailData.add(DataMapping.getInstance("total", String.valueOf(item.getTotalPrice())));
+				result = this.orderDetailModel.createOrderDetail(orderDetailData);
+				orderDetailData.clear();
+			}
+			if(result != 0) {
+				list.clear();
+				this.emptyOrderList();
+			}
+			//switch to my-orders view
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 }
