@@ -5,3 +5,8 @@
 .mainFxmlClass {
 
 }
+
+
+.btnReser:hover{
+-fx-cursor:hand;
+}

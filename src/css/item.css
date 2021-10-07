@@ -1,0 +1,17 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.lblStatus{
+-fx-background-color: green;
+-fx-text-fill: white;
+-fx-background-radius:15;
+-fx-padding: 1 5;
+}
+.hbox{
+-fx-border-width:0 0 0 4;
+-fx-border-color:green;
+}
+.mainClass {
+-fx-background-color: transparent;
+}
