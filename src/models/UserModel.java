@@ -16,7 +16,7 @@ import db.MySQLJDBC;
 public class UserModel extends BaseModel {
 	public static String table = "users";
 	public static String[] columns = {"id", "code", "name", "email", "phone", "password", "role_id", "created_at", "status"};
-	private UserModel userModel;
+	private static UserModel userModel;
 	private int id;
 	private int sequence;
 	private String code;
@@ -53,17 +53,21 @@ public class UserModel extends BaseModel {
 		}
 	}
 	
-	public UserModel(int id, int sequence, String code, String name,String email, String phone, String role, String createdAt, int status) {
-		super(table, columns);
-		this.setId(id);
-		this.setSequence(sequence);
-		this.setCode(code);
-		this.setName(name);
-		this.setEmail(email);
-		this.setPhone(phone);
-		this.setRole(role);
-		this.setCreatedAt(createdAt);
-		this.setStatus(status);
+	public static UserModel getInstance(int id, int sequence, String code, String name,String email, String phone, String role, String createdAt, int status) {
+		if(userModel==null) {
+			UserModel item = new UserModel();
+				item.setId(id);
+				item.setSequence(sequence);
+				item.setCode(code);
+				item.setName(name);
+				item.setEmail(email);
+				item.setPhone(phone);
+				item.setRole(role);
+				item.setCreatedAt(createdAt);
+				item.setStatus(status);
+				return item;
+		}
+		return userModel;
 	}
 	
 	//login
