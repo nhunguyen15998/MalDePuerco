@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.time.LocalDate;
@@ -94,9 +95,20 @@ public class TablesController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     	this.parseData(getFilter());
+    	
     }    
-    
-    
+
+
+    //load schedule
+    private void loadSchedule() {
+    	 AnchorPane anchor;
+  		try {
+  			anchor = FXMLLoader.load(getClass().getResource("/views/schedule.fxml"));
+  			paneSchedule.getChildren().setAll(anchor);
+  		} catch (IOException e) {
+  			e.printStackTrace();
+  		}
+    }
   //load data
   	public void parseData(ArrayList<CompareOperator> conditions) {
   		try {
@@ -134,10 +146,11 @@ public class TablesController implements Initializable {
   					);
   			}
   			tblTables.setItems(tableList);;
-  			
+  			this.loadSchedule();
   		} catch (Exception e) {
   			e.printStackTrace();
   		}
+  		
   	}
   	
   	public ArrayList<CompareOperator> getFilter(){

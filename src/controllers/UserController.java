@@ -189,6 +189,7 @@ public class UserController  implements Initializable {
 			} else {
 				//panel
 				Helpers.status("error");
+				
 			}
 
 		} catch (Exception e) {

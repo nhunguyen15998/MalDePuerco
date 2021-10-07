@@ -104,7 +104,7 @@ public class ReservationCUController implements Initializable {
 				(cbStatus.getValue()  == ReservationModel.isCancelled ? cbStatus.getValue().key : 
 				(cbStatus.getValue()  == ReservationModel.isConfirmed ? cbStatus.getValue().key :
 				(cbStatus.getValue()  == ReservationModel.isDeposited ? cbStatus.getValue().key :
-				(cbStatus.getValue()  == ReservationModel.isExpried ? cbStatus.getValue().key: String.valueOf(ReservationModel.isPresent)))));
+				(cbStatus.getValue()  == ReservationModel.isExpried ? cbStatus.getValue().key: String.valueOf(ReservationModel.RESER_PRESENT)))));
 			if(validated( name, phone, email, seat, depo, start, end)) {
 				ArrayList<DataMapping> re = new ArrayList<DataMapping>();
 				re.add(DataMapping.getInstance("customer_name", name));
@@ -253,7 +253,7 @@ public class ReservationCUController implements Initializable {
 				ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
 				data.add(new ValidationDataMapping("name", name, "lblNameError", "required|string|min:5"));
 				data.add(new ValidationDataMapping("phone", phone, "lblPhoneError", "required|phone"));
-				data.add(new ValidationDataMapping("email", email, "lblEmailError", "email"));
+				data.add(new ValidationDataMapping("email", email, "lblEmailError", "email|required"));
 				data.add(new ValidationDataMapping("seat", seat, "lblSeatError", "min:0|numeric|required"));
 				data.add(new ValidationDataMapping("deposit", depo, "lblDepoError", "numeric|min:0"));
 				data.add(new ValidationDataMapping("start", start, "lblTimeError", "time|required"));
@@ -302,7 +302,7 @@ public class ReservationCUController implements Initializable {
 	  		DataMapping code = null;
 	  		DiscountModel dis = new DiscountModel();
 	  		try {
-				String[] selects = {"code"};
+				String[] selects = {"code, id"};
 				ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
 				conditions.add(CompareOperator.getInstance("id", "=", id+""));
 				ResultSet rs = dis.getData(selects, conditions, null);

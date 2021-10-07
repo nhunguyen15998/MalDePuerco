@@ -88,7 +88,7 @@ public class DiscountController implements Initializable {
     private TableColumn<DiscountModel, LocalDate> colStartDate;
 
     @FXML
-    private TableColumn<DiscountModel, Integer> colPeriod;
+    private TableColumn<DiscountModel, LocalDate> colEndDate;
 
     @FXML
     private TableColumn<DiscountModel, LocalDate>  colCreatedAt;
@@ -111,7 +111,7 @@ public class DiscountController implements Initializable {
     private DatePicker dpStart;
 
     @FXML
-    private TextField tfPeriod;
+    private DatePicker dpEnd;
 
     @FXML
     private ComboBox<DataMapping> cbStatus;
@@ -119,6 +119,8 @@ public class DiscountController implements Initializable {
     @FXML
     private Button btnAdd;
 
+    @FXML
+    private Button btnDelete;
     @FXML
     private Button btnUpdate;
     @FXML
@@ -136,7 +138,7 @@ public class DiscountController implements Initializable {
     private Label lblDecreaseError;
 
     @FXML
-    private Label lblPeriodError;
+    private Label lblDateError;
 
     @FXML
     void btnSaveAction(ActionEvent event) {
@@ -160,12 +162,12 @@ public class DiscountController implements Initializable {
 			String code = tfCode.getText();
 			String descript = tfDescript.getText();
 			String decrease = tfDecrease.getText();
-			String period = tfPeriod.getText();
+			
 			
 			
 			String status = cbStatus.getValue() != null ? cbStatus.getValue().key : String.valueOf(DiscountModel.DISCOUNT_DEACTIVATED);
 
-			if(validated( name, code, descript, decrease, period)) {
+			if(validated( name, code, descript, decrease)) {
 				if(!decrease.isEmpty()) {
 					float sup = Float.parseFloat(decrease);
 					float dec = sup/100;
@@ -175,7 +177,6 @@ public class DiscountController implements Initializable {
 				users.add(DataMapping.getInstance("code", code));
 				users.add(DataMapping.getInstance("descriptions", descript));
 				users.add(DataMapping.getInstance("decrease", dec+""));
-				users.add(DataMapping.getInstance("period", period));
 				users.add(DataMapping.getInstance("start_date", dpStart.getValue().toString()));
 				users.add(DataMapping.getInstance("status", status));
 				
@@ -209,21 +210,19 @@ public class DiscountController implements Initializable {
     }
     
   //validate
-  	public boolean validated( String name, String code, String descript, String decrease, String period) {
+  	public boolean validated( String name, String code, String descript, String decrease) {
   		try {
   			
   			lblNameError.setText("");
   			lblCodeError.setText("");
   			lblDecreaseError.setText("");
   			lblDescriptError.setText("");
-  			lblPeriodError.setText("");
   			
   			ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
   			data.add(new ValidationDataMapping("name", name, "lblNameError", "required|string|min:5"));
   			data.add(new ValidationDataMapping("code", code, "lblCodeError", "required|min:5"));
   			data.add(new ValidationDataMapping("descript", descript, "lblDescriptError", "required"));
   			data.add(new ValidationDataMapping("descrease", decrease, "lblDecreaseError", "required|numeric|max:100|min:0"));
-  			data.add(new ValidationDataMapping("period", period, "lblPeriodError", "required|numeric"));
   			
   			ArrayList<DataMapping> messages = Validations.validated(data);
   			if(messages.size() > 0) {
@@ -240,10 +239,6 @@ public class DiscountController implements Initializable {
   							break;
   						case "lblDescriptError":
   							lblDescriptError.setText(message.value);
-  							break;
-  						
-  						case "lblPeriodError":
-  							lblPeriodError.setText(message.value);
   							break;
   						default:
   							System.out.println("abcde");
@@ -267,7 +262,7 @@ public class DiscountController implements Initializable {
     	tfDescript.setText("");
     	dpStart.setValue(LocalDate.now());
     	cbStatus.getEditor().clear();
-    	tfPeriod.setText("");
+    	dpEnd.setValue(LocalDate.now());
     	btnAdd.setDisable(false);
     	btnUpdate.setDisable(true);
     	tfDecrease.setText("");
@@ -276,7 +271,7 @@ public class DiscountController implements Initializable {
     }
     private void checkStartDate() {
     	Connection conn = MySQLJDBC.Instance().getConn();
-    	String queryUpdate = "update discounts set status = 0 where curdate()<start_date or DATE_ADD(start_date, INTERVAL period DAY)<curdate() ";
+    	String queryUpdate = "update discounts set status = 0 where curdate()<start_date or end_date<curdate() ";
     	try{
     		PreparedStatement ps = conn.prepareStatement(queryUpdate);
         	ps.execute();
@@ -299,7 +294,7 @@ public class DiscountController implements Initializable {
 			colName.setCellValueFactory(new PropertyValueFactory<DiscountModel, String>("name"));
 			colDescrip.setCellValueFactory(new PropertyValueFactory<DiscountModel, String>("descriptions"));
 			colStartDate.setCellValueFactory(new PropertyValueFactory<DiscountModel, LocalDate>("start_date"));
-			colPeriod.setCellValueFactory(new PropertyValueFactory<DiscountModel, Integer>("period"));
+			colEndDate.setCellValueFactory(new PropertyValueFactory<DiscountModel, LocalDate>("end_date"));
 			colDecrease.setCellValueFactory(new PropertyValueFactory<DiscountModel, Float>("decrease"));
 			colCreatedAt.setCellValueFactory(new PropertyValueFactory<DiscountModel, LocalDate>("createdAt"));
 			//format col
@@ -317,7 +312,7 @@ public class DiscountController implements Initializable {
 						discounts.getString("name"),
 						discounts.getString("descriptions"),
 						discounts.getDate("start_date").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy")),
-						discounts.getInt("period"),
+						discounts.getDate("end_date").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy")),
 						discounts.getDate("created_at").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy")),
 						discounts.getInt("status"),
 						discounts.getFloat("decrease"))
@@ -387,22 +382,68 @@ public class DiscountController implements Initializable {
 					status=DiscountModel.isActivated;
 				}
 				idDiscount = item.getId();
+				btnDelete.setDisable(true);
+				if(!checkToDelete(idDiscount)) {
+					btnDelete.setDisable(true);
+				}
 				tfDecrease.setText((int) Math.round(item.getDecrease()*100)+"");
 				tfName.setText(item.getName());
 				tfCode.setText(item.getCode());
 				tfDescript.setText(item.getDescriptions());
-				tfPeriod.setText(item.getPeriod()+"");
-				
 				    Date date1= new SimpleDateFormat("dd-MM-yyyy").parse(item.getStart_date());
+				    Date date2= new SimpleDateFormat("dd-MM-yyyy").parse(item.getEnd_date());
 					ZoneId defaultZoneId = ZoneId.systemDefault();
 					Instant instant = date1.toInstant();
+					Instant instant2 = date2.toInstant();
 					LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
+					LocalDate localDate2 = instant2.atZone(defaultZoneId).toLocalDate();
 				dpStart.setValue(localDate);
+				dpEnd.setValue(localDate2);
 				cbStatus.setValue(status);
 			}else {
 				System.out.println("not click in table");
 				idDiscount=0;
 			}
 		
+    }
+
+    @FXML
+    public void btnDeleteAction() {
+    	try {
+			if(this.idDiscount != 0) {
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Delete User Confirmation");
+				alert.setHeaderText("Are you sure you want to delete this item ?");
+				
+				Optional<ButtonType> options = alert.showAndWait();
+				if(options.get() == ButtonType.OK) {
+					this.discountModel.deleteDiscountById(idDiscount);
+					this.parseData(getFilter());
+					idDiscount=0;
+				}
+			} else {
+				Helpers.status("error");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+    }
+    
+    private boolean checkToDelete(int id) {
+    	boolean check=true;
+    	Connection conn = MySQLJDBC.Instance().getConn();
+    	String query = "select end_date from discounts where id="+id+" and end_date<curdate()";
+    	try{
+    		PreparedStatement ps = conn.prepareStatement(query);
+        	ResultSet rs = ps.executeQuery();
+        	if(rs.next()) {
+        		check=false;
+        	}
+    	}catch(SQLException  ex) {
+    		ex.printStackTrace();
+    	}
+    	
+    	return check;
     }
 }

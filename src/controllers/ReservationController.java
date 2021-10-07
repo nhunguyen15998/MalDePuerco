@@ -6,6 +6,7 @@
 package controllers;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.time.LocalDate;
@@ -163,7 +164,9 @@ public class ReservationController implements Initializable {
     @FXML
     private Label lblStatus;
 
-    
+
+    @FXML
+    private Pane paneSchedule;
     /**
      * Initializes the controller class.
      */
@@ -172,7 +175,16 @@ public class ReservationController implements Initializable {
         // TODO
     	this.parseData(null);
     }  
-    
+    //load schedule
+    private void loadSchedule() {
+    	 AnchorPane anchor;
+   		try {
+   			anchor = FXMLLoader.load(getClass().getResource("/views/schedule.fxml"));
+   			paneSchedule.getChildren().setAll(anchor);
+   		} catch (IOException e) {
+   			e.printStackTrace();
+   		}
+    }
     
   //load data
   	public void parseData(ArrayList<CompareOperator> conditions) {
@@ -217,7 +229,7 @@ public class ReservationController implements Initializable {
   					r.getInt("seats_pick"),
   					r.getString("code"),
   					r.getString("customer_name"),
-  					r.getString("phone"),
+  					r.getString("phone"), 
   					r.getString("email"),
   					Helpers.formatTime(r.getString("start_time")),
   					Helpers.formatTime(r.getString("end_time")),
@@ -226,7 +238,7 @@ public class ReservationController implements Initializable {
   					));
   			}
   			tblReser.setItems(reserList);
-  			
+  			this.loadSchedule();
   		} catch (Exception e) {
   			e.printStackTrace();
   		}
