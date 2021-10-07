@@ -28,6 +28,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import models.AuthenticationModel;
 import models.UserModel;
 import utils.CompareOperator;
 import utils.Helpers;
@@ -48,8 +49,6 @@ public class UserController  implements Initializable {
 	private Button btnUpdate;
 	@FXML
 	private Button btnDelete;
-	@FXML
-	private Button btnAttendance;
 	
 	//table, cols
 	@FXML
@@ -79,40 +78,29 @@ public class UserController  implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		//role
 		//create
-//		btnCreate.setVisible(false);
-//		btnCreate.setManaged(false);
-//		
-//		//update
-//		btnUpdate.setVisible(false);
-//		btnUpdate.setManaged(false);
-//		
-//		//delete
-//		btnDelete.setVisible(false);
-//		btnDelete.setManaged(false);
-//		
-//		//attendance
-//		btnAttendance.setVisible(false);
-//		btnAttendance.setManaged(false);
+		btnCreate.setDisable(true);
 		
-//		if(AuthenticationModel.hasPermission("CREATE_USER") || AuthenticationModel.roleName.equals("Admin")) {
-//			btnCreate.setVisible(true);
-//			btnCreate.setManaged(true);
-//		}
-//		
-//		if(AuthenticationModel.hasPermission("UPDATE_USER") || AuthenticationModel.roleName.equals("Admin")) {
-//			btnUpdate.setVisible(true);
-//			btnUpdate.setManaged(true);
-//		}
-//		
-//		if(AuthenticationModel.hasPermission("DELETE_USER") || AuthenticationModel.roleName.equals("Admin")) {
-//			btnDelete.setVisible(true);
-//			btnDelete.setManaged(true);
-//		}
-//		
-//		if(AuthenticationModel.hasPermission("CHECK_ATTENDANCE") || AuthenticationModel.roleName.equals("Admin")) {
-//			btnAttendance.setVisible(true);
-//			btnAttendance.setManaged(true);
-//		}
+		//update
+		btnUpdate.setDisable(true);
+		
+		//delete
+		btnDelete.setDisable(true);
+		
+
+		
+		if(AuthenticationModel.hasPermission("CREATE_USER") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnCreate.setDisable(false);
+		}
+		
+		if(AuthenticationModel.hasPermission("UPDATE_USER") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnUpdate.setDisable(false);
+		}
+		
+		if(AuthenticationModel.hasPermission("DELETE_USER") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnDelete.setDisable(false);
+		}
+		
+		
 		//load data
 		this.parseData(null);
 	}
@@ -131,7 +119,7 @@ public class UserController  implements Initializable {
 			colName.setCellValueFactory(new PropertyValueFactory<UserModel, String>("name"));
 			colEmail.setCellValueFactory(new PropertyValueFactory<UserModel, String>("email"));
 			colPhone.setCellValueFactory(new PropertyValueFactory<UserModel, String>("phone"));
-			colUserType.setCellValueFactory(new PropertyValueFactory<UserModel, String>("role"));
+			colUserType.setCellValueFactory(new PropertyValueFactory<UserModel, String>("role")  );
 			colCreatedAt.setCellValueFactory(new PropertyValueFactory<UserModel, LocalDate>("createdAt"));
 			//format col
 			colStatus.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(				
@@ -141,7 +129,7 @@ public class UserController  implements Initializable {
 			ResultSet users = userModel.getUserList(conditions);
 		
 			while(users.next()) {
-				userList.add(new UserModel(
+				userList.add( UserModel.getInstance(
 					users.getInt("users.id"),
 					users.getRow(),
 					users.getString("users.code"),
@@ -212,14 +200,11 @@ public class UserController  implements Initializable {
 	//delete
 	public void btnDeleteAction() {
 		try {
-			Rectangle2D screenBounds = Screen.getPrimary().getBounds();
 			if(this.userId != 0) {
 				Alert alert = new Alert(AlertType.CONFIRMATION);
 				alert.setTitle("Delete User Confirmation");
 				alert.setHeaderText("Are you sure you want to delete this item ?");
 				alert.setContentText("Name: ".concat(this.userName));
-				alert.setX(screenBounds.getWidth() - 900);
-				alert.setY(screenBounds.getHeight() - 610);
 				
 				Optional<ButtonType> options = alert.showAndWait();
 				if(options.get() == ButtonType.OK) {
@@ -240,7 +225,6 @@ public class UserController  implements Initializable {
 		try {
 			
 			//draw
-			Rectangle2D screenBounds = Screen.getPrimary().getBounds();
 			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/userUC.fxml"));
 			createHolder = root.load();
 			
@@ -250,8 +234,6 @@ public class UserController  implements Initializable {
 			
 			Scene scene = new Scene(createHolder, 610, 512);
 			Stage createStage = new Stage();
-			createStage.setX(screenBounds.getWidth() - 1050);
-			createStage.setY(screenBounds.getHeight() - 750);
 			createStage.initStyle(StageStyle.UNDECORATED);
 			createStage.setScene(scene);
 			createStage.show();			
@@ -266,7 +248,7 @@ public class UserController  implements Initializable {
 		try {
 			String code = tfUser.getText();
 			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
-			conditions.add(CompareOperator.getInstance("users.code", " like ", "%"+ code + "%"));
+			conditions.add(CompareOperator.getInstance("users.code or users.phone", " like ", "%"+ code + "%"));
 			//conditions.add(new CompareOperators("", name, name))
 			return conditions;
 		} catch (Exception e) {

@@ -64,22 +64,9 @@ public class SignInController implements Initializable {
     @FXML
     private Label lblErrorMessage;
     private UserModel userModel = new UserModel();
-   /* @FXML
-    private ComboBox<String> cbb;
-    ObservableList<String> status = FXCollections.observableArrayList("ok","ok0");
-		cbb.setItems(status);
-		abc =(preference.get("okokok", ""));
-    	System.out.println("old: "+abc);
-    	
-    	if(cbb.getValue()!=null) {
-					abc=(preference.get("cbb", cbb.getValue().toString()));
-					preference.put("okokok", abc);
-					 System.out.println("new:"+abc);
-				}
-*/
+
 	public Parent root;
 	Preferences preference;
-	private static String abc;
 	
     /**
      * Initializes the controller class.
@@ -110,7 +97,7 @@ public class SignInController implements Initializable {
 // 
     @FXML
     private void signinAction() {
-    	Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+    	
     	lblErrorMessage.setText("");
 		try {
 			ResultSet sign = userModel.loginSupport(tfUsername.getText());

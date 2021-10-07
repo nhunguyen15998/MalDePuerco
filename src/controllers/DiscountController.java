@@ -382,9 +382,9 @@ public class DiscountController implements Initializable {
 				btnAdd.setDisable(true);
 				btnUpdate.setDisable(false);
 				DiscountModel item = tblDiscount.getSelectionModel().getSelectedItem();
-				DataMapping status=item.isDeactivated;
+				DataMapping status=DiscountModel.isDeactivated;
 				if(item.getStatus()==1) {
-					status=item.isActivated;
+					status=DiscountModel.isActivated;
 				}
 				idDiscount = item.getId();
 				tfDecrease.setText((int) Math.round(item.getDecrease()*100)+"");

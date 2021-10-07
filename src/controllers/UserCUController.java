@@ -110,7 +110,7 @@ public class UserCUController implements Initializable {
 			data.add(new ValidationDataMapping("name", name, "lblNameError", "required|string|min:5"));
 			data.add(new ValidationDataMapping("phone", phone, "lblPhoneError", "required|phone"));
 			data.add(new ValidationDataMapping("email", email, "lblEmailError", "required|email"));
-			data.add(new ValidationDataMapping("password", password, "lblPasswordError", "min:5|required|string"));
+			data.add(new ValidationDataMapping("password", password, "lblPasswordError", "min:5|string"));
 			data.add(new ValidationDataMapping("role", role, "lblUserTypeError", "required"));
 			
 			ArrayList<DataMapping> messages = Validations.validated(data);
@@ -150,7 +150,6 @@ public class UserCUController implements Initializable {
 	
 	//btnSave
 	public void btnSaveAction() {
-		Rectangle2D screenBounds = Screen.getPrimary().getBounds();
 		try {
 			String name = tfName.getText();
 			String phone = tfPhone.getText();
@@ -165,22 +164,19 @@ public class UserCUController implements Initializable {
 				ArrayList<DataMapping> users = new ArrayList<DataMapping>();
 				users.add(DataMapping.getInstance("name", name));
 				users.add(DataMapping.getInstance("phone", phone));
-				users.add(DataMapping.getInstance("password", passHased));
-				users.add(DataMapping.getInstance("code", code));
 				users.add(DataMapping.getInstance("email", email));
 				users.add(DataMapping.getInstance("role_id", role));
 				users.add(DataMapping.getInstance("status", status));
 
 				if(this.userId == 0) {
-					
+					users.add(DataMapping.getInstance("code", code));
+					users.add(DataMapping.getInstance("password", passHased));
 					userModel.createUser(users);
 					Helpers.status("success");
 				} else {
 					Alert alert = new Alert(AlertType.CONFIRMATION);
 					alert.setTitle("Update User Confirmation");
 					alert.setHeaderText("Do you want to make this change?");
-					alert.setX(screenBounds.getWidth() - 1000);
-					alert.setY(screenBounds.getHeight() - 810);
 					Optional<ButtonType> option = alert.showAndWait();
 					if (option.get() == ButtonType.OK) {
 						userModel.updateUserById(this.userId, users);
@@ -224,9 +220,15 @@ public class UserCUController implements Initializable {
 	public ResultSet getUserList() {
 		try {
 			ArrayList<DataMapping> userTypeOptions = new ArrayList<DataMapping>();
-			ResultSet userTypes = roleModel.getRoleList(null);
+
+			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
+			if(AuthenticationModel.roleName.equals("Manager")) {
+			conditions.add(CompareOperator.getInstance("name", "!=", "Super Admin"));
+			}
+			ResultSet userTypes = roleModel.getRoleList(conditions);
 			while(userTypes.next()) {
 				userTypeOptions.add(DataMapping.getInstance(userTypes.getInt("id"), userTypes.getString("name")));
+				
 			}
 			cbUserType.getItems().setAll(userTypeOptions);
 			return userTypes;
@@ -244,7 +246,9 @@ public class UserCUController implements Initializable {
 			this.userId = userController.getUserId();
 			lblUser.setText("Create User");
 			if(this.userId != 0) {
+				tfPassword.setText("000000");
 				lblUser.setText("Update User");
+				tfPassword.setDisable(true);
 				ResultSet currentUser = this.userModel.getUserById(this.userId);
 				if(currentUser.next()) {
 					tfCode.setText(currentUser.getString("code"));
