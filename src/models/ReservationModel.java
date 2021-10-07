@@ -97,7 +97,7 @@ public class ReservationModel extends BaseModel{
 				joins.add(JoinCondition.getInstance("join", "discounts", joinConditions));
 				
 				
-				
+				 
 				return this.getData(selects, conditions, joins);
 			} catch (Exception eGetUserById) {
 				eGetUserById.printStackTrace();

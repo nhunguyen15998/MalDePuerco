@@ -8,7 +8,7 @@ import utils.DataMapping;
 
 public class DiscountModel extends BaseModel{
 	private static String table = "discounts";
-	private static String[] columns = {"id, code, name, descriptions, start_date, period, created_at, decrease, status"};
+	private static String[] columns = {"id, code, name, descriptions, start_date, end_date, created_at, decrease, status"};
 	private static DiscountModel discountModel;
 	
 	
@@ -19,7 +19,7 @@ public class DiscountModel extends BaseModel{
 	private String name;
 	private String descriptions;
 	private String start_date;
-	private int period;
+	private String end_date;
 	private String createdAt;
 	private int status;
 	private float decrease;
@@ -38,7 +38,7 @@ public class DiscountModel extends BaseModel{
 		}
 
 		public static DiscountModel getInstance( int id, int sequence, String code, String name,
-				String descriptions, String start_date, int period, String createdAt, int status, float decrease) {
+				String descriptions, String start_date, String end_date, String createdAt, int status, float decrease) {
 			if(discountModel==null) {
 				DiscountModel item = new DiscountModel();
 				item.id = id;
@@ -47,7 +47,7 @@ public class DiscountModel extends BaseModel{
 				item.name = name;
 				item.descriptions = descriptions;
 				item.start_date = start_date;
-				item.period = period;
+				item.end_date = end_date;
 				item.createdAt = createdAt;
 				item.status = status;
 				item.decrease = decrease;
@@ -79,6 +79,14 @@ public class DiscountModel extends BaseModel{
 				
 				ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
 				conditions.add(CompareOperator.getInstance("id", "=", String.valueOf(id)));
+				return this.update(data, conditions);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		public boolean updateDiscount(ArrayList<DataMapping> data, ArrayList<CompareOperator> conditions) {
+			try {
 				return this.update(data, conditions);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -147,12 +155,13 @@ public class DiscountModel extends BaseModel{
 			this.start_date = start_date;
 		}
 
-		public int getPeriod() {
-			return period;
+
+		public String getEnd_date() {
+			return end_date;
 		}
 
-		public void setPeriod(int period) {
-			this.period = period;
+		public void setEnd_date(String end_date) {
+			this.end_date = end_date;
 		}
 
 		public String getCreatedAt() {
