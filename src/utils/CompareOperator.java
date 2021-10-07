@@ -11,7 +11,7 @@ public class CompareOperator {
 			CompareOperator item = new CompareOperator();
 			item.key = key;
 			item.operator = operator;
-			item.value = value;
+			item.value = value; 
 			return item;
 		}
 

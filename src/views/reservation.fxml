@@ -293,6 +293,6 @@
             </Pane>
          </children>
       </Pane>
-      <Pane layoutX="606.0" layoutY="66.0" prefHeight="463.0" prefWidth="219.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.5),30, 0,10, 10);" />
+      <Pane fx:id="paneSchedule" layoutX="606.0" layoutY="66.0" prefHeight="463.0" prefWidth="219.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.5),30, 0,10, 10);" />
    </children>
 </AnchorPane>

@@ -22,11 +22,11 @@
               <columns>
                 <TableColumn fx:id="colNo" prefWidth="28.799983978271484" styleClass="col-header" text="#" />
                 <TableColumn fx:id="colCode" prefWidth="96.79998779296875" styleClass="col-header" text="Code" />
-                  <TableColumn fx:id="colName" prefWidth="159.20005798339844" styleClass="col-header" text="Name" />
-                  <TableColumn fx:id="colDecrease" prefWidth="56.0" styleClass="col-header" text="Decrease" />
-                  <TableColumn fx:id="colDescrip" prefWidth="143.20001220703125" styleClass="col-header" text="Desciptions" />
-                  <TableColumn fx:id="colStartDate" prefWidth="81.5999755859375" styleClass="col-header" text="Start date" />
-                  <TableColumn fx:id="colPeriod" prefWidth="44.0" styleClass="col-header" text="Period" />
+                  <TableColumn fx:id="colName" prefWidth="141.6000518798828" styleClass="col-header" text="Name" />
+                  <TableColumn fx:id="colDecrease" prefWidth="60.00006103515625" styleClass="col-header" text="Decrease" />
+                  <TableColumn fx:id="colDescrip" prefWidth="137.59991455078125" styleClass="col-header" text="Desciptions" />
+                  <TableColumn fx:id="colStartDate" prefWidth="75.99993896484375" styleClass="col-header" text="Start date" />
+                  <TableColumn fx:id="colEndDate" prefWidth="72.00006103515625" styleClass="col-header" text="End date" />
                   <TableColumn fx:id="colCreatedAt" prefWidth="83.20001220703125" styleClass="col-header" text="Created at" />
                   <TableColumn fx:id="colStatus" minWidth="0.0" prefWidth="73.5999755859375" styleClass="col-header" text="Status" />
                   <TableColumn fx:id="ID" prefWidth="75.0" text="ID" visible="false" />
@@ -39,14 +39,13 @@
             <Label layoutX="23.0" layoutY="231.0" text="Name:" />
             <Label layoutX="23.0" layoutY="274.0" text="Code:" />
             <TextField fx:id="tfDescript" focusTraversable="false" layoutX="110.0" layoutY="308.0" prefHeight="25.0" prefWidth="211.0" promptText="Descriptions" styleClass="tfDiscount" stylesheets="@../css/discount.css" />
-            <DatePicker fx:id="dpStart" focusTraversable="false" layoutX="509.0" layoutY="224.0" prefHeight="25.0" prefWidth="211.0" promptText="Date" style="-fx-background-color: pink;" />
+            <DatePicker fx:id="dpStart" focusTraversable="false" layoutX="509.0" layoutY="224.0" prefHeight="25.0" prefWidth="211.0" promptText="Start date" style="-fx-background-color: pink;" />
             <Label layoutX="23.0" layoutY="315.0" text="Descriptions:" />
             <Label layoutX="422.0" layoutY="228.0" prefHeight="17.0" prefWidth="56.0" text="Start date:" />
-            <TextField fx:id="tfPeriod" focusTraversable="false" layoutX="509.0" layoutY="267.0" prefHeight="25.0" prefWidth="211.0" promptText="Period" styleClass="tfDiscount" stylesheets="@../css/discount.css" />
-            <Label layoutX="422.0" layoutY="267.0" prefHeight="26.0" prefWidth="37.0" text="Period:" />
+            <Label layoutX="422.0" layoutY="267.0" prefHeight="26.0" prefWidth="56.0" text="End date:" />
             <Label layoutX="422.0" layoutY="315.0" text="Status:" />
             <ComboBox fx:id="cbStatus" layoutX="509.0" layoutY="311.0" prefHeight="25.0" prefWidth="211.0" styleClass="cbbDiscount" stylesheets="@../css/discount.css" />
-            <Button fx:id="btnAdd" alignment="CENTER" layoutX="263.0" layoutY="410.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: linear-gradient(to right, #8DC9F8, #69B5F2, #4BA4EC, #3292E6); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnDiscountUC" stylesheets="@../css/discount.css" text="Add" textFill="WHITE">
+            <Button fx:id="btnAdd" alignment="CENTER" layoutX="265.0" layoutY="392.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: linear-gradient(to right, #8DC9F8, #69B5F2, #4BA4EC, #3292E6); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnDiscountUC" stylesheets="@../css/discount.css" text="Add" textFill="WHITE">
                <effect>
                   <DropShadow color="#5873de7d" />
                </effect>
@@ -61,7 +60,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btnUpdate" alignment="CENTER" layoutX="351.0" layoutY="410.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: linear-gradient(to right, #9de3cb, #62a38d); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnDiscountUC" stylesheets="@../css/discount.css" text="Update" textFill="WHITE">
+            <Button fx:id="btnUpdate" alignment="CENTER" layoutX="353.0" layoutY="392.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: linear-gradient(to right, #9de3cb, #62a38d); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnDiscountUC" stylesheets="@../css/discount.css" text="Update" textFill="WHITE">
                <effect>
                   <DropShadow color="#62a38d7d" />
                </effect>
@@ -76,7 +75,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="CENTER" layoutX="446.0" layoutY="410.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#resetInput" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: linear-gradient(to right, #dbd9d5, #a39e96); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnDiscountUC" stylesheets="@../css/discount.css" text="Reset" textFill="WHITE">
+            <Button alignment="CENTER" layoutX="448.0" layoutY="392.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#resetInput" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: linear-gradient(to right, #dbd9d5, #a39e96); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnDiscountUC" stylesheets="@../css/discount.css" text="Reset" textFill="WHITE">
                <effect>
                   <DropShadow color="#62a38d7d" />
                </effect>
@@ -118,11 +117,12 @@
                   <Font name="System Italic" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="lblPeriodError" layoutX="509.0" layoutY="293.0" prefHeight="9.0" prefWidth="234.0" textFill="#a17064">
+            <Label fx:id="dpError" layoutX="509.0" layoutY="293.0" prefHeight="9.0" prefWidth="234.0" textFill="#a17064">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font>
             </Label>
+            <DatePicker fx:id="dpEnd" focusTraversable="false" layoutX="509.0" layoutY="268.0" prefHeight="25.0" prefWidth="211.0" promptText="End date" style="-fx-background-color: pink;" />
          </children>
       </Pane>
       <Label layoutX="89.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="685.0" text="Discount">
@@ -139,17 +139,30 @@
             </ImageView>
          </graphic>
       </Label>
-			<TextField fx:id="tfDiscount" layoutX="477.0" layoutY="29.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#onSearch" prefHeight="30.0" prefWidth="277.0" promptText="Find by name, code , start date" style="-fx-background-radius: 50px;" />
+			<TextField fx:id="tfDiscount" layoutX="377.0" layoutY="29.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#onSearch" prefHeight="30.0" prefWidth="277.0" promptText="Find by name, code , start date" style="-fx-background-radius: 50px;" />
 			
-			<Button layoutX="763.0" layoutY="29.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnClearAction" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #9C5978; -fx-background-radius: 50px;" styleClass="btnRoles" textFill="WHITE" />
-			      <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" layoutX="776.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+			<Button layoutX="663.0" layoutY="29.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnClearAction" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #9C5978; -fx-background-radius: 50px;" styleClass="btnRoles" textFill="WHITE" />
+			      <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" layoutX="676.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
 			         <image>
 			            <Image url="@../assets/delete_key.png" />
 			         </image>
 			      </ImageView>
-      <ImageView disable="true" fitHeight="30.0" fitWidth="22.0" layoutX="724.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView disable="true" fitHeight="30.0" fitWidth="22.0" layoutX="624.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/search-g.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnDelete" alignment="CENTER" layoutX="725.0" layoutY="28.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: #FB6E67; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnReser" stylesheets="@../css/reservation.css" text="    Delete" textFill="WHITE">
+         <effect>
+            <DropShadow color="#fb6e677d" />
+         </effect>
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Button>
+      <ImageView disable="true" fitHeight="15.0" fitWidth="18.0" layoutX="732.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/delete.png" />
          </image>
       </ImageView>
    </children>
