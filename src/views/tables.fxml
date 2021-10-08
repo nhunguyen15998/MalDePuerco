@@ -28,18 +28,18 @@
       <Pane fx:id="paneSchedule" layoutX="10.0" layoutY="67.0" prefHeight="448.0" prefWidth="219.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.5),30, 0,10, 10);" />
       <Pane layoutX="235.0" layoutY="67.0" prefHeight="448.0" prefWidth="596.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.8),30, 0,10, 10);">
          <children>
-            <TableView fx:id="tblTables" layoutX="4.0" layoutY="67.0" onMouseClicked="#getTableDataByClick" prefHeight="328.0" prefWidth="586.0" stylesheets="@../css/tables.css">
+            <TableView fx:id="tblTables" layoutX="4.0" layoutY="67.0" onMouseClicked="#getTableDataByClick" prefHeight="294.0" prefWidth="586.0" stylesheets="@../css/tables.css">
               <columns>
                 <TableColumn fx:id="colNo" prefWidth="30.0" text="#" />
-                <TableColumn fx:id="colID" prefWidth="75.0" text="ID" visible="false" />
-                  <TableColumn fx:id="colCode" prefWidth="84.0" text="Code" />
-                  <TableColumn fx:id="colName" prefWidth="100.79998779296875" text="Name" />
-                  <TableColumn fx:id="colSeats" prefWidth="40.79998779296875" text="Seats" />
-                  <TableColumn fx:id="colCreated" prefWidth="77.5999755859375" text="Created at" />
-                  <TableColumn fx:id="colSet" prefWidth="41.60003662109375" text="Is Set" />
-                  <TableColumn fx:id="colShift" prefWidth="56.7999267578125" text="Shift of" />
-                  <TableColumn fx:id="colReser" prefWidth="72.80010986328125" text="Reservation" />
-                  <TableColumn fx:id="colStatus" prefWidth="79.9998779296875" text="Status" />
+                <TableColumn fx:id="colID" prefWidth="75.0" text="colID" visible="false" />
+                  <TableColumn fx:id="colCode" prefWidth="100.0" text="Code" />
+                  <TableColumn fx:id="colName" prefWidth="116.0" text="Name" />
+                  <TableColumn fx:id="colSeats" minWidth="9.5999755859375" prefWidth="40.79998779296875" text="Seats" />
+                  <TableColumn fx:id="colCreated" prefWidth="103.20001220703125" text="Created at" />
+                  <TableColumn fx:id="colSet" prefWidth="35.20001220703125" text="Is Set" />
+                  <TableColumn fx:id="colShift" prefWidth="85.60003662109375" text="Shift of" />
+                  <TableColumn fx:id="colStatus" prefWidth="75.20001220703125" text="Status" />
+                  <TableColumn fx:id="colUserID" prefWidth="85.60003662109375" text="UserID" visible="false" />
               </columns>
             </TableView>
             <Button alignment="CENTER_RIGHT" layoutX="332.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnCreateAction" prefHeight="30.0" prefWidth="68.0" style="-fx-background-color: #2B79D3; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnTables" stylesheets="@../css/tables.css" text="Create" textFill="WHITE">
@@ -102,6 +102,19 @@
             <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" layoutX="485.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/order.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnChange" alignment="CENTER" layoutX="464.0" layoutY="367.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnChangeShift" prefHeight="30.0" prefWidth="118.0" style="-fx-background-color: #2B79D3; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnTables" stylesheets="@../css/tables.css" text="     Change shift" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#2b79d37d" />
+               </effect>
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Button>
+            <ImageView disable="true" fitHeight="18.0" fitWidth="29.0" layoutX="477.0" layoutY="374.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/roles.png" />
                </image>
             </ImageView>
          </children>

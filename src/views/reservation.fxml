@@ -36,7 +36,8 @@
             </Label>
          </children>
       </Pane>
-      <Pane layoutX="14.0" layoutY="65.0" prefHeight="463.0" prefWidth="586.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.8),30, 0,10, 10); -fx-background-radius: 20 0 0 0;">
+      <Pane fx:id="paneSchedule" layoutX="12.0" layoutY="72.0" prefHeight="463.0" prefWidth="219.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.5),30, 0,10, 10);" />
+      <Pane layoutX="238.0" layoutY="72.0" prefHeight="463.0" prefWidth="586.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.8),30, 0,10, 10); -fx-background-radius: 20 0 0 0;">
          <children>
             <TableView fx:id="tblReser" layoutX="2.0" layoutY="83.0" onMouseClicked="#getRowSelected" prefHeight="174.0" prefWidth="506.0" stylesheets="@../css/tables.css">
                <columns>
@@ -113,7 +114,7 @@
                <children>
                   <VBox prefHeight="32.0" prefWidth="68.0" style="-fx-background-color: #eddfe9;">
                      <children>
-                        <RadioButton fx:id="rdNew" focusTraversable="false" mnemonicParsing="false" onAction="#findOnClick" prefHeight="18.0" prefWidth="17.0" styleClass="btnReser" stylesheets="@../css/reservation.css">
+                        <RadioButton id="1" fx:id="rdNew" focusTraversable="false" mnemonicParsing="false" onAction="#findOnClick" prefHeight="18.0" prefWidth="17.0" styleClass="btnReser" stylesheets="@../css/reservation.css">
                            <VBox.margin>
                               <Insets left="25.0" right="10.0" top="4.0" />
                            </VBox.margin>
@@ -130,7 +131,7 @@
                   </VBox>
                   <VBox prefHeight="22.0" prefWidth="66.0" style="-fx-background-color: #d5edce;">
                      <children>
-                        <RadioButton fx:id="rdConfirm" focusTraversable="false" mnemonicParsing="false" onAction="#findOnClick" prefHeight="18.0" prefWidth="17.0" styleClass="btnReser" stylesheets="@../css/reservation.css">
+                        <RadioButton id="2" fx:id="rdConfirm" focusTraversable="false" mnemonicParsing="false" onAction="#findOnClick" prefHeight="18.0" prefWidth="17.0" styleClass="btnReser" stylesheets="@../css/reservation.css">
                            <VBox.margin>
                               <Insets left="25.0" right="10.0" top="4.0" />
                            </VBox.margin>
@@ -147,7 +148,7 @@
                   </VBox>
                   <VBox prefHeight="22.0" prefWidth="66.0" style="-fx-background-color: #f0eec2;">
                      <children>
-                        <RadioButton fx:id="rdDeposit" focusTraversable="false" mnemonicParsing="false" onAction="#findOnClick" prefHeight="18.0" prefWidth="17.0" styleClass="btnReser" stylesheets="@../css/reservation.css">
+                        <RadioButton id="3" fx:id="rdDeposit" focusTraversable="false" mnemonicParsing="false" onAction="#findOnClick" prefHeight="18.0" prefWidth="17.0" styleClass="btnReser" stylesheets="@../css/reservation.css">
                            <VBox.margin>
                               <Insets left="25.0" right="10.0" top="4.0" />
                            </VBox.margin>
@@ -164,7 +165,7 @@
                   </VBox>
                   <VBox prefHeight="22.0" prefWidth="66.0" style="-fx-background-color: #f2c5c2;">
                      <children>
-                        <RadioButton fx:id="rdPresent" focusTraversable="false" mnemonicParsing="false" onAction="#findOnClick" prefHeight="18.0" prefWidth="17.0" styleClass="btnReser" stylesheets="@../css/reservation.css">
+                        <RadioButton id="4" fx:id="rdPresent" focusTraversable="false" mnemonicParsing="false" onAction="#findOnClick" prefHeight="18.0" prefWidth="17.0" styleClass="btnReser" stylesheets="@../css/reservation.css">
                            <VBox.margin>
                               <Insets left="25.0" right="10.0" top="4.0" />
                            </VBox.margin>
@@ -181,7 +182,7 @@
                   </VBox>
                   <VBox prefHeight="22.0" prefWidth="66.0" style="-fx-background-color: #d3e8e6;">
                      <children>
-                        <RadioButton fx:id="rdExpried" focusTraversable="false" mnemonicParsing="false" onAction="#findOnClick" prefHeight="18.0" prefWidth="17.0" styleClass="btnReser" stylesheets="@../css/reservation.css">
+                        <RadioButton id="5" fx:id="rdExpried" focusTraversable="false" mnemonicParsing="false" onAction="#findOnClick" prefHeight="18.0" prefWidth="17.0" styleClass="btnReser" stylesheets="@../css/reservation.css">
                            <VBox.margin>
                               <Insets left="25.0" right="10.0" top="4.0" />
                            </VBox.margin>
@@ -198,7 +199,7 @@
                   </VBox>
                   <VBox prefHeight="22.0" prefWidth="66.0" style="-fx-background-color: #dadef5;">
                      <children>
-                        <RadioButton fx:id="rdCancel" focusTraversable="false" mnemonicParsing="false" onAction="#findOnClick" prefHeight="18.0" prefWidth="17.0" styleClass="btnReser" stylesheets="@../css/reservation.css">
+                        <RadioButton id="0" fx:id="rdCancel" focusTraversable="false" mnemonicParsing="false" onAction="#findOnClick" prefHeight="18.0" prefWidth="17.0" styleClass="btnReser" stylesheets="@../css/reservation.css">
                            <VBox.margin>
                               <Insets left="25.0" right="10.0" top="4.0" />
                            </VBox.margin>
@@ -230,7 +231,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Pane fx:id="paneDetails" focusTraversable="true" layoutX="14.0" layoutY="262.0" prefHeight="181.0" prefWidth="331.0">
+            <Pane fx:id="paneDetails" focusTraversable="true" layoutX="14.0" layoutY="262.0" prefHeight="181.0" prefWidth="331.0" visible="false">
                <children>
                   <VBox prefHeight="181.0" prefWidth="331.0">
                      <children>
@@ -293,6 +294,5 @@
             </Pane>
          </children>
       </Pane>
-      <Pane fx:id="paneSchedule" layoutX="606.0" layoutY="66.0" prefHeight="463.0" prefWidth="219.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.5),30, 0,10, 10);" />
    </children>
 </AnchorPane>

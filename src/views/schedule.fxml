@@ -14,22 +14,26 @@
 
 <AnchorPane prefHeight="463.0" prefWidth="219.0" style="-fx-background-color: white;" stylesheets="@../css/item.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ScheduleController">
    <children>
-      <VBox layoutY="86.0" prefHeight="375.0" prefWidth="220.0">
+      <Pane fx:id="paneStatus" layoutY="86.0" prefHeight="378.0" prefWidth="219.0">
          <children>
-            <ScrollPane prefHeight="403.0" prefWidth="220.0" VBox.vgrow="ALWAYS">
-               <content>
-                  <GridPane fx:id="grid" prefHeight="0.0" prefWidth="97.0">
-                     <columnConstraints>
-                        <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                  </GridPane>
-               </content>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </ScrollPane>
+            <VBox fx:id="vbox" prefHeight="375.0" prefWidth="220.0">
+               <children>
+                  <ScrollPane prefHeight="403.0" prefWidth="220.0" VBox.vgrow="ALWAYS">
+                     <content>
+                        <GridPane fx:id="grid" prefHeight="0.0" prefWidth="97.0">
+                           <columnConstraints>
+                              <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                        </GridPane>
+                     </content>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </ScrollPane>
+               </children>
+            </VBox>
          </children>
-      </VBox>
+      </Pane>
       <Pane prefHeight="38.0" prefWidth="220.0" style="-fx-background-color: #fff7f8;">
          <children>
             <DatePicker fx:id="dpDate" focusTraversable="false" layoutX="94.0" layoutY="7.0" onAction="#dateChoose" prefHeight="25.0" prefWidth="112.0" style="-fx-border-color: #d1bcbc; -fx-border-radius: 5;" />
@@ -90,7 +94,7 @@
             <String fx:value="btnSchedule" />
          </styleClass>
       </Label>
-      <Label id="0" fx:id="tabCancel" alignment="CENTER" layoutX="146.0" layoutY="63.0" onMouseClicked="#tabCancel" prefHeight="18.0" prefWidth="72.0" stylesheets="@../css/item.css" text="Cancelled" textFill="#864242">
+      <Label id="0" fx:id="lblCancel" alignment="CENTER" layoutX="146.0" layoutY="63.0" onMouseClicked="#tabCancel" prefHeight="18.0" prefWidth="72.0" stylesheets="@../css/item.css" text="Cancelled" textFill="#864242">
          <font>
             <Font name="Cambria" size="12.0" />
          </font>
