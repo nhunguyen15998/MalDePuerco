@@ -5,14 +5,15 @@ import java.util.ArrayList;
 
 import utils.CompareOperator;
 import utils.DataMapping;
+import utils.JoinCondition;
 
 public class TableModel extends BaseModel{
 	private static String table = "tables";
-	private static String[] columns = {"id, code, name, seats, created_at, status, is_set"};
+	private static String[] columns = {"id, code, name, seats, created_at, user_id, status, is_set"};
 	private static TableModel tableModel;
-	private int id;
+	private int id, user_id;
 	private int sequence;
-	private String code;
+	private String code, username;
 	private String name;
 	private int seats;
 	private String createdAt;
@@ -45,6 +46,7 @@ public class TableModel extends BaseModel{
 	//get
 		public ResultSet getTableList(ArrayList<CompareOperator> conditions) {
 			try {	
+				
 				return this.getData(columns, conditions, null);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -53,7 +55,7 @@ public class TableModel extends BaseModel{
 		}
 
 	public static TableModel getInstance( int id, int sequence, String code, String name, int seats,
-			String createdAt, int status, int is_set) {
+			String createdAt, int status, int is_set, String username, int userID ) {
 		if(tableModel ==  null) {
 			TableModel item = new TableModel();
 			item.id = id;
@@ -64,6 +66,8 @@ public class TableModel extends BaseModel{
 			item.createdAt = createdAt;
 			item.status = status;
 			item.is_set = is_set;
+			item.username = username;
+			item.user_id = userID;
 			return item;
 		}
 		return tableModel;
@@ -72,10 +76,11 @@ public class TableModel extends BaseModel{
 	//get data by id
 		public ResultSet getTableById(int id) {
 			try {		
-				ArrayList<CompareOperator> joinRole = new ArrayList<CompareOperator>();
-				joinRole.add(CompareOperator.getInstance("id", " = ", String.valueOf(id)));
 				
-				return this.getData(columns, joinRole, null);
+				ArrayList<CompareOperator> cond = new ArrayList<CompareOperator>();
+				cond.add(CompareOperator.getInstance("id", " = ", String.valueOf(id)));
+			
+				return this.getData(columns, cond, null);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return null;
@@ -180,8 +185,24 @@ public class TableModel extends BaseModel{
 		public void setIs_set(int is_set) {
 			this.is_set = is_set;
 		}
+
+		public int getUser_id() {
+			return user_id;
+		}
+
+		public void setUser_id(int user_id) {
+			this.user_id = user_id;
+		}
+
+		public String getUsername() {
+			return username;
+		}
+
+		public void setUsername(String username) {
+			this.username = username;
+		}
 		
-		//get && set
+		
 		
 		
 		

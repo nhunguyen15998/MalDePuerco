@@ -79,7 +79,7 @@ public class PermissionModel extends BaseModel{
 						
 			//user type vs user
 			ArrayList<CompareOperator> userTypeUserCondition = new ArrayList<CompareOperator>();
-			userTypeUserCondition.add(CompareOperator.getInstance("users.id", "=", "roles.id"));
+			userTypeUserCondition.add(CompareOperator.getInstance("users.role_id", "=", "roles.id"));
 			
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
 			joins.add( JoinCondition.getInstance("join", "role_permissions", pUserTypePermissionCondition));
