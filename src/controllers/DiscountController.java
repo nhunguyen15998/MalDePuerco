@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -270,11 +271,10 @@ public class DiscountController implements Initializable {
     	
     }
     private void checkStartDate() {
-    	Connection conn = MySQLJDBC.Instance().getConn();
-    	String queryUpdate = "update discounts set status = 0 where curdate()<start_date or end_date<curdate() ";
-    	try{
-    		PreparedStatement ps = conn.prepareStatement(queryUpdate);
-        	ps.execute();
+    	String sql = "update discounts set status = 0 where curdate()<start_date or end_date<curdate()" ;
+        try {
+        	Statement stmt = MySQLJDBC.connection.createStatement();
+    	   stmt.execute(sql);
     	}catch(SQLException  ex) {
     		ex.printStackTrace();
     	}

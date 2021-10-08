@@ -177,7 +177,6 @@ public class TableCUController implements Initializable {
 	
     @FXML
     void btnSaveAction() {
-    	Rectangle2D screenBounds = Screen.getPrimary().getBounds();
 		try {
 			String name = tfName.getText();
 			String code = tfCode.getText();
@@ -202,8 +201,6 @@ public class TableCUController implements Initializable {
 					Alert alert = new Alert(AlertType.CONFIRMATION);
 					alert.setTitle("Update Table Confirmation");
 					alert.setHeaderText("Do you want to make this change?");
-					alert.setX(screenBounds.getWidth() - 1000);
-					alert.setY(screenBounds.getHeight() - 810);
 					Optional<ButtonType> option = alert.showAndWait();
 					if (option.get() == ButtonType.OK) {
 						tableModel.updateTableById(this.tableId, table);

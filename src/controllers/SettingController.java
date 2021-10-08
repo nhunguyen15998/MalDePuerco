@@ -116,7 +116,8 @@ public class SettingController implements Initializable {
 	}
 	@FXML
 	public void btnSaveAction(ActionEvent event) {
-		if(cbbCode.getValue()!=null) {
+		String choose = cbbCode.getValue().toString();
+		if(!choose.equals("")) {
 			SettingController.tablet_code=(preference.get("cbb", cbbCode.getValue().toString()));
 			preference.put("tabletCode", SettingController.tablet_code);
 			 System.out.println("new:"+SettingController.tablet_code);
@@ -126,7 +127,11 @@ public class SettingController implements Initializable {
 						updateData();
 						Helpers.status("success");
 						
-		} 
+		} else {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setHeaderText("Please select table code");
+				alert.showAndWait();
+		}
 		
 		
 	}

@@ -25,7 +25,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 
 import javafx.scene.control.ComboBox;
-
+import javafx.scene.control.DateCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -120,8 +120,8 @@ public class ReservationCUController implements Initializable {
 				if(depo.isEmpty()) {
 					re.add(DataMapping.getInstance("deposit", "0"));
 					}
-				re.add(DataMapping.getInstance("start_time", start));
-				re.add(DataMapping.getInstance("end_time", end));
+				re.add(DataMapping.getInstance("start_time", Helpers.formatTime(start)));
+				re.add(DataMapping.getInstance("end_time", Helpers.formatTime(end)));
 				re.add(DataMapping.getInstance("date_pick", date));
 				if(discount>=0) {
 				re.add(DataMapping.getInstance("discount_id", discount+""));
@@ -144,6 +144,7 @@ public class ReservationCUController implements Initializable {
 					
 				}
 				reController.parseData(null);
+				reController.loadSchedule();
 				this.close();
 				
 				
@@ -179,7 +180,17 @@ public class ReservationCUController implements Initializable {
 		cbStatus.setValue(ReservationModel.isNew);
 		this.getDecreaseList();
 		dpDate.setValue(LocalDate.now());
-		
+		LocalDate maxDate = LocalDate.now();
+		dpDate.setDayCellFactory(d ->
+		           new DateCell() {
+		               @Override public void updateItem(LocalDate item, boolean empty) {
+		                   super.updateItem(item, empty);
+		                   if(item.isBefore(maxDate)){
+		                	   setDisable(item.isBefore(maxDate));
+			                   setStyle("-fx-background-color: #eba9b4;");
+		                   }
+		               }});
+
 	}
 
 	//load cbb decrease
@@ -220,8 +231,9 @@ public class ReservationCUController implements Initializable {
 	  					tfEmail.setText(re.getString("email"));
 	  					tfSeat.setText(re.getString("seats_pick"));
 	  					tfDeposit.setText(re.getString("deposit"));
-	  					tfStart.setText(re.getString("start_time"));
-	  					tfEnd.setText(re.getString("end_time"));
+	  					dpDate.setValue(re.getDate("date_pick").toLocalDate());
+	  					tfStart.setText(Helpers.formatTime(re.getString("start_time")));
+	  					tfEnd.setText(Helpers.formatTime(re.getString("end_time")));
 	  					cbbDiscount.setValue(discountCode(re.getInt("discount_id")));
 	  					for(DataMapping status : cbStatus.getItems()) {
 	  						if(status.key != null && Integer.parseInt(status.key) == re.getInt("status")) {

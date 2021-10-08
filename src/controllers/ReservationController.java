@@ -9,11 +9,18 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.sql.Array;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
+import db.MySQLJDBC;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -46,6 +53,7 @@ import models.UserModel;
 import utils.CompareOperator;
 import utils.DataMapping;
 import utils.Helpers;
+import utils.JoinCondition;
 
 /**
  * FXML Controller class
@@ -173,10 +181,16 @@ public class ReservationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+
+    	LocalDate now = LocalDate.now();
+    	dpFrom.setValue(now.withDayOfMonth(1));
+    	dpTo.setValue(now.withDayOfMonth(now.lengthOfMonth()));
+		this.loadSchedule();
+		this.findOnClick();
     	this.parseData(null);
     }  
     //load schedule
-    private void loadSchedule() {
+    public void loadSchedule() {
     	 AnchorPane anchor;
    		try {
    			anchor = FXMLLoader.load(getClass().getResource("/views/schedule.fxml"));
@@ -238,7 +252,6 @@ public class ReservationController implements Initializable {
   					));
   			}
   			tblReser.setItems(reserList);
-  			this.loadSchedule();
   		} catch (Exception e) {
   			e.printStackTrace();
   		}
@@ -330,14 +343,119 @@ public class ReservationController implements Initializable {
 
     @FXML
     public void findOnClick() {
+    	String New="empty", conf="empty", depo="empty", pre="empty", cancel="empty", expired="empty";
+    	if(rdConfirm.isSelected()) {
+    		conf =rdConfirm.getId();
+    	}
+    	if(rdNew.isSelected()) {
+    		New =rdNew.getId();
+    	}
+    	if(rdDeposit.isSelected()) {
+    		depo = rdDeposit.getId();
+    	}
+    	if(rdPresent.isSelected()) {
+    		pre = rdPresent.getId();
+    	}
+    	if(rdCancel.isSelected()) {
+    		cancel = rdCancel.getId();
+    	}
+    	if(rdExpried.isSelected()) {
+    		expired =rdExpried.getId();
+    	}
+    	List<String> array = Arrays.asList(New, expired, conf, depo, pre, cancel);
+    	ArrayList<String> a = new ArrayList<String>();
+    	a.addAll(array);
+    	String sql="";
+    	if(checkSelected(a)) {
+    	sql = " where date_pick>='"+dpFrom.getValue()+"' and date_pick<='"+dpTo.getValue()+"' and ("+statusSelected(a)+")";
+    	}
+    	else {
+    	sql = " where date_pick>='"+dpFrom.getValue()+"' and date_pick<='"+dpTo.getValue()+"'";
+    	}
+    	System.out.println(sql);
+    	ObservableList<ReservationModel> reser;
+    	reser = getDataReser(sql);
+    	tblReser.setItems(reser);
+    	
+    	
 
     }
+    private boolean checkSelected(ArrayList<String> array) {
+    	boolean check = false;
+    	int k = 0;
+    	for(String item : array) {
+			if(!item.equals("empty")) {
+				k++;
+			}
+			if(k>0) {
+				check=true;
+			}
+    	}
+    	System.out.println("check: "+check);
+		return check;
+    }
+    private String statusSelected(ArrayList<String> array) {
+	    	String value ="";
+	    	int k = 0;
+	    	for(String item : array) {
+				if(!item.equals("empty")) {
+					k++;
+				}
+	    	}
+			
+			int i = 0;
+			for(String item : array) {
+				if(!item.equals("empty")) {
+				value += "reservations.status="+item;
+				i++;
+				if(i < k) {
+					value += " or ";
+				}
+				
+				}
+		}
+    return value;
+    }
+    
+    public static ObservableList<ReservationModel> getDataReser(String condition){
+        ObservableList<ReservationModel> list =  FXCollections.observableArrayList();
+       
+       try{
+       String sql = "select reservations.*,decrease from reservations join discounts on reservations.discount_id = discounts.id"+condition ;
+       Connection conn=MySQLJDBC.Instance().getConn();
+       PreparedStatement ps = conn.prepareStatement(sql);
+       ResultSet r = ps.executeQuery();
+      
+       while(r.next()){
+          list.add(ReservationModel.getInstance(
+					r.getInt("id"),
+					r.getRow(),
+					r.getInt("deposit"),
+					r.getString("discounts.decrease"),
+					r.getInt("status"),
+					r.getInt("seats_pick"),
+					r.getString("code"),
+					r.getString("customer_name"),
+					r.getString("phone"), 
+					r.getString("email"),
+					Helpers.formatTime(r.getString("start_time")),
+					Helpers.formatTime(r.getString("end_time")),
+					r.getDate("date_pick").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy")),
+					r.getDate("reservations.created_at").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy"))
+					));
+       }
+       }catch(SQLException ex){
+           ex.printStackTrace();
+       }
+     return list;
+   }
 
     @FXML
     public void getRowSelected(MouseEvent event) {
+
+		paneDetails.setVisible(true);
     	try {
 			if(event.getClickCount() > 0) {
-				paneDetails.setVisible(true);
 				ReservationModel item = tblReser.getSelectionModel().getSelectedItem();
 				if(item != null) {
 					DataMapping status=ReservationModel.isCancelled;
@@ -400,9 +518,18 @@ public class ReservationController implements Initializable {
     	rdExpried.setSelected(false);
     	rdDeposit.setSelected(false);
     	rdPresent.setSelected(false);
-    	dpFrom.setValue(LocalDate.now());
-    	dpTo.setValue(LocalDate.now());
+    	LocalDate now = LocalDate.now();
+    	dpFrom.setValue(now.withDayOfMonth(1));
+    	dpTo.setValue(now.withDayOfMonth(now.lengthOfMonth()));
     	paneDetails.setVisible(false);
+    	rdNew.setSelected(false);
+       	rdCancel.setSelected(false);
+       	rdConfirm.setSelected(false);
+       	rdDeposit.setSelected(false);
+       	rdExpried.setSelected(false);
+       	rdPresent.setSelected(false);
+       	this.findOnClick();
+    	
     }
 
 

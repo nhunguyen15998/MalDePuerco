@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+import db.MySQLJDBC;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -69,6 +73,11 @@ public class TablesController implements Initializable {
     private TableColumn<TableModel, String> colName;
 
     @FXML
+    private TableColumn<TableModel, String> colShift;
+
+    @FXML
+    private TableColumn<TableModel, Integer> colUserID;
+    @FXML
     private TableColumn<TableModel, Integer> colSeats;
 
     @FXML
@@ -83,6 +92,8 @@ public class TablesController implements Initializable {
     @FXML
     private TextField tfTable;
 
+    @FXML
+    private Button btnChange;
     @FXML
     private Button btnOrder;
 
@@ -117,12 +128,14 @@ public class TablesController implements Initializable {
   					
   			//cols get from model
   			colID.setCellValueFactory(new PropertyValueFactory<TableModel, Integer>("id"));
+  			colUserID.setCellValueFactory(new PropertyValueFactory<TableModel, Integer>("user_id"));
   			colNo.setCellValueFactory(new PropertyValueFactory<TableModel, Integer>("sequence"));
   			colCode.setCellValueFactory(new PropertyValueFactory<TableModel, String>("code"));
   			colName.setCellValueFactory(new PropertyValueFactory<TableModel, String>("name"));
   			colSet.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(				
 					cellData.getValue().getIs_set() == TableModel.YES ? String.valueOf(TableModel.isSet) : String.valueOf(TableModel.isNotSet)));
   			colSeats.setCellValueFactory(new PropertyValueFactory<TableModel, Integer>("seats"));
+  			colShift.setCellValueFactory(new PropertyValueFactory<TableModel, String>("username"));
   			colCreated.setCellValueFactory(new PropertyValueFactory<TableModel, LocalDate>("createdAt"));
   			//format col
   			colStatus.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(				
@@ -137,12 +150,14 @@ public class TablesController implements Initializable {
   				tableList.add(TableModel.getInstance(
   						table.getInt("id"),
   						table.getRow(),
-  						table.getString("code"),
-  						table.getString("name"),
+  						table.getString("tables.code"),
+  						table.getString("tables.name"),
   						table.getInt("seats"),
   						table.getDate("created_at").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy")),
   						table.getInt("status"),
-  						table.getInt("is_set"))
+  						table.getInt("is_set"),
+  						getUserName(table.getInt("user_id")),
+  						table.getInt("user_id"))
   					);
   			}
   			tblTables.setItems(tableList);;
@@ -152,12 +167,27 @@ public class TablesController implements Initializable {
   		}
   		
   	}
+  	private String getUserName(int id) {
+  		String name="";
+  		Connection conn = MySQLJDBC.Instance().getConn();
+  		String sql = "select name from users where id="+id;
+  		try {
+  			PreparedStatement ps = conn.prepareStatement(sql);
+  			ResultSet rs =ps.executeQuery();
+  			if(rs.next()) {
+  				name=rs.getString("name");
+  			}
+  		}catch (Exception e) {
+			
+		}
+  		return name;
+  	}
   	
   	public ArrayList<CompareOperator> getFilter(){
 		try {
 			String code = tfTable.getText();
 			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
-			conditions.add(CompareOperator.getInstance("code or name or seats", " like ", "%"+ code + "%"));
+			conditions.add(CompareOperator.getInstance("tables.code or tables.name or seats", " like ", "%"+ code + "%"));
 			//conditions.add(new CompareOperators("", name, name))
 			return conditions;
 		} catch (Exception e) {
@@ -206,7 +236,6 @@ public class TablesController implements Initializable {
     //show uc form
   	public void showCreateForm() {
   		try {
-  			Rectangle2D screenBounds = Screen.getPrimary().getBounds();
   			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/table-cu.fxml"));
   			createHolder = root.load();
   			
@@ -216,8 +245,6 @@ public class TablesController implements Initializable {
   			
   			Scene scene = new Scene(createHolder, 603,417);
   			Stage createStage = new Stage();
-  			createStage.setX(screenBounds.getWidth() - 1000);
-  			createStage.setY(screenBounds.getHeight() - 700);
   			createStage.initStyle(StageStyle.UNDECORATED);
   			createStage.setScene(scene);
   			createStage.show();			
@@ -257,16 +284,48 @@ public class TablesController implements Initializable {
     void btnMakeOrder(ActionEvent event) {
 
     }
-
     @FXML
+    void btnChangeShift() {
+		try {
+			if(this.tableId != 0) {
+					this.showFormChange();
+			} else {
+				Helpers.status("error");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+
+    private void showFormChange() {
+    	try {
+  			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/change-shift.fxml"));
+  			createHolder = root.load();
+  			
+  			//controller
+  			ShiftController controller = root.<ShiftController>getController();
+  			controller.loadDataUpdateById(this, tblTables);
+  			
+  			Scene scene = new Scene(createHolder, 522,327);
+  			Stage createStage = new Stage();
+  			createStage.initStyle(StageStyle.UNDECORATED);
+  			createStage.setScene(scene);
+  			createStage.show();			
+  			
+  		} catch (Exception e) {
+  			e.printStackTrace();
+  		}
+		
+	}
+
+
+	@FXML
     void btnUpdateAction(ActionEvent event) {
     		try {
 			
 			if(this.tableId != 0) {
-//				if(!UserModel.isShown) {
-//					UserModel.isShown = true;
 					this.showCreateForm();
-			//	}
 			} else {
 				//panel
 				Helpers.status("error");

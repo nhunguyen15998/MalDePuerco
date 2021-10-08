@@ -7,13 +7,18 @@ import javafx.geometry.Insets;
 
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import db.MySQLJDBC;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 import javafx.scene.control.Label;
@@ -23,17 +28,21 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import models.ItemModel;
 import models.ReservationModel;
-import models.ScheduleModel;
+import utils.CompareOperator;
+import utils.DataMapping;
 import utils.Helpers;
 
 public class ScheduleController implements Initializable {
-   private ReservationModel reserModel = new ReservationModel();
-	private String date;
+   private static ReservationModel reserModel = new ReservationModel();
     @FXML
     private GridPane grid;
+    @FXML
+    private VBox vbox;
 
     @FXML
     private DatePicker dpDate;
@@ -54,19 +63,31 @@ public class ScheduleController implements Initializable {
     private Label lblPresent;
 
     @FXML
+    private Pane paneStatus;
+    @FXML
     private Label lblExpired;
 
     @FXML
-    private Label tabCancel;
+    private Label lblCancel;
     private List<ItemModel> item = new ArrayList<>();
     
-    
-    private List<ItemModel> getData() throws SQLException{
+    public static ResultSet getDataReser(String condition) throws SQLException{
+    	String sql = "select reservations.*,decrease from reservations join discounts on reservations.discount_id = discounts.id "+condition ;
+       Statement stmt = MySQLJDBC.connection.createStatement();
+		return stmt.executeQuery(sql);
+       
+	
+      
+    }
+    private List<ItemModel> getData(LocalDate date, String status) throws SQLException{
     	List<ItemModel> i = new ArrayList<>();
     	ItemModel items;
-    	
-    	ResultSet rs = reserModel.getReserList(null);
-    	
+
+    	String value =" where date_pick ='"+date+"' order by start_time asc";
+    	if(!status.equals("")) {
+    	 value="where date_pick ='"+date+"' and reservations.status="+status+" order by start_time asc";
+    	}
+    	ResultSet rs = getDataReser(value);
     	int k =0;
     	while(rs.next()){
     		
@@ -78,90 +99,106 @@ public class ScheduleController implements Initializable {
     		items.setStatus(rs.getInt("status"));
     		i.add(items);
     		k++;
-    		System.out.println(k);
     		
     	}
     	return i;
     }
+    
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-    	try {
-			item.addAll(getData());
+    	dpDate.setValue(LocalDate.now());
+    	this.dateChoose();
+	}
+    //load data
+    
+   private void loadData(LocalDate date,String status) {
+
+	   grid.getChildren().clear();
+	   item.removeAll(item);
+	   try {
+			item.addAll(getData( date,status));
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-    	int col = 0;
-    	int row =0;
-    	try {
-    	for(int i =0;i<item.size(); i++) {
-    		FXMLLoader root = new FXMLLoader();
-    		root.setLocation(getClass().getResource("/views/item.fxml"));
-    		AnchorPane anchor = root.load();
-    		ItemController itemControl = root.getController();
-    		itemControl.setData(item.get(i));
-    		if(col==1) {
-    			col=0;
-    			row++;
-    		}
-    		grid.add(anchor, col, row++);
-    		GridPane.setMargin(anchor, new Insets(0,0,2,0));
-    		
-    	}
-    	}catch (Exception e) {
+	   	int col = 0;
+	   	int row =0;
+	   	try {
+	   		System.out.println("size: "+item.size());
+	   		if(item.size()==0) {
+	   			FXMLLoader root = new FXMLLoader();
+	   	   		root.setLocation(getClass().getResource("/views/schedule-support.fxml"));
+	   	   		AnchorPane anchor = root.load();
+	   	   		paneStatus.getChildren().setAll(anchor);
+	   		}else {
+	   			paneStatus.getChildren().clear();
+	   			paneStatus.getChildren().setAll(vbox);
+	   		}
+	   	for(int i =0;i<item.size(); i++) {
+   		FXMLLoader root = new FXMLLoader();
+   		root.setLocation(getClass().getResource("/views/item.fxml"));
+   		AnchorPane anchor = root.load();
+   		ItemController itemControl = root.getController();
+   		itemControl.setData(item.get(i));
+   		if(col==1) {
+   			col=0;
+   			row++;
+   		}
+   		grid.add(anchor, col, row++);
+   		GridPane.setMargin(anchor, new Insets(0,0,2,0));
+   		
+   	}
+   	}catch (Exception e) {
 			// TODO: handle exception
 		}
-	}
-    
+   }
     @FXML
-    void dateChoose(ActionEvent event) {
-
+    void dateChoose() {
+    	
+    	loadData(dpDate.getValue(),"");
+    
+    	
     }
 
     @FXML
-    void tabAll(MouseEvent event) {
-
+    void tabAll() {
+    	this.dateChoose();
+    
     }
 
     @FXML
     void tabCancel(MouseEvent event) {
-
+    	loadData(dpDate.getValue(), lblCancel.getId());
+    	
+    	
     }
 
     @FXML
     void tabConfirm(MouseEvent event) {
-
+    	loadData(dpDate.getValue(), lblConfirm.getId());
     }
 
     @FXML
     void tabDepo(MouseEvent event) {
-
+    	loadData(dpDate.getValue(), lblDepo.getId());
     }
 
     @FXML
     void tabExpired(MouseEvent event) {
-
+    	loadData(dpDate.getValue(), lblExpired.getId());
     }
 
     @FXML
     void tabNew(MouseEvent event) {
-
+    	loadData(dpDate.getValue(), lblNew.getId());
     }
 
     @FXML
     void tabPresent(MouseEvent event) {
-
+    	loadData(dpDate.getValue(), lblPresent.getId());
     }
 
-    private void handleLabel(MouseEvent event) { 
-        Label label = (Label) event.getSource();
-        String labelText = label.getText();
-        System.out.println("Mouse click on label: "+labelText);
-    }
-
-
-	
 	
 
 }

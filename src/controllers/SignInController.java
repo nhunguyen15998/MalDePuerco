@@ -116,6 +116,8 @@ public class SignInController implements Initializable {
 				}else {
 					preference.put("tfUsername","");
 					preference.put("tfPassHidden", "");
+					tfUsername.setText("");
+					tfPassHidden.setText("");
 				}
 				
 				AuthenticationModel.id = sign.getInt("id");
