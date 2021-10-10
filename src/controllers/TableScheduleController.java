@@ -55,7 +55,7 @@ public class TableScheduleController implements Initializable {
     private List<ItemSupportModel> item = new ArrayList<>();
     
     public static ResultSet getDataReser() throws SQLException{
-    	String sql = "select id, name from tables " ;
+    	String sql = "select id, name from tables" ;
        Statement stmt = MySQLJDBC.connection.createStatement();
 		return stmt.executeQuery(sql);
        
