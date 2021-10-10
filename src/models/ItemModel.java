@@ -1,8 +1,19 @@
 package models;
 
+import java.util.ArrayList;
+
 public class ItemModel {
-	private String start,end,date, cusName;
+	private String start,end,date, cusName, table;
 	private int status;
+
+	
+	public String getTable() {
+		return table;
+	}
+
+	public void setTable(String table) {
+		this.table = table;
+	}
 
 	public String getStart() {
 		return start;

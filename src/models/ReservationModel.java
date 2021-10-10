@@ -68,6 +68,7 @@ public class ReservationModel extends BaseModel{
 	//get list
 		public ResultSet getReserList(ArrayList<CompareOperator> conditions) {
 			try {
+				
 				String[] selects = {"reservations.*","decrease"};
 				
 				ArrayList<CompareOperator> joinDiscount = new ArrayList<CompareOperator>();
