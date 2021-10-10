@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="550.0" prefWidth="838.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16">
+   <children>
+      <AnchorPane fx:id="image1" layoutX="39.0" layoutY="49.0" prefHeight="50.0" prefWidth="52.0" styleClass="image" stylesheets="@../css/orderWaiter.css">
+         <children>
+            <ImageView fitHeight="40.0" fitWidth="50.0" layoutX="6.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/order1.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Label fx:id="label2" layoutX="104.0" layoutY="54.0" prefHeight="40.0" prefWidth="227.0" text="Order Details">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <TableView fx:id="order_details" layoutX="54.0" layoutY="120.0" prefHeight="360.0" prefWidth="730.0" stylesheets="@../css/orderWaiter.css">
+         <columns>
+            <TableColumn fx:id="col_id1" prefWidth="75.0" text="Id" visible="false" />
+            <TableColumn fx:id="col_no1" prefWidth="23.0" text="#" />
+            <TableColumn fx:id="col_code1" prefWidth="75.0" text="Order" />
+            <TableColumn fx:id="col_table1" prefWidth="91.0" text="Serving" />
+            <TableColumn fx:id="col_res1" prefWidth="180.0" text="Thumbnail" />
+            <TableColumn fx:id="col_total1" prefWidth="57.0" text="Quantity" />
+            <TableColumn fx:id="col_pay1" prefWidth="98.0" text="Price" />
+            <TableColumn fx:id="col_created1" prefWidth="95.0" text="Total" />
+            <TableColumn fx:id="col_status1" prefWidth="79.0" text="Status" />
+            <TableColumn minWidth="2.0" prefWidth="31.0" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

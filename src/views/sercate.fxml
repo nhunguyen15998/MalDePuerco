@@ -2,7 +2,6 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -14,7 +13,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ServingCateController">
     <stylesheets>
         <URL value="@../css/sercate.css" />
     </stylesheets>
@@ -39,35 +38,18 @@
       </AnchorPane>
       <AnchorPane layoutX="26.0" layoutY="78.0" prefHeight="437.0" prefWidth="785.0" styleClass="anchorPane" stylesheets="@../css/sercate.css">
          <children>
-            <TableView layoutX="25.0" layoutY="57.0" prefHeight="343.0" prefWidth="411.0">
+            <TableView fx:id="tbl_sercate" layoutX="23.0" layoutY="56.0" onMouseClicked="#getTableDataByClick" prefHeight="343.0" prefWidth="739.0">
               <columns>
-                <TableColumn prefWidth="32.0" text="#" />
-                <TableColumn prefWidth="118.0" text="id" visible="false" />
-                  <TableColumn prefWidth="127.0" text="Name" />
-                  <TableColumn prefWidth="127.0" text="Parent" />
-                  <TableColumn prefWidth="100.0" text="Status" />
-                  <TableColumn prefWidth="24.0" />
+                <TableColumn fx:id="colNo" prefWidth="32.0" text="#" />
+                <TableColumn fx:id="colId" prefWidth="118.0" text="id" visible="false" />
+                  <TableColumn fx:id="colName" prefWidth="170.0" text="Name" />
+                  <TableColumn fx:id="colParent" prefWidth="213.0" text="Parent" />
+                  <TableColumn fx:id="colCreate" prefWidth="168.0" text="Created At" />
+                  <TableColumn fx:id="colStatus" prefWidth="141.0" text="Status" />
+                  <TableColumn fx:id="colPath" prefWidth="20.0" text="Column X" />
               </columns>
             </TableView>
-            <Label layoutX="479.0" layoutY="78.0" text="Name:">
-               <font>
-                  <Font name="Consolas" size="14.0" />
-               </font>
-            </Label>
-            <TextField layoutX="546.0" layoutY="74.0" prefHeight="25.0" prefWidth="185.0" promptText="Name" styleClass="text" stylesheets="@../css/sercate.css" />
-            <Label layoutX="479.0" layoutY="119.0" text="Parent:">
-               <font>
-                  <Font name="Consolas" size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="479.0" layoutY="168.0" text="Status:">
-               <font>
-                  <Font name="Consolas" size="14.0" />
-               </font>
-            </Label>
-            <ComboBox layoutX="546.0" layoutY="115.0" prefHeight="25.0" prefWidth="185.0" styleClass="text" stylesheets="@../css/sercate.css" />
-            <ComboBox layoutX="546.0" layoutY="164.0" prefHeight="25.0" prefWidth="185.0" styleClass="text" stylesheets="@../css/sercate.css" />
-            <Button layoutX="666.0" layoutY="206.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" styleClass="btnDelete" stylesheets="@../css/sercate.css" text="     Delete " textFill="WHITE">
+            <Button layoutX="670.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="31.0" prefWidth="87.0" styleClass="btnDelete" stylesheets="@../css/sercate.css" text="     Delete " textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -79,12 +61,12 @@
                   </DropShadow>
                </effect>
             </Button>
-            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="673.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="677.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/delete.png" />
                </image>
             </ImageView>
-            <Button layoutX="458.0" layoutY="206.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" styleClass="btnCreate" stylesheets="@../css/sercate.css" text="     Save" textFill="WHITE">
+            <Button layoutX="462.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnCreateAction" prefHeight="31.0" prefWidth="87.0" styleClass="btnCreate" stylesheets="@../css/sercate.css" text="     Create" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -96,12 +78,12 @@
                   </DropShadow>
                </effect>
             </Button>
-            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="465.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="469.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/save.png" />
                </image>
             </ImageView>
-            <Button layoutX="561.0" layoutY="206.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" styleClass="btnUpdate" stylesheets="@../css/sercate.css" text="     Update" textFill="WHITE">
+            <Button layoutX="565.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="31.0" prefWidth="87.0" styleClass="btnUpdate" stylesheets="@../css/sercate.css" text="     Update" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -113,13 +95,13 @@
                   </DropShadow>
                </effect>
             </Button>
-            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="568.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="572.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/edit.png" />
                </image>
             </ImageView>
-            <TextField layoutX="25.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="251.0" promptText="Find servings categories" style="-fx-background-radius: 50px;" />
-            <Button layoutX="288.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #9C5978; -fx-background-radius: 50px;" textFill="WHITE">
+            <TextField fx:id="tfFind" layoutX="25.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#onSearch" prefHeight="30.0" prefWidth="251.0" promptText="Find by name" style="-fx-background-radius: 50px;" />
+            <Button layoutX="288.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnClearAction" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #9C5978; -fx-background-radius: 50px;" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -128,6 +110,11 @@
                   </ImageView>
                </graphic>
             </Button>
+            <ImageView fitHeight="27.0" fitWidth="32.0" layoutX="243.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/search.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

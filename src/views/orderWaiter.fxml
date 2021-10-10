@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="550.0" prefWidth="838.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="550.0" prefWidth="838.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OrderWaiterController">
    <children>
       <AnchorPane prefHeight="141.0" prefWidth="838.0" styleClass="anchorTop" stylesheets="@../css/orderWaiter.css">
          <children>
@@ -18,21 +18,7 @@
                   <Font name="System Bold" size="22.0" />
                </font>
             </Label>
-            <AnchorPane fx:id="image1" layoutX="29.0" layoutY="39.0" prefHeight="50.0" prefWidth="52.0" styleClass="image" stylesheets="@../css/orderWaiter.css">
-               <children>
-                  <ImageView fitHeight="40.0" fitWidth="50.0" layoutX="6.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/order1.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <Label fx:id="label2" layoutX="94.0" layoutY="44.0" prefHeight="40.0" prefWidth="227.0" text="Order Details">
-               <font>
-                  <Font name="System Bold" size="22.0" />
-               </font>
-            </Label>
-            <AnchorPane fx:id="image2" layoutX="29.0" layoutY="39.0" prefHeight="50.0" prefWidth="52.0" styleClass="image" stylesheets="@../css/orderWaiter.css">
+            <AnchorPane layoutX="29.0" layoutY="39.0" prefHeight="50.0" prefWidth="52.0" styleClass="image" stylesheets="@../css/orderWaiter.css">
                <children>
                   <ImageView fitHeight="40.0" fitWidth="50.0" layoutX="6.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -42,23 +28,24 @@
                </children>
             </AnchorPane>
          </children></AnchorPane>
-      <AnchorPane fx:id="anchorOrder" layoutX="28.0" layoutY="104.0" prefHeight="400.0" prefWidth="775.0" styleClass="anchorPane" stylesheets="@../css/orderWaiter.css">
+      <AnchorPane fx:id="anchorOrder" layoutX="12.0" layoutY="104.0" prefHeight="421.0" prefWidth="815.0" style="-fx-background-color: white;" styleClass="anchorPane" stylesheets="@../css/orderWaiter.css">
          <children>
-            <TableView fx:id="order" layoutX="20.0" layoutY="22.0" prefHeight="292.0" prefWidth="715.0" stylesheets="@../css/orderWaiter.css">
+            <TableView fx:id="tblOrder" layoutX="20.0" layoutY="22.0" prefHeight="326.0" prefWidth="782.0" stylesheets="@../css/orderWaiter.css">
               <columns>
                 <TableColumn fx:id="col_id" prefWidth="75.0" text="Id" visible="false" />
                   <TableColumn fx:id="col_no" prefWidth="29.0" text="#" />
-                  <TableColumn fx:id="col_code" prefWidth="97.0" text="Code" />
-                  <TableColumn fx:id="col_table" text="Table " />
-                  <TableColumn fx:id="col_res" prefWidth="84.0" text="Reservation" />
-                  <TableColumn fx:id="col_total" prefWidth="104.0" text="Total Amount" />
-                  <TableColumn fx:id="col_pay" prefWidth="118.0" text="Payment Method" />
-                  <TableColumn fx:id="col_created" prefWidth="108.0" text="Created At" />
-                  <TableColumn fx:id="col_status" prefWidth="74.0" text="Status" />
-                  <TableColumn minWidth="0.0" prefWidth="25.0" />
+                  <TableColumn fx:id="col_code" prefWidth="70.0" text="Code" />
+                  <TableColumn fx:id="col_table" prefWidth="83.0" text="Table " />
+                  <TableColumn fx:id="col_res" prefWidth="89.0" text="Reservation" />
+                  <TableColumn fx:id="col_tip" prefWidth="73.0" text="Tip" />
+                  <TableColumn fx:id="col_total" prefWidth="105.0" text="Total" />
+                  <TableColumn fx:id="col_pay" prefWidth="108.0" text="Payment" />
+                  <TableColumn fx:id="col_created" prefWidth="111.0" text="Created At" />
+                  <TableColumn fx:id="col_status" minWidth="0.0" prefWidth="96.0" text="Status" />
+                  <TableColumn prefWidth="17.0" />
               </columns>
             </TableView>
-            <Button fx:id="btnConfirm" layoutX="630.0" layoutY="323.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="106.0" styleClass="btnCofirm" stylesheets="@../css/orderWaiter.css" text="Confirm" textFill="WHITE">
+            <Button fx:id="btnConfirm" layoutX="695.0" layoutY="354.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="106.0" styleClass="btnCofirm" stylesheets="@../css/orderWaiter.css" text="Confirm" textFill="WHITE">
                <font>
                   <Font name="Consolas" size="14.0" />
                </font>
@@ -70,24 +57,6 @@
                   </ImageView>
                </graphic>
             </Button>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="anchorDetails" layoutX="36.0" layoutY="114.0" prefHeight="400.0" prefWidth="775.0">
-         <children>
-            <TableView fx:id="order_details" layoutX="13.0" layoutY="7.0" prefHeight="360.0" prefWidth="730.0" stylesheets="@../css/orderWaiter.css">
-               <columns>
-                  <TableColumn fx:id="col_id1" prefWidth="75.0" text="Id" visible="false" />
-                  <TableColumn fx:id="col_no1" prefWidth="23.0" text="#" />
-                  <TableColumn fx:id="col_code1" prefWidth="75.0" text="Order" />
-                  <TableColumn fx:id="col_table1" prefWidth="91.0" text="Serving" />
-                  <TableColumn fx:id="col_res1" prefWidth="180.0" text="Thumbnail" />
-                  <TableColumn fx:id="col_total1" prefWidth="57.0" text="Quantity" />
-                  <TableColumn fx:id="col_pay1" prefWidth="98.0" text="Price" />
-                  <TableColumn fx:id="col_created1" prefWidth="95.0" text="Total" />
-                  <TableColumn fx:id="col_status1" prefWidth="79.0" text="Status" />
-                  <TableColumn minWidth="2.0" prefWidth="31.0" />
-               </columns>
-            </TableView>
          </children>
       </AnchorPane>
    </children>

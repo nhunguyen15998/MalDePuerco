@@ -10,6 +10,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
@@ -36,23 +37,24 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="27.0" layoutY="97.0" prefHeight="430.0" prefWidth="785.0" styleClass="anchorPane" stylesheets="@../css/servings.css">
+      <AnchorPane layoutX="-6.0" layoutY="97.0" prefHeight="430.0" prefWidth="838.0" styleClass="anchorPane" stylesheets="@../css/servings.css">
          <children>
-            <TableView fx:id="tbl_servings" layoutX="14.0" layoutY="75.0" prefHeight="319.0" prefWidth="759.0" stylesheets="@../css/servings.css">
+            <TableView fx:id="tbl_servings" layoutX="20.0" layoutY="72.0" onMouseClicked="#getTableDataByClick" prefHeight="280.0" prefWidth="799.0" stylesheets="@../css/servings.css">
               <columns>
                 <TableColumn fx:id="col_no" prefWidth="31.0" text="#" />
                 <TableColumn fx:id="col_id" prefWidth="119.0" style="-fx-background-color: #858B97; -fx-text-color: white;" text="C2" visible="false" />
-                  <TableColumn fx:id="col_name" prefWidth="70.0" text="Name" />
-                  <TableColumn fx:id="col_cate" text="Category" />
-                  <TableColumn fx:id="col_des" prefWidth="189.0" text="Descriptions" />
-                  <TableColumn fx:id="col_price" prefWidth="101.0" text="Price" />
-                  <TableColumn fx:id="col_new" prefWidth="91.0" text="New" />
-                  <TableColumn fx:id="col_best" prefWidth="98.0" text="Best Seller" />
-                  <TableColumn fx:id="col_status" prefWidth="85.0" text="Status" />
-                  <TableColumn prefWidth="13.0" />
+                  <TableColumn fx:id="col_name" prefWidth="85.0" text="Name" />
+                  <TableColumn fx:id="col_cate" prefWidth="128.0" text="Category" />
+                  <TableColumn fx:id="col_des" prefWidth="179.0" text="Descriptions" />
+                  <TableColumn fx:id="col_price" prefWidth="90.0" text="Price" />
+                  <TableColumn fx:id="col_created" prefWidth="104.0" text="Created At" />
+                  <TableColumn fx:id="col_status" minWidth="0.0" prefWidth="96.0" text="Status" />
+                  <TableColumn fx:id="colQuantity" prefWidth="67.0" text="Quantity" />
+                  <TableColumn prefWidth="18.0" />
+                  <TableColumn fx:id="colPath" prefWidth="75.0" text="Column X" visible="false" />
               </columns>
             </TableView>
-            <Button layoutX="421.0" layoutY="24.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="106.0" styleClass="btnCreate" stylesheets="@../css/servings.css" text="         Create " textFill="WHITE">
+            <Button layoutX="483.0" layoutY="24.0" mnemonicParsing="false" onAction="#btnCreateAction" prefHeight="31.0" prefWidth="106.0" styleClass="btnCreate" stylesheets="@../css/servings.css" text="         Create " textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -64,12 +66,12 @@
                   </DropShadow>
                </effect>
             </Button>
-            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="434.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="496.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/save.png" />
                </image>
             </ImageView>
-            <Button  layoutX="665.0" layoutY="24.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="106.0" styleClass="btnDelete" stylesheets="@../css/servings.css" text="       Delete " textFill="WHITE">
+            <Button layoutX="727.0" layoutY="24.0" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="31.0" prefWidth="106.0" styleClass="btnDelete" stylesheets="@../css/servings.css" text="       Delete " textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -81,12 +83,12 @@
                   </DropShadow>
                </effect>
             </Button>
-            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="676.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="738.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/delete.png" />
                </image>
             </ImageView>
-            <Button  layoutX="542.0" layoutY="24.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="106.0" styleClass="btnUpdate" stylesheets="@../css/servings.css" text="         Update " textFill="WHITE">
+            <Button layoutX="604.0" layoutY="24.0" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="31.0" prefWidth="106.0" styleClass="btnUpdate" stylesheets="@../css/servings.css" text="         Update " textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -98,17 +100,17 @@
                   </DropShadow>
                </effect>
             </Button>
-            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="558.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="620.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/edit.png" />
                </image>
             </ImageView>
-            <TextField layoutX="14.0" layoutY="27.0" prefHeight="27.0" prefWidth="235.0" promptText="Find servings" style="-fx-background-radius: 50px;">
+            <TextField layoutX="14.0" layoutY="27.0" onKeyTyped="#onSearch" prefHeight="27.0" prefWidth="267.0" promptText="Find servings or category" style="-fx-background-radius: 50px;">
                <font>
                   <Font name="Consolas" size="14.0" />
                </font>
             </TextField>
-            <Button layoutX="264.0" layoutY="28.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" styleClass="Clear" stylesheets="@../css/servings.css">
+            <Button layoutX="291.0" layoutY="28.0" mnemonicParsing="false" onAction="#btnClearAction" prefHeight="25.0" prefWidth="40.0" styleClass="Clear" stylesheets="@../css/servings.css">
                <graphic>
                   <ImageView fitHeight="17.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -117,6 +119,15 @@
                   </ImageView>
                </graphic>
             </Button>
+            <Pane layoutX="249.0" layoutY="27.0" prefHeight="25.0" prefWidth="32.0">
+               <children>
+                  <ImageView fitHeight="27.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/search.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
          </children>
       </AnchorPane>
    </children>

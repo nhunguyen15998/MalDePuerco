@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -10,10 +9,11 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ServingAttributeController">
 
    <children>
       <AnchorPane prefHeight="141.0" prefWidth="838.0" styleClass="anchorTop" stylesheets="@../css/serattributes.css">
@@ -34,31 +34,20 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="26.0" layoutY="80.0" prefHeight="423.0" prefWidth="785.0" styleClass="anchorPane" stylesheets="@../css/serattributes.css">
+      <AnchorPane layoutX="8.0" layoutY="80.0" prefHeight="437.0" prefWidth="822.0" styleClass="anchorPane" stylesheets="@../css/serattributes.css">
          <children>
-            <TableView layoutX="22.0" layoutY="67.0" prefHeight="317.0" prefWidth="411.0">
+            <TableView fx:id="tblAttribute" layoutX="25.0" layoutY="67.0" onMouseClicked="#getTableDataByClick" prefHeight="317.0" prefWidth="773.0">
               <columns>
-                <TableColumn prefWidth="32.0" text="#" />
-                <TableColumn prefWidth="118.0" text="id" visible="false" />
-                  <TableColumn prefWidth="107.0" text="Serving" />
-                  <TableColumn prefWidth="130.0" text="Attribute" />
-                  <TableColumn prefWidth="120.0" text="Price" />
-                  <TableColumn prefWidth="21.0" />
+                <TableColumn fx:id="colNo" prefWidth="32.0" text="#" />
+                <TableColumn fx:id="colId" prefWidth="118.0" text="id" visible="false" />
+                  <TableColumn fx:id="colServing" prefWidth="211.0" text="Serving" />
+                  <TableColumn fx:id="colAttribute" prefWidth="197.0" text="Attribute" />
+                  <TableColumn fx:id="colPrice" prefWidth="168.0" text="Price" />
+                  <TableColumn fx:id="colCreated" prefWidth="149.0" text="Created At" />
+                  <TableColumn minWidth="0.0" prefWidth="14.0" />
               </columns>
             </TableView>
-            <Label layoutX="465.0" layoutY="74.0" text="Serving:" textFill="#e11b46">
-               <font>
-                  <Font name="Consolas" size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="465.0" layoutY="121.0" text="Attribute:" textFill="#e11b46">
-               <font>
-                  <Font name="Consolas" size="14.0" />
-               </font>
-            </Label>
-            <ComboBox layoutX="549.0" layoutY="69.0" prefHeight="25.0" prefWidth="185.0" styleClass="text" stylesheets="@../css/serattributes.css" />
-            <ComboBox layoutX="549.0" layoutY="116.0" prefHeight="25.0" prefWidth="185.0" styleClass="text" stylesheets="@../css/serattributes.css" />
-            <Button layoutX="659.0" layoutY="212.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" styleClass="btnDelete" stylesheets="@../css/serattributes.css" text="     Delete " textFill="WHITE">
+            <Button fx:id="btnDelete" layoutX="692.0" layoutY="23.0" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="31.0" prefWidth="106.0" styleClass="btnDelete" stylesheets="@../css/serattributes.css" text="     Delete " textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -70,12 +59,12 @@
                   </DropShadow>
                </effect>
             </Button>
-            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="666.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="699.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/delete.png" />
                </image>
             </ImageView>
-            <Button layoutX="451.0" layoutY="212.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" styleClass="btnCreate" stylesheets="@../css/serattributes.css" text="     Save" textFill="WHITE">
+            <Button fx:id="btnCreate" layoutX="456.0" layoutY="23.0" mnemonicParsing="false" onAction="#btnCreateAction" prefHeight="31.0" prefWidth="106.0" styleClass="btnCreate" stylesheets="@../css/serattributes.css" text="     Create" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -87,12 +76,12 @@
                   </DropShadow>
                </effect>
             </Button>
-            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="458.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="463.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/save.png" />
                </image>
             </ImageView>
-            <Button layoutX="554.0" layoutY="212.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" styleClass="btnUpdate" stylesheets="@../css/serattributes.css" text="     Update" textFill="WHITE">
+            <Button fx:id="btnUpdate" layoutX="575.0" layoutY="23.0" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="31.0" prefWidth="106.0" styleClass="btnUpdate" stylesheets="@../css/serattributes.css" text="     Update" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -104,23 +93,12 @@
                   </DropShadow>
                </effect>
             </Button>
-            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="561.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="582.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/edit.png" />
                </image>
             </ImageView>
-            <Label layoutX="463.0" layoutY="170.0" text="Price" textFill="#e11b46">
-               <font>
-                  <Font name="Consolas" size="14.0" />
-               </font>
-            </Label>
-            <TextField layoutX="549.0" layoutY="166.0" prefHeight="25.0" prefWidth="185.0" styleClass="text" stylesheets="@../css/serattributes.css">
-               <font>
-                  <Font name="Corbel Light" size="14.0" />
-               </font>
-            </TextField>
-            <TextField layoutX="22.0" layoutY="23.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="251.0" promptText="Find attributes" style="-fx-background-radius: 50px;" />
-            <Button layoutX="285.0" layoutY="23.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #9C5978; -fx-background-radius: 50px;" textFill="WHITE">
+            <Button layoutX="285.0" layoutY="23.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnClearAction" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #9C5978; -fx-background-radius: 50px;" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -129,6 +107,13 @@
                   </ImageView>
                </graphic>
             </Button>
+            <TextField fx:id="tfFind" layoutX="31.0" layoutY="24.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#onSearch" prefHeight="30.0" prefWidth="245.0" promptText="Find by serving , attribute" style="-fx-background-radius: 50px;" />
+            <Pane layoutX="208.0" layoutY="24.0" prefHeight="30.0" prefWidth="30.0" />
+            <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="251.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/search-o.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>
