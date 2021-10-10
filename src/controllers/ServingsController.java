@@ -2,21 +2,41 @@ package controllers;
 
 import java.awt.Button;
 import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.geom.Rectangle2D;
 import java.net.URL;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
+
+import javax.swing.ImageIcon;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import models.ServingModel;
 import utils.CompareOperator;
+import utils.DataMapping;
 import utils.Helpers;
 
 public class ServingsController  implements Initializable {
@@ -37,13 +57,13 @@ public class ServingsController  implements Initializable {
     @FXML
     private TableColumn<ServingModel, String> col_des;
     @FXML
-    private TableColumn<ServingModel, Integer> col_price;
-    @FXML
-    private TableColumn<ServingModel, Integer> col_new;
-    @FXML
-    private TableColumn<ServingModel, Integer> col_best;
+    private TableColumn<ServingModel, String> col_price;
+    @FXML 
+    private TableColumn<ServingModel, LocalDate> col_created; 
     @FXML
     private TableColumn<ServingModel, String> col_status;
+    @FXML private TableColumn<ServingModel, Integer> colQuantity;
+    @FXML private TableColumn<ServingModel, String> colPath;
     @FXML
     private Button btnCreate;
     @FXML
@@ -51,56 +71,175 @@ public class ServingsController  implements Initializable {
     @FXML
     private Button btnUpdate;
     @FXML
-    private TextField tfFind;
+    private TextField tffind;
     @FXML
     private Button btnClear;
+    @FXML 
+    private AnchorPane createForm;
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		loadData();
+		this.loadData(null);
+		
+		
 	}
-	
+
 	//load data 
 	public void loadData (ArrayList<CompareOperator> conditions) {
 		try {
-			ObservableList<ServingModel> list = FXCollections.observableArrayList();
-			
+			ObservableList<ServingModel> Servingslist = FXCollections.observableArrayList();
+			//get row form model
 			col_no.setCellValueFactory(new PropertyValueFactory<ServingModel, Integer>("sequence"));
 			col_id.setCellValueFactory(new PropertyValueFactory<ServingModel, Integer>("id"));
 			col_name.setCellValueFactory(new PropertyValueFactory<ServingModel, String>("name"));
-			col_cate.setCellValueFactory(new PropertyValueFactory<ServingModel, Integer>("category_id"));
+			col_cate.setCellValueFactory(new PropertyValueFactory<ServingModel, Integer>("categoryName"));
 			col_des.setCellValueFactory(new PropertyValueFactory<ServingModel, String>("descriptions"));
-			col_price.setCellValueFactory(new PropertyValueFactory<ServingModel, Integer>("price"));
-			col_new.setCellValueFactory(new PropertyValueFactory<ServingModel, Integer>("is_new"));
-			col_best.setCellValueFactory(new PropertyValueFactory<ServingModel, Integer>("is_bestseller"));
-			col_status.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getStatus() == ServingModel.SERVINGS_ACTIVATED ?
-					String.valueOf(ServingModel.isActivated) : String.valueOf(ServingModel.isDeactivated)));
-			
-			ResultSet servings = this.servingModel.getServingsList(conditions);
-			int sequence = 1;
+			col_price.setCellValueFactory(new PropertyValueFactory<ServingModel, String>("price"));
+			col_created.setCellValueFactory(new PropertyValueFactory<ServingModel, LocalDate>("createAt"));
+			col_status.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(				
+					cellData.getValue().getStatus() == ServingModel.SERVING_ACTIVATED ? String.valueOf(ServingModel.isActivated) : String.valueOf(ServingModel.isDeactivated)));
+			colQuantity.setCellValueFactory(new PropertyValueFactory<ServingModel, Integer>("quantity"));
+			colPath.setVisible(true);
+			//get data form db
+			ResultSet servings = this.servingModel.getServingList(conditions);
 			while (servings.next()) {
-				//int no, int id, String name, int category_id, String descriptions
-				//int is_new, int is_bestseller, String price, int status
-				list.add(new ServingModel(
-						sequence,
+				//int no, int id, String name, String categoryName, String descriptions
+				//double price, String createAt, int status
+				boolean add = Servingslist.add(ServingModel.getInstance(
+						servings.getRow(),
 						servings.getInt("id"),
 						servings.getString("name"),
-						servings.getInt("category_id"),
+						servings.getString("cateName"),
 						servings.getString("descriptions"),
 						servings.getInt("price"),
-						servings.getInt("is_new"),
-						servings.getInt("is_bestseller"),
-						servings.getInt("status")
+						servings.getDate("created_at").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy")), 
+						servings.getInt("status"),
+						servings.getInt("quantity"),
+						servings.getString("servings.thumbnail")
 						));
-				sequence++;
 			}
-			tbl_servings.setItems(list);
+			tbl_servings.setItems(Servingslist);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
+//	//mouse click
+	public void getTableDataByClick(MouseEvent e) {
+		if (e.getClickCount() > 0) {
+			ServingModel item = tbl_servings.getSelectionModel().getSelectedItem();
+			if (item != null) {
+				this.servingId = item.getId();
+				this.servingName = item.getName();
+				System.out.println(this.servingId);
+			}
+		}
+	}
+
+	//create 
+	public void btnCreateAction() {
+		try {
+				this.setServingId(0);
+				this.showCreateForm();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+		}
+	}
+	
+//	//update
+	public void btnUpdateAction() {
+		System.out.println("update");
+		try {
+			if (this.servingId != 0) {
+				this.showCreateForm();
+			} else {
+				//error
+				Helpers.status("error");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+//	//delete 
+	public void btnDeleteAction() {
+		try {
+			if (this.servingId != 0) {
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Delete Serving Confirmation");
+				alert.setHeaderText("Are you sure want to delete this item ?");
+				alert.setContentText("Name: " + this.getServingName());
+				Optional<ButtonType> options = alert.showAndWait();
+				if (options.get() == ButtonType.OK) {
+					this.servingModel.deleteServing(this.servingId);
+					this.loadData(null);
+				}
+			} else {
+				//error
+				Helpers.status("error");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+//		//show create form
+		public void showCreateForm() {
+			System.out.println("create form");
+			try {
+				
+				FXMLLoader root = new FXMLLoader(getClass().getResource("/views/servingsCU.fxml"));
+				createForm = root.load();
+				
+				ServingsCUController controller= root.<ServingsCUController>getController();
+				controller.loadDataById(this);
+				
+				Scene scene = new Scene(createForm, 838, 550);
+				Stage createStage = new Stage();
+				createStage.initStyle(StageStyle.UNDECORATED);
+				createStage.setScene(scene);
+				createStage.show();
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(e);
+			}
+		}
+		
+		//filter
+		public ArrayList<CompareOperator> getFilter() {
+			try {
+				String code = tffind.getText();
+				ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
+				conditions.add(CompareOperator.getInstance("name or sc.name", " like ", "%"+ code + "%"));
+				return conditions;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+		//on search
+		public void onSearch() {
+			try {
+				this.loadData(getFilter());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		public void btnClearAction() {
+			try {
+				tffind.setText("");
+				this.loadData(getFilter());
+			} catch (Exception e ) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
 	//get&set
 	
 	public int getServingId() {
@@ -116,4 +255,5 @@ public class ServingsController  implements Initializable {
 	public void setServingName(String servingName) {
 		this.servingName = servingName;
 	}
+	
 }
