@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="417.0" prefWidth="603.0" style="-fx-background-color: #f0e9ec;" styleClass="mainFxmlClass" stylesheets="@../css/table-cu.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TableCUController">
+<AnchorPane id="AnchorPane" prefHeight="417.0" prefWidth="603.0" style="-fx-background-color: #f0e9ec;" styleClass="mainFxmlClass" stylesheets="@../css/table-cu.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.TableCUController">
    <children>
       <Pane prefHeight="117.0" prefWidth="602.0" style="-fx-background-color: linear-gradient(to right, #ff304f,#ffabb7);">
          <children>

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="376.0" prefWidth="570.0" style="-fx-background-color: #f0e9ec;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RoleCUController">
+<AnchorPane id="AnchorPane" prefHeight="376.0" prefWidth="570.0" style="-fx-background-color: #f0e9ec;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.RoleCUController">
    <stylesheets>
       <URL value="@/css/role_cu.css" />
    </stylesheets>

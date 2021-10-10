@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" stylesheets="@../css/reservation.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ReservationController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" stylesheets="@../css/reservation.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.ReservationController">
    <children>
       <Pane layoutX="38.0" layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="737.0">
          <children>
@@ -36,7 +36,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane fx:id="paneSchedule" layoutX="12.0" layoutY="72.0" prefHeight="463.0" prefWidth="219.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.5),30, 0,10, 10);" />
+      <Pane fx:id="paneSchedule" layoutX="12.0" layoutY="109.0" prefHeight="426.0" prefWidth="219.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.5),30, 0,10, 10);" />
       <Pane layoutX="238.0" layoutY="72.0" prefHeight="463.0" prefWidth="586.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.8),30, 0,10, 10); -fx-background-radius: 20 0 0 0;">
          <children>
             <TableView fx:id="tblReser" layoutX="2.0" layoutY="83.0" onMouseClicked="#getRowSelected" prefHeight="174.0" prefWidth="506.0" stylesheets="@../css/tables.css">
@@ -294,5 +294,7 @@
             </Pane>
          </children>
       </Pane>
+      <Button id="1" fx:id="btnReserSche" layoutX="12.0" layoutY="72.0" mnemonicParsing="false" onAction="#showPane" prefHeight="30.0" prefWidth="219.0" styleClass="btnShow" stylesheets="@../css/reservation.css" text="Show Reservations Schedule" textFill="WHITE" />
+      <Button id="0" fx:id="btnTablesSche" layoutX="12.0" layoutY="72.0" mnemonicParsing="false" onAction="#showPane" prefHeight="30.0" prefWidth="219.0" style="-fx-background-radius: 15;" styleClass="btnShow" stylesheets="@../css/reservation.css" text="Show Tables Schedule" textFill="WHITE" />
    </children>
 </AnchorPane>

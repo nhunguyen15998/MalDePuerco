@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="463.0" prefWidth="219.0" style="-fx-background-color: white;" stylesheets="@../css/item.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.ScheduleController">
+<AnchorPane prefHeight="426.0" prefWidth="219.0" style="-fx-background-color: white;" stylesheets="@../css/item.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.ScheduleController">
    <children>
-      <Pane fx:id="paneStatus" layoutY="86.0" prefHeight="378.0" prefWidth="219.0">
+      <Pane fx:id="paneStatus" layoutY="86.0" prefHeight="341.0" prefWidth="219.0">
          <children>
-            <VBox fx:id="vbox" prefHeight="375.0" prefWidth="220.0">
+            <VBox fx:id="vbox" prefHeight="341.0" prefWidth="220.0">
                <children>
                   <ScrollPane prefHeight="403.0" prefWidth="220.0" VBox.vgrow="ALWAYS">
                      <content>

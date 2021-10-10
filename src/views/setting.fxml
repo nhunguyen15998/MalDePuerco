@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: #f0e9ec;" stylesheets="@../css/setting.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SettingController">
+<AnchorPane prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: #f0e9ec;" stylesheets="@../css/setting.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.SettingController">
    <children>
       <Pane prefHeight="70.0" prefWidth="546.0" style="-fx-background-color: linear-gradient(to right, #ff304f,#ffabb7);">
          <children>

@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="537.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ReservationCUController">
+<AnchorPane prefHeight="537.0" prefWidth="680.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.ReservationCUController">
    <children>
       <AnchorPane id="AnchorPane" fx:id="cuHolder" prefHeight="537.0" prefWidth="680.0" style="-fx-background-color: #f0e9ec;" styleClass="mainFxmlClass">
          <stylesheets>

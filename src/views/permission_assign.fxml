@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="702.0" style="-fx-background-color: #f0e9ec;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PermissionController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="702.0" style="-fx-background-color: #f0e9ec;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.PermissionController">
 
    <children>
       <Pane prefHeight="119.0" prefWidth="702.0" style="-fx-background-color: linear-gradient(to right, #ff304f,#ffabb7);">
