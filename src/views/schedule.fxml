@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="463.0" prefWidth="219.0" style="-fx-background-color: white;" stylesheets="@../css/item.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ScheduleController">
+<AnchorPane prefHeight="463.0" prefWidth="219.0" style="-fx-background-color: white;" stylesheets="@../css/item.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.ScheduleController">
    <children>
       <Pane fx:id="paneStatus" layoutY="86.0" prefHeight="378.0" prefWidth="219.0">
          <children>
