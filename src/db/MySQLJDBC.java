@@ -231,14 +231,5 @@ public class MySQLJDBC {
 		}
     }
 	 
- public static MySQLJDBC Instance() {
-	if(db==null) {
-		db=new MySQLJDBC();
-	}
-	return db;
-}
-    public final Connection getConn() {
-            return connection;
-    }
-	
+
 }
