@@ -80,7 +80,7 @@ public class Validations {
 				
 				//phone
 				if(Arrays.asList(patternDatas).contains("phone")) {
-					String regex = "^(0[3|5|7|8|9])+([0-9]{8,10})$"; 
+					String regex = "^(0[3|5|7|8|9])+([0-9]{8})$"; 
 					if(!value.matches(regex)) {
 						message.value = "Invalid phone number";
 						messages.add(message);
