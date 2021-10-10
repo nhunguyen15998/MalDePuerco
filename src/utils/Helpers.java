@@ -4,6 +4,11 @@ import java.security.SecureRandom;
 import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 
+import javafx.geometry.Rectangle2D;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Screen;
+
 public class Helpers {
 	
 	//format money
@@ -46,5 +51,22 @@ public class Helpers {
 	
 	//bcrypt
 	
-	
+	public static void  status(String type) {
+		Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+		if(type.equals("success")) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Done");
+		alert.setHeaderText("Save success");
+		alert.setX(screenBounds.getWidth() - 900);
+		alert.setY(screenBounds.getHeight() - 610);
+		alert.showAndWait();
+		}
+		if(type.equals("error")) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setHeaderText("Please select a row");
+			alert.setX(screenBounds.getWidth() - 900);
+			alert.setY(screenBounds.getHeight() - 610);
+			alert.showAndWait();
+		}
+	}
 }

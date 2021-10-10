@@ -1,5 +1,7 @@
 package utils;
 
+import java.io.FileInputStream;
+
 public class DataMapping {
 	public String key;
 	public String value;
@@ -7,26 +9,31 @@ public class DataMapping {
 	
 	public static DataMapping getInstance(String key, String value) {
 		if(dataMapping == null) {
-			dataMapping = new DataMapping();
-			dataMapping.key = key;
-			dataMapping.value = value;
-			return dataMapping;
+			DataMapping item = new DataMapping();
+			item.key = key;
+			item.value = value;
+			return item;
 		}
 		return dataMapping;
 	}
 	
 	public static DataMapping getInstance(int key, String value) {
 		if(dataMapping == null) {
-			dataMapping = new DataMapping();
-			dataMapping.key = String.valueOf(key);
-			dataMapping.value = value;
-			return dataMapping;
+			DataMapping item = new DataMapping();
+			item.key = String.valueOf(key);
+			item.value = value;
+			return item;
 		}
 		return dataMapping;
 	}
 	
 	public String toString() {
 		return this.value;
+	}
+
+	public static DataMapping getInstance(FileInputStream fis, long length) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

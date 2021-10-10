@@ -10,11 +10,11 @@ public class JoinCondition {
 	
 	public static JoinCondition getInstance(String type, String table, ArrayList<CompareOperator> conditions) {
 		if(joinCondition == null) {
-			joinCondition = new JoinCondition();
-			joinCondition.type = type;
-			joinCondition.table = table;
-			joinCondition.conditions = conditions;
-			return joinCondition;
+			JoinCondition item = new JoinCondition();
+			item.type = type;
+			item.table = table;
+			item.conditions = conditions;
+			return item;
 		}
 		return joinCondition;
 	}
