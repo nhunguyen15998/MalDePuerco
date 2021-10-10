@@ -56,7 +56,7 @@ public class TableCUController implements Initializable {
 
 	    @FXML
 	    private Label lblSeatsError;
-
+	   
 
 	    @FXML
 	    private Label lblTable;
@@ -65,9 +65,10 @@ public class TableCUController implements Initializable {
 	    @FXML
 	    private TextField tfCode;
 
+
 	    @FXML
 	    private ComboBox<DataMapping> cbStatus;
-
+	    
 	    @FXML
 	    private Button btnCancel;
 

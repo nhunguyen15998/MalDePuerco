@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -203,6 +204,7 @@ public class ReservationController implements Initializable {
   //load data
   	public void parseData(ArrayList<CompareOperator> conditions) {
   		paneDetails.setVisible(false);
+  		updateStatus();
   		try {
   			//create list, format date
 
@@ -251,7 +253,9 @@ public class ReservationController implements Initializable {
   					r.getDate("reservations.created_at").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy"))
   					));
   			}
+  			
   			tblReser.setItems(reserList);
+  			
   		} catch (Exception e) {
   			e.printStackTrace();
   		}
@@ -422,9 +426,9 @@ public class ReservationController implements Initializable {
        
        try{
        String sql = "select reservations.*,decrease from reservations join discounts on reservations.discount_id = discounts.id"+condition ;
-       Connection conn=MySQLJDBC.Instance().getConn();
-       PreparedStatement ps = conn.prepareStatement(sql);
-       ResultSet r = ps.executeQuery();
+       
+       Statement ps = MySQLJDBC.connection.createStatement();
+       ResultSet r = ps.executeQuery(sql);
       
        while(r.next()){
           list.add(ReservationModel.getInstance(
@@ -498,6 +502,27 @@ public class ReservationController implements Initializable {
 			e.printStackTrace();
 		}
     }
+    
+    //update status New to Confirmed after 30 minutes
+    private void updateStatus() {
+    	String sql = "update reservations set status = 2 where status = 1 and DATE_ADD(created_at, INTERVAL 30 MINUTE)<=now()" ;
+    	String sql2 = "update reservations set status = 5 where (status = 2 or status=3) and date_pick<curdate()" ;
+    	String sql3= "update tables_reservation set status = 0 where reservation_id in (select id from reservations where status = 5 or status = 6)";
+    	System.out.println(sql);
+        try {
+        	Statement stmt = MySQLJDBC.connection.createStatement();
+    	   stmt.execute(sql);
+    	   Statement stmt2 = MySQLJDBC.connection.createStatement();
+    	   stmt2.execute(sql2);
+    	   Statement stmt3 = MySQLJDBC.connection.createStatement();
+    	   stmt3.execute(sql3);
+    	}catch(SQLException  ex) {
+    		ex.printStackTrace();
+    	}
+    	
+    }
+    
+    
 	//search
 	public ArrayList<CompareOperator> getFilter(){
 		try {

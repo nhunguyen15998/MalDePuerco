@@ -76,8 +76,20 @@ public class ScheduleController implements Initializable {
        Statement stmt = MySQLJDBC.connection.createStatement();
 		return stmt.executeQuery(sql);
        
-	
+	//
       
+    }
+    private String getTableName(int id) throws SQLException{
+    	String tablename = "";
+    	String sql = "select tables.name from tables_reservation join tables on table_id=tables.id join reservations on reservation_id=reservations.id where reservation_id="+id;
+    	Statement st = MySQLJDBC.connection.createStatement();
+    	ResultSet rs = st.executeQuery(sql);
+    	while(rs.next()) {
+    		tablename+=rs.getString("tables.name")+" ";
+    		
+    	}
+    	return tablename;
+    	
     }
     private List<ItemModel> getData(LocalDate date, String status) throws SQLException{
     	List<ItemModel> i = new ArrayList<>();
@@ -95,6 +107,7 @@ public class ScheduleController implements Initializable {
     		items.setStart(Helpers.formatTime(rs.getString("start_time")));
     		items.setEnd(Helpers.formatTime(rs.getString("end_time")));
     		items.setDate(rs.getString("date_pick"));
+    		items.setTable(getTableName(rs.getInt("id")));
     		items.setCusName(rs.getString("customer_name"));
     		items.setStatus(rs.getInt("status"));
     		i.add(items);

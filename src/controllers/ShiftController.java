@@ -17,6 +17,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -127,11 +128,11 @@ public class ShiftController implements Initializable {
 	}
 	private String getUserName(int id) {
   		String name="";
-  		Connection conn = MySQLJDBC.Instance().getConn();
+  		
   		String sql = "select name from users where id="+id;
   		try {
-  			PreparedStatement ps = conn.prepareStatement(sql);
-  			ResultSet rs =ps.executeQuery();
+  			Statement ps = MySQLJDBC.connection.createStatement();
+  			ResultSet rs =ps.executeQuery(sql);
   			if(rs.next()) {
   				name=rs.getString("name");
   			}

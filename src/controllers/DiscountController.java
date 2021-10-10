@@ -432,11 +432,11 @@ public class DiscountController implements Initializable {
     
     private boolean checkToDelete(int id) {
     	boolean check=true;
-    	Connection conn = MySQLJDBC.Instance().getConn();
+    	
     	String query = "select end_date from discounts where id="+id+" and end_date<curdate()";
     	try{
-    		PreparedStatement ps = conn.prepareStatement(query);
-        	ResultSet rs = ps.executeQuery();
+    		Statement ps = MySQLJDBC.connection.createStatement();
+        	ResultSet rs = ps.executeQuery(query);
         	if(rs.next()) {
         		check=false;
         	}

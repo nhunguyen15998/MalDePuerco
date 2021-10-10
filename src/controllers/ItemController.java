@@ -23,7 +23,7 @@ public class ItemController {
 	public void setData(ItemModel items) {
 		this.item = items;
 		lblTime.setText(item.getStart()+" - "+items.getEnd());
-		lblTable.setText("null");
+		lblTable.setText(item.getTable()+"");
 		lblCusName.setText(items.getCusName());
 		DataMapping status=ReservationModel.isCancelled;
 		if(items.getStatus()==1) {
