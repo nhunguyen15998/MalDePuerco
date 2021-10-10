@@ -6,6 +6,8 @@
 package controllers;
 
 import java.awt.event.ActionEvent;
+
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -28,7 +30,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -39,6 +40,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -172,10 +174,15 @@ public class ReservationController implements Initializable {
 
     @FXML
     private Label lblStatus;
-
-
+   
     @FXML
     private Pane paneSchedule;
+    @FXML
+    private Button btnTablesSche;
+    @FXML
+    private Button btnReserSche;
+    
+
     /**
      * Initializes the controller class.
      */
@@ -186,20 +193,13 @@ public class ReservationController implements Initializable {
     	LocalDate now = LocalDate.now();
     	dpFrom.setValue(now.withDayOfMonth(1));
     	dpTo.setValue(now.withDayOfMonth(now.lengthOfMonth()));
-		this.loadSchedule();
+		this.loadSchedule("schedule.fxml");
+		btnReserSche.setVisible(false);
+		btnTablesSche.setVisible(true);
 		this.findOnClick();
     	this.parseData(null);
     }  
-    //load schedule
-    public void loadSchedule() {
-    	 AnchorPane anchor;
-   		try {
-   			anchor = FXMLLoader.load(getClass().getResource("/views/schedule.fxml"));
-   			paneSchedule.getChildren().setAll(anchor);
-   		} catch (IOException e) {
-   			e.printStackTrace();
-   		}
-    }
+ 
     
   //load data
   	public void parseData(ArrayList<CompareOperator> conditions) {
@@ -535,6 +535,29 @@ public class ReservationController implements Initializable {
 			return null;
 		}
 	}
+	@FXML
+	 void showPane(javafx.event.ActionEvent evt) {
+		if(evt.getSource()==btnReserSche) {
+			loadSchedule("schedule.fxml");
+			btnReserSche.setVisible(false);
+			btnTablesSche.setVisible(true);
+		}
+		if(evt.getSource()==btnTablesSche) {
+			loadSchedule("tables-schedule.fxml");
+			btnReserSche.setVisible(true);
+			btnTablesSche.setVisible(false);
+		}
+	}
+	   //load schedule
+    public void loadSchedule(String path) {
+    	 AnchorPane anchor;
+   		try {
+   			anchor = FXMLLoader.load(getClass().getResource("/views/"+path));
+   			paneSchedule.getChildren().setAll(anchor);
+   		} catch (IOException e) {
+   			e.printStackTrace();
+   		}
+    }
     @FXML
     void resetInput() {
     	rdCancel.setSelected(false);
