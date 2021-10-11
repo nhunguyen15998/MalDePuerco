@@ -17,28 +17,23 @@
             </Label>
          </children>
       </Pane>
-      <ImageView fx:id="ivThumbnail" fitHeight="89.0" fitWidth="93.0" layoutX="18.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="ivThumbnail" fitHeight="90.0" fitWidth="93.0" layoutX="18.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/dish-5.png" />
          </image>
       </ImageView>
-      <TextField fx:id="tfNote" layoutX="26.0" layoutY="153.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="262.0" promptText="Leave a note" style="-fx-background-radius: 5px; -fx-background-color: #3B3F40;">
+      <TextField fx:id="tfNote" layoutX="26.0" layoutY="155.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="262.0" promptText="Leave a note" style="-fx-background-radius: 5px; -fx-background-color: #3B3F40;">
          <font>
             <Font size="12.0" />
          </font>
       </TextField>
-      <ComboBox fx:id="cbSize" layoutX="164.0" layoutY="104.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="121.0" promptText="S" style="-fx-background-color: #3B3F40;" />
-      <Label layoutX="165.0" layoutY="85.0" text="Size" textFill="#c6c4c4">
+      <ComboBox fx:id="cbSize" layoutX="164.0" layoutY="109.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="121.0" promptText="S" style="-fx-background-color: #3B3F40;" />
+      <Label layoutX="165.0" layoutY="90.0" text="Size" textFill="#c6c4c4">
          <font>
             <Font name="System Bold" size="10.0" />
          </font>
       </Label>
-      <Label fx:id="lblServingName" layoutX="113.0" layoutY="61.0" prefHeight="17.0" prefWidth="159.0" text="Sizessssss sssss ssssssssssss ssssss" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="lblPrice" layoutX="113.0" layoutY="84.0" prefHeight="17.0" prefWidth="40.0" text="\$2.4" textFill="#ea7c69">
+      <Label fx:id="lblPrice" layoutX="113.0" layoutY="90.0" prefHeight="17.0" prefWidth="40.0" text="\$2.4" textFill="#ea7c69">
          <font>
             <Font size="12.0" />
          </font>
@@ -114,5 +109,10 @@
             <Font size="10.0" />
          </font>
       </Label>
+      <Text fx:id="txtServingName" fill="WHITE" layoutX="113.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="sssssssssssssssssssssssssssssssssssssssss" wrappingWidth="171.6357421875">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

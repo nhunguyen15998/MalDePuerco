@@ -8,7 +8,7 @@ import utils.JoinCondition;
 
 public class ServingCategoryModel extends BaseModel {
 	private static String table = "serving_categories";
-	private static String[] columns = {"id, name, thumbnail, parent_id, type, created_at, status"};
+	private static String[] columns = {"id, name, thumbnail, parent_id, created_at, status"};
 	
 	private int id;
 	private int sequence;
@@ -17,7 +17,6 @@ public class ServingCategoryModel extends BaseModel {
 	private String parent;
 	private String createdAt;
 	private String status;	
-	private int type;
 
 	private static final int SERVING_CATEGORY_ACTIVATED = 1;
 	private static final int SERVING_CATEGORY_DEACTIVATED = 0;
@@ -25,13 +24,6 @@ public class ServingCategoryModel extends BaseModel {
 	public static DataMapping isDeactivated = DataMapping.getInstance(SERVING_CATEGORY_DEACTIVATED, "Deactivated");
 	
 	//type
-	private static final int FOOD = 0;
-	private static final int HOT_DRINK = 1;
-	private static final int COLD_DRINK = 2;
-
-	public static DataMapping isFood = DataMapping.getInstance(FOOD, "Food");
-	public static DataMapping isHotDrink = DataMapping.getInstance(HOT_DRINK, "Hot Drink");
-	public static DataMapping isColdDrink = DataMapping.getInstance(COLD_DRINK, "Cold Drink");
 
 	public ServingCategoryModel() {
 		super(table, columns);
@@ -145,11 +137,4 @@ public class ServingCategoryModel extends BaseModel {
 		this.thumbnail = thumbnail;
 	}
 
-	public int getType() {
-		return type;
-	}
-
-	public void setType(int type) {
-		this.type = type;
-	}	
 }

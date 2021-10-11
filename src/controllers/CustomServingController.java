@@ -19,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import models.ServingAttributeModel;
 import models.ServingModel;
@@ -37,7 +38,7 @@ public class CustomServingController implements Initializable {
 	@FXML
 	private AnchorPane apCustomServing;
 	@FXML
-	private Label lblServingName;
+	private Text txtServingName;
 	@FXML
 	private ImageView ivThumbnail;
 	@FXML
@@ -83,9 +84,9 @@ public class CustomServingController implements Initializable {
 			servingCondition.add(CompareOperator.getInstance("servings.id", "=", String.valueOf(this.servingId)));
 			ResultSet serving = this.servingModel.getServingList(servingCondition);
 			while(serving.next()) {
-				lblServingName.setText(serving.getString("servings.name"));
+				txtServingName.setText(serving.getString("servings.name"));
 				ivThumbnail.setImage(new Image(getClass().getResourceAsStream(serving.getString("servings.thumbnail"))));
-				lblStockQuantity.setText(serving.getInt("servings.quantity") + "item(s) available");
+				lblStockQuantity.setText(serving.getInt("stock_quantity") + " item(s) available");
 				ObservableList<DataMapping> sizes = FXCollections.observableArrayList();
 //				while(serving.getInt("serving_attributes.serving_id") == this.servingId) {
 //					int attribute = serving.getInt("serving_attributes.attribute");

@@ -9,7 +9,7 @@ import utils.JoinCondition;
 
 public class ServingModel extends BaseModel {
 	private static String table = "servings";
-	private static String[] columns = {"id, name, thumbnail, category_id, descriptions, quantity, price, is_new, is_best_seller, created_at, status"};
+	private static String[] columns = {"id, name, thumbnail, category_id, type, descriptions, quantity, price, is_new, is_best_seller, created_at, status"};
 	
 	private int id;
 	private int sequence;
@@ -23,7 +23,8 @@ public class ServingModel extends BaseModel {
 	private int isBestSeller;
 	private String createdAt;
 	private String status;	
-	
+	private int type;
+
 	private static final int SERVING_ACTIVATED = 1;
 	private static final int SERVING_DEACTIVATED = 0;
 	public static DataMapping isActivated = DataMapping.getInstance(SERVING_ACTIVATED, "Activated");
@@ -31,15 +32,18 @@ public class ServingModel extends BaseModel {
 	
 	//type
 	private static final int FOOD = 0;
-	private static final int DRINK = 1;
+	private static final int HOT_DRINK = 1;
+	private static final int COLD_DRINK = 2;
+
 	public static DataMapping isFood = DataMapping.getInstance(FOOD, "Food");
-	public static DataMapping isDrink = DataMapping.getInstance(DRINK, "Drink");
+	public static DataMapping isHotDrink = DataMapping.getInstance(HOT_DRINK, "Hot Drink");
+	public static DataMapping isColdDrink = DataMapping.getInstance(COLD_DRINK, "Cold Drink");
 	
 	public ServingModel() {
 		super(table, columns);
 	}
 	
-	public ServingModel(int id, int sequence, String name, String thumbnail, String categoryName, String descriptions, 
+	public ServingModel(int id, int sequence, String name, String thumbnail, String categoryName, int type, String descriptions, 
 						int quantity, double price, int isNew, int isBestSeller, String createdAt, String status) {
 		super(table, columns);
 		this.setId(id);
@@ -47,6 +51,7 @@ public class ServingModel extends BaseModel {
 		this.setName(name);
 		this.setThumbnail(thumbnail);
 		this.setCategoryName(categoryName);
+		this.setType(type);
 		this.setDescriptions(descriptions);
 		this.setQuantity(quantity);
 		this.setPrice(price);
@@ -60,7 +65,8 @@ public class ServingModel extends BaseModel {
 	public ResultSet getServingList(ArrayList<CompareOperator> conditions) {
 		try {
 			String[] selects = {"servings.*, sc.name as category_name, scs.name as category_parent_name, "
-					+ "serving_attributes.*, (servings.price + serving_attributes.price) as price_of_item_with_attribute"};
+					+ "serving_attributes.*, (servings.price + serving_attributes.price) as price_of_item_with_attribute,"
+					+ "(servings.quantity - servings.quantity_sold) as stock_quantity"};
 			ArrayList<CompareOperator> cateCondition = new ArrayList<CompareOperator>();
 			cateCondition.add(CompareOperator.getInstance("servings.category_id", "=", "sc.id"));
 			ArrayList<CompareOperator> cateParentCondition = new ArrayList<CompareOperator>();
@@ -208,4 +214,12 @@ public class ServingModel extends BaseModel {
 		this.quantity = quantity;
 	}
 
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}	
 }
