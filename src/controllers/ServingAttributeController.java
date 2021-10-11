@@ -92,7 +92,11 @@ public class ServingAttributeController implements Initializable{
 			colNo.setCellValueFactory(new PropertyValueFactory<ServingAttributeModel, Integer>("sequence"));
 			colId.setCellValueFactory(new PropertyValueFactory<ServingAttributeModel, Integer>("id"));
 			colServing.setCellValueFactory(new PropertyValueFactory<ServingAttributeModel, Integer>("servingName"));
-			colAttribute.setCellValueFactory(new PropertyValueFactory<ServingAttributeModel, String>("attribute"));
+			colAttribute.setCellValueFactory(cellData -> new ReadOnlyStringWrapper (
+							cellData.getValue().getAttribute() == ServingAttributeModel.SERVING_ATTRIBUTE_S ? String.valueOf(ServingAttributeModel.isS) :
+								cellData.getValue().getAttribute() == ServingAttributeModel.SERVING_ATTRIBUTE_M ? String.valueOf(ServingAttributeModel.isM) :
+									String.valueOf(ServingAttributeModel.isL)
+					));
 			colPrice.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(Helpers.formatNumber(null).format(cellData.getValue().getPrice())));
 			colCreated.setCellValueFactory(new PropertyValueFactory<ServingAttributeModel, LocalDate>("createAt"));
 			
@@ -105,7 +109,7 @@ public class ServingAttributeController implements Initializable{
 						servingatt.getRow(),
 						servingatt.getInt("id"),
 						servingatt.getString("servingID"),
-						servingatt.getString("attribute"),
+						servingatt.getInt("attribute"),
 						servingatt.getInt("price"),  ////////
 						servingatt.getDate("created_at").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy")))
 						);

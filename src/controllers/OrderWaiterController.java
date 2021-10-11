@@ -77,6 +77,7 @@ public class OrderWaiterController implements Initializable {
     //load data
 	//id, sequence, code, table, res, tip, total, pay, created, status
 	public void loadData(ArrayList<CompareOperator> conditions) {
+		btnConfirm.setVisible(true);
 		try {
 			ObservableList<OrderWaiterModel> orderList = FXCollections.observableArrayList();
 			col_id.setCellValueFactory(new PropertyValueFactory<OrderWaiterModel, Integer>("id"));

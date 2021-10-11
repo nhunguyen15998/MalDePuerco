@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,7 +40,7 @@ public class ServingAttributeCUController implements Initializable {
     private TextField tfPrice;
 
     @FXML
-    private TextField tfAttribute;
+    private ComboBox<DataMapping> cbAttribute;
 
     @FXML
     private Label lblAttributeError;
@@ -59,6 +61,9 @@ public class ServingAttributeCUController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		this.getServingList();
+		
+		ObservableList<DataMapping> attribute = FXCollections.observableArrayList(ServingAttributeModel.isS, ServingAttributeModel.isM, ServingAttributeModel.isL);
+		cbAttribute.setItems(attribute);
 	}
 	
 	//validate
@@ -70,7 +75,7 @@ public class ServingAttributeCUController implements Initializable {
 			
 			ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
 			data.add(new ValidationDataMapping("serving", serving, "lblServingError", "required"));
-			data.add(new ValidationDataMapping("attribute", attribute, "lblAttributeError", "required|string|min:10"));
+			data.add(new ValidationDataMapping("attribute", attribute, "lblAttributeError", "required"));
 			data.add(new ValidationDataMapping("price", price, "lblPriceError", "required|numberic"));
 			
 			ArrayList<DataMapping> mess = Validations.validated(data);
@@ -102,7 +107,7 @@ public class ServingAttributeCUController implements Initializable {
 	@FXML
     void btnSaveAction(ActionEvent event) {
 		try {
-			String attribute = tfAttribute.getText();
+			String attribute = cbAttribute.getValue() != null ? cbAttribute.getValue().key : null;
 			String price = tfPrice.getText();
 			String serving = cbServing.getValue() != null ? cbServing.getValue().key : null;
 			
@@ -180,15 +185,19 @@ public class ServingAttributeCUController implements Initializable {
 				lbl.setText("Update Serving Attribute");
 				ResultSet currentServingAtt = this.serattModel.getSerAttById(this.serattId);
 				if(currentServingAtt.next()) {
-					tfAttribute.setText(currentServingAtt.getString("attribute"));
 					tfPrice.setText(currentServingAtt.getString("price"));
 					
-					//load combobox serving
+					//load combobox 
 					for(DataMapping serving : cbServing.getItems()) {
 						if(serving.key != null & Integer.parseInt(serving.key) == currentServingAtt.getInt("serving_id")) {
 							cbServing.setValue(serving);
 							break;
 						}
+					}
+					
+					for (DataMapping attribute : cbAttribute.getItems()) {
+						if(attribute.key != null & Integer.parseInt(attribute.key) == currentServingAtt.getInt("attribute"));
+						cbAttribute.setValue(attribute);
 					}
 				}
 			}

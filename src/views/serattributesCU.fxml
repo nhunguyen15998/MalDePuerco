@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="550.0" prefWidth="838.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="controllers.ServingAttributeCUController">
+<AnchorPane prefHeight="550.0" prefWidth="838.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ServingAttributeCUController">
    <children>
       <AnchorPane prefHeight="141.0" prefWidth="838.0" styleClass="anchorTop" stylesheets="@../css/serattributesCU.css" />
       <AnchorPane layoutX="62.0" layoutY="75.0" prefHeight="429.0" prefWidth="698.0" styleClass="anchorPane" stylesheets="@../css/serattributesCU.css">
@@ -26,17 +25,12 @@
                </font>
             </Label>
             <ComboBox fx:id="cbServing" layoutX="270.0" layoutY="58.0" prefHeight="27.0" prefWidth="237.0" styleClass="text" stylesheets="@../css/serattributes.css" />
-            <Label layoutX="185.0" layoutY="212.0" text="Price" textFill="#e11b46">
+            <Label layoutX="185.0" layoutY="205.0" text="Price" textFill="#e11b46">
                <font>
                   <Font name="Consolas" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="tfPrice" layoutX="271.0" layoutY="208.0" prefHeight="28.0" prefWidth="243.0" styleClass="text" stylesheets="@../css/serattributes.css">
-               <font>
-                  <Font name="Corbel Light" size="14.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="tfAttribute" layoutX="271.0" layoutY="127.0" prefHeight="28.0" prefWidth="237.0" styleClass="text" stylesheets="@../css/serattributes.css">
+            <TextField fx:id="tfPrice" layoutX="271.0" layoutY="201.0" prefHeight="28.0" prefWidth="243.0" styleClass="text" stylesheets="@../css/serattributes.css">
                <font>
                   <Font name="Corbel Light" size="14.0" />
                </font>
@@ -64,6 +58,7 @@
                   <Image url="@../assets/save.png" />
                </image>
             </ImageView>
+            <ComboBox fx:id="cbAttribute" layoutX="274.0" layoutY="127.0" prefHeight="27.0" prefWidth="237.0" styleClass="text" stylesheets="@../css/serattributes.css" />
          </children>
       </AnchorPane>
       <Label fx:id="lbl" layoutX="62.0" layoutY="25.0" prefHeight="32.0" prefWidth="698.0" text="Create Serving Attributes" textFill="WHITE">

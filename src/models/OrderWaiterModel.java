@@ -85,9 +85,9 @@ public class OrderWaiterModel extends BaseModel{
 			payJoin.add(CompareOperator.getInstance("payment_method.id", "=", "tables.payment_method_id"));
 			
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
-			joins.add(JoinCondition.getInstance("left join", "tables", tableJoin));
-			joins.add(JoinCondition.getInstance("left join", "reservations", reserJoin));
-			joins.add(JoinCondition.getInstance("left join", "payment_method", payJoin));
+			joins.add(JoinCondition.getInstance("join", "tables", tableJoin));
+			joins.add(JoinCondition.getInstance("join", "reservations", reserJoin));
+			joins.add(JoinCondition.getInstance("join", "payment_method", payJoin));
 			
 			return this.getData(selects, conditions, joins);
 		} catch (Exception e) {

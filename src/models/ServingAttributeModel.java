@@ -16,9 +16,17 @@ public class ServingAttributeModel extends BaseModel {
 	private int id;
 	private int sequence;
 	private String servingName;
-	private String attribute;
+	private int attribute;
 	private double price;
 	private String createAt;
+	
+	//attribute
+	public static final int SERVING_ATTRIBUTE_S = 0;
+	public static final int SERVING_ATTRIBUTE_M = 1;
+	public static final int SERVING_ATTRIBUTE_L = 2;
+	public static DataMapping isS = DataMapping.getInstance(SERVING_ATTRIBUTE_S, "Size S"); 
+	public static DataMapping isM = DataMapping.getInstance(SERVING_ATTRIBUTE_M, "Size M");
+	public static DataMapping isL = DataMapping.getInstance(SERVING_ATTRIBUTE_L, "Size L");
 	
 	//status
 	public static final int SERVING_ATTRIBUTE_ACTIVATED = 1;
@@ -36,7 +44,7 @@ public class ServingAttributeModel extends BaseModel {
 		}
 	}
 
-	public static ServingAttributeModel getInstance(int sequence, int id, String servingName, String attribute, double price, String createAt) {
+	public static ServingAttributeModel getInstance(int sequence, int id, String servingName, int attribute, double price, String createAt) {
 		if (SerAttModel == null) {
 			ServingAttributeModel item = new ServingAttributeModel();
 			item.sequence = sequence;
@@ -148,11 +156,11 @@ public class ServingAttributeModel extends BaseModel {
 		this.servingName = servingName;
 	}
 
-	public String getAttribute() {
+	public int getAttribute() {
 		return attribute;
 	}
 
-	public void setAttribute(String attribute) {
+	public void setAttribute(int attribute) {
 		this.attribute = attribute;
 	}
 

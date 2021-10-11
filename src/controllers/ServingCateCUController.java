@@ -34,6 +34,9 @@ import utils.Helpers;
 import utils.ValidationDataMapping;
 import utils.Validations;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class ServingCateCUController implements Initializable{
 		private ServingCategoryModel sercateModel = new ServingCategoryModel();
 		private ServingCateController sercateController;
@@ -181,10 +184,12 @@ public class ServingCateCUController implements Initializable{
 							new FileChooser.ExtensionFilter("IMAGE FILES", "*.jpg", "*.png", "*.gif")
 							);
 					file = fileChooser.showOpenDialog(stage);
+					String newPath = "/asset/";
+					File directory = new File(newPath);
 					if(file != null) {
-						path = file.getPath();
-						System.out.println("path:"+path);
-						Image im = new Image(new FileInputStream(path), 200, 170, false, false);
+						
+						System.out.println("path:"+directory);
+						Image im = new Image(new FileInputStream(newPath), 200, 170, false, false);
 						imageView.setImage(im);
 					} else {
 						System.out.println("error");

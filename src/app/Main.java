@@ -21,11 +21,10 @@ public class Main extends Application{
 //	public static void main(String[] args) {
 //		launch(args);
 //	}
-//e servings t chua coi lai, dang coi sercate truoc moi qua serving a us serving cate cu t thay chi de serving_id chac co minh serving co hinh a chi ngo nghinh z
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/views/serattributes.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/views/orderWaiter.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setWidth(850.0);
 			primaryStage.setHeight(600.0);
