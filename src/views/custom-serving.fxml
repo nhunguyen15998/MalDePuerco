@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="apCustomServing" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="392.0" prefWidth="307.0" style="-fx-background-color: #2B2B2B;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CustomServingController">
+   <children>
+      <Pane layoutX="9.0" layoutY="10.0" prefHeight="30.0" prefWidth="289.0" style="-fx-background-color: #3B3F40;">
+         <children>
+            <Label layoutX="19.0" layoutY="6.0" text="Custom your choice" textFill="#c6c4c4">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <ImageView fx:id="ivThumbnail" fitHeight="89.0" fitWidth="93.0" layoutX="18.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/dish-5.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="tfNote" layoutX="26.0" layoutY="153.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="262.0" promptText="Leave a note" style="-fx-background-radius: 5px; -fx-background-color: #3B3F40;">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </TextField>
+      <ComboBox fx:id="cbSize" layoutX="164.0" layoutY="104.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="121.0" promptText="S" style="-fx-background-color: #3B3F40;" />
+      <Label layoutX="165.0" layoutY="85.0" text="Size" textFill="#c6c4c4">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblServingName" layoutX="113.0" layoutY="61.0" prefHeight="17.0" prefWidth="159.0" text="Sizessssss sssss ssssssssssss ssssss" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblPrice" layoutX="113.0" layoutY="84.0" prefHeight="17.0" prefWidth="40.0" text="\$2.4" textFill="#ea7c69">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      <Pane fx:id="paneSugerIce" layoutX="26.0" layoutY="249.0" prefHeight="66.0" prefWidth="262.0">
+         <children>
+            <Label layoutY="16.0" text="Ice" textFill="#c6c4c4">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cbIce" layoutY="36.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="121.0" style="-fx-background-color: #3B3F40;" />
+            <ComboBox fx:id="cbSugar" layoutX="141.0" layoutY="36.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="121.0" style="-fx-background-color: #3B3F40;" />
+            <Label layoutX="141.0" layoutY="16.0" text="Sugar" textFill="#c6c4c4">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font>
+            </Label>
+            <Label text="Custom amount of ice and sugar ~ Free" textFill="#c6c4c4">
+               <font>
+                  <Font name="System Italic" size="10.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Button fx:id="btnMinus" alignment="CENTER" contentDisplay="CENTER" layoutX="26.0" layoutY="198.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnMinusAction" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #2B2B2B; -fx-background-radius: 5px;" textFill="WHITE">
+         <font>
+            <Font size="7.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/add-o.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnPlus" alignment="CENTER" contentDisplay="CENTER" layoutX="97.0" layoutY="198.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnPlusAction" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #2B2B2B; -fx-background-radius: 5px;" textFill="WHITE">
+         <font>
+            <Font size="7.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/add-o.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <TextField fx:id="tfQuantity" layoutX="57.0" layoutY="198.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #3B3F40;" />
+      <Label fx:id="lblTotal" alignment="CENTER_RIGHT" layoutX="221.0" layoutY="200.0" prefHeight="30.0" prefWidth="66.0" text="\$2.4" textFill="#ea7c69">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="193.0" layoutY="208.0" text="Total:" textFill="#c6c4c4">
+         <font>
+            <Font name="System Italic" size="10.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnCancel" contentDisplay="RIGHT" layoutX="25.0" layoutY="336.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="36.0" prefWidth="66.0" style="-fx-background-color: #2B2B2B; -fx-border-color: #ea7c69; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Cancel" textFill="WHITE">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Button contentDisplay="RIGHT" layoutX="221.0" layoutY="336.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnDoneAction" prefHeight="36.0" prefWidth="66.0" style="-fx-background-color: #2B2B2B; -fx-border-color: #ea7c69; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Done" textFill="WHITE">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Label fx:id="lblStockQuantity" layoutX="56.0" layoutY="230.0" text="20 item available" textFill="#c6c4c4">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

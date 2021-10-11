@@ -64,7 +64,7 @@ public class MySQLJDBC {
 	
 	//1366 x
 	//get data
-	public ResultSet getData(String[] selects, ArrayList<CompareOperator> conditions, ArrayList<JoinCondition> joins) {
+	public ResultSet getData(String[] selects, ArrayList<CompareOperator> conditions, ArrayList<JoinCondition> joins, String[] groupBys, String orderBys) {
 		try {
 			String conditionsStr = "";
     		String joinStr = "";
@@ -102,7 +102,18 @@ public class MySQLJDBC {
     		}
     		
     		String query = "select " + String.join(",", selects)  + " from " + this.table +" "+joinStr+ (conditionsStr.length() > 0 ? " where "+conditionsStr : "");
-			System.out.println(query);
+    		
+    		//groupby
+    		if(groupBys != null) {
+    			query += " group by " +  String.join(", ", groupBys);
+    		}
+    		
+    		//orderby
+    		if(orderBys != null) {
+    			query += " order by " + orderBys;
+    		}
+    		
+    		System.out.println(query);
 			Statement stmt = MySQLJDBC.connection.createStatement();
 			return stmt.executeQuery(query);
 			

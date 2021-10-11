@@ -23,12 +23,17 @@ public class OrderModel extends BaseModel {
 	private String createdAt;
 	private int status;
 	private String userCode;
+	private int orderQuantity;
+	
+	public static int currentOrderId = 0;
+	public static final int tableId = 1;
+	public static final String tableName = "Table 1";
 	
 	//status
-	private static final int PENDING = 0;
-	private static final int PROCESSING = 1;
-	private static final int SERVED = 2;
-	private static final int COMPLETED = 3;
+	public static final int PENDING = 0;
+	public static final int PROCESSING = 1;
+	public static final int SERVED = 2;
+	public static final int COMPLETED = 3;
 
 	public static DataMapping isPending = DataMapping.getInstance(PENDING, "Pending"); 
 	public static DataMapping isProcessing = DataMapping.getInstance(PROCESSING, "Processing"); 
@@ -40,7 +45,7 @@ public class OrderModel extends BaseModel {
 	}
 	
 	public OrderModel(int id, int sequence, String orderCode, String tableCode, String reservationCode, double tip,
-					  double total, String paymentMethodCode, String createdAt, int status, String userCode) {
+					  int orderQuantity, double total, String paymentMethodCode, String createdAt, int status, String userCode) {
 		super(table, columns);	
 		this.setId(id);
 		this.setSequence(sequence);
@@ -55,10 +60,27 @@ public class OrderModel extends BaseModel {
 		this.setUserCode(userCode);
 	}
 	
+	public OrderModel(int id, String orderCode, String tableCode, String reservationCode, double tip, int orderQuantity, 
+					  double total, String paymentMethodCode, int status, String userCode) {
+		super(table, columns);
+		this.setId(id);
+		this.setOrderCode(orderCode);
+		this.setTableCode(tableCode);
+		this.setReservationCode(reservationCode);
+		this.setTip(tip);
+		this.setOrderQuantity(orderQuantity);
+		this.setTotal(total);
+		this.setPaymentMethodCode(paymentMethodCode);
+		this.setStatus(status);
+		this.setUserCode(userCode);
+	}
+	
 	//get data - orders - tables - reservations - payment_method
-	public ResultSet getOrderList(ArrayList<CompareOperator> conditions) {
+	public ResultSet getOrderList(ArrayList<CompareOperator> conditions, String[] groupBys) {
 		try {
-			String[] selects = {"orders.*, tables.code, reservations.code, payment_method.code, tables.code"};
+			String[] selects = {"orders.*, tables.code as table_code, reservations.code as reservations_code,"
+								+ "payment_method.code as payment_method_code, tables.name,"
+								+ "sum(order_details.quantity) as order_quantity"};
 			//table
 			ArrayList<CompareOperator> tableCondition = new ArrayList<CompareOperator>();
 			tableCondition.add(CompareOperator.getInstance("tables.id", "=", "orders.table_id"));
@@ -70,14 +92,19 @@ public class OrderModel extends BaseModel {
 			paymentMethodCondition.add(CompareOperator.getInstance("payment_method.id", "=", "orders.payment_method_id"));
 			//user
 			ArrayList<CompareOperator> userCondition = new ArrayList<CompareOperator>();
-			userCondition.add(CompareOperator.getInstance("users.id", "=", "tables.user_id"));
+			userCondition.add(CompareOperator.getInstance("users.id", "=", "orders.user_id"));
+			//orderdetail
+			ArrayList<CompareOperator> orderDetailCondition = new ArrayList<CompareOperator>();
+			orderDetailCondition.add(CompareOperator.getInstance("order_details.order_id", "=", "orders.id"));
 			//join
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
 			joins.add(JoinCondition.getInstance("left join", "tables", tableCondition));
 			joins.add(JoinCondition.getInstance("left join", "reservations", reservationCondition));
 			joins.add(JoinCondition.getInstance("left join", "payment_method", paymentMethodCondition));
 			joins.add(JoinCondition.getInstance("left join", "users", userCondition));
-			return this.getData(selects, conditions, joins);
+			joins.add(JoinCondition.getInstance("left join", "order_details", orderDetailCondition));
+
+			return this.getData(selects, conditions, joins, groupBys, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -206,6 +233,14 @@ public class OrderModel extends BaseModel {
 
 	public void setUserCode(String userCode) {
 		this.userCode = userCode;
+	}
+
+	public int getOrderQuantity() {
+		return orderQuantity;
+	}
+
+	public void setOrderQuantity(int orderQuantity) {
+		this.orderQuantity = orderQuantity;
 	}
 
 	

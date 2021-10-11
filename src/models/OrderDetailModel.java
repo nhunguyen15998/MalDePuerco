@@ -10,12 +10,14 @@ import utils.JoinCondition;
 public class OrderDetailModel extends BaseModel {
 	private static String table = "order_details";
 	private static String[] columns = {"id, order_id, serving_id, serving_note, serving_status, quantity, "
-										+ "price, total, user_id"};
+										+ "price, total, user_id, created_at"};
 	
 	private int id;
 	private int sequence;
 	private String orderCode;
+	private int servingId;
 	private String servingCode;
+	private String servingName;
 	private String thumbnail;
 	private String servingNote;
 	private int servingStatus;
@@ -23,6 +25,7 @@ public class OrderDetailModel extends BaseModel {
 	private double price;
 	private double total;
 	private String userCode;
+	private String createdAt;
 	
 	//status
 	public static final int PENDING = 0;
@@ -30,12 +33,14 @@ public class OrderDetailModel extends BaseModel {
 	public static final int READY = 2;
 	public static final int SERVING = 3;
 	public static final int SERVED = 4;
+	public static final int CANCELED = 5;
 
 	public static DataMapping isPending = DataMapping.getInstance(PENDING, "Pending"); 
 	public static DataMapping isCooking = DataMapping.getInstance(COOKING, "Cooking"); 
 	public static DataMapping isReady = DataMapping.getInstance(READY, "Ready"); 
 	public static DataMapping isServing = DataMapping.getInstance(SERVING, "Serving"); 
 	public static DataMapping isServed = DataMapping.getInstance(SERVED, "Served"); 
+	public static DataMapping isCanceled = DataMapping.getInstance(CANCELED, "Canceled"); 
 
 	public OrderDetailModel() {
 		super(table, columns);	
@@ -57,34 +62,52 @@ public class OrderDetailModel extends BaseModel {
 		this.setUserCode(userCode);
 	}
 	
-	//get data order_details - orders - servings - users - serving_image
+	//overloading of updated order list
+	public OrderDetailModel(int servingId, String thumbnail, String servingName, double price, double total,
+			String servingNote, int quantity, int servingStatus, String createdAt) {
+		super(table, columns);	
+		this.setServingId(servingId);
+		this.setThumbnail(thumbnail);
+		this.setServingName(servingName);
+		this.setPrice(price);
+		this.setTotal(total);
+		this.setServingNote(servingNote);
+		this.setQuantity(quantity);
+		this.setServingStatus(servingStatus);
+		this.setCreatedAt(createdAt);
+	}
+	
+	//get data order_details - orders - servings - users - serving_image -tables
 	public ResultSet getOrderDetailList(ArrayList<CompareOperator> conditions) {
 		try {
-			String[] selects = {"order_details.*, orders.code, servings.code, servings.thumbnail, users.code"};
+			String[] selects = {"order_details.*, orders.id, orders.table_id, orders.code, orders.status,"
+								+ "servings.thumbnail, servings.name, users.code"};
 			//orders
 			ArrayList<CompareOperator> orderCondition = new ArrayList<CompareOperator>();
 			orderCondition.add(CompareOperator.getInstance("orders.id", "=", "order_details.order_id"));
 			//servings
 			ArrayList<CompareOperator> servingCondition = new ArrayList<CompareOperator>();
 			servingCondition.add(CompareOperator.getInstance("servings.id", "=", "order_details.serving_id"));
-			//serving_image
-//			ArrayList<CompareOperator> servingImageCondition = new ArrayList<CompareOperator>();
-//			servingImageCondition.add(CompareOperator.getInstance("serving_image.id", "=", "order_details.serving_image_id"));
 			//user
 			ArrayList<CompareOperator> userCondition = new ArrayList<CompareOperator>();
 			userCondition.add(CompareOperator.getInstance("users.id", "=", "order_details.user_id"));
+			//tables
+			ArrayList<CompareOperator> tableCondition = new ArrayList<CompareOperator>();
+			tableCondition.add(CompareOperator.getInstance("tables.id", "=", "orders.table_id"));
 			//join
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
 			joins.add(JoinCondition.getInstance("left join", "orders", orderCondition));
 			joins.add(JoinCondition.getInstance("left join", "servings", servingCondition));
-//			joins.add(JoinCondition.getInstance("left join", "serving_image", servingImageCondition));
 			joins.add(JoinCondition.getInstance("left join", "users", userCondition));
-			return this.getData(selects, conditions, joins);
+			joins.add(JoinCondition.getInstance("left join", "tables", tableCondition));
+			return this.getData(selects, conditions, joins, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
+	
+	
 	
 	//create
 	public int createOrderDetail(ArrayList<DataMapping> data) {
@@ -207,6 +230,30 @@ public class OrderDetailModel extends BaseModel {
 
 	public void setTotal(double total) {
 		this.total = total;
+	}
+
+	public String getServingName() {
+		return servingName;
+	}
+
+	public void setServingName(String servingName) {
+		this.servingName = servingName;
+	}
+
+	public int getServingId() {
+		return servingId;
+	}
+
+	public void setServingId(int servingId) {
+		this.servingId = servingId;
+	}
+
+	public String getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(String createdAt) {
+		this.createdAt = createdAt;
 	}
 
 	

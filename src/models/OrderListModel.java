@@ -19,8 +19,6 @@ public class OrderListModel {
 		this.setNote(note);
 		this.setQuantity(quantity);
 	}
-
-	
 	
 	
 	

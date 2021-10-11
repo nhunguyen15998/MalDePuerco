@@ -29,6 +29,12 @@ public class ServingModel extends BaseModel {
 	public static DataMapping isActivated = DataMapping.getInstance(SERVING_ACTIVATED, "Activated");
 	public static DataMapping isDeactivated = DataMapping.getInstance(SERVING_DEACTIVATED, "Deactivated");
 	
+	//type
+	private static final int FOOD = 0;
+	private static final int DRINK = 1;
+	public static DataMapping isFood = DataMapping.getInstance(FOOD, "Food");
+	public static DataMapping isDrink = DataMapping.getInstance(DRINK, "Drink");
+	
 	public ServingModel() {
 		super(table, columns);
 	}
@@ -53,15 +59,19 @@ public class ServingModel extends BaseModel {
 	//get list
 	public ResultSet getServingList(ArrayList<CompareOperator> conditions) {
 		try {
-			String[] selects = {"servings.*, sc.name as category_name, scs.name as category_parent_name"};
+			String[] selects = {"servings.*, sc.name as category_name, scs.name as category_parent_name, "
+					+ "serving_attributes.*, (servings.price + serving_attributes.price) as price_of_item_with_attribute"};
 			ArrayList<CompareOperator> cateCondition = new ArrayList<CompareOperator>();
 			cateCondition.add(CompareOperator.getInstance("servings.category_id", "=", "sc.id"));
 			ArrayList<CompareOperator> cateParentCondition = new ArrayList<CompareOperator>();
 			cateParentCondition.add(CompareOperator.getInstance("scs.id", "=", "sc.parent_id"));
+			ArrayList<CompareOperator> attributeCondition = new ArrayList<CompareOperator>();
+			attributeCondition.add(CompareOperator.getInstance("servings.id", "=", "serving_attributes.serving_id"));
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
 			joins.add(JoinCondition.getInstance("left join", "serving_categories sc", cateCondition));
 			joins.add(JoinCondition.getInstance("left join", "serving_categories scs", cateParentCondition));
-			return this.getData(selects, conditions, joins);
+			joins.add(JoinCondition.getInstance("left join", "serving_attributes", attributeCondition));
+			return this.getData(selects, conditions, joins, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -196,5 +206,6 @@ public class ServingModel extends BaseModel {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
-	}	
+	}
+
 }

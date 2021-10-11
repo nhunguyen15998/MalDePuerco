@@ -36,12 +36,14 @@ public class Helpers {
 	
 	//random
 	public static String randomString(int len){
-		String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+		String AB = "0123456789";
 		SecureRandom rnd = new SecureRandom();
 	    StringBuilder sb = new StringBuilder(len);
-	    for(int i = 0; i < len; i++)
-	       sb.append(AB.charAt(rnd.nextInt(AB.length())));
-	    return sb.toString();
+	    StringBuilder prefix = new StringBuilder(len);
+	    for(int i = 0; i < len; i++) {
+		   sb.append(AB.charAt(rnd.nextInt(AB.length())));
+	    }
+	    return prefix.append(sb).toString();
 	}
 	
 	//bcrypt
