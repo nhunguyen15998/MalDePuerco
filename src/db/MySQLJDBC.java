@@ -13,7 +13,7 @@ import utils.Helpers;
 import utils.JoinCondition;
 
 public class MySQLJDBC {
-	//db, username, password
+	//db, username, password jdbc:mysql://ec2-3-15-8-122.us-east-2.compute.amazonaws.com:3306/mal_de_puerco
 	private static final String DATABASE_URL = "jdbc:mysql://ec2-3-15-8-122.us-east-2.compute.amazonaws.com:3306/mal_de_puerco";
 	private static final String USER_NAME = "restaurant";
 	private static final String PASSWORD = "password";

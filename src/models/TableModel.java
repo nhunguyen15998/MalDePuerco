@@ -26,10 +26,12 @@ public class TableModel extends BaseModel{
 	public static final int TABLE_SERVING = 1;
 	public static final int TABLE_WAITING = 2; 
 	public static final int TABLE_UPCOMING = 3;
+	public static final int TABLE_PLACED = 4; 
 	public static DataMapping isEmpty = DataMapping.getInstance(TABLE_EMPTY, "Empty");
 	public static DataMapping isServing = DataMapping.getInstance(TABLE_SERVING, "Serving");
 	public static DataMapping isWaiting = DataMapping.getInstance(TABLE_WAITING, "Waiting");
 	public static DataMapping isUpcoming = DataMapping.getInstance(TABLE_UPCOMING, "Upcoming");
+	public static DataMapping isPlaced = DataMapping.getInstance(TABLE_UPCOMING, "Placed");
 	// is set on tablet
 	public static final int YES = 1; 
 	public static final int NO = 0;  

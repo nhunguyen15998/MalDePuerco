@@ -183,6 +183,7 @@ public class ReservationCUController implements Initializable {
 				}
 				reController.parseData(null);
 				reController.loadSchedule("schedule.fxml");
+				reController.updateStatus();
 				this.close();
 				
 				

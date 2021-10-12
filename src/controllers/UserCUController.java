@@ -92,6 +92,7 @@ public class UserCUController implements Initializable {
 		
 		ObservableList<DataMapping> status = FXCollections.observableArrayList(UserModel.isActivated, UserModel.isDeactivated);
 		cbStatus.setItems(status);
+		cbStatus.setValue(UserModel.isActivated);
 		
 	}
 	

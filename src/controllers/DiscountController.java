@@ -330,7 +330,7 @@ public class DiscountController implements Initializable {
 		try {
 			String code = tfDiscount.getText();
 			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
-			conditions.add(CompareOperator.getInstance("code or name or DATE_FORMAT(start_date,'%d-%m-%Y')", " like ", "%"+ code + "%"));
+			conditions.add(CompareOperator.getInstance("code  like '%"+ code + "%' or name like '%"+ code + "%' or DATE_FORMAT(start_date,'%d-%m-%Y')", " like ", "%"+ code + "%"));
 		
 			return conditions;
 		} catch (Exception e) {

@@ -181,6 +181,8 @@ public class ReservationController implements Initializable {
     private Button btnTablesSche;
     @FXML
     private Button btnReserSche;
+    @FXML
+    private Button btnDelete;
     
 
     /**
@@ -190,6 +192,7 @@ public class ReservationController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 
+  		updateStatus();
     	LocalDate now = LocalDate.now();
     	dpFrom.setValue(now.withDayOfMonth(1));
     	dpTo.setValue(now.withDayOfMonth(now.lengthOfMonth()));
@@ -204,7 +207,6 @@ public class ReservationController implements Initializable {
   //load data
   	public void parseData(ArrayList<CompareOperator> conditions) {
   		paneDetails.setVisible(false);
-  		updateStatus();
   		try {
   			//create list, format date
 
@@ -456,7 +458,7 @@ public class ReservationController implements Initializable {
 
     @FXML
     public void getRowSelected(MouseEvent event) {
-
+    	btnDelete.setDisable(true);
 		paneDetails.setVisible(true);
     	try {
 			if(event.getClickCount() > 0) {
@@ -488,6 +490,9 @@ public class ReservationController implements Initializable {
 					this.reserName = item.getName();
 					
 				}
+				if(checkToDelete(item.getId())) {
+					btnDelete.setDisable(false);
+				}
 			}
 		} catch (Exception err) {
 			err.printStackTrace();
@@ -504,10 +509,10 @@ public class ReservationController implements Initializable {
     }
     
     //update status New to Confirmed after 30 minutes
-    private void updateStatus() {
+    public void updateStatus() {
     	String sql = "update reservations set status = 2 where status = 1 and DATE_ADD(created_at, INTERVAL 30 MINUTE)<=now()" ;
-    	String sql2 = "update reservations set status = 5 where (status = 2 or status=3) and date_pick<curdate()" ;
-    	String sql3= "update tables_reservation set status = 0 where reservation_id in (select id from reservations where status = 5 or status = 6)";
+    	String sql2 = "update reservations set status = 5 where (status = 2 or status=3) and  DATE_ADD(curtime(), INTERVAL -30 MINUTE)<= end_time  and date_pick<=curdate()" ;
+    	String sql3= "update tables_reservation set status = 0 where reservation_id in (select id from reservations where status = 5 or status = 0)";
     	System.out.println(sql);
         try {
         	Statement stmt = MySQLJDBC.connection.createStatement();
@@ -557,6 +562,23 @@ public class ReservationController implements Initializable {
    		} catch (IOException e) {
    			e.printStackTrace();
    		}
+    }
+    
+    private boolean checkToDelete(int id) {
+    	boolean check=false;
+    	
+    	String query = "select id, status from reservations where id ="+id+" and (status=5 or status =0)";
+    	try{
+    		Statement ps = MySQLJDBC.connection.createStatement();
+        	ResultSet rs = ps.executeQuery(query);
+        	if(rs.next()) {
+        		check=true;
+        	}
+    	}catch(SQLException  ex) {
+    		ex.printStackTrace();
+    	}
+    	
+    	return check;
     }
     @FXML
     void resetInput() {

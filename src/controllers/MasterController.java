@@ -209,157 +209,102 @@ public class MasterController implements Initializable {
     
     @FXML
     private void myAccountAction() {
+    	setBtnBar();
        	btnMyAccount.getStyleClass().add("btnBarFocused");
-    	btnSetting.getStyleClass().remove("btnBarFocused");
-    	btnRole.getStyleClass().remove("btnBarFocused");
-    	redirect("my-account.fxml");
+       	redirect("my-account.fxml");
+    	setBtn();
     
     }
 
     @FXML
     private void btnDashBoardAction() {
+        setBtn();
         btnDashBoard.getStyleClass().add("btnFocused");
          redirect("dashboard.fxml");
-         btnUser.getStyleClass().remove("btnFocused");
-         btnMenu.getStyleClass().remove("btnFocused");
-         btnRole.getStyleClass().remove("btnFocused");
-         btnServingCate.getStyleClass().remove("btnFocused");
-         btnAttributes.getStyleClass().remove("btnFocused");
-         btnInvoices.getStyleClass().remove("btnFocused");
-         btnOrder.getStyleClass().remove("btnFocused");
-         btnReservation.getStyleClass().remove("btnFocused");
-         btnTables.getStyleClass().remove("btnFocused");
-         btnDiscount.getStyleClass().remove("btnFocused");
+         setBtnBar();
+
     }
 
     @FXML
     private void menuAction() {
-    	btnMenu.getStyleClass();
+      setBtn();
       btnMenu.getStyleClass().add("btnFocused");
-      btnUser.getStyleClass().remove("btnFocused");
-      btnServingCate.getStyleClass().remove("btnFocused");
-      btnAttributes.getStyleClass().remove("btnFocused");
-      btnInvoices.getStyleClass().remove("btnFocused");
-      btnOrder.getStyleClass().remove("btnFocused");
-      btnReservation.getStyleClass().remove("btnFocused");
-      btnTables.getStyleClass().remove("btnFocused");
-      btnDiscount.getStyleClass().remove("btnFocused");
-      btnDashBoard.getStyleClass().remove("btnFocused");
+      setBtnBar();
+
     }
 
     @FXML
     private void userAction() {
         redirect("user.fxml");
+        setBtn();
         btnUser.getStyleClass().add("btnFocused");
-        btnMenu.getStyleClass().remove("btnFocused");
-        btnServingCate.getStyleClass().remove("btnFocused");
-        btnAttributes.getStyleClass().remove("btnFocused");
-        btnInvoices.getStyleClass().remove("btnFocused");
-        btnOrder.getStyleClass().remove("btnFocused");
-        btnReservation.getStyleClass().remove("btnFocused");
-        btnTables.getStyleClass().remove("btnFocused");
-        btnDiscount.getStyleClass().remove("btnFocused");
-        btnDashBoard.getStyleClass().remove("btnFocused");
+        setBtnBar();
+
     }
 
     @FXML
     private void roleAction() {
         redirect("roles.fxml");
+        setBtnBar();
     	btnRole.getStyleClass().add("btnBarFocused");
-    	btnSetting.getStyleClass().remove("btnBarFocused");
-    	btnMyAccount.getStyleClass().remove("btnBarFocused");
+    	setBtn();
     }
 
     @FXML
     private void orderAction() {
+    		setBtn();
           btnOrder.getStyleClass().add("btnFocused");
-          btnUser.getStyleClass().remove("btnFocused");
-          btnMenu.getStyleClass().remove("btnFocused");
-          btnServingCate.getStyleClass().remove("btnFocused");
-          btnAttributes.getStyleClass().remove("btnFocused");
-          btnInvoices.getStyleClass().remove("btnFocused");
-          btnReservation.getStyleClass().remove("btnFocused");
-          btnTables.getStyleClass().remove("btnFocused");
-          btnDiscount.getStyleClass().remove("btnFocused");
-          btnDashBoard.getStyleClass().remove("btnFocused");
+          setBtnBar();
+
     }
 
     @FXML
     private void tableAction() {
          redirect("tables.fxml");
+         setBtn();
          btnTables.getStyleClass().add("btnFocused");
-         btnUser.getStyleClass().remove("btnFocused");
-         btnMenu.getStyleClass().remove("btnFocused");
-         btnServingCate.getStyleClass().remove("btnFocused");
-         btnAttributes.getStyleClass().remove("btnFocused");
-         btnInvoices.getStyleClass().remove("btnFocused");
-         btnOrder.getStyleClass().remove("btnFocused");
-         btnReservation.getStyleClass().remove("btnFocused");
-         btnDiscount.getStyleClass().remove("btnFocused");
-         btnDashBoard.getStyleClass().remove("btnFocused");
+         setBtnBar();
+
     }
 
     @FXML
     private void reservationAction() {
         redirect("reservation.fxml");
+        setBtn();
         btnReservation.getStyleClass().add("btnFocused");
-        btnUser.getStyleClass().remove("btnFocused");
-        btnMenu.getStyleClass().remove("btnFocused");
-        btnServingCate.getStyleClass().remove("btnFocused");
-        btnAttributes.getStyleClass().remove("btnFocused");
-        btnInvoices.getStyleClass().remove("btnFocused");
-        btnOrder.getStyleClass().remove("btnFocused");
-        btnTables.getStyleClass().remove("btnFocused");
-        btnDiscount.getStyleClass().remove("btnFocused");
-        btnDashBoard.getStyleClass().remove("btnFocused");
+        setBtnBar();
+
     }
 
     @FXML
     private void servingCateAction() {
+    	setBtn();
          btnServingCate.getStyleClass().add("btnFocused");
-         btnUser.getStyleClass().remove("btnFocused");
-         btnMenu.getStyleClass().remove("btnFocused");
-         btnAttributes.getStyleClass().remove("btnFocused");
-         btnInvoices.getStyleClass().remove("btnFocused");
-         btnOrder.getStyleClass().remove("btnFocused");
-         btnReservation.getStyleClass().remove("btnFocused");
-         btnTables.getStyleClass().remove("btnFocused");
-         btnDiscount.getStyleClass().remove("btnFocused");
-         btnDashBoard.getStyleClass().remove("btnFocused");
+         setBtnBar();
+
     }
 
     @FXML
     private void attributeAction() {
+    	setBtn();
          btnAttributes.getStyleClass().add("btnFocused");
-         btnUser.getStyleClass().remove("btnFocused");
-         btnMenu.getStyleClass().remove("btnFocused");
-         btnServingCate.getStyleClass().remove("btnFocused");
-         btnInvoices.getStyleClass().remove("btnFocused");
-         btnOrder.getStyleClass().remove("btnFocused");
-         btnReservation.getStyleClass().remove("btnFocused");
-         btnTables.getStyleClass().remove("btnFocused");
-         btnDiscount.getStyleClass().remove("btnFocused");
-         btnDashBoard.getStyleClass().remove("btnFocused");
+         setBtnBar();
+
     }
 
     @FXML
     private void discountAction() {
          redirect("discount.fxml");
+         setBtn();
          btnDiscount.getStyleClass().add("btnFocused");
-         btnUser.getStyleClass().remove("btnFocused");
-         btnMenu.getStyleClass().remove("btnFocused");
-         btnServingCate.getStyleClass().remove("btnFocused");
-         btnAttributes.getStyleClass().remove("btnFocused");
-         btnInvoices.getStyleClass().remove("btnFocused");
-         btnOrder.getStyleClass().remove("btnFocused");
-         btnReservation.getStyleClass().remove("btnFocused");
-         btnTables.getStyleClass().remove("btnFocused");
-         btnDashBoard.getStyleClass().remove("btnFocused");
+         setBtnBar();
+
     }
     @FXML
     private void settingAction() {
-    	btnRole.getStyleClass().remove("btnBarFocused");
-    	btnMyAccount.getStyleClass().remove("btnBarFocused");
+    	setBtnBar();
+    	btnSetting.getStyleClass().add("btnBarFocused");
+    	setBtn();
     	try {
 			//draw
 			Rectangle2D screenBounds = Screen.getPrimary().getBounds();
@@ -384,16 +329,9 @@ public class MasterController implements Initializable {
 
     @FXML
     private void invoicesAction() {
+    	 setBtn();
          btnInvoices.getStyleClass().add("btnFocused");
-         btnUser.getStyleClass().remove("btnFocused");
-         btnMenu.getStyleClass().remove("btnFocused");
-         btnServingCate.getStyleClass().remove("btnFocused");
-         btnAttributes.getStyleClass().remove("btnFocused");
-         btnOrder.getStyleClass().remove("btnFocused");
-         btnReservation.getStyleClass().remove("btnFocused");
-         btnTables.getStyleClass().remove("btnFocused");
-         btnDiscount.getStyleClass().remove("btnFocused");
-         btnDashBoard.getStyleClass().remove("btnFocused");
+         setBtnBar();
     }
 
     
@@ -407,7 +345,23 @@ public class MasterController implements Initializable {
 		}
     }
     
-    
+    private void setBtnBar(){
+    	btnSetting.getStyleClass().remove("btnBarFocused");
+    	btnRole.getStyleClass().remove("btnBarFocused");
+    	btnMyAccount.getStyleClass().remove("btnBarFocused");
+    }
+    private void setBtn() {
+    	 btnInvoices.getStyleClass().remove("btnFocused");
+         btnUser.getStyleClass().remove("btnFocused");
+         btnMenu.getStyleClass().remove("btnFocused");
+         btnServingCate.getStyleClass().remove("btnFocused");
+         btnAttributes.getStyleClass().remove("btnFocused");
+         btnOrder.getStyleClass().remove("btnFocused");
+         btnReservation.getStyleClass().remove("btnFocused");
+         btnTables.getStyleClass().remove("btnFocused");
+         btnDiscount.getStyleClass().remove("btnFocused");
+         btnDashBoard.getStyleClass().remove("btnFocused");
+    }
     
     
     

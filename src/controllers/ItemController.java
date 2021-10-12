@@ -26,6 +26,7 @@ public class ItemController {
 		lblTable.setText(item.getTable()+"");
 		lblCusName.setText(items.getCusName());
 		DataMapping status=ReservationModel.isCancelled;
+		
 		if(items.getStatus()==1) {
 			status=ReservationModel.isNew;
 			lblStatus.getStyleClass().add("new");
@@ -47,6 +48,9 @@ public class ItemController {
 			status=ReservationModel.isExpried;
 			lblStatus.getStyleClass().add("expired");
 			anchor.getStyleClass().add("hboxExpired");
+		}else {
+			lblStatus.getStyleClass().add("cancel");
+			anchor.getStyleClass().add("hboxCancel");
 		}
 		lblStatus.setText(status+"");
 	}
