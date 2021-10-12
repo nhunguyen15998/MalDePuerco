@@ -18,13 +18,13 @@ public class ServingAttributeModel extends BaseModel {
 	private String createdAt;
 	
 	//sml,1,2,4,..
-	private static final int SIZE_S = 0;
-	private static final int SIZE_M = 1;
-	private static final int SIZE_L = 2;
+	public static final int SIZE_S = 0;
+	public static final int SIZE_M = 1;
+	public static final int SIZE_L = 2;
 
-	private static final int ONE_PERSON = 3;
-	private static final int TWO_PEOPLE = 4;
-	private static final int FOUR_PEOPLE = 5;
+	public static final int ONE_PERSON = 3;
+	public static final int TWO_PEOPLE = 4;
+	public static final int FOUR_PEOPLE = 5;
 
 	public static DataMapping isSizeS = DataMapping.getInstance(SIZE_S, "Size S");
 	public static DataMapping isSizeM = DataMapping.getInstance(SIZE_M, "Size M");
@@ -50,7 +50,8 @@ public class ServingAttributeModel extends BaseModel {
 	//get data
 	public ResultSet getServingAttributeList(ArrayList<CompareOperator> conditions) {
 		try {
-			String[] selects = {"serving_attributes.*, servings.name"};
+			String[] selects = {"serving_attributes.*, servings.name, "
+					+ "(servings.price + serving_attributes.price) as price_of_item_with_attribute"};
 			ArrayList<CompareOperator> servingJoin = new ArrayList<CompareOperator>();
 			servingJoin.add(CompareOperator.getInstance("serving_attributes.serving_id", "=", "servings.id"));
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();

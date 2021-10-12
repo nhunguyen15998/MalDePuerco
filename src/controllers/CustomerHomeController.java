@@ -67,8 +67,8 @@ public class CustomerHomeController implements Initializable {
 	private String mainCategorySelected;
 	private String categorySelected;
 		
-	private static ObservableList<OrderListModel> createdList = FXCollections.observableArrayList();
-	private static ObservableList<OrderDetailModel> updatedList = FXCollections.observableArrayList();
+	public static ObservableList<OrderListModel> createdList = FXCollections.observableArrayList();
+	public static ObservableList<OrderDetailModel> updatedList = FXCollections.observableArrayList();
 
 	private OrderListModel selected;
 	
@@ -514,7 +514,7 @@ public class CustomerHomeController implements Initializable {
 				Image image = new Image(thumbnail);
 				servingImage.setImage(image);
 				servingPrice.setText("$"+price);
-				servingStock.setText(servings.getInt("quantity") + " bowls in stock");
+				servingStock.setText(servings.getInt("quantity") + " item(s) in stock");
 				//add
 				//onclick to add				 
 				addItem.setOnMouseClicked(event -> {
@@ -661,7 +661,6 @@ public class CustomerHomeController implements Initializable {
 			ivServingStatus.setFitWidth(15);
 			ivServingStatus.setLayoutX(8);
 			ivServingStatus.setLayoutY(8);
-			//statusPane.setGraphic(ivServingStatus);
 			
 			//Label 
 			lblServingName.setPrefSize(139, 20);

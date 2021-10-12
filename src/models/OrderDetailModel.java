@@ -41,6 +41,31 @@ public class OrderDetailModel extends BaseModel {
 	public static DataMapping isServing = DataMapping.getInstance(SERVING, "Serving"); 
 	public static DataMapping isServed = DataMapping.getInstance(SERVED, "Served"); 
 	public static DataMapping isCanceled = DataMapping.getInstance(CANCELED, "Canceled"); 
+	
+	//sugar & ice
+	public static final int SUGAR_FREE = 0;
+	public static final int SUGAR_25 = 1;
+	public static final int SUGAR_50 = 2;
+	public static final int SUGAR_75 = 3;
+	public static final int SUGAR_100 = 4;
+	
+	public static DataMapping isSugarFree = DataMapping.getInstance(SUGAR_FREE, "Sugar Free"); 
+	public static DataMapping isSugar25 = DataMapping.getInstance(SUGAR_25, "25%"); 
+	public static DataMapping isSugar50 = DataMapping.getInstance(SUGAR_50, "50%"); 
+	public static DataMapping isSugar75 = DataMapping.getInstance(SUGAR_75, "75%"); 
+	public static DataMapping isSugar100 = DataMapping.getInstance(SUGAR_100, "100%"); 
+
+	public static final int ICE_FREE = 0;
+	public static final int ICE_25 = 1;
+	public static final int ICE_50 = 2;
+	public static final int ICE_75 = 3;
+	public static final int ICE_100 = 4;
+
+	public static DataMapping isIceFree = DataMapping.getInstance(ICE_FREE, "Ice Free"); 
+	public static DataMapping isIce25 = DataMapping.getInstance(ICE_25, "25%"); 
+	public static DataMapping isIce50 = DataMapping.getInstance(ICE_50, "50%"); 
+	public static DataMapping isIce75 = DataMapping.getInstance(ICE_75, "75%"); 
+	public static DataMapping isIce100 = DataMapping.getInstance(ICE_100, "100%");
 
 	public OrderDetailModel() {
 		super(table, columns);	

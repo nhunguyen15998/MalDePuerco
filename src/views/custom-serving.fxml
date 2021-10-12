@@ -28,7 +28,7 @@
          </font>
       </TextField>
       <ComboBox fx:id="cbSize" layoutX="164.0" layoutY="109.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="121.0" promptText="S" style="-fx-background-color: #3B3F40;" />
-      <Label layoutX="165.0" layoutY="90.0" text="Size" textFill="#c6c4c4">
+      <Label fx:id="lblSize" layoutX="165.0" layoutY="90.0" text="Size" textFill="#c6c4c4">
          <font>
             <Font name="System Bold" size="10.0" />
          </font>
@@ -38,16 +38,16 @@
             <Font size="12.0" />
          </font>
       </Label>
-      <Pane fx:id="paneSugerIce" layoutX="26.0" layoutY="249.0" prefHeight="66.0" prefWidth="262.0">
+      <Pane fx:id="paneSugarIce" layoutX="26.0" layoutY="249.0" prefHeight="66.0" prefWidth="262.0">
          <children>
-            <Label layoutY="16.0" text="Ice" textFill="#c6c4c4">
+            <Label layoutY="16.0" text="Sugar" textFill="#c6c4c4">
                <font>
                   <Font name="System Bold" size="10.0" />
                </font>
             </Label>
-            <ComboBox fx:id="cbIce" layoutY="36.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="121.0" style="-fx-background-color: #3B3F40;" />
-            <ComboBox fx:id="cbSugar" layoutX="141.0" layoutY="36.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="121.0" style="-fx-background-color: #3B3F40;" />
-            <Label layoutX="141.0" layoutY="16.0" text="Sugar" textFill="#c6c4c4">
+            <ComboBox fx:id="cbSugar" layoutY="36.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="121.0" style="-fx-background-color: #3B3F40;" />
+            <ComboBox fx:id="cbIce" layoutX="141.0" layoutY="36.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="121.0" style="-fx-background-color: #3B3F40;" />
+            <Label fx:id="lblIce" layoutX="141.0" layoutY="16.0" text="Ice" textFill="#c6c4c4">
                <font>
                   <Font name="System Bold" size="10.0" />
                </font>
@@ -59,7 +59,7 @@
             </Label>
          </children>
       </Pane>
-      <Button fx:id="btnMinus" alignment="CENTER" contentDisplay="CENTER" layoutX="26.0" layoutY="198.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnMinusAction" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #2B2B2B; -fx-background-radius: 5px;" textFill="WHITE">
+      <Button fx:id="btnMinus" alignment="CENTER" contentDisplay="CENTER" layoutX="26.0" layoutY="198.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #2B2B2B; -fx-background-radius: 5px;" textFill="WHITE">
          <font>
             <Font size="7.0" />
          </font>
@@ -71,7 +71,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnPlus" alignment="CENTER" contentDisplay="CENTER" layoutX="97.0" layoutY="198.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnPlusAction" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #2B2B2B; -fx-background-radius: 5px;" textFill="WHITE">
+      <Button fx:id="btnPlus" alignment="CENTER" contentDisplay="CENTER" layoutX="97.0" layoutY="198.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #2B2B2B; -fx-background-radius: 5px;" textFill="WHITE">
          <font>
             <Font size="7.0" />
          </font>
@@ -99,7 +99,7 @@
             <Font size="13.0" />
          </font>
       </Button>
-      <Button contentDisplay="RIGHT" layoutX="221.0" layoutY="336.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnDoneAction" prefHeight="36.0" prefWidth="66.0" style="-fx-background-color: #2B2B2B; -fx-border-color: #ea7c69; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Done" textFill="WHITE">
+      <Button fx:id="btnDone" contentDisplay="RIGHT" layoutX="221.0" layoutY="336.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="66.0" style="-fx-background-color: #2B2B2B; -fx-border-color: #ea7c69; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Done" textFill="WHITE">
          <font>
             <Font size="13.0" />
          </font>

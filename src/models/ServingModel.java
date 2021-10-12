@@ -31,9 +31,9 @@ public class ServingModel extends BaseModel {
 	public static DataMapping isDeactivated = DataMapping.getInstance(SERVING_DEACTIVATED, "Deactivated");
 	
 	//type
-	private static final int FOOD = 0;
-	private static final int HOT_DRINK = 1;
-	private static final int COLD_DRINK = 2;
+	public static final int FOOD = 0;
+	public static final int HOT_DRINK = 1;
+	public static final int COLD_DRINK = 2;
 
 	public static DataMapping isFood = DataMapping.getInstance(FOOD, "Food");
 	public static DataMapping isHotDrink = DataMapping.getInstance(HOT_DRINK, "Hot Drink");
@@ -65,7 +65,6 @@ public class ServingModel extends BaseModel {
 	public ResultSet getServingList(ArrayList<CompareOperator> conditions) {
 		try {
 			String[] selects = {"servings.*, sc.name as category_name, scs.name as category_parent_name, "
-					+ "serving_attributes.*, (servings.price + serving_attributes.price) as price_of_item_with_attribute,"
 					+ "(servings.quantity - servings.quantity_sold) as stock_quantity"};
 			ArrayList<CompareOperator> cateCondition = new ArrayList<CompareOperator>();
 			cateCondition.add(CompareOperator.getInstance("servings.category_id", "=", "sc.id"));
@@ -76,7 +75,6 @@ public class ServingModel extends BaseModel {
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
 			joins.add(JoinCondition.getInstance("left join", "serving_categories sc", cateCondition));
 			joins.add(JoinCondition.getInstance("left join", "serving_categories scs", cateParentCondition));
-			joins.add(JoinCondition.getInstance("left join", "serving_attributes", attributeCondition));
 			return this.getData(selects, conditions, joins, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
