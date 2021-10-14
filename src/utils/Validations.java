@@ -1,11 +1,21 @@
 package utils;
 
+import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.text.ParseException;
+
+import db.MySQLJDBC;
+import javafx.scene.control.Label;
 
 public class Validations {
 	
@@ -159,6 +169,58 @@ public class Validations {
 			return messages;
 		}
 	}
+	  public static boolean checkDup(String ob,String tbl,String cond, String obCompare,Label lb,String er ) {
+          
+          boolean check=true;
+          System.out.println("in checkDup");
+       try{
+           
+           String sql = "select "+ob+" from "+tbl+" where "+cond+ob+"='"+obCompare+"'";
+           Statement pstmt = MySQLJDBC.connection.createStatement();
+           ResultSet rs = pstmt.executeQuery(sql);
+           if(rs.next()){
+               check=false;
+              lb.setText(er);
+           }
+           pstmt.close(); 
+           rs.close();
+       }catch(SQLException ex){
+           
+       }
+       return check;
+    }
+	  
+	  public static boolean checkDate(Date date1, Date date2, Label lb, String er) throws ParseException {
+	      Calendar now = Calendar.getInstance();
+           int year= now.get(Calendar.YEAR);
+           int month= (now.get(Calendar.MONTH) + 1);
+           int day= + now.get(Calendar.DATE);
+           SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+           java.util.Date nowS =  sdf.parse(year+"-"+month+"-"+day); 
+	      boolean check=true;
+	          if(date1==null||date1.equals("")||date2==null&&date2.equals("")){
+	              return false;
+	          }else{
+	            if(date1.compareTo(date2)>0){
+	             check=false;
+	             lb.setText(er);
+	            }
+	          }
+	           if(nowS.compareTo(date1)>0&&nowS.compareTo(date2)>0){
+	             check=false;
+	             lb.setText(er);
+	            }
+	       return check;
+	    }
+	  
+	  public static boolean checkTime(LocalTime time, LocalTime time2, Label lb, String er){
+		     boolean check= true;
+		     if(time.compareTo(time2)>=0){
+		         check=false;
+		         lb.setText(er);
+		     }
+		     return check;
+		 }
 	
 }
 
