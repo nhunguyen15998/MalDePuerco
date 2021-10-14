@@ -9,3 +9,6 @@
 .btnSetting:hover{
  -fx-cursor:hand;
 }
+.btnChangePass{
+-fx-cursor:hand;
+}
