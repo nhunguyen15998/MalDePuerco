@@ -1,5 +1,6 @@
 package utils;
 
+import java.security.SecureRandom;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -56,15 +57,14 @@ public class Helpers {
 		}  
 	}
 	
-	//
-	/*public static String randomString(int len){
+	public static String randomString(int len){
 		String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 		SecureRandom rnd = new SecureRandom();
 	    StringBuilder sb = new StringBuilder(len);
 	    for(int i = 0; i < len; i++)
 	       sb.append(AB.charAt(rnd.nextInt(AB.length())));
 	    return sb.toString();
-	}*/
+	}
 	
 	  public static String randomCode(String ob){
 	        int max = 10000000;
