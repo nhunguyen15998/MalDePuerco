@@ -216,7 +216,15 @@ public class DiscountController implements Initializable {
   			lblDateError.setText("");
   			java.sql.Date date1 = java.sql.Date.valueOf(start);
             java.sql.Date date2 = java.sql.Date.valueOf(end);
-  			
+            boolean codeDup;
+            boolean checkDate = Validations.checkDate(date1, date2, lblDateError, "Unavailable");
+			if(idDiscount!=0) {
+			codeDup =  Validations.checkDup("code", "discounts", " id !="+idDiscount+" and ", tfCode.getText(), lblCodeError, "This code already exists");
+			}else {
+			codeDup =  Validations.checkDup("code", "discounts", " ", tfCode.getText(), lblCodeError, "This code already exists");
+			
+			}
+            
   			ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
   			data.add(new ValidationDataMapping("name", name, "lblNameError", "required|string|min:5"));
   			data.add(new ValidationDataMapping("code", code, "lblCodeError", "required|min:5"));
@@ -242,16 +250,16 @@ public class DiscountController implements Initializable {
   						default:
   							System.out.println("abcde");
   					}
-  					boolean checkDate = Validations.checkDate(date1, date2, lblDateError, "Unavailable");
-  					if(!checkDate) {
-  						return false;
-  					}
-
+  					
   				}
   				return false;
   			}
+  			if(!checkDate||!codeDup) {
+					return false;
+				}else {
 
   			return true;
+				}
   		} catch (Exception e) {
   			e.printStackTrace();
   			return false;

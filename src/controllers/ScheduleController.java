@@ -81,12 +81,16 @@ public class ScheduleController implements Initializable {
     }
     private String getTableName(int id) throws SQLException{
     	String tablename = "";
+    	int count = 0;
     	String sql = "select tables.name from tables_reservation join tables on table_id=tables.id join reservations on reservation_id=reservations.id where reservation_id="+id;
     	Statement st = MySQLJDBC.connection.createStatement();
     	ResultSet rs = st.executeQuery(sql);
     	while(rs.next()) {
     		tablename+=rs.getString("tables.name")+" ";
-    		
+    		count++;
+    		if(count%2==0) {
+    			tablename+="\n";
+    		}
     	}
     	return tablename;
     	

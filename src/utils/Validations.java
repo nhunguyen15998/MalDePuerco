@@ -170,7 +170,6 @@ public class Validations {
 		}
 	}
 	  public static boolean checkDup(String ob,String tbl,String cond, String obCompare,Label lb,String er ) {
-          
           boolean check=true;
           System.out.println("in checkDup");
        try{

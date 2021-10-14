@@ -106,7 +106,17 @@ public class UserCUController implements Initializable {
 			lblEmailError.setText("");
 			lblPasswordError.setText("");
 			lblUserTypeError.setText("");
-			
+			boolean phoneDup;
+			boolean emailDup;
+			if(userId!=0) {
+			phoneDup =  Validations.checkDup("phone", "users", " id !="+userId+" and ", tfPhone.getText(), lblPhoneError, "Phone number already exists");
+			emailDup = Validations.checkDup("email", "users"," id !="+userId+" and ", tfEmail.getText(), lblEmailError, "Email already exists");
+			}else {
+			phoneDup =  Validations.checkDup("phone", "users", " ", tfPhone.getText(), lblPhoneError, "Phone number already exists");
+			emailDup = Validations.checkDup("email", "users"," ", tfEmail.getText(), lblEmailError, "Email already exists");
+			}
+            
+            
 			ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
 			data.add(new ValidationDataMapping("name", name, "lblNameError", "required|string|min:5"));
 			data.add(new ValidationDataMapping("phone", phone, "lblPhoneError", "required|phone"));
@@ -139,10 +149,15 @@ public class UserCUController implements Initializable {
 					}
 
 				}
+				
 				return false;
 			}
+			if(!phoneDup||!emailDup) {
+				return false;
+			}else {
 
 			return true;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;

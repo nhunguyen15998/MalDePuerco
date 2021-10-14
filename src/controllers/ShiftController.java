@@ -71,9 +71,15 @@ public class ShiftController implements Initializable {
 				this.btnCancelAction();
 			} 
 		}else {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setHeaderText("You need to select Server Name!");
-			alert.showAndWait();
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Change Shift Confirmation");
+			alert.setHeaderText("Do you change this shift?");
+			Optional<ButtonType> option = alert.showAndWait();
+			if (option.get() == ButtonType.OK) {
+				this.clearAction();
+				Helpers.status("success");
+				btnCancelAction();
+			} 
 		}
 		
 		
@@ -132,15 +138,9 @@ public class ShiftController implements Initializable {
 	@FXML
 	public void clearAction() {
 		ArrayList<DataMapping> table = new ArrayList<DataMapping>();
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Clear Shift Confirmation");
-		alert.setHeaderText("Do you want to make this change?");
-		Optional<ButtonType> option = alert.showAndWait();
 		table.add(DataMapping.getInstance("user_id",0+""));
-		if (option.get() == ButtonType.OK) {
-			tableModel.updateTableById(this.tableId, table);
-			cbbServer.setValue(null);
-		} 
+		tableModel.updateTableById(this.tableId, table);
+		cbbServer.setValue(null);
 	}
 	private String getById(String ob,int id) {
   		String value="";

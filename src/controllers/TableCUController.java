@@ -122,7 +122,15 @@ public class TableCUController implements Initializable {
 			lblNameError.setText("");
 			lblCodeError.setText("");
 			lblSeatsError.setText("");
-			
+			boolean codeDup;
+			boolean nameDup;
+			if(tableId!=0) {
+			codeDup =  Validations.checkDup("code", "tables", " id !="+tableId+" and ", tfCode.getText(), lblCodeError, "This code already exists");
+			nameDup =  Validations.checkDup("name", "tables", " id !="+tableId+" and ", tfName.getText(), lblNameError, "This table name already exists");
+			}else {
+			codeDup =  Validations.checkDup("code", "tables", " ", tfCode.getText(), lblCodeError, "This code already exists");
+			nameDup =  Validations.checkDup("name", "tables", " ", tfName.getText(), lblNameError, "This table name already exists");
+			}
 			
 			ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
 			data.add(new ValidationDataMapping("name", name, "lblNameError", "required|string|min:5"));
@@ -150,8 +158,11 @@ public class TableCUController implements Initializable {
 				}
 				return false;
 			}
-
-			return true;
+			if(!codeDup||!nameDup) {
+				return false;
+			}else {
+				return true;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;

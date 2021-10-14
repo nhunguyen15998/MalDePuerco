@@ -294,6 +294,7 @@ public class ReservationCUController implements Initializable {
 	  			cbbTable.setDisable(true);
 	  			lblTableError.setText("You must fill in date,time,seats to select a table(s)");
 	  			if(this.reserId != 0) {
+	  				btnAdd.setDisable(true);
 	  				lblReser.setText("Update Reservation");
 	  				cbStatus.setDisable(false);
 	  				ObservableList<DataMapping> sts = FXCollections.observableArrayList(ReservationModel.isConfirmed,ReservationModel.isDeposited,ReservationModel.isPresent, ReservationModel.isExpried,ReservationModel.isCancelled );
@@ -367,21 +368,18 @@ public class ReservationCUController implements Initializable {
 	  //validate
 		public boolean validated( String name, String phone, String email, String seat, String depo, String start, String end) {
 			try {
-				
+				boolean check =true;
 				lblNameError.setText("");
 				lblPhoneError.setText("");
 				lblEmailError.setText("");
 				lblSeatError.setText("");
 				lblDepoError.setText("");
 				lblTimeError.setText("");
-				LocalTime time = LocalTime.parse(tfStart.getText());
-		        LocalTime time2 = LocalTime.parse(tfEnd.getText());
-		        boolean checkTime = Validations.checkTime(time , time2, lblTimeError, "Unavailable");
 				ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
 				data.add(new ValidationDataMapping("name", name, "lblNameError", "required|string|min:5"));
 				data.add(new ValidationDataMapping("phone", phone, "lblPhoneError", "required|phone"));
 				data.add(new ValidationDataMapping("email", email, "lblEmailError", "email|required"));
-				data.add(new ValidationDataMapping("seat", seat, "lblSeatError", "min:0|numeric|required"));
+				data.add(new ValidationDataMapping("seat", seat, "lblSeatError", "min:1|numeric|required"));
 				data.add(new ValidationDataMapping("deposit", depo, "lblDepoError", "numeric|min:0"));
 				data.add(new ValidationDataMapping("start", start, "lblTimeError", "time|required"));
 				data.add(new ValidationDataMapping("end", end, "lblTimeError", "time|required"));
@@ -416,16 +414,23 @@ public class ReservationCUController implements Initializable {
 					}
 					
 			       
-					return false;
+					check=false;
 				}
-				 if(!checkTime||!checkTable) {
-					 	lblTableError.setText("please choose");
-			        	return false;
-			        	
-			        }else {
-			        	return true;
-				
-				}
+				String s = tfStart.getText();
+		    	String e = tfEnd.getText();
+		    	if(lblTimeError.getText().equals("")&&s.length()==5&&e.length()==5) {
+		    	LocalTime time = LocalTime.parse(start);
+		        LocalTime time2 = LocalTime.parse(end);
+		        boolean checkTime = Validations.checkTime(time , time2, lblTimeError, "unachievable!");
+		    	
+		        if(!checkTime||!checkTable) {
+		        	lblTableError.setText("please choose");
+		        	check= false;
+		        }else {
+		        	check= true;
+		        }
+		    	}
+				return check;
 			} catch (Exception e) {
 				e.printStackTrace();
 				return false;
@@ -452,24 +457,37 @@ public class ReservationCUController implements Initializable {
 	    	String start = tfStart.getText();
 	    	String end = tfEnd.getText();
 	    	String seats = tfSeat.getText();
-	    	if(time(seats,start, end)&&reserId==0) {
+	    	int seat=0;
+	    	if(seats.length()>0) {
+	    	seat = Integer.parseInt(seats);
+	    	}
+	    	if(!end.equals("")&&!start.equals("")&&!(seat<=0)) {
+	    	if(time(seats,start, end)&&reserId==0&&seat>0) {
 	    		this.getTableList(dpDate.getValue().toString(),start, end,"");
 	    		cbbTable.setDisable(false);
 	    		lblTableError.setText("");
+		        
 	    	}
-	    	if(time(seats,start, end)&&reserId!=0) {
+	    	if(time(seats,start, end)&&reserId!=0&&seat>0) {
 	    		this.getTableList(dpDate.getValue().toString(),start, end," and reservation_id!="+reserId);
 	    		cbbTable.setDisable(false);
 	    		lblTableError.setText("");
 	    	}
 	    	
-			
+	    	}
+	    	if(end.equals("")||start.equals("")||seat<=0) {
+	    		cbbTable.setDisable(true);
+	    	}
+	    	
 	    }
 	    private boolean time(String seats,String start, String end) {
+	    	boolean check = true;
+
+	    	lblTimeError.setText("");
 	    	ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
-	    	data.add(new ValidationDataMapping("start", start, "", "time|required"));
-			data.add(new ValidationDataMapping("end", end, "", "time|required"));
-			data.add(new ValidationDataMapping("seats", seats, "", "numeric|required"));
+	    	data.add(new ValidationDataMapping("start", start, "lblTimeError", "time|required"));
+			data.add(new ValidationDataMapping("end", end, "lblTimeError", "time|required"));
+			data.add(new ValidationDataMapping("seats", seats, "", "min:1|numeric|required"));
 			ArrayList<DataMapping> messages = Validations.validated(data);
 	    	if(messages.size() > 0) {
 				for(DataMapping message : messages) {
@@ -482,10 +500,24 @@ public class ReservationCUController implements Initializable {
 					}
 
 				}
-				return false;
+				check= false;
 			}
-	    	lblTimeError.setText("");
-			return true;
+	    	String s = tfStart.getText();
+	    	String e = tfEnd.getText();
+	    	if(lblTimeError.getText().equals("")&&s.length()==5&&e.length()==5) {
+	    	LocalTime time = LocalTime.parse(start);
+	        LocalTime time2 = LocalTime.parse(end);
+	        boolean checkTime = Validations.checkTime(time , time2, lblTimeError, "unachievable!");
+	    	
+	        if(!checkTime) {
+	        	check= false;
+	           
+	        }else {
+			check= true;
+	        }
+	    	}
+	    	return check;
+	    	
 	    }
 	    @FXML
 	    void addTable() { 
