@@ -231,7 +231,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Pane fx:id="paneDetails" focusTraversable="true" layoutX="14.0" layoutY="262.0" prefHeight="181.0" prefWidth="331.0" visible="false">
+            <Pane fx:id="paneDetails" focusTraversable="true" layoutX="14.0" layoutY="262.0" prefHeight="181.0" prefWidth="331.0">
                <children>
                   <VBox prefHeight="181.0" prefWidth="331.0">
                      <children>
@@ -249,6 +249,11 @@
                            </VBox.margin>
                         </Label>
                         <Label fx:id="lblCusName" prefHeight="18.0" prefWidth="347.0" textFill="#9c6d6d">
+                           <font>
+                              <Font name="Cambria" size="13.5" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblTablePick" layoutX="10.0" layoutY="174.0" textFill="#9c6d6d">
                            <font>
                               <Font name="Cambria" size="13.5" />
                            </font>

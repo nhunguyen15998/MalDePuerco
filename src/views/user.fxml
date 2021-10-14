@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.UserController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserController">
    <children>
       <Pane layoutX="38.0" layoutY="67.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="448.0" prefWidth="760.0" style="-fx-background-color: #FFFFFF; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.8),30, 0,10, 10);">
          <children>
@@ -87,7 +87,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <TextField fx:id="tfUser" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#onSearch" prefHeight="30.0" prefWidth="211.0" promptText="Find by name, phone" style="-fx-background-radius: 50px;" />
+                  <TextField fx:id="tfUser" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#onSearch" prefHeight="30.0" prefWidth="211.0" promptText="Find by name, code, phone" style="-fx-background-radius: 50px;" />
                   <Pane layoutX="177.0" layoutY="7.0" prefHeight="30.0" prefWidth="30.0">
                      <children>
                         <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="7.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">

@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="537.0" prefWidth="680.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.ReservationCUController">
+<AnchorPane prefHeight="537.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ReservationCUController">
    <children>
       <AnchorPane id="AnchorPane" fx:id="cuHolder" prefHeight="537.0" prefWidth="680.0" style="-fx-background-color: #f0e9ec;" styleClass="mainFxmlClass">
          <stylesheets>
@@ -118,9 +119,8 @@
                      </font>
                   </Label>
                   <Label layoutX="331.0" layoutY="225.0" text="Table:" />
-                  <ComboBox fx:id="cbbTable" focusTraversable="false" layoutX="333.0" layoutY="243.0" prefHeight="25.0" prefWidth="139.0" styleClass="cbbUserUC" stylesheets="@../css/useruc.css" />
-                  <TextField fx:id="tfTable" disable="true" focusTraversable="false" layoutX="332.0" layoutY="290.0" prefHeight="27.0" prefWidth="177.0" promptText="table" styleClass="tfUserUC" stylesheets="@../css/useruc.css" />
-                  <Button alignment="CENTER" graphicTextGap="0.0" layoutX="480.0" layoutY="243.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addTable" prefHeight="25.0" prefWidth="43.0" style="-fx-background-color: linear-gradient(to right, #8DC9F8, #69B5F2, #4BA4EC, #3292E6); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnUserUC" stylesheets="@../css/useruc.css" text="Add" textFill="WHITE">
+                  <ComboBox fx:id="cbbTable" focusTraversable="false" layoutX="334.0" layoutY="243.0" prefHeight="25.0" prefWidth="139.0" styleClass="cbbUserUC" stylesheets="@../css/useruc.css" />
+                  <Button fx:id="btnAdd" alignment="CENTER" graphicTextGap="0.0" layoutX="480.0" layoutY="243.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addTable" prefHeight="25.0" prefWidth="43.0" style="-fx-background-color: linear-gradient(to right, #8DC9F8, #69B5F2, #4BA4EC, #3292E6); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnUserUC" stylesheets="@../css/useruc.css" text="Add" textFill="WHITE">
                      <effect>
                         <DropShadow color="#5873de7d" />
                      </effect>
@@ -128,7 +128,7 @@
                         <Font size="12.0" />
                      </font>
                   </Button>
-                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="522.0" layoutY="290.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#deleteTable" prefHeight="27.0" prefWidth="43.0" style="-fx-background-color: linear-gradient(to right, #fbc6c4, #f4a29f, #fb8b87, #FB6E67); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnUserUC" stylesheets="@../css/useruc.css" textFill="WHITE">
+                  <Button fx:id="btnClear" alignment="CENTER" contentDisplay="CENTER" layoutX="522.0" layoutY="290.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#deleteTable" prefHeight="27.0" prefWidth="43.0" style="-fx-background-color: linear-gradient(to right, #fbc6c4, #f4a29f, #fb8b87, #FB6E67); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnUserUC" stylesheets="@../css/useruc.css" textFill="WHITE">
                      <effect>
                         <DropShadow color="#fb6e677d" />
                      </effect>
@@ -148,6 +148,10 @@
                         <Font name="System Italic" size="10.5" />
                      </font>
                   </Label>
+                  <TextArea fx:id="tfTable" disable="true" layoutX="332.0" layoutY="290.0" prefHeight="36.0" prefWidth="177.0" promptText="Dont have table selected" styleClass="tfUserUC" stylesheets="@../css/useruc.css">
+                     <font>
+                        <Font size="11.0" />
+                     </font></TextArea>
                </children>
             </Pane>
          </children>
