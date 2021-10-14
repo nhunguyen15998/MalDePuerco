@@ -10,6 +10,8 @@ import javafx.scene.control.Alert.AlertType;
 import models.AuthenticationModel;
 import models.DiscountModel;
 import models.TableModel;
+import models.UserModel;
+import utils.CompareOperator;
 import utils.DataMapping;
 import utils.Helpers;
 
@@ -28,9 +30,11 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 
 public class ShiftController implements Initializable {
 	private TableModel tableModel = new TableModel();
+	private UserModel userModel = new UserModel();
 	private TablesController tableController;
 	private int tableId;
 	@FXML
@@ -40,9 +44,12 @@ public class ShiftController implements Initializable {
 	@FXML
 	private Button btnClear;
 	@FXML
-	private TextField tfShiftOf;
+	private ComboBox<DataMapping> cbbServer;
 	@FXML
-	private CheckBox chkShift;
+	private Label lblSupport;
+	@FXML
+	private Label lblUserCode;
+	
 	@FXML
 	private Label lblTableName;
 	@FXML
@@ -51,31 +58,76 @@ public class ShiftController implements Initializable {
 	@FXML
 	public void btnSaveAction(ActionEvent event) {
 		ArrayList<DataMapping> table = new ArrayList<DataMapping>();
-		if(chkShift.isSelected()) {
+		if(cbbServer.getValue()!=null) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Change Shift Confirmation");
 			alert.setHeaderText("Do you change this shift?");
 			Optional<ButtonType> option = alert.showAndWait();
-			table.add(DataMapping.getInstance("user_id", AuthenticationModel.id+""));
+			table.add(DataMapping.getInstance("user_id",cbbServer.getValue().key));
 			if (option.get() == ButtonType.OK) {
 				tableModel.updateTableById(this.tableId, table);
-				tfShiftOf.setText(getUserName(AuthenticationModel.id));
 				Helpers.status("success");
+				tableController.parseData(null);
+				this.btnCancelAction();
 			} 
 		}else {
-			table.add(DataMapping.getInstance("user_id",0+""));
-			tableModel.updateTableById(this.tableId, table);
-			tfShiftOf.setText("");
-			Helpers.status("success");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setHeaderText("You need to select Server Name!");
+			alert.showAndWait();
 		}
-		tableController.parseData(null);
-		this.btnCancelAction();
+		
+		
 	}
 	
 	
 	@FXML
 	public void btnCancelAction() {
 		btnCancel.getScene().getWindow().hide();
+	}
+	
+	
+	
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+
+		this.getUserList();
+		btnClear.setDisable(true);
+	}
+	
+	@FXML
+	void showInfo() {
+		if(cbbServer.getValue()!=null) {
+	    btnClear.setDisable(false);
+		int value =  Integer.parseInt(cbbServer.getValue() != null ? cbbServer.getValue().key : "");
+		lblSupport.setVisible(true);
+		lblUserCode.setText(getById("code", value));
+		}else {
+			lblSupport.setVisible(false);
+			lblUserCode.setText("");
+		}
+	}
+	public void loadDataUpdateById(TablesController tbl, TableView tw) {
+		try {
+  			this.tableController = tbl;
+  			this.tableId = tbl.getTableId();
+  				ResultSet currentTable = this.tableModel.getTableById(this.tableId);
+  				if(currentTable.next()) {
+  					lblTableName.setText(currentTable.getString("name"));
+  					lblTableCode.setText(currentTable.getString("code"));
+  					for(DataMapping cb : cbbServer.getItems()) {
+						if(cb.key != null && Integer.parseInt(cb.key) == currentTable.getInt("user_id")) {
+							cbbServer.setValue(cb);
+							break;
+						}
+					}
+  					if(cbbServer.getValue() != null) {
+  					showInfo();
+  					}
+  			}
+  		} catch (Exception e) {
+  			e.printStackTrace();
+  		}
+		
 	}
 	@FXML
 	public void clearAction() {
@@ -87,59 +139,43 @@ public class ShiftController implements Initializable {
 		table.add(DataMapping.getInstance("user_id",0+""));
 		if (option.get() == ButtonType.OK) {
 			tableModel.updateTableById(this.tableId, table);
-			tfShiftOf.setText("");
-			Helpers.status("success");
-			btnCancelAction();
+			cbbServer.setValue(null);
 		} 
 	}
-	
-	
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-
-		chkShift.setSelected(false);
-		chkShift.setVisible(false);
-		btnClear.setVisible(false);
-		if(AuthenticationModel.roleName.equals("Server")) {
-			chkShift.setVisible(true);
-		}
-		if(AuthenticationModel.roleName.equals("Super Admin")||AuthenticationModel.roleName.equals("Manager")) {
-			btnClear.setVisible(true);
-		}
-	
-	}
-	public void loadDataUpdateById(TablesController tbl, TableView tw) {
-		try {
-  			this.tableController = tbl;
-  			this.tableId = tbl.getTableId();
-  				ResultSet currentTable = this.tableModel.getTableById(this.tableId);
-  				if(currentTable.next()) {
-  					lblTableName.setText(currentTable.getString("name"));
-  					lblTableCode.setText(currentTable.getString("code"));
-  					tfShiftOf.setText(getUserName(currentTable.getInt("user_id")));
-  					if(currentTable.getInt("user_id")==AuthenticationModel.id) {
-  						chkShift.setSelected(true);
-  					}
-  			}
-  		} catch (Exception e) {
-  			e.printStackTrace();
-  		}
-		
-	}
-	private String getUserName(int id) {
-  		String name="";
+	private String getById(String ob,int id) {
+  		String value="";
   		
-  		String sql = "select name from users where id="+id;
+  		String sql = "select "+ob+" from users where id="+id;
   		try {
   			Statement ps = MySQLJDBC.connection.createStatement();
   			ResultSet rs =ps.executeQuery(sql);
   			if(rs.next()) {
-  				name=rs.getString("name");
+  				value=rs.getString(ob);
   			}
   		}catch (Exception e) {
 			
 		}
-  		return name;
+  		return value;
   	}
-  	
+	
+	public ResultSet getUserList() {
+		try {
+			ArrayList<DataMapping> userTypeOptions = new ArrayList<DataMapping>();
+
+			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
+			conditions.add(CompareOperator.getInstance("roles.name", "=", "Server"));
+			
+			ResultSet userTypes = userModel.getUserList(conditions);
+			while(userTypes.next()) {
+				userTypeOptions.add(DataMapping.getInstance(userTypes.getInt("id"), userTypes.getString("user_name")));
+				
+			}
+			cbbServer.getItems().setAll(userTypeOptions);
+			return userTypes;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
 }

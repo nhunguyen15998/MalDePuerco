@@ -249,7 +249,7 @@ public class UserController  implements Initializable {
 		try {
 			String code = tfUser.getText();
 			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
-			conditions.add(CompareOperator.getInstance("users.code or users.phone", " like ", "%"+ code + "%"));
+			conditions.add(CompareOperator.getInstance("users.code like '%"+code+"%' or users.name like '%"+code+"%' or users.phone", " like ", "%"+ code + "%"));
 			//conditions.add(new CompareOperators("", name, name))
 			return conditions;
 		} catch (Exception e) {

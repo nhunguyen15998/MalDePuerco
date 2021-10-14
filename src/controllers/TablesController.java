@@ -42,6 +42,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import models.AuthenticationModel;
 import models.RoleModel;
 import models.TableModel;
 import utils.CompareOperator;
@@ -107,7 +108,13 @@ public class TablesController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     	this.parseData(getFilter());
-    	
+    	//discount
+    			btnChange.setVisible(false);
+    			
+    			if(AuthenticationModel.hasPermission("CHANGE_SHIFT") || AuthenticationModel.roleName.equals("Super Admin")) {
+    				btnChange.setVisible(true);
+    			
+    			}
     }    
 
 

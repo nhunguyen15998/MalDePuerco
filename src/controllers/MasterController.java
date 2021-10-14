@@ -11,7 +11,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -28,6 +31,7 @@ import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
 import models.AuthenticationModel;
 import models.PermissionModel;
 import models.UserModel;
@@ -48,7 +52,7 @@ public class MasterController implements Initializable {
     @FXML
     private Button btnInvoices;
     @FXML
-    private Button btnClose;
+    private Button btnClose= new Button("");
     @FXML
     private Button btnMenu;
     @FXML
@@ -80,7 +84,8 @@ public class MasterController implements Initializable {
 	private AnchorPane settingHolder;
     @FXML
     private Button btnSetting;
-
+	private Stage stage;
+	
     /**
      * Initializes the controller class.
      */
@@ -181,13 +186,17 @@ public class MasterController implements Initializable {
         
     }    
 
-
     @FXML
-    private void btnCloseAction() {
-        System.exit(0);
+    public void btnCloseAction() {
+    	Stage stage = SignInController.substage;
+    	stage.close();
+          
+	        
+		
+    	
+    	
     }
-
-
+  
 
     @FXML
     private void logoutAction() {

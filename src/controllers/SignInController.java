@@ -54,18 +54,20 @@ public class SignInController implements Initializable {
     @FXML
     private Pane paneRight;
     @FXML
-    private TextField tfUsername;
+    private  TextField tfUsername =new TextField();
     @FXML
     private Button btnSignin;
     @FXML
     private CheckBox chkRemember;
     @FXML
-    private PasswordField tfPassHidden;
+    private  PasswordField tfPassHidden = new PasswordField();
     @FXML
     private Label lblErrorMessage;
     private UserModel userModel = new UserModel();
-
 	public Parent root;
+	public static Stage substage;
+	public static String dropSession ;
+	
 	Preferences preference;
 	
     /**
@@ -75,26 +77,32 @@ public class SignInController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     	//remember login
-
-    	
-		 
     	
     	preference = Preferences.userNodeForPackage(SignInController.class);
-    	
-       if(preference != null) {
+       if(preference != null ) {
     	   if(!preference.get("tfUsername", "").isEmpty() && preference.get("tfUsername", "") != null) {
     		   tfUsername.setText(preference.get("tfUsername", ""));
     	       tfPassHidden.setText(preference.get("tfPassHidden", ""));
-    	       
+    	      
     	   } 
     	   
-       }else {
-    	  
+       }
+
+  	 dropSession = preference.get("session", "");
+  	 System.out.println("session:"+dropSession);
+       if(dropSession.equals("0")) {
+    	   deleteLoginSession();
        }
       
      
     }    
-// 
+    public void deleteLoginSession() {
+    	preference = Preferences.userNodeForPackage(SignInController.class);
+    	preference.put("session", "0");
+    	dropSession = preference.get("session", "");
+    	tfUsername.setText("");
+    	tfPassHidden.setText("");
+    }
     @FXML
     private void signinAction() {
     	
@@ -110,9 +118,9 @@ public class SignInController implements Initializable {
 				System.out.println("fereee");
 				//remember login
 				if(chkRemember.isSelected()) {
-					preference.put("tfUsername", tfUsername.getText());
+					preference.put("tfUsername",tfUsername.getText());
 					preference.put("tfPassHidden", tfPassHidden.getText());
-					
+					preference.put("session", "");
 				}else {
 					preference.put("tfUsername","");
 					preference.put("tfPassHidden", "");
@@ -126,7 +134,7 @@ public class SignInController implements Initializable {
 		         AnchorPane managerPane;
 				try {
 					managerPane = loader.load();
-					Stage substage=new Stage();
+					 substage =new Stage();
 			         substage.initModality(Modality.WINDOW_MODAL);
 			         substage.initStyle(StageStyle.UNDECORATED);
 			         substage.setScene(new Scene(managerPane));

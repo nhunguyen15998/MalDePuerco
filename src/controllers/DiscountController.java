@@ -145,19 +145,16 @@ public class DiscountController implements Initializable {
     void btnSaveAction(ActionEvent event) {
     	idDiscount = 0;
     	ucAction();
-    	resetInput();
     }
 
     @FXML
     void btnUpdateAction(ActionEvent event) {
     	ucAction();
-    	resetInput();
     	idDiscount = 0;
     }
     
     
     private void ucAction() {
-    	Rectangle2D screenBounds = Screen.getPrimary().getBounds();
 		try {
 			String name = tfName.getText();
 			String code = tfCode.getText();
@@ -168,7 +165,7 @@ public class DiscountController implements Initializable {
 			
 			String status = cbStatus.getValue() != null ? cbStatus.getValue().key : String.valueOf(DiscountModel.DISCOUNT_DEACTIVATED);
 
-			if(validated( name, code, descript, decrease)) {
+			if(validated( name, code, descript, decrease, dpStart.getValue(),dpEnd.getValue())) {
 				if(!decrease.isEmpty()) {
 					float sup = Float.parseFloat(decrease);
 					float dec = sup/100;
@@ -189,8 +186,6 @@ public class DiscountController implements Initializable {
 					Alert alert = new Alert(AlertType.CONFIRMATION);
 					alert.setTitle("Update Role Confirmation");
 					alert.setHeaderText("Do you want to make this change?");
-					alert.setX(screenBounds.getWidth() - 880);
-					alert.setY(screenBounds.getHeight() - 580);
 					Optional<ButtonType> option = alert.showAndWait();
 					if (option.get() == ButtonType.OK) {
 						discountModel.updateDiscountById(idDiscount, users);
@@ -211,13 +206,16 @@ public class DiscountController implements Initializable {
     }
     
   //validate
-  	public boolean validated( String name, String code, String descript, String decrease) {
+  	public boolean validated( String name, String code, String descript, String decrease, LocalDate start, LocalDate end) {
   		try {
   			
   			lblNameError.setText("");
   			lblCodeError.setText("");
   			lblDecreaseError.setText("");
   			lblDescriptError.setText("");
+  			lblDateError.setText("");
+  			java.sql.Date date1 = java.sql.Date.valueOf(start);
+            java.sql.Date date2 = java.sql.Date.valueOf(end);
   			
   			ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
   			data.add(new ValidationDataMapping("name", name, "lblNameError", "required|string|min:5"));
@@ -243,6 +241,10 @@ public class DiscountController implements Initializable {
   							break;
   						default:
   							System.out.println("abcde");
+  					}
+  					boolean checkDate = Validations.checkDate(date1, date2, lblDateError, "Unavailable");
+  					if(!checkDate) {
+  						return false;
   					}
 
   				}

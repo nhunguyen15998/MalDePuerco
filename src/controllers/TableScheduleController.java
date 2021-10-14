@@ -64,18 +64,18 @@ public class TableScheduleController implements Initializable {
     }
     private String getTime(int id,LocalDate date) throws SQLException{
     	String time = "";
-    	int length =0;
+    	int count=0;
     	String sql = "select tables.name, start_time, end_time from tables_reservation t join reservations r on reservation_id=r.id join tables on table_id=tables.id where r.date_pick ='"+date+"' and t.status = 1 and table_id="+id+" order by start_time asc";
     	Statement st = MySQLJDBC.connection.createStatement();
     	ResultSet rs = st.executeQuery(sql);
     	while(rs.next()) { 
     		time+="("+Helpers.formatTime(rs.getString("start_time"))+"-"+Helpers.formatTime(rs.getString("end_time"))+") ";
-    		length+=time.length();
-    		if(length>=27) {
+    		count++;
+    		if(count%2==0) {
     			time+="\n";
     		}
-    		
     	}
+    	
     	System.out.println(time);
     	return time;
     	

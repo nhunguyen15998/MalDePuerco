@@ -154,14 +154,12 @@ public class RolesController implements Initializable {
     @FXML
     void btnDeleteAction(ActionEvent event) {
     	try {
-			Rectangle2D screenBounds = Screen.getPrimary().getBounds();
 			if(this.roleId != 0) {
 				Alert alert = new Alert(AlertType.CONFIRMATION);
 				alert.setTitle("Delete Role Confirmation");
 				alert.setHeaderText("Are you sure you want to delete this item ?");
 				alert.setContentText("Name: ".concat(this.roleName));
-				alert.setX(screenBounds.getWidth() - 900);
-				alert.setY(screenBounds.getHeight() - 610);
+				
 				
 				Optional<ButtonType> options = alert.showAndWait();
 				if(options.get() == ButtonType.OK) {
@@ -173,8 +171,6 @@ public class RolesController implements Initializable {
 				//panel
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setHeaderText("Please select a row");
-				alert.setX(screenBounds.getWidth() - 900);
-				alert.setY(screenBounds.getHeight() - 610);
 				alert.showAndWait();
 			}
 		} catch (Exception e) {
@@ -186,7 +182,7 @@ public class RolesController implements Initializable {
     @FXML
     void btnPermissionAction(ActionEvent event) {
     	try {
-			Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+			
 			if(this.roleId != 0) {
 //				if(!RoleModel.isShown) {
 //					RoleModel.isShown = true;
@@ -196,8 +192,6 @@ public class RolesController implements Initializable {
 				//panel
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setHeaderText("Please select a row");
-				alert.setX(screenBounds.getWidth() - 900);
-				alert.setY(screenBounds.getHeight() - 610);
 				alert.showAndWait();
 			}
 
@@ -209,14 +203,11 @@ public class RolesController implements Initializable {
   //show form assign
   	public void showAssignRoleForm() {
   		try {
-  			Rectangle2D screenBounds = Screen.getPrimary().getBounds();
   			//draw
   			if(this.roleId == 0) {
   				//panel
   				Alert alert = new Alert(AlertType.ERROR);
   				alert.setHeaderText("Please select a row");
-  				alert.setX(screenBounds.getWidth() - 900);
-  				alert.setY(screenBounds.getHeight() - 610);
   				alert.showAndWait();
   			}
   			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/permission_assign.fxml"));
@@ -228,8 +219,6 @@ public class RolesController implements Initializable {
   			
   			Scene scene = new Scene(roleHolder, 702, 600);
   			Stage createStage = new Stage();
-  			createStage.setX(screenBounds.getWidth() - 1120);
-  			createStage.setY(screenBounds.getHeight() - 750);
   			createStage.initStyle(StageStyle.UNDECORATED);
   			createStage.setScene(scene);
   			createStage.show();			
@@ -283,7 +272,6 @@ public class RolesController implements Initializable {
   //show form assign
   	public void showCreateForm() {
   		try {
-  			Rectangle2D screenBounds = Screen.getPrimary().getBounds();
   			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/role_cu.fxml"));
   			createHolder = root.load();
   			
@@ -293,8 +281,6 @@ public class RolesController implements Initializable {
   			
   			Scene scene = new Scene(createHolder, 596,376);
   			Stage createStage = new Stage();
-  			createStage.setX(screenBounds.getWidth() - 1000);
-  			createStage.setY(screenBounds.getHeight() - 700);
   			createStage.initStyle(StageStyle.UNDECORATED);
   			createStage.setScene(scene);
   			createStage.show();			

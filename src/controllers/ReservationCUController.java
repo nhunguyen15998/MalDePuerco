@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +32,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 import javafx.scene.control.Label;
-
+import javafx.scene.control.TextArea;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.layout.AnchorPane;
@@ -98,16 +99,19 @@ public class ReservationCUController implements Initializable {
 	private DatePicker dpDate;
     @FXML
     private ComboBox<DataMapping> cbbTable;
-    
+    @FXML
+    private Button btnAdd;
+    @FXML
+    private Button btnClear;
     @FXML
     private Label lblTableError;
-
     @FXML
-    private TextField tfTable;
+    private TextArea tfTable;
 	@FXML
 	private Label lblTimeError;
 	ArrayList<DataMapping> listTable = new ArrayList<DataMapping>();
 	private static int seats = 0;
+	boolean checkTable=true;
 	@FXML
 	public void btnSaveAction(ActionEvent event) {
 		try {
@@ -181,6 +185,7 @@ public class ReservationCUController implements Initializable {
 					} 
 					
 				}
+				checkTable=true;
 				reController.parseData(null);
 				reController.loadSchedule("schedule.fxml");
 				reController.updateStatus();
@@ -325,6 +330,9 @@ public class ReservationCUController implements Initializable {
 						}
 	  		  			DataMapping content = getTableName(reserId);
 	  		  			tfTable.setText(content.value);
+	  		  			if(listTable.isEmpty()) {
+	  		  				checkTable=false;
+	  		  			}
 	  					
 	  					
 	  				}
@@ -366,6 +374,9 @@ public class ReservationCUController implements Initializable {
 				lblSeatError.setText("");
 				lblDepoError.setText("");
 				lblTimeError.setText("");
+				LocalTime time = LocalTime.parse(tfStart.getText());
+		        LocalTime time2 = LocalTime.parse(tfEnd.getText());
+		        boolean checkTime = Validations.checkTime(time , time2, lblTimeError, "Unavailable");
 				ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
 				data.add(new ValidationDataMapping("name", name, "lblNameError", "required|string|min:5"));
 				data.add(new ValidationDataMapping("phone", phone, "lblPhoneError", "required|phone"));
@@ -403,10 +414,18 @@ public class ReservationCUController implements Initializable {
 						}
 
 					}
+					
+			       
 					return false;
 				}
-
-				return true;
+				 if(!checkTime||!checkTable) {
+					 	lblTableError.setText("please choose");
+			        	return false;
+			        	
+			        }else {
+			        	return true;
+				
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				return false;
@@ -428,16 +447,17 @@ public class ReservationCUController implements Initializable {
 	    @FXML
 	    void checkTime() { 
 	    	seats=0;
+	    	listTable.clear();
 	    	tfTable.setText("");
 	    	String start = tfStart.getText();
 	    	String end = tfEnd.getText();
 	    	String seats = tfSeat.getText();
-	    	System.out.println(time(seats, start, end));
 	    	if(time(seats,start, end)&&reserId==0) {
 	    		this.getTableList(dpDate.getValue().toString(),start, end,"");
 	    		cbbTable.setDisable(false);
 	    		lblTableError.setText("");
-	    	}else if(time(seats,start, end)&&reserId!=0) {
+	    	}
+	    	if(time(seats,start, end)&&reserId!=0) {
 	    		this.getTableList(dpDate.getValue().toString(),start, end," and reservation_id!="+reserId);
 	    		cbbTable.setDisable(false);
 	    		lblTableError.setText("");
@@ -476,19 +496,25 @@ public class ReservationCUController implements Initializable {
 			if(checkExists(DataMapping.getInstance(cbbTable.getValue().key, value))) {
 				listTable.add(DataMapping.getInstance(cbbTable.getValue().key, value));
 				tfTable.setText(statusSelected());
+				
 				seats+=seatsCheck(Integer.parseInt(cbbTable.getValue().key));
 			}
 
 	    	System.out.println(seats+"      "+Integer.parseInt(tfSeat.getText()));
 			if(seats>=Integer.parseInt(tfSeat.getText())) {
 				lblTableError.setText("had enough. Seats table:"+seats);
+				btnAdd.setDisable(true);
+				checkTable=true;
+				
 			}else {
 				lblTableError.setText("please choose more. Seats table:"+seats);
+				checkTable=false;
 			}
 					
 					
 	    	}else {
 				lblTableError.setText("had enough. Seats table:"+seats);
+				checkTable=true;
 			}
 	    }
 	    private int seatsCheck(int id) {
@@ -522,6 +548,7 @@ public class ReservationCUController implements Initializable {
 	    
 	    //return String add "," after result
 	    private String statusSelected() {
+	    	int count = 0;
 	    	String value ="";
 			int i = 0;
 			
@@ -531,7 +558,10 @@ public class ReservationCUController implements Initializable {
 				if(i < listTable.size()) {
 					value += ", ";
 				}
-				
+				count++;
+				if(count%4==0) {
+					value += "\n";
+				}
 				
 		}
     return value;
@@ -544,8 +574,12 @@ public class ReservationCUController implements Initializable {
 						seats=0;
 		    	if(seats>=Integer.parseInt(tfSeat.getText())) {
 					lblTableError.setText("had enough. Seats table:"+seats);
+					btnAdd.setDisable(true);
+					checkTable=true;
 				}else {
 					lblTableError.setText("please choose more. Seats table:"+seats);
+					btnAdd.setDisable(false);
+					checkTable=false;
 				}
 						
 						

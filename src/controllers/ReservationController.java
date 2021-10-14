@@ -174,6 +174,8 @@ public class ReservationController implements Initializable {
 
     @FXML
     private Label lblStatus;
+    @FXML
+    private Label lblTablePick;
    
     @FXML
     private Pane paneSchedule;
@@ -371,17 +373,18 @@ public class ReservationController implements Initializable {
     	List<String> array = Arrays.asList(New, expired, conf, depo, pre, cancel);
     	ArrayList<String> a = new ArrayList<String>();
     	a.addAll(array);
-    	String sql="";
+    	ArrayList<CompareOperator> cond = new ArrayList<CompareOperator>();
+		
     	if(checkSelected(a)) {
-    	sql = " where date_pick>='"+dpFrom.getValue()+"' and date_pick<='"+dpTo.getValue()+"' and ("+statusSelected(a)+")";
+    		cond.add(CompareOperator.getInstance("date_pick", " >= ", dpFrom.getValue().toString()));
+    		cond.add(CompareOperator.getInstance("("+statusSelected(a)+") and date_pick ", "<=", dpTo.getValue().toString()));
+    		
     	}
     	else {
-    	sql = " where date_pick>='"+dpFrom.getValue()+"' and date_pick<='"+dpTo.getValue()+"'";
+    		cond.add(CompareOperator.getInstance("date_pick", " >= ", dpFrom.getValue().toString()));
+    		cond.add(CompareOperator.getInstance("date_pick ", "<=", dpTo.getValue().toString()));
     	}
-    	System.out.println(sql);
-    	ObservableList<ReservationModel> reser;
-    	reser = getDataReser(sql);
-    	tblReser.setItems(reser);
+    	this.parseData(cond);
     	
     	
 
@@ -423,39 +426,7 @@ public class ReservationController implements Initializable {
     return value;
     }
     
-    public static ObservableList<ReservationModel> getDataReser(String condition){
-        ObservableList<ReservationModel> list =  FXCollections.observableArrayList();
-       
-       try{
-       String sql = "select reservations.*,decrease from reservations join discounts on reservations.discount_id = discounts.id"+condition ;
-       
-       Statement ps = MySQLJDBC.connection.createStatement();
-       ResultSet r = ps.executeQuery(sql);
-      
-       while(r.next()){
-          list.add(ReservationModel.getInstance(
-					r.getInt("id"),
-					r.getRow(),
-					r.getInt("deposit"),
-					r.getString("discounts.decrease"),
-					r.getInt("status"),
-					r.getInt("seats_pick"),
-					r.getString("code"),
-					r.getString("customer_name"),
-					r.getString("phone"), 
-					r.getString("email"),
-					Helpers.formatTime(r.getString("start_time")),
-					Helpers.formatTime(r.getString("end_time")),
-					r.getDate("date_pick").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy")),
-					r.getDate("reservations.created_at").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy"))
-					));
-       }
-       }catch(SQLException ex){
-           ex.printStackTrace();
-       }
-     return list;
-   }
-
+ 
     @FXML
     public void getRowSelected(MouseEvent event) {
     	btnDelete.setDisable(true);
@@ -486,9 +457,18 @@ public class ReservationController implements Initializable {
 					lblDeposit.setText("Deposit: "+item.getDeposit());
 					lblDiscount.setText("Discount: "+item.getDecrease());
 					lblStatus.setText("Status: "+status);
+					
 					this.reserId = item.getId();
 					this.reserName = item.getName();
-					
+					String tablePick = "";
+					String sql = "select name from tables where id in (select table_id from tables_reservation where reservation_id="+item.getId()+")";
+					Statement st = MySQLJDBC.connection.createStatement();
+					ResultSet rs = st.executeQuery(sql);
+					while(rs.next()) {
+						tablePick+= rs.getString("name")+"  ";
+						
+					}
+					lblTablePick.setText("Table(s) pick: "+tablePick);
 				}
 				if(checkToDelete(item.getId())) {
 					btnDelete.setDisable(false);
@@ -582,6 +562,7 @@ public class ReservationController implements Initializable {
     }
     @FXML
     void resetInput() {
+    	paneDetails.setVisible(false);
     	rdCancel.setSelected(false);
     	rdConfirm.setSelected(false);
     	rdNew.setSelected(false);
