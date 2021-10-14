@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="apOption" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="349.0" prefWidth="307.0" style="-fx-background-color: #2B2B2B;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CustomerOptionController">
+   <children>
+      <Pane layoutX="9.0" layoutY="10.0" prefHeight="30.0" prefWidth="289.0" style="-fx-background-color: #3B3F40;">
+         <children>
+            <Label layoutX="19.0" layoutY="6.0" text="Choose an option" textFill="#c6c4c4">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <ImageView fitHeight="90.0" fitWidth="93.0" layoutX="110.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/dish-5.png" />
+         </image>
+      </ImageView>
+      <Button contentDisplay="RIGHT" layoutX="110.0" layoutY="196.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnSignInAction" prefHeight="36.0" prefWidth="88.0" style="-fx-background-color: #2B2B2B; -fx-border-color: #ea7c69; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Sign In" textFill="WHITE">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Label fx:id="lblSignIn" layoutX="104.0" layoutY="157.0" text="You have not signed in" textFill="#c6c4c4">
+         <font>
+            <Font name="System Italic" size="10.0" />
+         </font>
+      </Label>
+      <Button contentDisplay="RIGHT" layoutX="24.0" layoutY="286.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnExitAppAction" prefHeight="36.0" prefWidth="113.0" style="-fx-background-color: #2B2B2B; -fx-border-color: #ea7c69; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Exit Application" textFill="WHITE">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnCancel" contentDisplay="RIGHT" layoutX="196.0" layoutY="286.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="36.0" prefWidth="88.0" style="-fx-background-color: #2B2B2B; -fx-border-color: #ea7c69; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Cancel" textFill="WHITE">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

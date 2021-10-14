@@ -10,7 +10,7 @@ import utils.JoinCondition;
 public class OrderDetailModel extends BaseModel {
 	private static String table = "order_details";
 	private static String[] columns = {"id, order_id, serving_id, serving_note, serving_status, quantity, "
-										+ "price, total, user_id, created_at"};
+										+ "price, total, user_id, created_at, ice, sugar, size"};
 	
 	private int id;
 	private int sequence;
@@ -26,6 +26,9 @@ public class OrderDetailModel extends BaseModel {
 	private double total;
 	private String userCode;
 	private String createdAt;
+	private String ice;
+	private String sugar;
+	private String size;
 	
 	//status
 	public static final int PENDING = 0;
@@ -41,31 +44,6 @@ public class OrderDetailModel extends BaseModel {
 	public static DataMapping isServing = DataMapping.getInstance(SERVING, "Serving"); 
 	public static DataMapping isServed = DataMapping.getInstance(SERVED, "Served"); 
 	public static DataMapping isCanceled = DataMapping.getInstance(CANCELED, "Canceled"); 
-	
-	//sugar & ice
-	public static final int SUGAR_FREE = 0;
-	public static final int SUGAR_25 = 1;
-	public static final int SUGAR_50 = 2;
-	public static final int SUGAR_75 = 3;
-	public static final int SUGAR_100 = 4;
-	
-	public static DataMapping isSugarFree = DataMapping.getInstance(SUGAR_FREE, "Sugar Free"); 
-	public static DataMapping isSugar25 = DataMapping.getInstance(SUGAR_25, "25%"); 
-	public static DataMapping isSugar50 = DataMapping.getInstance(SUGAR_50, "50%"); 
-	public static DataMapping isSugar75 = DataMapping.getInstance(SUGAR_75, "75%"); 
-	public static DataMapping isSugar100 = DataMapping.getInstance(SUGAR_100, "100%"); 
-
-	public static final int ICE_FREE = 0;
-	public static final int ICE_25 = 1;
-	public static final int ICE_50 = 2;
-	public static final int ICE_75 = 3;
-	public static final int ICE_100 = 4;
-
-	public static DataMapping isIceFree = DataMapping.getInstance(ICE_FREE, "Ice Free"); 
-	public static DataMapping isIce25 = DataMapping.getInstance(ICE_25, "25%"); 
-	public static DataMapping isIce50 = DataMapping.getInstance(ICE_50, "50%"); 
-	public static DataMapping isIce75 = DataMapping.getInstance(ICE_75, "75%"); 
-	public static DataMapping isIce100 = DataMapping.getInstance(ICE_100, "100%");
 
 	public OrderDetailModel() {
 		super(table, columns);	
@@ -89,7 +67,7 @@ public class OrderDetailModel extends BaseModel {
 	
 	//overloading of updated order list
 	public OrderDetailModel(int servingId, String thumbnail, String servingName, double price, double total,
-			String servingNote, int quantity, int servingStatus, String createdAt) {
+			String servingNote, int quantity, int servingStatus, String createdAt, String ice, String sugar, String size) {
 		super(table, columns);	
 		this.setServingId(servingId);
 		this.setThumbnail(thumbnail);
@@ -100,6 +78,9 @@ public class OrderDetailModel extends BaseModel {
 		this.setQuantity(quantity);
 		this.setServingStatus(servingStatus);
 		this.setCreatedAt(createdAt);
+		this.setIce(ice);
+		this.setSugar(sugar);
+		this.setSize(size);
 	}
 	
 	//get data order_details - orders - servings - users - serving_image -tables
@@ -119,12 +100,16 @@ public class OrderDetailModel extends BaseModel {
 			//tables
 			ArrayList<CompareOperator> tableCondition = new ArrayList<CompareOperator>();
 			tableCondition.add(CompareOperator.getInstance("tables.id", "=", "orders.table_id"));
+			//attribute
+			ArrayList<CompareOperator> attributeCondition = new ArrayList<CompareOperator>();
+			attributeCondition.add(CompareOperator.getInstance("serving_attributes.serving_id", "=", "servings.id"));
 			//join
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
 			joins.add(JoinCondition.getInstance("left join", "orders", orderCondition));
 			joins.add(JoinCondition.getInstance("left join", "servings", servingCondition));
 			joins.add(JoinCondition.getInstance("left join", "users", userCondition));
 			joins.add(JoinCondition.getInstance("left join", "tables", tableCondition));
+			joins.add(JoinCondition.getInstance("left join", "serving_attributes", attributeCondition));
 			return this.getData(selects, conditions, joins, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -279,6 +264,30 @@ public class OrderDetailModel extends BaseModel {
 
 	public void setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
+	}
+
+	public String getIce() {
+		return ice;
+	}
+
+	public void setIce(String ice) {
+		this.ice = ice;
+	}
+
+	public String getSugar() {
+		return sugar;
+	}
+
+	public void setSugar(String sugar) {
+		this.sugar = sugar;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
 	}
 
 	

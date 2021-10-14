@@ -13,6 +13,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
@@ -41,6 +42,7 @@ import javafx.stage.StageStyle;
 import models.OrderDetailModel;
 import models.OrderListModel;
 import models.OrderModel;
+import models.ServingAttributeModel;
 import models.ServingCategoryModel;
 import models.ServingModel;
 import utils.CompareOperator;
@@ -135,9 +137,8 @@ public class CustomerHomeController implements Initializable {
 	private TextField tfNote;
 	private TextField tfQuantity;
 	private Button btnDelete;
-	//private ImageView ivServingStatus;
 	private Label lblCreatedAt;
-	//private Button statusPane;
+	private Label lblAttribute;
 
 	//3
 	private Button btnPlace = new Button();//has child: lblPlaceTotal
@@ -241,7 +242,7 @@ public class CustomerHomeController implements Initializable {
 
 	//btnappetizer
 	public void btnAppetizerAction() {
-		this.mainCategorySelected = this.APPETIZERS;
+		this.mainCategorySelected = CustomerHomeController.APPETIZERS;
 		this.categorySelected = "";
 		this.categoryHBox.getChildren().clear();
 		this.servingGridPane.getChildren().clear();
@@ -259,7 +260,7 @@ public class CustomerHomeController implements Initializable {
 
 	//btnsideorder
 	public void btnSideOrderAction() {
-		this.mainCategorySelected = this.SIDE_ORDERS;
+		this.mainCategorySelected = CustomerHomeController.SIDE_ORDERS;
 		this.categorySelected = "";
 		this.categoryHBox.getChildren().clear();
 		this.servingGridPane.getChildren().clear();
@@ -276,7 +277,7 @@ public class CustomerHomeController implements Initializable {
 	
 	//btnalacarte
 	public void btnALaCarteAction() {
-		this.mainCategorySelected = this.A_LA_CARTE;
+		this.mainCategorySelected = CustomerHomeController.A_LA_CARTE;
 		this.categorySelected = "";
 		this.categoryHBox.getChildren().clear();
 		this.servingGridPane.getChildren().clear();
@@ -338,7 +339,22 @@ public class CustomerHomeController implements Initializable {
 	//btnsetting
 	public void btnSettingAction() {
 		try {
+			AnchorPane customerHolder;
+			Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/login-exit.fxml")); 
+			customerHolder = root.load();
 			
+			//controller
+			CustomerOptionController controller = root.getController();
+			controller.showForm(this);
+			
+			Scene scene = new Scene(customerHolder, 307, 349);
+			Stage stage = new Stage();
+			stage.setX((screenBounds.getWidth() - 307)/2);
+			stage.setY((screenBounds.getHeight() - 349)/2);
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.setScene(scene);
+			stage.show();			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -398,7 +414,7 @@ public class CustomerHomeController implements Initializable {
 	//draw gridpane showing servings
 	public void gridPaneLayout(Pane servingPane, ImageView servingImage, Text servingName, Label servingPrice, Text servingStock) {
 		try {
-			servingGridPane.getStylesheets().add(getClass().getResource("/css/gridpane.css").toExternalForm());
+			servingGridPane.getStylesheets().add(getClass().getResource("/css/home-component.css").toExternalForm());
 			
 			//servingpane
 			servingPane.setPrefWidth(130);
@@ -521,28 +537,6 @@ public class CustomerHomeController implements Initializable {
 					//draw custom serving
 					this.servingId = id;
 					this.customServingLayout(id);
-//					//CustomerHomeController.isCreated = true;
-//					boolean isExisted = false;
-//					for(OrderListModel item : createdList) {
-//						if(item.getServingId() == id) {
-//							int indexItem = createdList.indexOf(item);
-//							OrderListModel currentItem = createdList.get(indexItem);
-//							currentItem.setQuantity(currentItem.getQuantity()+1);
-//							currentItem.setTotalPrice(currentItem.getItemPrice()*currentItem.getQuantity());
-//							isExisted = true;
-//						} 	
-//					}
-//					if(!isExisted) {
-//						createdList.add(new OrderListModel(id, 
-//								thumbnail, 
-//								name, 
-//								price, 
-//								price, 
-//								note, 
-//								quantity));	
-//					}	
-//
-//					this.addItemToOrderList();
 				});
 				servingPane.getChildren().addAll(prodId, servingImage, servingName, servingPrice, servingStock, addItem);
 				this.servingGridPane.add(servingPane, x, y);//0,0 1,0 2,0 3,0
@@ -673,9 +667,9 @@ public class CustomerHomeController implements Initializable {
 			lblItemPrice.setTextFill(Color.web("#ea7c69"));
 			lblItemPrice.setFont(Font.font("System Bold", 9));
 			
-			lblCreatedAt.setLayoutX(100);
+			lblCreatedAt.setLayoutX(121);
 			lblCreatedAt.setPrefWidth(100);
-			lblCreatedAt.setLayoutY(28);
+			lblCreatedAt.setLayoutY(87);
 			lblCreatedAt.setTextFill(Color.WHITE);
 			lblCreatedAt.setFont(Font.font("System Italic", 9));
 			
@@ -683,6 +677,14 @@ public class CustomerHomeController implements Initializable {
 			lblTotalPrice.setLayoutY(19);
 			lblTotalPrice.setTextFill(Color.web("#ea7c69"));
 			lblTotalPrice.setFont(Font.font("System Bold", 14));
+
+			lblAttribute = new Label();
+			lblAttribute.setLayoutX(75);
+			lblAttribute.setPrefWidth(140);
+			lblAttribute.setLayoutY(28);
+			lblAttribute.setFont(Font.font("System Bold", 9));
+			lblAttribute.setTextFill(Color.web("#dfe5e7c2"));
+
 			//TextField 
 			tfNote.setPrefSize(205, 30);
 			tfNote.setLayoutX(16);
@@ -732,17 +734,18 @@ public class CustomerHomeController implements Initializable {
 //			});
 			//Pane
 			Pane vboxPane = new Pane();
-			vboxPane.setPrefSize(275, 90);
+			vboxPane.setPrefSize(275, 100);
 			
 			if(CustomerHomeController.isCreated) {
 				vboxPane.getChildren().addAll(ivImageView, lblServingName, lblItemPrice, lblTotalPrice, 
-												   tfNote, tfQuantity, btnDelete);
+												   tfNote, tfQuantity, btnDelete, lblAttribute);
 			} else {
 				CustomerHomeController.isCreated = false;
 				tfNote.setDisable(true);
 				tfQuantity.setDisable(true);
 				//set icon status
-				
+				ObservableList<Node> nodes = FXCollections.observableArrayList(ivImageView, lblServingName, lblItemPrice, lblTotalPrice, 
+						tfNote, tfQuantity, statusPane, lblCreatedAt, lblAttribute);
 				switch(detail.getServingStatus()) {
 					case OrderDetailModel.PENDING:
 						ivServingStatus.setImage(new Image(getClass().getResource("/assets/sandclock.png").toExternalForm()));
@@ -750,37 +753,31 @@ public class CustomerHomeController implements Initializable {
 						tfNote.setDisable(false);
 						tfQuantity.setDisable(false);
 						vboxPane.getChildren().addAll(ivImageView, lblServingName, lblItemPrice, lblTotalPrice, 
-								   tfNote, tfQuantity, btnDelete);
+								   tfNote, tfQuantity, btnDelete, lblAttribute);
 						break;
 					case OrderDetailModel.COOKING:
 						ivServingStatus.setImage(new Image(getClass().getResource("/assets/cooking.png").toExternalForm()));
 						statusPane.setStyle("-fx-background-color: #ff2351 !important; -fx-background-radius: 5px");
-						vboxPane.getChildren().addAll(ivImageView, lblServingName, lblItemPrice, lblTotalPrice, 
-								tfNote, tfQuantity, statusPane, lblCreatedAt);
+						vboxPane.getChildren().addAll(nodes);
 						break;
 					case OrderDetailModel.READY:
 						ivServingStatus.setImage(new Image(getClass().getResource("/assets/ready.png").toExternalForm()));
 						statusPane.setStyle("-fx-background-color: #34a853 !important; -fx-background-radius: 5px");
-						vboxPane.getChildren().addAll(ivImageView, lblServingName, lblItemPrice, lblTotalPrice, 
-								tfNote, tfQuantity, statusPane, lblCreatedAt);
+						vboxPane.getChildren().addAll(nodes);
 						break;
 					case OrderDetailModel.SERVING:
 						ivServingStatus.setImage(new Image(getClass().getResource("/assets/serving.png").toExternalForm()));
 						statusPane.setStyle("-fx-background-color: #6F71C2 !important; -fx-background-radius: 5px");
-						vboxPane.getChildren().addAll(ivImageView, lblServingName, lblItemPrice, lblTotalPrice, 
-								tfNote, tfQuantity, statusPane, lblCreatedAt);
+						vboxPane.getChildren().addAll(nodes);
 						break;
 					case OrderDetailModel.SERVED:
 						ivServingStatus.setImage(new Image(getClass().getResource("/assets/served.png").toExternalForm()));
 						statusPane.setStyle("-fx-background-color: #F07613 !important; -fx-background-radius: 5px");
-						vboxPane.getChildren().addAll(ivImageView, lblServingName, lblItemPrice, lblTotalPrice, 
-								tfNote, tfQuantity, statusPane, lblCreatedAt);
+						vboxPane.getChildren().addAll(nodes);
 						break;
 				}
 				statusPane.setGraphic(ivServingStatus);
-
 			}
-			
 			vboxOrderList.getChildren().addAll(vboxPane);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -815,6 +812,7 @@ public class CustomerHomeController implements Initializable {
 	public void renderVBoxPaneWithSetCreatedContent(OrderListModel item) {
 		CustomerHomeController.isCreated = true;
 		this.vboxLayout(item, null);
+		lblAttribute.setText("");
 		lblServingName.setText(item.getServingName());
 		lblItemPrice.setText("$"+ Helpers.formatNumber(null).format(item.getItemPrice()));
 		lblTotalPrice.setText("$"+Helpers.formatNumber(null).format(item.getTotalPrice()));
@@ -851,6 +849,7 @@ public class CustomerHomeController implements Initializable {
 	public void renderVBoxPaneWithSetUpdatedContent(OrderDetailModel item) {
 		CustomerHomeController.isCreated = false;
 		this.vboxLayout(null, item);
+		lblAttribute.setText("aaaaaaaaaaa");
 		lblCreatedAt.setText(item.getCreatedAt());
 		lblServingName.setText(item.getServingName());
 		lblItemPrice.setText("$"+ Helpers.formatNumber(null).format(item.getPrice()));
@@ -903,8 +902,13 @@ public class CustomerHomeController implements Initializable {
 						orderDetails.getString("order_details.serving_note"),
 						orderDetails.getInt("order_details.quantity"),
 						orderDetails.getInt("order_details.serving_status"),
-						orderDetails.getString("order_details.created_at")
-					
+						orderDetails.getString("order_details.created_at"),
+						orderDetails.getString("order_details.ice"),
+						orderDetails.getString("order_details.sugar"),
+						orderDetails.getString("order_details.size")
+//						String.valueOf(orderDetails.getInt("order_details.ice")) == null ? null : orderDetails.getInt("order_details.ice"),
+//						String.valueOf(orderDetails.getInt("order_details.sugar")) == null ? null : orderDetails.getInt("order_details.sugar"),
+//						String.valueOf(orderDetails.getInt("order_details.size")) == null ? null : orderDetails.getInt("order_details.size")
 				));
 			}
 			this.lblOrderCode.setText(this.orderCode);
@@ -914,6 +918,7 @@ public class CustomerHomeController implements Initializable {
 		}
 	}
 	
+	//render update
 	public void renderUpdatedOrderList() {
 		try {
 			//get order detail from db
@@ -952,10 +957,17 @@ public class CustomerHomeController implements Initializable {
 			ArrayList<DataMapping> orderDetailData = new ArrayList<DataMapping>();
 			int result = 0;
 			for(OrderListModel item : createdList) {
+				int size = 0, sugar = 0, ice = 0;
+//				this.convertSizeAttributeToInsert(item, size);
+//				this.convertSugarAttributeToInsert(item, sugar);
+//				this.convertIceAttributeToInsert(item, ice);
 				orderDetailData.add(DataMapping.getInstance("order_id", String.valueOf(OrderModel.currentOrderId)));
 				orderDetailData.add(DataMapping.getInstance("serving_id", String.valueOf(item.getServingId())));
 				orderDetailData.add(DataMapping.getInstance("serving_note", item.getNote().isEmpty() ? null : item.getNote()));
 				orderDetailData.add(DataMapping.getInstance("serving_status", String.valueOf(OrderDetailModel.READY)));
+//				orderDetailData.add(DataMapping.getInstance("size", String.valueOf(size)));
+//				orderDetailData.add(DataMapping.getInstance("sugar", String.valueOf(sugar)));
+//				orderDetailData.add(DataMapping.getInstance("ice", String.valueOf(ice)));
 				orderDetailData.add(DataMapping.getInstance("quantity", String.valueOf(item.getQuantity())));
 				orderDetailData.add(DataMapping.getInstance("price", String.valueOf(Helpers.formatNumber(null).format(item.getItemPrice()))));
 				orderDetailData.add(DataMapping.getInstance("total", String.valueOf(Helpers.formatNumber(null).format(item.getTotalPrice()))));
@@ -1011,7 +1023,13 @@ public class CustomerHomeController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
+	//insert to db
+	
 
+	//load updated attribute
+	
+	
 	
 	//get
 	public int getServingId() {

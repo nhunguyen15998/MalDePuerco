@@ -75,6 +75,7 @@ public class ServingModel extends BaseModel {
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
 			joins.add(JoinCondition.getInstance("left join", "serving_categories sc", cateCondition));
 			joins.add(JoinCondition.getInstance("left join", "serving_categories scs", cateParentCondition));
+
 			return this.getData(selects, conditions, joins, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application{
 
@@ -25,10 +26,7 @@ public class Main extends Application{
 			primaryStage.setY((screenBounds.getHeight() - 600)/2);
 			primaryStage.setResizable(true);
 			primaryStage.setScene(scene);
-			//primaryStage.initStyle(StageStyle.UNDECORATED);
-			//primaryStage.toFront();
-//			primaryStage.setFullScreen(true);
-//			primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+			primaryStage.initStyle(StageStyle.UNDECORATED);
 			primaryStage.show();
 			
 		} catch (Exception e) {

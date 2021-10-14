@@ -8,6 +8,9 @@ public class OrderListModel {
 	private double totalPrice;
 	private String note;
 	private int quantity;
+	private String size;
+	private String sugar;
+	private String ice;
 	
 	public OrderListModel(int servingId, String thumbnail, String servingName, double itemPrice, double totalPrice,
 							String note, int quantity) {
@@ -18,6 +21,9 @@ public class OrderListModel {
 		this.setTotalPrice(totalPrice);
 		this.setNote(note);
 		this.setQuantity(quantity);
+//		this.setSize(size);
+//		this.setSugar(sugar);
+//		this.setIce(ice);
 	}
 	
 	
@@ -76,6 +82,30 @@ public class OrderListModel {
 
 	public void setServingId(int servingId) {
 		this.servingId = servingId;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+
+	public String getSugar() {
+		return sugar;
+	}
+
+	public void setSugar(String sugar) {
+		this.sugar = sugar;
+	}
+
+	public String getIce() {
+		return ice;
+	}
+
+	public void setIce(String ice) {
+		this.ice = ice;
 	}
 	
 	

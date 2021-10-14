@@ -5,15 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import javax.swing.SizeSequence;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -21,10 +16,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import models.AttributeModel;
 import models.OrderDetailModel;
 import models.OrderListModel;
 import models.ServingAttributeModel;
@@ -38,11 +35,12 @@ public class CustomServingController implements Initializable {
 	private static CustomerHomeController customerHomeController = new CustomerHomeController();
 	private ServingModel servingModel = new ServingModel();
 	private ServingAttributeModel servingAttributeModel = new ServingAttributeModel();
+	private AttributeModel attributeModel = new AttributeModel();
 	private OrderDetailModel orderDetailModel;
 
 	private int servingId;
 	private int qty = 1;
-	private double price = 0;
+	private double price;
 	//xml
 	@FXML
 	private AnchorPane apCustomServing;
@@ -83,15 +81,16 @@ public class CustomServingController implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		//load sugar
-		ObservableList<DataMapping> sugars = FXCollections.observableArrayList(OrderDetailModel.isSugarFree, 
-			OrderDetailModel.isSugar25, OrderDetailModel.isSugar50, OrderDetailModel.isSugar75, OrderDetailModel.isSugar100);
-		cbSugar.setItems(sugars);
+		this.apCustomServing.getStylesheets().add(getClass().getResource("/css/home-component.css").toExternalForm());
 		
+		//load sugar
+		ObservableList<DataMapping> sugars = this.retrievesSugarIce(AttributeModel.SUGAR);
+		cbSugar.setItems(sugars);
+		cbSugar.getSelectionModel().selectFirst();
 		//load ice
-		ObservableList<DataMapping> ices = FXCollections.observableArrayList(OrderDetailModel.isIceFree, 
-				OrderDetailModel.isIce25, OrderDetailModel.isIce50, OrderDetailModel.isIce75, OrderDetailModel.isIce100);
+		ObservableList<DataMapping> ices = this.retrievesSugarIce(AttributeModel.ICE);
 		cbIce.setItems(ices);
+		cbIce.getSelectionModel().selectFirst();
 		
 		tfNote.setPromptText("Leave a note");
 		tfQuantity.setText("1");
@@ -113,69 +112,52 @@ public class CustomServingController implements Initializable {
 			ResultSet serving = this.servingModel.getServingList(servingCondition);
 			while(serving.next()) {
 				//attributes
-				ArrayList<DataMapping> attributes = this.mapAttributeIdWithName(this.servingId);
-				this.mapAttributeNameWithValue(this.servingId, attributes);
-
+				this.retrievesServingAttributes(this.servingId);
+				System.out.println("here:"+this.price);
 				if(serving.getInt("servings.type") != ServingModel.FOOD) {
-					System.out.print("cold");
 					if(serving.getInt("servings.type") == ServingModel.HOT_DRINK) {
-						System.out.print("hot");
 						paneSugarIce.getChildren().removeAll(lblIce, cbIce);
 						cbSugar.setPrefWidth(262);
+						cbIce.getSelectionModel().clearSelection();
 					} 
 				} else {
-					System.out.print("food");
+					cbSugar.getSelectionModel().clearSelection();
+					cbIce.getSelectionModel().clearSelection();
 					apCustomServing.getChildren().remove(paneSugarIce);
 				}
-				
 				int serId = serving.getInt("id");
 				String thumbnail = serving.getString("servings.thumbnail");
 				String name = serving.getString("servings.name");
-				double price = serving.getDouble("servings.price");
+				double price = this.price != 0 ? this.price : serving.getDouble("servings.price");
 				int stock = serving.getInt("stock_quantity");
 				txtServingName.setText(name);
 				ivThumbnail.setImage(new Image(getClass().getResourceAsStream(thumbnail)));
 				lblStockQuantity.setText(stock + " item(s) available");
 				lblPrice.setText("$" + price);
-				lblTotal.setText("$" + (1*price));
+				lblTotal.setText("$" + (Double.parseDouble(tfQuantity.getText())*price));
+				System.out.println("price:" + price);
+				System.out.println("total:" + this.price);
+				
 				tfQuantity.setOnKeyPressed(event -> {
-					this.qty = Integer.parseInt(!tfQuantity.getText().isEmpty() ? tfQuantity.getText() : "1");
-					System.out.println(qty);
-					if(event.getCode().equals(KeyCode.ENTER)) {
-						tfQuantity.setText(qty > 0 ? String.valueOf(qty) : "1");
-						if(qty > stock) {
-							qty = stock;
-							tfQuantity.setText(String.valueOf(qty));
-						}
-			        }
-					double total = Double.parseDouble(Helpers.formatNumber(null).format(price * qty));
-					lblTotal.setText("$" + total);
+					this.changeQuantityOnEnter(event, stock, price);
 				});
 				btnDone.setOnMouseClicked(event -> {
-					String note = tfNote.getText().isEmpty() ? "" : tfNote.getText();
-					boolean isExisted = false;
-					for(OrderListModel item : CustomerHomeController.createdList) {
-						if(item.getServingId() == id) {
-							int indexItem = CustomerHomeController.createdList.indexOf(item);
-							OrderListModel currentItem = CustomerHomeController.createdList.get(indexItem);
-							currentItem.setQuantity(currentItem.getQuantity() + this.qty);
-							currentItem.setTotalPrice(Double.parseDouble(Helpers.formatNumber(null).format(currentItem.getItemPrice() * currentItem.getQuantity())));
-							currentItem.setNote(note);
-							//sugar/ice/size
-							isExisted = true;
-						} 	
-					}
-					if(!isExisted) {
-						CustomerHomeController.createdList.add(new OrderListModel(
-								serId, 
-								thumbnail, 
-								name, 
-								price, 
-								price*this.qty, 
-								note, 
-								//sugar/ice/size
-								this.qty));	
-					}	
+					String size = cbSize.getValue() != null ? cbSize.getValue().value : "";
+					String sugar = cbSugar.getValue() != null ? cbIce.getValue().value : "";
+					String ice = cbIce.getValue() != null ? cbIce.getValue().value : "";
+//					if(attributes.size() <= 0) {
+//						size = "";
+//					} 
+//					switch(serving.getInt("servings.type")) {
+//						case ServingModel.FOOD:
+//							sugar = "";
+//							ice = "";
+//							break;
+//						case ServingModel.HOT_DRINK:
+//							sugar = "";
+//							break;						
+//					}
+					this.btnDoneAction(id, serId, thumbnail, name, size, sugar, ice);
 					System.out.print(CustomerHomeController.createdList);
 					CustomServingController.customerHomeController.addItemToOrderList();
 					this.btnCancelAction();
@@ -183,15 +165,13 @@ public class CustomServingController implements Initializable {
 				btnPlus.setOnMouseClicked(event -> {
 					if(this.qty < stock) {
 						this.qty++; 
-						tfQuantity.setText(String.valueOf(this.qty));
-						lblTotal.setText("$"+Double.parseDouble(Helpers.formatNumber(null).format(this.qty*price)));
+						this.changeQuantity(price);
 					}
 				});
 				btnMinus.setOnMouseClicked(event -> {
 					if(this.qty > 1) {
 						this.qty--;
-						tfQuantity.setText(String.valueOf(this.qty));
-						lblTotal.setText("$"+Double.parseDouble(Helpers.formatNumber(null).format(this.qty*price)));
+						this.changeQuantity(price);
 					} 
 				});
 			}
@@ -200,12 +180,67 @@ public class CustomServingController implements Initializable {
 		}
 	}
 
+	//qty
+	public void changeQuantityOnEnter(KeyEvent event, int stock, double price) {
+		this.qty = Integer.parseInt(!tfQuantity.getText().isEmpty() ? tfQuantity.getText() : "1");
+		if(event.getCode().equals(KeyCode.ENTER)) {
+			tfQuantity.setText(qty > 0 ? String.valueOf(qty) : "1");
+			if(qty > stock) {
+				qty = stock;
+				tfQuantity.setText(String.valueOf(qty));
+			}
+        }
+		double total = this.price != 0 ? Double.parseDouble(Helpers.formatNumber(null).format(this.price * qty)):
+			Double.parseDouble(Helpers.formatNumber(null).format(price * qty));
+		lblTotal.setText("$" + total);
+		System.out.println("price:" + price);
+		System.out.println("tfqty:" + this.price);
+	}
+	
+	//btn- btn+
+	public void changeQuantity(double price) {
+		tfQuantity.setText(String.valueOf(this.qty));
+		double total = this.price != 0 ? Double.parseDouble(Helpers.formatNumber(null).format(this.price * this.qty)):
+		Double.parseDouble(Helpers.formatNumber(null).format(price * this.qty));
+		lblTotal.setText("$"+Double.parseDouble(Helpers.formatNumber(null).format(total)));						
+		System.out.println("price:" + price);
+		System.out.println("btn-:" + this.price);
+	}
 	
 	//btnDoneAction
-	public void btnDoneAction(int id) {
+	public void btnDoneAction(int id, int serId, String thumbnail, String name, String size, String sugar, String ice) {
 		try {
-			//if has order id
-			
+			String note = tfNote.getText().isEmpty() ? "" : tfNote.getText();
+			//food->size, hot drink->size, sugar, cold drink->size, sugar, ice
+			//size:serving_attributes.attribute
+			boolean isExisted = false;
+			for(OrderListModel item : CustomerHomeController.createdList) {
+				if(item.getServingId() == id) {
+					int indexItem = CustomerHomeController.createdList.indexOf(item);
+					OrderListModel currentItem = CustomerHomeController.createdList.get(indexItem);
+					currentItem.setQuantity(currentItem.getQuantity() + this.qty);
+					currentItem.setTotalPrice(Double.parseDouble(Helpers.formatNumber(null).format(this.price * currentItem.getQuantity())));
+					currentItem.setNote(note);
+//					currentItem.setSize(size);
+//					currentItem.setSugar(sugar);
+//					currentItem.setIce(ice);
+					isExisted = true;
+				} 	
+			}
+			if(!isExisted) {
+				CustomerHomeController.createdList.add(new OrderListModel(
+						serId, 
+						thumbnail, 
+						name, 
+						price, 
+						price*this.qty, 
+						note, 
+						this.qty
+//						size,
+//						sugar,
+//						ice
+						));	
+			}	
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -219,80 +254,61 @@ public class CustomServingController implements Initializable {
 		stage.close();
 	}
 	
-	//load size
-	public ArrayList<DataMapping> mapAttributeIdWithName(int id) {
+	//sugar-ice
+	public ObservableList<DataMapping> retrievesSugarIce(int parentId){//AttributeModel.SUGAR
 		try {
-			ArrayList<CompareOperator> servingCondition = new ArrayList<CompareOperator>();
-			servingCondition.add(CompareOperator.getInstance("servings.id", "=", String.valueOf(id)));
-			ResultSet sizes = this.servingAttributeModel.getServingAttributeList(servingCondition);
-			ArrayList<DataMapping> attributes = new ArrayList<DataMapping>();
-			while(sizes.next()) {
-				int attributeId = sizes.getInt("serving_attributes.id");
-				int attribute = sizes.getInt("serving_attributes.attribute");
-				attributes.add(DataMapping.getInstance(attributeId, String.valueOf(attribute)));
+			ArrayList<CompareOperator> sugarCondition = new ArrayList<CompareOperator>();
+			sugarCondition.add(CompareOperator.getInstance("attributes.parent_id", "=", String.valueOf(parentId)));
+			ResultSet parent = this.attributeModel.getAttributeList(sugarCondition);
+			ObservableList<DataMapping> parents = FXCollections.observableArrayList();
+			while(parent.next()) {
+				parents.add(DataMapping.getInstance(parent.getInt("attributes.id"), parent.getString("attributes.name")));
 			}
-			return attributes;
+			return parents;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 	
-	public void mapAttributeNameWithValue(int id, ArrayList<DataMapping> attributes) {//servingId, array
+	//attribute -size -portion
+	public void retrievesServingAttributes(int id){
 		try {
-			ArrayList<DataMapping> sizeValues = new ArrayList<DataMapping>();
-			if(attributes.size() > 0) {
-				for(DataMapping item : attributes) {
-	
-					//load to cbb
-					int key = Integer.parseInt(item.value);
-					switch (key) {
-						case ServingAttributeModel.SIZE_S: 
-							sizeValues.add(ServingAttributeModel.isSizeS);
-							break;
-						case ServingAttributeModel.SIZE_M: 
-							sizeValues.add(ServingAttributeModel.isSizeM);
-							break;
-						case ServingAttributeModel.SIZE_L: 
-							sizeValues.add(ServingAttributeModel.isSizeL);
-							break;
-						case ServingAttributeModel.ONE_PERSON: 
-							sizeValues.add(ServingAttributeModel.OnePerson);
-							break;
-						case ServingAttributeModel.TWO_PEOPLE: 
-							sizeValues.add(ServingAttributeModel.TwoPeople);
-							break;
-						case ServingAttributeModel.FOUR_PEOPLE: 
-							sizeValues.add(ServingAttributeModel.FourPeople);
-							break;
-						
-						default:
-							throw new IllegalArgumentException("Unexpected value: " + key);
-					}
-				}
-				for(DataMapping it : sizeValues) {
-					cbSize.getItems().add(it);
-				}
-				cbSize.setOnAction(event -> {
-					DataMapping item = cbSize.getSelectionModel().getSelectedItem();
-					this.price = this.getPriceByAttributeId(id, item);
-					lblPrice.setText("$" + this.price);
-					
-				});
-			} else {
-				apCustomServing.getChildren().removeAll(lblSize, cbSize);
+			ArrayList<CompareOperator> servingCondition = new ArrayList<CompareOperator>();
+			servingCondition.add(CompareOperator.getInstance("servings.id", "=", String.valueOf(id)));
+			ResultSet sizes = this.servingAttributeModel.getServingAttributeList(servingCondition);
+			ObservableList<DataMapping> attributes = FXCollections.observableArrayList();
+			while(sizes.next()) {
+				int servingAttributeId = sizes.getInt("serving_attributes.id");
+				String attributeName = sizes.getString("attribute_name");
+				attributes.add(DataMapping.getInstance(servingAttributeId, attributeName));
 			}
+			cbSize.getItems().setAll(attributes);
+			cbSize.getSelectionModel().selectFirst();
+			String defKey = cbSize.getSelectionModel().getSelectedItem().key;
+			System.out.println("defKey: "+defKey);
+			this.price = this.getPriceByAttributeId(id, defKey);
+			lblPrice.setText("$" + this.price);
+			System.out.println("first cbsize:" + this.price);
+			
+			cbSize.setOnAction(event -> {
+				String itemSelected = cbSize.getSelectionModel().getSelectedItem().key;
+				this.price = this.getPriceByAttributeId(id, itemSelected);
+				lblPrice.setText("$" + this.price);
+				lblTotal.setText("$"+ this.price*Double.parseDouble(tfQuantity.getText()));
+				System.out.println("click cbsize:" + this.price);
+			});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public double getPriceByAttributeId(int id, DataMapping item) {
+
+	public double getPriceByAttributeId(int id, String itemId) {
 		//price
 		double attributePrice = 0;
 		ArrayList<CompareOperator> attributeCondition = new ArrayList<CompareOperator>();
 		attributeCondition.add(CompareOperator.getInstance("servings.id", "=", String.valueOf(id)));
-		attributeCondition.add(CompareOperator.getInstance("serving_attributes.attribute", "=", item.key));
+		attributeCondition.add(CompareOperator.getInstance("serving_attributes.id", "=", itemId));
 		ResultSet prices = this.servingAttributeModel.getServingAttributeList(attributeCondition);
 		try {
 			while(prices.next()) {
