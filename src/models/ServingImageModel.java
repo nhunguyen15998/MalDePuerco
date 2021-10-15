@@ -45,7 +45,7 @@ public class ServingImageModel extends BaseModel {
 			joinCondition.add(CompareOperator.getInstance("serving_image.serving_id", "=", "s.id"));
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
 			joins.add(JoinCondition.getInstance("left join", "servings s", joinCondition));
-			return this.getData(selects, conditions, joins, null, null);
+			return this.getData(selects, conditions, joins, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

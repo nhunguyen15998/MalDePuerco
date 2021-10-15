@@ -2,7 +2,12 @@ package utils;
 
 import java.security.SecureRandom;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class Helpers {
 	
@@ -46,7 +51,19 @@ public class Helpers {
 	    return prefix.append(sb).toString();
 	}
 	
-	//bcrypt
+	//local datetime
+	public static void convertSystemDateTime(String itemDate) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	    try {
+			Date date = sdf.parse(itemDate);
+			sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+			System.out.println(sdf.format(date));    
+			sdf.setTimeZone(TimeZone.getDefault());
+			System.out.println("test: "+sdf.format(date));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}  
+	}
 	
 	
 }

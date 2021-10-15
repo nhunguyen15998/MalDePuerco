@@ -32,12 +32,10 @@ public class ServingModel extends BaseModel {
 	
 	//type
 	public static final int FOOD = 0;
-	public static final int HOT_DRINK = 1;
-	public static final int COLD_DRINK = 2;
+	public static final int DRINK = 1;
 
 	public static DataMapping isFood = DataMapping.getInstance(FOOD, "Food");
-	public static DataMapping isHotDrink = DataMapping.getInstance(HOT_DRINK, "Hot Drink");
-	public static DataMapping isColdDrink = DataMapping.getInstance(COLD_DRINK, "Cold Drink");
+	public static DataMapping isHotDrink = DataMapping.getInstance(DRINK, "Drink");
 	
 	public ServingModel() {
 		super(table, columns);
@@ -76,7 +74,7 @@ public class ServingModel extends BaseModel {
 			joins.add(JoinCondition.getInstance("left join", "serving_categories sc", cateCondition));
 			joins.add(JoinCondition.getInstance("left join", "serving_categories scs", cateParentCondition));
 
-			return this.getData(selects, conditions, joins, null, null);
+			return this.getData(selects, conditions, joins, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

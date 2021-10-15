@@ -40,7 +40,7 @@ public class AttributeModel extends BaseModel {
 			parentCondition.add(CompareOperator.getInstance("attributes.parent_id", "=", "att.id"));
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
 			joins.add(JoinCondition.getInstance("left join", "attributes att", parentCondition));
-			return this.getData(selects, conditions, joins, null, null);
+			return this.getData(selects, conditions, joins, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

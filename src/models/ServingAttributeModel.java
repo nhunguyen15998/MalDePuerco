@@ -9,11 +9,12 @@ import utils.JoinCondition;
 
 public class ServingAttributeModel extends BaseModel {
 	private static String table = "serving_attributes";
-	private static String[] columns = {"id, serving_id, attribute_id, price, created_at"};
+	private static String[] columns = {"id, serving_id, attribute_id, quantity, price, created_at"};
 	
 	private int id;
 	private int servingId;
 	private int attributeId;
+	private int quantity;
 	private double price;
 	private String createdAt;
 
@@ -21,11 +22,12 @@ public class ServingAttributeModel extends BaseModel {
 		super(table, columns);
 	}
 	
-	public ServingAttributeModel(int id, int servingId, int attributeId, double price, String createdAt) {
+	public ServingAttributeModel(int id, int servingId, int attributeId, int quantity, double price, String createdAt) {
 		super(table, columns);
 		this.setId(id);
 		this.setServingId(servingId);
 		this.setAttributeId(attributeId);
+		this.setQuantity(quantity);
 		this.setPrice(price);
 		this.setCreatedAt(createdAt);
 	}
@@ -44,7 +46,24 @@ public class ServingAttributeModel extends BaseModel {
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
 			joins.add(JoinCondition.getInstance("left join", "servings", servingJoin));
 			joins.add(JoinCondition.getInstance("left join", "attributes", attributeJoin));
-			return this.getData(selects, conditions, joins, null, null);
+			return this.getData(selects, conditions, joins, null, null, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	//get stock
+	public ResultSet getStock(ArrayList<CompareOperator> conditions) {
+		try {
+			String[] selects = {"servings.id, servings.name, sum(serving_attributes.quantity) as qty"};
+			
+			ArrayList<CompareOperator> servingJoin = new ArrayList<CompareOperator>();
+			servingJoin.add(CompareOperator.getInstance("serving_attributes.serving_id", "=", "servings.id"));
+			
+			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
+			joins.add(JoinCondition.getInstance("left join", "servings", servingJoin));
+			return this.getData(selects, conditions, joins, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -91,6 +110,14 @@ public class ServingAttributeModel extends BaseModel {
 
 	public void setAttributeId(int attributeId) {
 		this.attributeId = attributeId;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 	
 	

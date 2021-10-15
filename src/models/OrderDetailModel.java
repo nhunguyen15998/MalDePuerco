@@ -84,9 +84,9 @@ public class OrderDetailModel extends BaseModel {
 	}
 	
 	//get data order_details - orders - servings - users - serving_image -tables
-	public ResultSet getOrderDetailList(ArrayList<CompareOperator> conditions) {
+	public ResultSet getOrderDetailList(ArrayList<CompareOperator> conditions, String orderBys) {
 		try {
-			String[] selects = {"order_details.*, orders.id, orders.table_id, orders.code, orders.status,"
+			String[] selects = {"order_details.*, orders.id, orders.table_id, orders.code, orders.status, orders.total_amount,"
 								+ "servings.thumbnail, servings.name, users.code"};
 			//orders
 			ArrayList<CompareOperator> orderCondition = new ArrayList<CompareOperator>();
@@ -100,17 +100,13 @@ public class OrderDetailModel extends BaseModel {
 			//tables
 			ArrayList<CompareOperator> tableCondition = new ArrayList<CompareOperator>();
 			tableCondition.add(CompareOperator.getInstance("tables.id", "=", "orders.table_id"));
-			//attribute
-			ArrayList<CompareOperator> attributeCondition = new ArrayList<CompareOperator>();
-			attributeCondition.add(CompareOperator.getInstance("serving_attributes.serving_id", "=", "servings.id"));
 			//join
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
 			joins.add(JoinCondition.getInstance("left join", "orders", orderCondition));
 			joins.add(JoinCondition.getInstance("left join", "servings", servingCondition));
 			joins.add(JoinCondition.getInstance("left join", "users", userCondition));
 			joins.add(JoinCondition.getInstance("left join", "tables", tableCondition));
-			joins.add(JoinCondition.getInstance("left join", "serving_attributes", attributeCondition));
-			return this.getData(selects, conditions, joins, null, null);
+			return this.getData(selects, conditions, joins, null, orderBys, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

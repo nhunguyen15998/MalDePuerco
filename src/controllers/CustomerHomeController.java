@@ -2,8 +2,15 @@ package controllers;
 
 import java.net.URL;
 import java.sql.ResultSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -54,6 +61,7 @@ public class CustomerHomeController implements Initializable {
 	private ServingModel servingModel = new ServingModel();
 	private OrderModel orderModel = new OrderModel();
 	private OrderDetailModel orderDetailModel = new OrderDetailModel();
+	private ServingAttributeModel servingAttributeModel = new ServingAttributeModel();
 
 //	private TableModel tableModel = ;
 	public static boolean isActive = false;
@@ -75,9 +83,8 @@ public class CustomerHomeController implements Initializable {
 	private OrderListModel selected;
 	
 	private int userId = 3;
-	private double totalPlace;
-	public int orderDetailId = 0;
-	private String orderCode = "";
+	public double totalPlace;
+	public String orderCode = "";
 	private int servingId;
 	
 	//sidebar btn
@@ -126,10 +133,10 @@ public class CustomerHomeController implements Initializable {
 	//1
 	private Pane titlePane = new Pane();
 	//2
-	private ScrollPane spOrderList = new ScrollPane();//has children: vboxOrderList,
-	private VBox vboxOrderList = new VBox();//has children order list
+	public ScrollPane spOrderList = new ScrollPane();//has children: vboxOrderList,
+	public AnchorPane anchorPane = new AnchorPane();
+	public static VBox vboxOrderList = new VBox();//has children order list
 	//order list
-	private Pane vboxPane = new Pane();
 	private ImageView ivImageView;
 	private Label lblServingName;
 	private Label lblItemPrice;
@@ -143,7 +150,7 @@ public class CustomerHomeController implements Initializable {
 	//3
 	private Button btnPlace = new Button();//has child: lblPlaceTotal
 	private Label lblPlaceTotal = new Label();
-	private Button btnPay = new Button();
+	public Button btnPay = new Button();
 	private Label lblPayTotal = new Label();
 	
 	//hbox
@@ -189,9 +196,21 @@ public class CustomerHomeController implements Initializable {
 			btnHelp.setOnMouseClicked(event -> {
 				
 			});
+			
+			this.loadLatestUnpaidOrder();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	//load latest unpaid order - get updated data -> add to updated list, draw updated list -> render
+	public void loadLatestUnpaidOrder() {
+		ArrayList<CompareOperator> unpaidOrder =  new ArrayList<CompareOperator>();
+		unpaidOrder.add(CompareOperator.getInstance("orders.table_id", "=", String.valueOf(OrderModel.tableId)));
+		unpaidOrder.add(CompareOperator.getInstance("orders.status", "!=", String.valueOf(OrderModel.COMPLETED)));
+		String orderBys = "order_details.id desc";
+		this.renderUpdatedOrderList(unpaidOrder, orderBys);
+		System.out.println(">>> OrderId:"+OrderModel.currentOrderId);
 	}
 	
 	//filter
@@ -530,7 +549,8 @@ public class CustomerHomeController implements Initializable {
 				Image image = new Image(thumbnail);
 				servingImage.setImage(image);
 				servingPrice.setText("$"+price);
-				servingStock.setText(servings.getInt("quantity") + " item(s) in stock");
+				int qty = servings.getInt("quantity");
+				servingStock.setText(qty + " item(s) in stock");
 				//add
 				//onclick to add				 
 				addItem.setOnMouseClicked(event -> {
@@ -554,6 +574,22 @@ public class CustomerHomeController implements Initializable {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public int totalServingQuantity(int id) {
+		try {
+			ArrayList<CompareOperator> condition  = new ArrayList<CompareOperator>();
+			condition.add(CompareOperator.getInstance("servings.id", "=", String.valueOf(id)));//servingid
+			ResultSet qties = this.servingAttributeModel.getStock(condition);
+			int qty = 0;
+			while(qties.next()) {
+				qty = qties.getInt("qty");
+			}
+			return qty;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
 		}
 	}
 	
@@ -616,7 +652,7 @@ public class CustomerHomeController implements Initializable {
 		spOrderList.setLayoutY(28);
 		spOrderList.setPrefSize(275, 440);
 		spOrderList.setStyle("-fx-background-color: #2B2B2B; -fx-border-color: #2B2B2B");
-		AnchorPane anchorPane = new AnchorPane();
+		anchorPane = new AnchorPane();
 		anchorPane.setPrefSize(272, 703);
 		anchorPane.setStyle("-fx-background-color: #2B2B2B;");
 		
@@ -667,7 +703,7 @@ public class CustomerHomeController implements Initializable {
 			lblItemPrice.setTextFill(Color.web("#ea7c69"));
 			lblItemPrice.setFont(Font.font("System Bold", 9));
 			
-			lblCreatedAt.setLayoutX(121);
+			lblCreatedAt.setLayoutX(16);
 			lblCreatedAt.setPrefWidth(100);
 			lblCreatedAt.setLayoutY(87);
 			lblCreatedAt.setTextFill(Color.WHITE);
@@ -812,7 +848,12 @@ public class CustomerHomeController implements Initializable {
 	public void renderVBoxPaneWithSetCreatedContent(OrderListModel item) {
 		CustomerHomeController.isCreated = true;
 		this.vboxLayout(item, null);
-		lblAttribute.setText("");
+		String sugar = "", ice = "";
+		if(!item.getSugar().isEmpty() && !item.getIce().isEmpty()) {
+			sugar = "S:"+item.getSugar();
+			ice = "I:"+ item.getIce();
+		}
+		lblAttribute.setText(item.getSize() + " " + sugar + " " + ice);
 		lblServingName.setText(item.getServingName());
 		lblItemPrice.setText("$"+ Helpers.formatNumber(null).format(item.getItemPrice()));
 		lblTotalPrice.setText("$"+Helpers.formatNumber(null).format(item.getTotalPrice()));
@@ -838,7 +879,7 @@ public class CustomerHomeController implements Initializable {
 		lblPayTotal.setFont(Font.font("System Bold", 14));		
 		btnPay.setGraphic(lblPayTotal);
 		btnPay.setOnMouseClicked(event -> {
-			this.btnPlaceAction();
+			this.btnPayAction();
 		});
 		//pane
 		this.titlePaneSPOrderLayout();
@@ -849,7 +890,12 @@ public class CustomerHomeController implements Initializable {
 	public void renderVBoxPaneWithSetUpdatedContent(OrderDetailModel item) {
 		CustomerHomeController.isCreated = false;
 		this.vboxLayout(null, item);
-		lblAttribute.setText("aaaaaaaaaaa");
+		String sugar = "S:"+item.getSugar();
+		String ice = "I:"+ item.getIce();
+		if(item.getSugar() == null && item.getIce() == null) {
+			sugar = ""; ice = "";
+		}
+		lblAttribute.setText(item.getSize() + " " + sugar + " " + ice);				
 		lblCreatedAt.setText(item.getCreatedAt());
 		lblServingName.setText(item.getServingName());
 		lblItemPrice.setText("$"+ Helpers.formatNumber(null).format(item.getPrice()));
@@ -857,6 +903,7 @@ public class CustomerHomeController implements Initializable {
 		tfNote.setText(item.getServingNote());
 		tfQuantity.setText(String.valueOf(item.getQuantity()));
 		ivImageView.setImage(new Image(CustomerHomeController.class.getResourceAsStream(item.getThumbnail())));
+		this.lblPayTotal.setText("$"+this.totalPlace);
 	}
 	
 	
@@ -883,16 +930,23 @@ public class CustomerHomeController implements Initializable {
 			this.emptyOrderList();
 		}
 	}
+	//load updated 
+	public ArrayList<CompareOperator> loadUpdatedData() {
+		ArrayList<CompareOperator> updated = new ArrayList<CompareOperator>();
+		updated.add(CompareOperator.getInstance("orders.table_id", "=", String.valueOf(OrderModel.tableId)));
+		updated.add(CompareOperator.getInstance("orders.id", "=", String.valueOf(OrderModel.currentOrderId)));
+		return updated;
+	}
 	
 	//render update order list
-	public void getUpdated() {
+	public int getUpdated(ArrayList<CompareOperator> updated, String orderBys) {
 		try {
-			ArrayList<CompareOperator> updated = new ArrayList<CompareOperator>();
-			updated.add(CompareOperator.getInstance("orders.table_id", "=", String.valueOf(OrderModel.tableId)));
-			updated.add(CompareOperator.getInstance("orders.id", "=", String.valueOf(OrderModel.currentOrderId)));
-			ResultSet orderDetails = this.orderDetailModel.getOrderDetailList(updated);
+			int orderId = 0;
+			ResultSet orderDetails = this.orderDetailModel.getOrderDetailList(updated, orderBys);
 			while(orderDetails.next()) {
 				this.orderCode = orderDetails.getString("orders.code");
+				this.totalPlace = orderDetails.getDouble("orders.total_amount");
+				orderId = orderDetails.getInt("orders.id");
 				updatedList.add(new OrderDetailModel(
 						orderDetails.getInt("order_details.serving_id"),
 						orderDetails.getString("servings.thumbnail"),
@@ -903,38 +957,40 @@ public class CustomerHomeController implements Initializable {
 						orderDetails.getInt("order_details.quantity"),
 						orderDetails.getInt("order_details.serving_status"),
 						orderDetails.getString("order_details.created_at"),
-						orderDetails.getString("order_details.ice"),
-						orderDetails.getString("order_details.sugar"),
+						orderDetails.getString("order_details.ice") != null ? orderDetails.getString("order_details.ice") : null,
+						orderDetails.getString("order_details.sugar") != null ? orderDetails.getString("order_details.sugar") : null,
 						orderDetails.getString("order_details.size")
-//						String.valueOf(orderDetails.getInt("order_details.ice")) == null ? null : orderDetails.getInt("order_details.ice"),
-//						String.valueOf(orderDetails.getInt("order_details.sugar")) == null ? null : orderDetails.getInt("order_details.sugar"),
-//						String.valueOf(orderDetails.getInt("order_details.size")) == null ? null : orderDetails.getInt("order_details.size")
 				));
 			}
-			this.lblOrderCode.setText(this.orderCode);
-
+			this.lblOrderCode.setText("#"+this.orderCode);
+			System.out.println(">>>after updated: "+this.totalPlace);
+			return orderId;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return 0;
 		}
 	}
 	
 	//render update
-	public void renderUpdatedOrderList() {
+	public int renderUpdatedOrderList(ArrayList<CompareOperator> updated, String orderBys) {
 		try {
 			//get order detail from db
-			this.getUpdated();
+			OrderModel.currentOrderId = this.getUpdated(updated, orderBys);
 			if(updatedList.size() > 0) {
 				this.updateOrderListLayout();
 				vboxOrderList.getChildren().clear();
 				for(OrderDetailModel item : updatedList) {
 					this.renderVBoxPaneWithSetUpdatedContent(item);//servingname, thumbnail, quantity, total, serving note, 
-					   											   //sevingstatus, createdat, servingid, price
+																	//sevingstatus, createdat, servingid, price
 				}
+				CustomerHomeController.updatedList.clear();
 			} else {
 				this.emptyOrderList();
 			}	
+			return OrderModel.currentOrderId;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return 0;
 		}
 	}
 
@@ -946,7 +1002,7 @@ public class CustomerHomeController implements Initializable {
 	}
 				
 	//click btn place
-	public void btnPlaceAction() {
+	public int btnPlaceAction() {
 		try {
 			ArrayList<DataMapping> orderData = new ArrayList<DataMapping>();
 			orderData.add(DataMapping.getInstance("code", "OC"+Helpers.randomString(6)));
@@ -954,36 +1010,55 @@ public class CustomerHomeController implements Initializable {
 			orderData.add(DataMapping.getInstance("user_id", String.valueOf(this.userId)));
 			orderData.add(DataMapping.getInstance("total_amount", String.valueOf(this.totalPlace)));
 			OrderModel.currentOrderId = this.orderModel.createOrder(orderData);
-			ArrayList<DataMapping> orderDetailData = new ArrayList<DataMapping>();
-			int result = 0;
-			for(OrderListModel item : createdList) {
-				int size = 0, sugar = 0, ice = 0;
-//				this.convertSizeAttributeToInsert(item, size);
-//				this.convertSugarAttributeToInsert(item, sugar);
-//				this.convertIceAttributeToInsert(item, ice);
-				orderDetailData.add(DataMapping.getInstance("order_id", String.valueOf(OrderModel.currentOrderId)));
-				orderDetailData.add(DataMapping.getInstance("serving_id", String.valueOf(item.getServingId())));
-				orderDetailData.add(DataMapping.getInstance("serving_note", item.getNote().isEmpty() ? null : item.getNote()));
-				orderDetailData.add(DataMapping.getInstance("serving_status", String.valueOf(OrderDetailModel.READY)));
-//				orderDetailData.add(DataMapping.getInstance("size", String.valueOf(size)));
-//				orderDetailData.add(DataMapping.getInstance("sugar", String.valueOf(sugar)));
-//				orderDetailData.add(DataMapping.getInstance("ice", String.valueOf(ice)));
-				orderDetailData.add(DataMapping.getInstance("quantity", String.valueOf(item.getQuantity())));
-				orderDetailData.add(DataMapping.getInstance("price", String.valueOf(Helpers.formatNumber(null).format(item.getItemPrice()))));
-				orderDetailData.add(DataMapping.getInstance("total", String.valueOf(Helpers.formatNumber(null).format(item.getTotalPrice()))));
-				result = this.orderDetailModel.createOrderDetail(orderDetailData);
-				orderDetailData.clear();
-			}
+			this.totalPlace = 0;
+			int result = this.insertOrderDetails();
 			if(result != 0) {
 				createdList.clear();
 				this.emptyOrderList();
 			}
 			CustomerHomeController.isCreated = false;
-			this.renderUpdatedOrderList();
-			
+			this.renderUpdatedOrderList(null, null);
+			return OrderModel.currentOrderId;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return 0;
 		}
+	}
+	
+	//order detail
+	public int insertOrderDetails() {
+		try {
+			int result = 0; 
+			ArrayList<DataMapping> orderDetailData = new ArrayList<DataMapping>();
+			for(OrderListModel item : createdList) {
+				orderDetailData.add(DataMapping.getInstance("order_id", String.valueOf(OrderModel.currentOrderId)));
+				orderDetailData.add(DataMapping.getInstance("serving_id", String.valueOf(item.getServingId())));
+				orderDetailData.add(DataMapping.getInstance("serving_note", item.getNote().isEmpty() ? null : item.getNote()));
+				orderDetailData.add(DataMapping.getInstance("serving_status", String.valueOf(OrderDetailModel.READY)));
+				orderDetailData.add(DataMapping.getInstance("size", item.getSize()));
+				orderDetailData.add(DataMapping.getInstance("sugar", item.getSugar() != "" ? item.getSugar() : null));
+				orderDetailData.add(DataMapping.getInstance("ice", item.getIce() != "" ? item.getIce() : null));
+				orderDetailData.add(DataMapping.getInstance("quantity", String.valueOf(item.getQuantity())));
+				orderDetailData.add(DataMapping.getInstance("price", String.valueOf(Helpers.formatNumber(null).format(item.getItemPrice()))));
+				orderDetailData.add(DataMapping.getInstance("total", String.valueOf(Helpers.formatNumber(null).format(item.getTotalPrice()))));
+				this.totalPlace+=item.getTotalPrice();
+				result = this.orderDetailModel.createOrderDetail(orderDetailData);
+				System.out.println("SUM: "+this.totalPlace);
+				this.updateOrderTotal(item);
+				orderDetailData.clear();
+			}
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	//update order total
+	public void updateOrderTotal(OrderListModel item) {
+		ArrayList<DataMapping> updateTotalOrder = new ArrayList<DataMapping>();
+		updateTotalOrder.add(DataMapping.getInstance("total_amount", String.valueOf(Helpers.formatNumber(null).format(this.totalPlace))));
+		this.orderModel.updateOrder(OrderModel.currentOrderId, updateTotalOrder);
 	}
 
 	//load data from orderdetail by order id
@@ -991,7 +1066,7 @@ public class CustomerHomeController implements Initializable {
 		try {
 			//has order id
 			if(OrderModel.currentOrderId != 0) {
-				this.renderUpdatedOrderList();
+				this.renderUpdatedOrderList(null, null);
 			} else {
 				this.btnReloadUpdated.setDisable(true);
 			}
@@ -1024,13 +1099,32 @@ public class CustomerHomeController implements Initializable {
 		}
 	}
 	
-	//insert to db
-	
+	//btnPayAction
+	public void btnPayAction() {
+		try {
+			if(OrderModel.currentOrderId != 0) {
+				FlowPane requestPayment;
+				Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+				FXMLLoader root = new FXMLLoader(getClass().getResource("/views/request-payment.fxml"));
+				requestPayment = root.load();
 
-	//load updated attribute
-	
-	
-	
+				//controller
+				CustomerPaymentController controller = root.getController();
+				controller.loadDataToRequestPayment(this);
+				
+				Scene scene = new Scene(requestPayment, 600, 400);
+				Stage stage = new Stage();
+				stage.setX((screenBounds.getWidth() - 600)/2);
+				stage.setY((screenBounds.getHeight() - 400)/2);
+				stage.initStyle(StageStyle.UNDECORATED);
+				stage.setScene(scene);
+				stage.show();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+	}
+		
 	//get
 	public int getServingId() {
 		return servingId;

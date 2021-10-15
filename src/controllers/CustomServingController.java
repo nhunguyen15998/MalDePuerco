@@ -4,12 +4,16 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -24,6 +28,7 @@ import javafx.stage.Stage;
 import models.AttributeModel;
 import models.OrderDetailModel;
 import models.OrderListModel;
+import models.OrderModel;
 import models.ServingAttributeModel;
 import models.ServingModel;
 import utils.CompareOperator;
@@ -106,7 +111,7 @@ public class CustomServingController implements Initializable {
 		try {
 			CustomServingController.customerHomeController = customerHomeController;
 			CustomServingController.customerHomeController.customerMasterHolder.setDisable(true);
-			this.servingId = customerHomeController.getServingId();
+			this.servingId = id;
 			ArrayList<CompareOperator> servingCondition = new ArrayList<CompareOperator>();
 			servingCondition.add(CompareOperator.getInstance("servings.id", "=", String.valueOf(this.servingId)));
 			ResultSet serving = this.servingModel.getServingList(servingCondition);
@@ -114,13 +119,7 @@ public class CustomServingController implements Initializable {
 				//attributes
 				this.retrievesServingAttributes(this.servingId);
 				System.out.println("here:"+this.price);
-				if(serving.getInt("servings.type") != ServingModel.FOOD) {
-					if(serving.getInt("servings.type") == ServingModel.HOT_DRINK) {
-						paneSugarIce.getChildren().removeAll(lblIce, cbIce);
-						cbSugar.setPrefWidth(262);
-						cbIce.getSelectionModel().clearSelection();
-					} 
-				} else {
+				if(serving.getInt("servings.type") == ServingModel.FOOD) {
 					cbSugar.getSelectionModel().clearSelection();
 					cbIce.getSelectionModel().clearSelection();
 					apCustomServing.getChildren().remove(paneSugarIce);
@@ -129,7 +128,7 @@ public class CustomServingController implements Initializable {
 				String thumbnail = serving.getString("servings.thumbnail");
 				String name = serving.getString("servings.name");
 				double price = this.price != 0 ? this.price : serving.getDouble("servings.price");
-				int stock = serving.getInt("stock_quantity");
+				int stock = serving.getInt("servings.quantity");
 				txtServingName.setText(name);
 				ivThumbnail.setImage(new Image(getClass().getResourceAsStream(thumbnail)));
 				lblStockQuantity.setText(stock + " item(s) available");
@@ -142,25 +141,8 @@ public class CustomServingController implements Initializable {
 					this.changeQuantityOnEnter(event, stock, price);
 				});
 				btnDone.setOnMouseClicked(event -> {
-					String size = cbSize.getValue() != null ? cbSize.getValue().value : "";
-					String sugar = cbSugar.getValue() != null ? cbIce.getValue().value : "";
-					String ice = cbIce.getValue() != null ? cbIce.getValue().value : "";
-//					if(attributes.size() <= 0) {
-//						size = "";
-//					} 
-//					switch(serving.getInt("servings.type")) {
-//						case ServingModel.FOOD:
-//							sugar = "";
-//							ice = "";
-//							break;
-//						case ServingModel.HOT_DRINK:
-//							sugar = "";
-//							break;						
-//					}
-					this.btnDoneAction(id, serId, thumbnail, name, size, sugar, ice);
-					System.out.print(CustomerHomeController.createdList);
-					CustomServingController.customerHomeController.addItemToOrderList();
-					this.btnCancelAction();
+					this.btnDoneAction(id, serId, thumbnail, name);
+					this.addMoreItemToOrderList();
 				});	
 				btnPlus.setOnMouseClicked(event -> {
 					if(this.qty < stock) {
@@ -179,8 +161,52 @@ public class CustomServingController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
+	//panel confirm when add more item to order list
+	public void confirmAddMoreAlert() {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Order Confirmation");
+		alert.setHeaderText("Add this item to your order?");
+		Optional<ButtonType> option = alert.showAndWait();
+		if (option.get() == ButtonType.OK) {
+			int result = CustomServingController.customerHomeController.insertOrderDetails();
+			if(result != 0) {
+				CustomerHomeController.createdList.clear();
+				CustomerHomeController.updatedList.clear();
+				String orderBy = "order_details.id desc";
+				CustomServingController.customerHomeController.renderUpdatedOrderList
+				(CustomServingController.customerHomeController.loadUpdatedData(), orderBy);
+			}
+		} 
+	}
+	
+	//btndone when has orderid
+	public void addMoreItemToOrderList() {
+		if(OrderModel.currentOrderId == 0) {
+			CustomServingController.customerHomeController.addItemToOrderList();
+		} else {
+			this.confirmAddMoreAlert();
+		}				
+		this.btnCancelAction();
+	}
 
 	//qty
+	public int loadServingQuantity(int id) {
+		try {
+			ArrayList<CompareOperator> condition  = new ArrayList<CompareOperator>();
+			condition.add(CompareOperator.getInstance("servings.id", "=", String.valueOf(id)));//servingid
+			ResultSet qties = this.servingAttributeModel.getServingAttributeList(condition);
+			int qty = 0;
+			while(qties.next()) {
+				qty = qties.getInt("serving_attributes.quantity");
+			}
+			return qty;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
 	public void changeQuantityOnEnter(KeyEvent event, int stock, double price) {
 		this.qty = Integer.parseInt(!tfQuantity.getText().isEmpty() ? tfQuantity.getText() : "1");
 		if(event.getCode().equals(KeyCode.ENTER)) {
@@ -208,40 +234,63 @@ public class CustomServingController implements Initializable {
 	}
 	
 	//btnDoneAction
-	public void btnDoneAction(int id, int serId, String thumbnail, String name, String size, String sugar, String ice) {
+	public void btnDoneAction(int id, int serId, String thumbnail, String name) {
 		try {
-			String note = tfNote.getText().isEmpty() ? "" : tfNote.getText();
-			//food->size, hot drink->size, sugar, cold drink->size, sugar, ice
-			//size:serving_attributes.attribute
-			boolean isExisted = false;
-			for(OrderListModel item : CustomerHomeController.createdList) {
-				if(item.getServingId() == id) {
-					int indexItem = CustomerHomeController.createdList.indexOf(item);
-					OrderListModel currentItem = CustomerHomeController.createdList.get(indexItem);
-					currentItem.setQuantity(currentItem.getQuantity() + this.qty);
-					currentItem.setTotalPrice(Double.parseDouble(Helpers.formatNumber(null).format(this.price * currentItem.getQuantity())));
-					currentItem.setNote(note);
-//					currentItem.setSize(size);
-//					currentItem.setSugar(sugar);
-//					currentItem.setIce(ice);
-					isExisted = true;
-				} 	
-			}
-			if(!isExisted) {
-				CustomerHomeController.createdList.add(new OrderListModel(
-						serId, 
-						thumbnail, 
-						name, 
-						price, 
-						price*this.qty, 
-						note, 
-						this.qty
-//						size,
-//						sugar,
-//						ice
-						));	
-			}	
+			ArrayList<CompareOperator> servingCondition = new ArrayList<CompareOperator>();
+			servingCondition.add(CompareOperator.getInstance("servings.id", "=", String.valueOf(id)));
+			ResultSet serving = this.servingModel.getServingList(servingCondition);
 			
+			while(serving.next()) {
+				String size = "", sugar = "", ice = "";
+				if(serving.getInt("servings.type") == ServingModel.DRINK) {
+					sugar = cbIce.getValue().value;
+					ice = cbIce.getValue().value;
+				}
+				size = cbSize.getValue().value;
+				String note = tfNote.getText().isEmpty() ? "" : tfNote.getText();
+				
+				boolean isExisted = false;
+				for(OrderListModel item : CustomerHomeController.createdList) {
+					if(item.getServingId() == id) {
+						System.out.println("size:"+item.getSize());
+						System.out.println(size);
+
+						if(!item.getSize().equals(size)) {
+							isExisted = false;
+						}else {
+							//size==
+							if(item.getSugar() == "" || sugar.equals(item.getSugar()) && ice.equals(item.getIce())) {
+								System.out.println("i:"+sugar.equals(item.getSugar()));
+
+								int indexItem = CustomerHomeController.createdList.indexOf(item);
+								OrderListModel currentItem = CustomerHomeController.createdList.get(indexItem); 
+								currentItem.setQuantity(currentItem.getQuantity() + this.qty);
+								currentItem.setTotalPrice(Double.parseDouble(Helpers.formatNumber(null).format(this.price * currentItem.getQuantity())));
+								currentItem.setNote(note);
+								isExisted = true;
+								break;
+							} else {
+								isExisted = false;
+							}
+						}
+
+					} 	
+				}
+				if(!isExisted) {
+					CustomerHomeController.createdList.add(new OrderListModel(
+							serId, 
+							thumbnail, 
+							name, 
+							price, 
+							price*this.qty, 
+							note, 
+							this.qty,
+							size,
+							sugar,
+							ice
+					));
+				}	
+			}			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

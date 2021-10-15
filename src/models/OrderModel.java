@@ -76,7 +76,7 @@ public class OrderModel extends BaseModel {
 	}
 	
 	//get data - orders - tables - reservations - payment_method
-	public ResultSet getOrderList(ArrayList<CompareOperator> conditions, String[] groupBys) {
+	public ResultSet getOrderList(ArrayList<CompareOperator> conditions) {
 		try {
 			String[] selects = {"orders.*, tables.code as table_code, reservations.code as reservations_code,"
 								+ "payment_method.code as payment_method_code, tables.name,"
@@ -104,7 +104,7 @@ public class OrderModel extends BaseModel {
 			joins.add(JoinCondition.getInstance("left join", "users", userCondition));
 			joins.add(JoinCondition.getInstance("left join", "order_details", orderDetailCondition));
 
-			return this.getData(selects, conditions, joins, groupBys, null);
+			return this.getData(selects, conditions, joins, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
