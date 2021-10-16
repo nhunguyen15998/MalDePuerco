@@ -231,66 +231,71 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Pane fx:id="paneDetails" focusTraversable="true" layoutX="14.0" layoutY="262.0" prefHeight="181.0" prefWidth="331.0">
+            <Pane fx:id="paneDetails" focusTraversable="true" layoutX="13.0" layoutY="259.0" prefHeight="205.0" prefWidth="331.0" visible="false">
                <children>
-                  <VBox prefHeight="181.0" prefWidth="331.0">
+                  <VBox prefHeight="197.0" prefWidth="331.0">
                      <children>
-                        <Label fx:id="lblcode1" prefHeight="18.0" prefWidth="345.0" text="RESERVATION DETAILS:" textFill="#9c6d6d">
+                        <Label fx:id="lblcode1" prefHeight="18.0" prefWidth="345.0" text="RESERVATION DETAILS:" textFill="#9e3c3c">
                            <font>
-                              <Font name="Cambria" size="13.5" />
+                              <Font name="Cambria" size="12.8" />
                            </font>
                         </Label>
-                        <Label fx:id="lblCode" prefHeight="18.0" prefWidth="345.0" textFill="#9c6d6d">
+                        <Label fx:id="lblCode" prefHeight="0.0" prefWidth="410.0" textFill="#9c6d6d">
                            <font>
-                              <Font name="Cambria" size="13.5" />
+                              <Font name="Cambria" size="12.85" />
                            </font>
                            <VBox.margin>
-                              <Insets top="2.0" />
+                              <Insets />
                            </VBox.margin>
                         </Label>
-                        <Label fx:id="lblCusName" prefHeight="18.0" prefWidth="347.0" textFill="#9c6d6d">
+                        <Label fx:id="lblCusName" prefHeight="0.0" prefWidth="347.0" textFill="#9c6d6d">
                            <font>
-                              <Font name="Cambria" size="13.5" />
+                              <Font name="Cambria" size="12.85" />
                            </font>
                         </Label>
-                        <Label fx:id="lblTablePick" layoutX="10.0" layoutY="174.0" textFill="#9c6d6d">
+                        <Label fx:id="lblTablePick" layoutX="10.0" layoutY="174.0" prefHeight="0.0" textFill="#9c6d6d">
                            <font>
-                              <Font name="Cambria" size="13.5" />
+                              <Font name="Cambria" size="12.85" />
                            </font>
                         </Label>
-                        <Label fx:id="lblSeats" prefHeight="18.0" prefWidth="359.0" textFill="#9c6d6d">
+                        <Label fx:id="lblSeats" prefHeight="0.0" prefWidth="359.0" textFill="#9c6d6d">
                            <font>
-                              <Font name="Cambria" size="13.5" />
+                              <Font name="Cambria" size="12.85" />
                            </font>
                         </Label>
-                        <Label fx:id="lblTime" prefHeight="18.0" prefWidth="359.0" textFill="#9c6d6d">
+                        <Label fx:id="lblTime" prefHeight="0.0" prefWidth="359.0" textFill="#9c6d6d">
                            <font>
-                              <Font name="Cambria" size="13.5" />
+                              <Font name="Cambria" size="12.85" />
                            </font>
                         </Label>
-                        <Label fx:id="lblPhone" prefHeight="18.0" prefWidth="359.0" textFill="#9c6d6d">
+                        <Label fx:id="lblPhone" prefHeight="0.0" prefWidth="359.0" textFill="#9c6d6d">
                            <font>
-                              <Font name="Cambria" size="13.5" />
+                              <Font name="Cambria" size="12.85" />
                            </font>
                         </Label>
-                        <Label fx:id="lblEmail" prefHeight="18.0" prefWidth="359.0" textFill="#9c6d6d">
+                        <Label fx:id="lblEmail" prefHeight="0.0" prefWidth="359.0" textFill="#9c6d6d">
                            <font>
-                              <Font name="Cambria" size="13.5" />
+                              <Font name="Cambria" size="12.85" />
                            </font>
                         </Label>
-                        <Label fx:id="lblDeposit" textFill="#9c6d6d">
+                        <Label fx:id="lblDeposit" prefHeight="0.0" textFill="#9c6d6d">
                            <font>
-                              <Font name="Cambria" size="13.5" />
+                              <Font name="Cambria" size="12.85" />
                            </font>
                         </Label>
-                        <Label fx:id="lblDiscount" textFill="#9c6d6d">
+                        <Label fx:id="lblDiscount" prefHeight="0.0" textFill="#9c6d6d">
                            <font>
-                              <Font name="Cambria" size="13.5" />
+                              <Font name="Cambria" size="12.85" />
                            </font>
                         </Label>
-                        <Label fx:id="lblStatus" textFill="#9c6d6d">
+                        <Label fx:id="lblStatus" prefHeight="0.0" textFill="#9c6d6d">
                            <font>
-                              <Font name="Cambria" size="13.5" />
+                              <Font name="Cambria" size="12.85" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblCreated" layoutX="10.0" layoutY="189.0" prefHeight="0.0" textFill="#9c6d6d">
+                           <font>
+                              <Font name="Cambria" size="12.85" />
                            </font>
                         </Label>
                      </children>
