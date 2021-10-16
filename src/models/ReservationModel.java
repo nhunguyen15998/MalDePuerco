@@ -75,7 +75,7 @@ public class ReservationModel extends BaseModel{
 				joinDiscount.add(CompareOperator.getInstance("reservations.discount_id", " = ", "discounts.id"));
 				
 				ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
-				joins.add(JoinCondition.getInstance("join", "discounts", joinDiscount));
+				joins.add(JoinCondition.getInstance("left join", "discounts", joinDiscount));
 				return this.getData(selects, conditions, joins);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -95,7 +95,7 @@ public class ReservationModel extends BaseModel{
 				joinConditions.add(CompareOperator.getInstance("reservations.discount_id", "=", "discounts.id"));
 				
 				ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
-				joins.add(JoinCondition.getInstance("join", "discounts", joinConditions));
+				joins.add(JoinCondition.getInstance("left join", "discounts", joinConditions));
 				
 				
 				 
