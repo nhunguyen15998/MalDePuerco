@@ -72,7 +72,7 @@ public class ScheduleController implements Initializable {
     private List<ItemModel> item = new ArrayList<>();
     
     public static ResultSet getDataReser(String condition) throws SQLException{
-    	String sql = "select reservations.*,decrease from reservations join discounts on reservations.discount_id = discounts.id "+condition ;
+    	String sql = "select reservations.*,decrease from reservations left join discounts on reservations.discount_id = discounts.id "+condition ;
        Statement stmt = MySQLJDBC.connection.createStatement();
 		return stmt.executeQuery(sql);
        

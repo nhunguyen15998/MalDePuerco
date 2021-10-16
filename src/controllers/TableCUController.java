@@ -80,7 +80,7 @@ public class TableCUController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     		
-		ObservableList<DataMapping> status = FXCollections.observableArrayList(TableModel.isEmpty, TableModel.isServing, TableModel.isUpcoming, TableModel.isWaiting);
+		ObservableList<DataMapping> status = FXCollections.observableArrayList(TableModel.isEmpty, TableModel.isServing,  TableModel.isWaiting,TableModel.isPlaced);
 		cbStatus.setItems(status);
 		cbStatus.setValue(TableModel.isEmpty);
     }    
@@ -195,7 +195,7 @@ public class TableCUController implements Initializable {
 			String seats = tfSeats.getText();
 			String status = cbStatus.getValue() == TableModel.isEmpty ? cbStatus.getValue().key : 
 					((cbStatus.getValue()  == TableModel.isWaiting ? cbStatus.getValue().key : 
-							(cbStatus.getValue()  == TableModel.isUpcoming ? cbStatus.getValue().key :String.valueOf(TableModel.isServing))));
+							(cbStatus.getValue()  == TableModel.isPlaced ? cbStatus.getValue().key :String.valueOf(TableModel.TABLE_SERVING))));
 
 			if(validated( name, code, seats)) {
 				

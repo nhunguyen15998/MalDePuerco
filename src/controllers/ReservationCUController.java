@@ -165,24 +165,28 @@ public class ReservationCUController implements Initializable {
 					Helpers.status("success");
 					
 				} else {
-					Alert alert = new Alert(AlertType.CONFIRMATION);
-					alert.setTitle("Update User Confirmation");
-					alert.setHeaderText("Do you want to make this change?");
-					Optional<ButtonType> option = alert.showAndWait();
-					if (option.get() == ButtonType.OK) {
-						reserModel.updateReserById(this.reserId, re);
-						ArrayList<CompareOperator> condiRemove = new ArrayList<CompareOperator>();
-			  			condiRemove.add(CompareOperator.getInstance("reservation_id", "=", getIDReser(tfCode.getText())+""));
-			  			this.tblReserModel.delete(condiRemove);
-						for(DataMapping item : listTable) {
-							System.out.println("item update:"+item);
-							ArrayList<DataMapping> data = new ArrayList<DataMapping>();
-							data.add(DataMapping.getInstance("table_id", item.key));
-							data.add(DataMapping.getInstance("reservation_id", getIDReser(tfCode.getText())+""));
-							tblReserModel.create(data);
+					System.out.println("check: "+ checkToPresent(reserId));
+					Alert alert = new Alert(AlertType.ERROR);
+					boolean checkPresent = (status.equals("4")&&checkToPresent(reserId));
+					boolean checkCancel = (status.equals("0")&&checkToCancel(reserId));
+					if(checkPresent) {
+						if(checkPresent) {
+							 updateReser(re);
+							
+						}else {
+							alert.setHeaderText("Not at the right time to update");
+							 alert.showAndWait();
+							
 						}
-						Helpers.status("success");
-					} 
+					}else if(checkCancel) {
+							 updateReser(re);
+						}else {
+							
+							alert.setHeaderText("Can not cancel reservation after 2 hours");
+							 alert.showAndWait();
+						}
+					
+					
 					
 				}
 				checkTable=true;
@@ -196,6 +200,58 @@ public class ReservationCUController implements Initializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	private void updateReser(ArrayList<DataMapping> re) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Update User Confirmation");
+		alert.setHeaderText("Do you want to make this change?");
+		Optional<ButtonType> option = alert.showAndWait();
+		if (option.get() == ButtonType.OK) {
+			reserModel.updateReserById(this.reserId, re);
+			ArrayList<CompareOperator> condiRemove = new ArrayList<CompareOperator>();
+  			condiRemove.add(CompareOperator.getInstance("reservation_id", "=", getIDReser(tfCode.getText())+""));
+  			this.tblReserModel.delete(condiRemove);
+			for(DataMapping item : listTable) {
+				System.out.println("item update:"+item);
+				ArrayList<DataMapping> data = new ArrayList<DataMapping>();
+				data.add(DataMapping.getInstance("table_id", item.key));
+				data.add(DataMapping.getInstance("reservation_id", getIDReser(tfCode.getText())+""));
+				tblReserModel.create(data);
+			}
+			Helpers.status("success");
+		} 
+	}
+	private boolean checkToPresent(int id) {
+		boolean check = false;
+		String sql ="select date_pick, start_time,end_time from reservations where id="+id+" and date_pick=curdate() and curtime()>=start_time";
+		try {
+			Statement st = MySQLJDBC.connection.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			System.out.println(sql);
+			if(rs.next()) {
+				check=true;
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return check;
+				
+	}
+	private boolean checkToCancel(int id) {
+		boolean check = false;
+		String sql ="select created_at, date_pick from reservations where id="+id+" and date_add(now() , INTERVAL -2 HOUR)<= created_at";
+		try {
+			Statement st = MySQLJDBC.connection.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			System.out.println(sql);
+			if(rs.next()) {
+				check=true;
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return check;
+				
 	}
 	private int getIDReser(String code) {
 		System.out.println(code);
@@ -297,7 +353,7 @@ public class ReservationCUController implements Initializable {
 	  				btnAdd.setDisable(true);
 	  				lblReser.setText("Update Reservation");
 	  				cbStatus.setDisable(false);
-	  				ObservableList<DataMapping> sts = FXCollections.observableArrayList(ReservationModel.isConfirmed,ReservationModel.isDeposited,ReservationModel.isPresent, ReservationModel.isExpried,ReservationModel.isCancelled );
+	  				ObservableList<DataMapping> sts = FXCollections.observableArrayList(ReservationModel.isConfirmed,ReservationModel.isDeposited,ReservationModel.isPresent,ReservationModel.isCancelled );
 	  				cbStatus.setItems(sts);
 	  				this.getTableList(dpDate.getValue().toString(),tfStart.getText(), tfEnd.getText()," and reservation_id!="+reserId);
 	  				cbbTable.setDisable(false);
@@ -368,13 +424,26 @@ public class ReservationCUController implements Initializable {
 	  //validate
 		public boolean validated( String name, String phone, String email, String seat, String depo, String start, String end) {
 			try {
-				boolean check =true;
 				lblNameError.setText("");
 				lblPhoneError.setText("");
 				lblEmailError.setText("");
 				lblSeatError.setText("");
 				lblDepoError.setText("");
 				lblTimeError.setText("");
+				String s = tfStart.getText();
+		    	String e = tfEnd.getText();
+		    	if(lblTimeError.getText().equals("")&&s.length()==5&&e.length()==5) {
+		    	LocalTime time = LocalTime.parse(start);
+		        LocalTime time2 = LocalTime.parse(end);
+		        boolean checkTime = Validations.checkTime(time , time2, lblTimeError, "unachievable!");
+		    	
+		        if(!checkTime||!checkTable) {
+		        	lblTableError.setText("please choose");
+		        	return false;
+		        }else {
+		        	return true;
+		        }
+		    	}
 				ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
 				data.add(new ValidationDataMapping("name", name, "lblNameError", "required|string|min:5"));
 				data.add(new ValidationDataMapping("phone", phone, "lblPhoneError", "required|phone"));
@@ -412,25 +481,10 @@ public class ReservationCUController implements Initializable {
 						}
 
 					}
-					
-			       
-					check=false;
+					return false;
 				}
-				String s = tfStart.getText();
-		    	String e = tfEnd.getText();
-		    	if(lblTimeError.getText().equals("")&&s.length()==5&&e.length()==5) {
-		    	LocalTime time = LocalTime.parse(start);
-		        LocalTime time2 = LocalTime.parse(end);
-		        boolean checkTime = Validations.checkTime(time , time2, lblTimeError, "unachievable!");
-		    	
-		        if(!checkTime||!checkTable) {
-		        	lblTableError.setText("please choose");
-		        	check= false;
-		        }else {
-		        	check= true;
-		        }
-		    	}
-				return check;
+				
+				return true;
 			} catch (Exception e) {
 				e.printStackTrace();
 				return false;
@@ -454,6 +508,7 @@ public class ReservationCUController implements Initializable {
 	    	seats=0;
 	    	listTable.clear();
 	    	tfTable.setText("");
+	    	btnAdd.setDisable(false);
 	    	String start = tfStart.getText();
 	    	String end = tfEnd.getText();
 	    	String seats = tfSeat.getText();
@@ -591,7 +646,8 @@ public class ReservationCUController implements Initializable {
 					value += ", ";
 				}
 				count++;
-				if(count%4==0) {
+				System.out.println("count:"+ count);
+				if(count%3==0) {
 					value += "\n";
 				}
 				

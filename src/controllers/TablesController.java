@@ -8,6 +8,7 @@ package controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -46,6 +48,7 @@ import models.AuthenticationModel;
 import models.RoleModel;
 import models.TableModel;
 import utils.CompareOperator;
+import utils.DataMapping;
 import utils.Helpers;
 
 /**
@@ -98,7 +101,8 @@ public class TablesController implements Initializable {
     private Button btnChange;
     @FXML
     private Button btnOrder;
-
+    @FXML
+    private CheckBox chkShift;
     @FXML
     private Pane paneSchedule;
     /**
@@ -107,6 +111,7 @@ public class TablesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+    	updateStatus();
     	this.parseData(getFilter());
     	//discount
     			btnChange.setVisible(false);
@@ -115,6 +120,13 @@ public class TablesController implements Initializable {
     				btnChange.setVisible(true);
     			
     			}
+    			chkShift.setVisible(false);
+    			if( AuthenticationModel.roleName.equals("Server")) {
+    				chkShift.setVisible(true);
+    			
+    			}
+
+      			this.loadSchedule();
     }    
 
 
@@ -127,6 +139,47 @@ public class TablesController implements Initializable {
   		} catch (IOException e) {
   			e.printStackTrace();
   		}
+    }
+    @FXML
+    public void checkShift() {
+
+    	if(chkShift.isSelected()) {
+    		ArrayList<CompareOperator> cond = new ArrayList<CompareOperator>();
+			cond.add(CompareOperator.getInstance("user_id", " = ", String.valueOf(AuthenticationModel.id)));
+			parseData(cond);
+    	}else {
+
+    		parseData(getFilter());
+    	}
+    	
+    }
+    //update status New to Confirmed after 30 minutes
+    public void updateStatus() {
+    	String sql = "select tables.id, table_id, reservation_id, date_pick, r.status,start_time from tables_reservation t join tables  on tables.id= t.table_id join reservations r on r.id=t.reservation_id "
+    			+ "where r.status = 4 and curdate()=date_pick and curtime()>=start_time" ;
+    	String sql2 = "select tables.id, table_id, reservation_id, date_pick, r.status,start_time from tables_reservation t join tables  on tables.id= t.table_id join reservations r on r.id=t.reservation_id where (r.status = 1 or r.status = 2 or r.status = 3) and curdate()=date_pick and start_time<=curtime() and curtime()<=date_add(start_time, INTERVAL 30 MINUTE)" ;
+    	
+        try {
+        	Statement stmt = MySQLJDBC.connection.createStatement();
+    	   	ResultSet rs = stmt.executeQuery(sql);
+    	   	while(rs.next()) {
+    	   		int id = rs.getInt("tables.id");
+    	   		ArrayList<DataMapping> table = new ArrayList<DataMapping>();
+				table.add(DataMapping.getInstance("status", String.valueOf(TableModel.TABLE_PLACED)));
+				tableModel.updateTableById(id, table);
+    	   	}
+    	   Statement stmt2 = MySQLJDBC.connection.createStatement();
+    		ResultSet rs1 = stmt2.executeQuery(sql2);
+    	   	while(rs1.next()) {
+    	   		int id = rs1.getInt("tables.id");
+    	   		ArrayList<DataMapping> table = new ArrayList<DataMapping>();
+				table.add(DataMapping.getInstance("status", String.valueOf(TableModel.TABLE_WAITING)));
+				tableModel.updateTableById(id, table);
+    	   	}
+    	}catch(SQLException  ex) {
+    		ex.printStackTrace();
+    	}
+    	
     }
   //load data
   	public void parseData(ArrayList<CompareOperator> conditions) {
@@ -149,7 +202,7 @@ public class TablesController implements Initializable {
   			colStatus.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(				
   					cellData.getValue().getStatus() == TableModel.TABLE_EMPTY ? String.valueOf(TableModel.isEmpty) : 
   						((cellData.getValue().getStatus() == TableModel.TABLE_SERVING ? String.valueOf(TableModel.isServing) : 
-  							(cellData.getValue().getStatus() == TableModel.TABLE_WAITING ? String.valueOf(TableModel.isWaiting):String.valueOf(TableModel.isUpcoming))))));
+  							(cellData.getValue().getStatus() == TableModel.TABLE_WAITING ? String.valueOf(TableModel.isWaiting):String.valueOf(TableModel.isPlaced))))));
   			
   			//get data from db
   			
@@ -168,8 +221,7 @@ public class TablesController implements Initializable {
   						table.getInt("user_id"))
   					);
   			}
-  			tblTables.setItems(tableList);;
-  			this.loadSchedule();
+  			tblTables.setItems(tableList);
   		} catch (Exception e) {
   			e.printStackTrace();
   		}

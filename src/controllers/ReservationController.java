@@ -158,6 +158,8 @@ public class ReservationController implements Initializable {
     private Label lblSeats;
 
     @FXML
+    private Label lblCreated;
+    @FXML
     private Label lblTime;
 
     @FXML
@@ -195,20 +197,19 @@ public class ReservationController implements Initializable {
         // TODO
 
   		updateStatus();
-    	LocalDate now = LocalDate.now();
-    	dpFrom.setValue(now.withDayOfMonth(1));
-    	dpTo.setValue(now.withDayOfMonth(now.lengthOfMonth()));
-		this.loadSchedule("schedule.fxml");
 		btnReserSche.setVisible(false);
 		btnTablesSche.setVisible(true);
-		this.findOnClick();
     	this.parseData(null);
+		this.loadSchedule("schedule.fxml");
     }  
  
     
   //load data
   	public void parseData(ArrayList<CompareOperator> conditions) {
   		paneDetails.setVisible(false);
+    	LocalDate now = LocalDate.now();
+    	dpFrom.setValue(now.withDayOfMonth(1));
+    	dpTo.setValue(now.withDayOfMonth(now.lengthOfMonth()));
   		try {
   			//create list, format date
 
@@ -254,8 +255,8 @@ public class ReservationController implements Initializable {
   					Helpers.formatTime(r.getString("start_time")),
   					Helpers.formatTime(r.getString("end_time")),
   					r.getDate("date_pick").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy")),
-  					r.getDate("reservations.created_at").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy"))
-  					));
+  					r.getString("reservations.created_at"))
+  					);
   			}
   			
   			tblReser.setItems(reserList);
@@ -451,13 +452,13 @@ public class ReservationController implements Initializable {
 					lblCode.setText("Code: \t"+item.getCode());
 					lblCusName.setText("Customer name: "+item.getName());
 					lblSeats.setText("Seat(s) pick: "+item.getSeats());
-					lblTime.setText("Time: \t"+item.getStart_time()+" - "+item.getEnd_time());
+					lblTime.setText("Date: \t"+item.getDate_pick()+" --- "+item.getStart_time()+" - "+item.getEnd_time());
 					lblPhone.setText("Phone: \t"+item.getPhone());
 					lblEmail.setText("Email: \t"+item.getEmail());
 					lblDeposit.setText("Deposit: "+item.getDeposit());
 					lblDiscount.setText("Discount: "+item.getDecrease());
 					lblStatus.setText("Status: "+status);
-					
+					lblCreated.setText("Created at: "+ item.getCreatedAt());
 					this.reserId = item.getId();
 					this.reserName = item.getName();
 					String tablePick = "";
@@ -491,9 +492,9 @@ public class ReservationController implements Initializable {
     //update status New to Confirmed after 30 minutes
     public void updateStatus() {
     	String sql = "update reservations set status = 2 where status = 1 and DATE_ADD(created_at, INTERVAL 30 MINUTE)<=now()" ;
-    	String sql2 = "update reservations set status = 5 where (status = 2 or status=3) and  DATE_ADD(curtime(), INTERVAL -30 MINUTE)<= end_time  and date_pick<=curdate()" ;
+    	String sql2 = "update reservations set status = 5 where (status = 2 or status=3 or status =1 ) and  DATE_ADD(curtime(), INTERVAL -30 MINUTE)>= start_time  and date_pick<=curdate()" ;
     	String sql3= "update tables_reservation set status = 0 where reservation_id in (select id from reservations where status = 5 or status = 0)";
-    	System.out.println(sql);
+    	System.out.println(sql2);
         try {
         	Statement stmt = MySQLJDBC.connection.createStatement();
     	   stmt.execute(sql);
