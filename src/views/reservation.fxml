@@ -65,15 +65,18 @@
                   <Font size="12.0" />
                </font>
             </Button>
-            <Button fx:id="btnDelete" alignment="CENTER_RIGHT" layoutX="428.0" layoutY="265.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="30.0" prefWidth="66.0" style="-fx-background-color: #FB6E67; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnReser" stylesheets="@../css/reservation.css" text="Delete" textFill="WHITE">
+            <Button fx:id="btnDelete" alignment="CENTER_RIGHT" layoutX="451.0" layoutY="267.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="30.0" prefWidth="57.0" style="-fx-background-color: #FB6E67; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnReser" stylesheets="@../css/reservation.css" text="Delete" textFill="WHITE">
                <effect>
                   <DropShadow color="#fb6e677d" />
                </effect>
                <font>
                   <Font size="12.0" />
                </font>
+               <padding>
+                  <Insets right="6.0" />
+               </padding>
             </Button>
-            <Button alignment="CENTER_RIGHT" layoutX="353.0" layoutY="265.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="30.0" prefWidth="68.0" style="-fx-background-color: #62A38D; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnReser" stylesheets="@../css/reservation.css" text="Update" textFill="WHITE">
+            <Button fx:id="btnUpdate" alignment="CENTER_RIGHT" layoutX="307.0" layoutY="268.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="30.0" prefWidth="68.0" style="-fx-background-color: #62A38D; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnReser" stylesheets="@../css/reservation.css" text="Update" textFill="WHITE">
                <effect>
                   <DropShadow color="#62a38d7d" />
                </effect>
@@ -91,7 +94,7 @@
                </graphic>
             </Button>
             <TextField fx:id="tfTable" layoutX="5.0" layoutY="43.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#onSearch" prefHeight="30.0" prefWidth="196.0" promptText="Find by customer name" style="-fx-background-radius: 50px;" />
-            <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" layoutX="358.0" layoutY="272.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" layoutX="312.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/edit.png" />
                </image>
@@ -101,7 +104,7 @@
                   <Image url="@../assets/add.png" />
                </image>
             </ImageView>
-            <ImageView disable="true" fitHeight="15.0" fitWidth="18.0" layoutX="434.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView disable="true" fitHeight="15.0" fitWidth="18.0" layoutX="453.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/delete.png" />
                </image>
@@ -231,9 +234,9 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Pane fx:id="paneDetails" focusTraversable="true" layoutX="13.0" layoutY="259.0" prefHeight="205.0" prefWidth="331.0" visible="false">
+            <Pane fx:id="paneDetails" focusTraversable="true" layoutX="13.0" layoutY="259.0" prefHeight="205.0" prefWidth="296.0" visible="false">
                <children>
-                  <VBox prefHeight="197.0" prefWidth="331.0">
+                  <VBox prefHeight="205.0" prefWidth="296.0">
                      <children>
                         <Label fx:id="lblcode1" prefHeight="18.0" prefWidth="345.0" text="RESERVATION DETAILS:" textFill="#9e3c3c">
                            <font>
@@ -302,6 +305,22 @@
                   </VBox>
                </children>
             </Pane>
+            <Button fx:id="btnPut" alignment="CENTER_RIGHT" layoutX="378.0" layoutY="267.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#putMore" prefHeight="30.0" prefWidth="71.0" style="-fx-background-color: #9758b0; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnTables" stylesheets="@../css/tables.css" text="Put more" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#fb6e677d" />
+               </effect>
+               <font>
+                  <Font size="11.86" />
+               </font>
+               <padding>
+                  <Insets right="4.0" />
+               </padding>
+            </Button>
+            <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" layoutX="380.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/order.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
       <Button id="1" fx:id="btnReserSche" layoutX="12.0" layoutY="72.0" mnemonicParsing="false" onAction="#showPane" prefHeight="30.0" prefWidth="219.0" styleClass="btnShow" stylesheets="@../css/reservation.css" text="Show Reservations Schedule" textFill="WHITE" />
