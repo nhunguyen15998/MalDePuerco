@@ -48,6 +48,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Screen;
+import models.AuthenticationModel;
 import models.DiscountModel;
 import models.RoleModel;
 import models.UserModel;
@@ -358,6 +359,28 @@ public class DiscountController implements Initializable {
 
 		ObservableList<DataMapping> status = FXCollections.observableArrayList(DiscountModel.isActivated, DiscountModel.isDeactivated);
 		cbStatus.setItems(status);
+		//create
+		btnAdd.setDisable(true);
+		
+		//update
+		btnUpdate.setDisable(true);
+		
+		//delete
+		btnDelete.setDisable(true);
+		
+
+		
+		if(AuthenticationModel.hasPermission("CREATE_DISCOUNT") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnAdd.setDisable(false);
+		}
+		
+		if(AuthenticationModel.hasPermission("UPDATE_DISCOUNT") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnUpdate.setDisable(false);
+		}
+		
+		if(AuthenticationModel.hasPermission("DELETE_DISCOUNT") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnDelete.setDisable(false);
+		}
 		
 	}
 

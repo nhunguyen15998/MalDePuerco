@@ -57,7 +57,7 @@ public class ReservationCUController implements Initializable {
 	private TablesReserModel tblReserModel = new TablesReserModel();
 	private TableModel tableModel = new TableModel();
 	private DiscountModel disModel = new DiscountModel();
-	public ReservationController reController;
+	private ReservationController reController = new ReservationController();
 	private int reserId;
 	@FXML
 	private AnchorPane cuHolder;
@@ -163,37 +163,42 @@ public class ReservationCUController implements Initializable {
 						tblReserModel.create(data);
 					}
 					Helpers.status("success");
+					close();
+					reController.parseData(null);
+					reController.loadSchedule("schedule.fxml");
+					reController.updateStatus();
+					
 					
 				} else {
 					System.out.println("check: "+ checkToPresent(reserId));
 					Alert alert = new Alert(AlertType.ERROR);
 					boolean checkPresent = (status.equals("4")&&checkToPresent(reserId));
 					boolean checkCancel = (status.equals("0")&&checkToCancel(reserId));
-					if(checkPresent) {
+					
 						if(checkPresent) {
 							 updateReser(re);
 							
-						}else {
+						}else if(!checkPresent){
 							alert.setHeaderText("Not at the right time to update");
 							 alert.showAndWait();
 							
 						}
-					}else if(checkCancel) {
+						else if(checkCancel) {
 							 updateReser(re);
-						}else {
+						}else if(!checkCancel) {
 							
 							alert.setHeaderText("Can not cancel reservation after 2 hours");
 							 alert.showAndWait();
 						}
+					else if(!checkPresent&&!checkCancel) {
+						 updateReser(re);
+					}
 					
 					
 					
 				}
 				checkTable=true;
-				reController.parseData(null);
-				reController.loadSchedule("schedule.fxml");
-				reController.updateStatus();
-				this.close();
+				
 				
 				
 			}
@@ -201,7 +206,7 @@ public class ReservationCUController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	private void updateReser(ArrayList<DataMapping> re) {
+	public void updateReser(ArrayList<DataMapping> re) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Update User Confirmation");
 		alert.setHeaderText("Do you want to make this change?");
@@ -219,6 +224,13 @@ public class ReservationCUController implements Initializable {
 				tblReserModel.create(data);
 			}
 			Helpers.status("success");
+
+			close();
+			
+			reController.parseData(null);
+			reController.loadSchedule("schedule.fxml");
+			reController.updateStatus();
+			
 		} 
 	}
 	private boolean checkToPresent(int id) {
@@ -398,6 +410,28 @@ public class ReservationCUController implements Initializable {
 	  			e.printStackTrace();
 	  		}
 	  	}
+	  	public void loadDataPutMore(ReservationController r) {
+	  		try {
+	  			
+	  			this.reController = r;
+	  			this.reserId = r.getReserId();
+	  			lblReser.setText("Create Reservation");
+	  			cbStatus.setDisable(true);
+	  			cbbTable.setDisable(true);
+	  			lblTableError.setText("You must fill in date,time,seats to select a table(s)");
+	  		
+	  				
+	  				ResultSet re = this.reserModel.getReserById(this.reserId);
+	  				if(re.next()) {
+	  					tfName.setText(re.getString("customer_name"));
+	  					tfPhone.setText(re.getString("phone"));
+	  					tfEmail.setText(re.getString("email"));
+	  					this.reserId = 0;
+	  			}
+	  		} catch (Exception e) {
+	  			e.printStackTrace();
+	  		}
+	  	}
 	  	
 	    private DataMapping getTableName(int id){
 	    	DataMapping tablename = new DataMapping();
@@ -446,7 +480,7 @@ public class ReservationCUController implements Initializable {
 		    	}
 				ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
 				data.add(new ValidationDataMapping("name", name, "lblNameError", "required|string|min:5"));
-				data.add(new ValidationDataMapping("phone", phone, "lblPhoneError", "required|phone"));
+				data.add(new ValidationDataMapping("phone", phone, "lblPhoneError", "required|phone|max:10"));
 				data.add(new ValidationDataMapping("email", email, "lblEmailError", "email|required"));
 				data.add(new ValidationDataMapping("seat", seat, "lblSeatError", "min:1|numeric|required"));
 				data.add(new ValidationDataMapping("deposit", depo, "lblDepoError", "numeric|min:0"));
@@ -707,7 +741,7 @@ public class ReservationCUController implements Initializable {
 	  			try {
 	  				
 	  				ArrayList<DataMapping> options = new ArrayList<DataMapping>();
-	  				String sql = "select id, name from tables where id not in (select table_id from tables_reservation where status =1 "+cond+" and reservation_id in (select id from reservations where  ((start_time<='"+st+"' and '"+st+"'<end_time and end_time<='"+et+"') or ('"+st+"'<=start_time and start_time<=end_time and end_time<='"+et+"' ) or ('"+st+"'<=start_time and start_time<=end_time and end_time<='"+et+"' ) or ('"+st+"'<=start_time and start_time<'"+et+"' and '"+et+"'<=end_time) or (start_time<='"+st+"' and end_time>='"+et+"') or (start_time>='"+st+"' and end_time<'"+et+"')) and date_pick = '"+ date+"' )) and status = 0";
+	  				String sql = "select id, name from tables where id not in (select table_id from tables_reservation where status =1 "+cond+" and reservation_id in (select id from reservations where  ((start_time<='"+st+"' and '"+st+"'<end_time and end_time<='"+et+"') or ('"+st+"'<=start_time and start_time<=end_time and end_time<='"+et+"' ) or ('"+st+"'<=start_time and start_time<=end_time and end_time<='"+et+"' ) or ('"+st+"'<=start_time and start_time<'"+et+"' and '"+et+"'<=end_time) or (start_time<='"+st+"' and end_time>='"+et+"') or (start_time>='"+st+"' and end_time<'"+et+"')) and date_pick = '"+ date+"' ))";
 	  				Statement ps = MySQLJDBC.connection.createStatement();
 	  				System.out.println(sql);
 	  				ResultSet rs = ps.executeQuery(sql);

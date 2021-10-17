@@ -187,6 +187,10 @@ public class ReservationController implements Initializable {
     private Button btnReserSche;
     @FXML
     private Button btnDelete;
+    @FXML
+    private Button btnPut;
+    @FXML
+    private Button btnUpdate;
     
 
     /**
@@ -197,6 +201,10 @@ public class ReservationController implements Initializable {
         // TODO
 
   		updateStatus();
+  		btnPut.setDisable(true);
+  		LocalDate now = LocalDate.now();
+    	dpFrom.setValue(now.withDayOfMonth(1));
+    	dpTo.setValue(now.withDayOfMonth(now.lengthOfMonth()));
 		btnReserSche.setVisible(false);
 		btnTablesSche.setVisible(true);
     	this.parseData(null);
@@ -207,9 +215,7 @@ public class ReservationController implements Initializable {
   //load data
   	public void parseData(ArrayList<CompareOperator> conditions) {
   		paneDetails.setVisible(false);
-    	LocalDate now = LocalDate.now();
-    	dpFrom.setValue(now.withDayOfMonth(1));
-    	dpTo.setValue(now.withDayOfMonth(now.lengthOfMonth()));
+    	
   		try {
   			//create list, format date
 
@@ -309,7 +315,27 @@ public class ReservationController implements Initializable {
   			e.printStackTrace();
   		}
   	}
-
+  	@FXML
+  	void putMore() {
+  			try {
+  			
+  			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/reservation-cu.fxml"));
+  			createHolder = root.load();
+  			
+  			//controller
+  			ReservationCUController controller = root.<ReservationCUController>getController();
+  			controller.loadDataPutMore(this);
+  			
+  			Scene scene = new Scene(createHolder, 680, 532);
+  			Stage createStage = new Stage();
+  			createStage.initStyle(StageStyle.UNDECORATED);
+  			createStage.setScene(scene);
+  			createStage.show();			
+  			
+  		} catch (Exception e) {
+  			e.printStackTrace();
+  		}
+  	}
 
 
 	@FXML
@@ -432,21 +458,28 @@ public class ReservationController implements Initializable {
     public void getRowSelected(MouseEvent event) {
     	btnDelete.setDisable(true);
 		paneDetails.setVisible(true);
+		btnPut.setDisable(false);
     	try {
 			if(event.getClickCount() > 0) {
 				ReservationModel item = tblReser.getSelectionModel().getSelectedItem();
 				if(item != null) {
 					DataMapping status=ReservationModel.isCancelled;
+					btnUpdate.setDisable(true);
 					if(item.getStatus()==1) {
 						status=ReservationModel.isNew;
+						btnUpdate.setDisable(false);
 					}else if(item.getStatus()==2) {
 						status=ReservationModel.isConfirmed;
+						btnUpdate.setDisable(false);
 					}else if(item.getStatus()==3) {
 						status=ReservationModel.isDeposited;
+						btnUpdate.setDisable(false);
 					}else if(item.getStatus()==4) {
 						status=ReservationModel.isPresent;
+						btnUpdate.setDisable(true);
 					}else if(item.getStatus()==5) {
 						status=ReservationModel.isExpried;
+						btnUpdate.setDisable(true);
 					}
 					
 					lblCode.setText("Code: \t"+item.getCode());
@@ -492,8 +525,8 @@ public class ReservationController implements Initializable {
     //update status New to Confirmed after 30 minutes
     public void updateStatus() {
     	String sql = "update reservations set status = 2 where status = 1 and DATE_ADD(created_at, INTERVAL 30 MINUTE)<=now()" ;
-    	String sql2 = "update reservations set status = 5 where (status = 2 or status=3 or status =1 ) and  DATE_ADD(curtime(), INTERVAL -30 MINUTE)>= start_time  and date_pick<=curdate()" ;
-    	String sql3= "update tables_reservation set status = 0 where reservation_id in (select id from reservations where status = 5 or status = 0)";
+    	String sql2 = "update reservations set status = 5 where (status = 2 or status=3 or status =1 ) and  ((DATE_ADD(curtime(), INTERVAL -30 MINUTE)>= start_time  and date_pick<=curdate()) or (date_pick<curdate()))" ;
+    	String sql3= "update tables_reservation set status = 0 where reservation_id in (select id from reservations where status = 5 or status = 0 or (status = 4 and date_pick<curdate()))";
     	System.out.println(sql2);
         try {
         	Statement stmt = MySQLJDBC.connection.createStatement();

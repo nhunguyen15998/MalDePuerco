@@ -209,6 +209,8 @@ public class TableCUController implements Initializable {
 					
 					tableModel.createTable(table);
 					Helpers.status("success");
+					tableController.parseData(null);
+					this.close();
 				} else {
 					Alert alert = new Alert(AlertType.CONFIRMATION);
 					alert.setTitle("Update Table Confirmation");
@@ -217,11 +219,12 @@ public class TableCUController implements Initializable {
 					if (option.get() == ButtonType.OK) {
 						tableModel.updateTableById(this.tableId, table);
 						Helpers.status("success");
+						tableController.parseData(null);
+						this.close();
 					} 
 					
 				}
-				tableController.parseData(null);
-				this.close();
+				
 				
 			}
 		} catch (Exception e) {

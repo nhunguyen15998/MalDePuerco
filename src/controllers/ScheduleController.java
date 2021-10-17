@@ -106,7 +106,6 @@ public class ScheduleController implements Initializable {
     	ResultSet rs = getDataReser(value);
     	int k =0;
     	while(rs.next()){
-    		
     		items = new ItemModel();
     		items.setStart(Helpers.formatTime(rs.getString("start_time")));
     		items.setEnd(Helpers.formatTime(rs.getString("end_time")));
@@ -115,6 +114,7 @@ public class ScheduleController implements Initializable {
     		items.setCusName(rs.getString("customer_name"));
     		items.setStatus(rs.getInt("status"));
     		i.add(items);
+    		
     		k++;
     		
     	}

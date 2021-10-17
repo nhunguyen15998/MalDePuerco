@@ -83,7 +83,7 @@ public class myAccountController implements Initializable{
 		}
 	}
 	public void close() {
-		mas.btnCloseAction();
+		mas.clearSession();
 	}
 	@FXML
 	public void btnSaveAction(ActionEvent event) {

@@ -27,6 +27,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import javafx.scene.input.MouseEvent;
+import models.AuthenticationModel;
 import models.TableModel;
 import utils.CompareOperator;
 import utils.DataMapping;
@@ -144,6 +145,14 @@ public class SettingController implements Initializable {
 		System.out.println("old: "+ SettingController.tablet_code );
 		cbbCode.setValue(SettingController.tablet_code );
 		updateData();
+		//invoice
+		btnClear.setVisible(false);
+		btnClear.setManaged(false);
+		
+		if(AuthenticationModel.hasPermission("CLEAR_TABLET") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnClear.setVisible(true);
+			btnClear.setManaged(true);
+		}
 		this.getTableCodeList();
 		this.getTableInfo();
 		

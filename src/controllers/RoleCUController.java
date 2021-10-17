@@ -107,7 +107,6 @@ public class RoleCUController implements Initializable {
 	
 	//btnSave
 	public void btnSaveAction() {
-		Rectangle2D screenBounds = Screen.getPrimary().getBounds();
 		try {
 			
 			String code = tfCode.getText();
@@ -123,21 +122,22 @@ public class RoleCUController implements Initializable {
 				if(this.roleId == 0) {
 					roleModel.createRole(roles);
 					success();
+					roleController.parseData(null);
+					this.btnCancelAction();
 				} else {
 					Alert alert = new Alert(AlertType.CONFIRMATION);
 					alert.setTitle("Update Role Confirmation");
 					alert.setHeaderText("Do you want to make this change?");
-					alert.setX(screenBounds.getWidth() - 900);
-					alert.setY(screenBounds.getHeight() - 610);
 					Optional<ButtonType> option = alert.showAndWait();
 					if (option.get() == ButtonType.OK) {
 						roleModel.updateRoleById(this.roleId, roles);
 						success();
+						roleController.parseData(null);
+						this.btnCancelAction();
 					} 
 					
 				}
-				roleController.parseData(null);
-				this.btnCancelAction();
+				
 				
 				
 			}

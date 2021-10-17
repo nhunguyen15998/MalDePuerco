@@ -165,16 +165,24 @@ public class MasterController implements Initializable {
 			btnDiscount.setManaged(true);
 		}
 		
-	/*
+	
 		//invoice
 		btnInvoices.setVisible(false);
 		btnInvoices.setManaged(false);
 		
-		if(AuthenticationModel.hasPermission("VIEW_INVOICE") || AuthenticationModel.roleName.equals("Admin")) {
+		if(AuthenticationModel.hasPermission("VIEW_INVOICE") || AuthenticationModel.roleName.equals("Super Admin")) {
 			btnInvoices.setVisible(true);
 			btnInvoices.setManaged(true);
 		}
-		*/
+		//setting tablet
+		btnSetting.setVisible(false);
+		btnSetting.setManaged(false);
+		
+		if(AuthenticationModel.hasPermission("SETTING_TABLET") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnSetting.setVisible(true);
+			btnSetting.setManaged(true);
+		}
+		//serving, attribute, menu, order
 		
 	
 			
@@ -188,16 +196,14 @@ public class MasterController implements Initializable {
 
     @FXML
     public void btnCloseAction() {
-    	Stage stage = SignInController.substage;
-    	stage.close();
-          
-	        
-		
     	
-    	
+    		System.exit(1);
     }
   
-
+	public void clearSession() {
+		Stage stage = SignInController.substage;
+		stage.close();
+	}
     @FXML
     private void logoutAction() {
         FXMLLoader loader = new FXMLLoader(MasterController.this.getClass().getResource("/views/sign_in.fxml"));
@@ -338,6 +344,7 @@ public class MasterController implements Initializable {
 
     @FXML
     private void invoicesAction() {
+    	redirect("invoices.fxml");
     	 setBtn();
          btnInvoices.getStyleClass().add("btnFocused");
          setBtnBar();

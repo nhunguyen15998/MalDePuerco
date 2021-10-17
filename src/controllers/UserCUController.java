@@ -189,6 +189,8 @@ public class UserCUController implements Initializable {
 					users.add(DataMapping.getInstance("password", passHased));
 					userModel.createUser(users);
 					Helpers.status("success");
+					userController.parseData(null);
+					this.close();
 				} else {
 					Alert alert = new Alert(AlertType.CONFIRMATION);
 					alert.setTitle("Update User Confirmation");
@@ -197,11 +199,14 @@ public class UserCUController implements Initializable {
 					if (option.get() == ButtonType.OK) {
 						userModel.updateUserById(this.userId, users);
 						Helpers.status("success");
-					} 
+						userController.parseData(null);
+						this.close();
+					} else if(option.get() == ButtonType.CANCEL) {
+						System.out.println("none");
+					}
 					
 				}
-				userController.parseData(null);
-				this.close();
+				
 				
 			}
 		} catch (Exception e) {
