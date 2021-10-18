@@ -148,9 +148,9 @@
                         <Font name="System Italic" size="10.5" />
                      </font>
                   </Label>
-                  <TextArea fx:id="tfTable" disable="true" layoutX="332.0" layoutY="290.0" prefHeight="36.0" prefWidth="177.0" promptText="Dont have table selected" styleClass="tfUserUC" stylesheets="@../css/useruc.css">
+                  <TextArea fx:id="tfTable" disable="true" layoutX="331.0" layoutY="284.0" prefHeight="37.0" prefWidth="189.0" promptText="Dont have table selected" styleClass="tfUserUC" stylesheets="@../css/useruc.css">
                      <font>
-                        <Font size="11.0" />
+                        <Font size="10.7" />
                      </font></TextArea>
                </children>
             </Pane>

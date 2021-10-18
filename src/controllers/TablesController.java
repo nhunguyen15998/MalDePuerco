@@ -186,28 +186,35 @@ public class TablesController implements Initializable {
     	String sql = "select tables.id, table_id, reservation_id, date_pick, r.status,start_time from tables_reservation t join tables  on tables.id= t.table_id join reservations r on r.id=t.reservation_id "
     			+ "where r.status = 4 and curdate()=date_pick and curtime()>=start_time" ;
     	String sql2 = "select tables.id, table_id, reservation_id, date_pick, r.status,start_time from tables_reservation t join tables  on tables.id= t.table_id join reservations r on r.id=t.reservation_id where (r.status = 1 or r.status = 2 or r.status = 3) and curdate()=date_pick and start_time<=curtime() and curtime()<=date_add(start_time, INTERVAL 30 MINUTE)" ;
-    	
+    	String sql3 = "select tables.id, table_id, reservation_id, date_pick, r.status,start_time from tables_reservation t join tables  on tables.id= t.table_id join reservations r on r.id=t.reservation_id where (r.status = 5 and curdate()=date_pick and curtime()>date_add(start_time, INTERVAL 30 MINUTE)) or (r.status = 0 and curdate()=date_pick)";
         try {
+        	Statement stmt3 = MySQLJDBC.connection.createStatement();
+    	   	ResultSet rs3 = stmt3.executeQuery(sql3);
+    	   	while(rs3.next()) {
+    	   		int id = rs3.getInt("tables.id");
+    	   		tableModel.updateTableById(id, updateSupport(String.valueOf(TableModel.TABLE_EMPTY)));
+    	   	}
         	Statement stmt = MySQLJDBC.connection.createStatement();
     	   	ResultSet rs = stmt.executeQuery(sql);
     	   	while(rs.next()) {
     	   		int id = rs.getInt("tables.id");
-    	   		ArrayList<DataMapping> table = new ArrayList<DataMapping>();
-				table.add(DataMapping.getInstance("status", String.valueOf(TableModel.TABLE_PLACED)));
-				tableModel.updateTableById(id, table);
+    	   		tableModel.updateTableById(id, updateSupport(String.valueOf(TableModel.TABLE_PLACED)));
     	   	}
     	   Statement stmt2 = MySQLJDBC.connection.createStatement();
     		ResultSet rs1 = stmt2.executeQuery(sql2);
     	   	while(rs1.next()) {
     	   		int id = rs1.getInt("tables.id");
-    	   		ArrayList<DataMapping> table = new ArrayList<DataMapping>();
-				table.add(DataMapping.getInstance("status", String.valueOf(TableModel.TABLE_WAITING)));
-				tableModel.updateTableById(id, table);
+    	   		tableModel.updateTableById(id, updateSupport(String.valueOf(TableModel.TABLE_WAITING)));
     	   	}
     	}catch(SQLException  ex) {
     		ex.printStackTrace();
     	}
     	
+    }
+    private ArrayList<DataMapping> updateSupport(String value){
+    	ArrayList<DataMapping> table = new ArrayList<DataMapping>();
+		table.add(DataMapping.getInstance("status", value));
+		return table;
     }
   //load data
   	public void parseData(ArrayList<CompareOperator> conditions) {

@@ -256,7 +256,7 @@
                               <Font name="Cambria" size="12.85" />
                            </font>
                         </Label>
-                        <Label fx:id="lblTablePick" layoutX="10.0" layoutY="174.0" prefHeight="0.0" textFill="#9c6d6d">
+                        <Label fx:id="lblTablePick" layoutX="10.0" layoutY="174.0" prefHeight="15.0" prefWidth="306.0" textFill="#9c6d6d">
                            <font>
                               <Font name="Cambria" size="12.85" />
                            </font>
@@ -281,22 +281,22 @@
                               <Font name="Cambria" size="12.85" />
                            </font>
                         </Label>
-                        <Label fx:id="lblDeposit" prefHeight="0.0" textFill="#9c6d6d">
+                        <Label fx:id="lblDeposit" prefHeight="15.0" prefWidth="333.0" textFill="#9c6d6d">
                            <font>
                               <Font name="Cambria" size="12.85" />
                            </font>
                         </Label>
-                        <Label fx:id="lblDiscount" prefHeight="0.0" textFill="#9c6d6d">
+                        <Label fx:id="lblDiscount" prefHeight="15.0" prefWidth="316.0" textFill="#9c6d6d">
                            <font>
                               <Font name="Cambria" size="12.85" />
                            </font>
                         </Label>
-                        <Label fx:id="lblStatus" prefHeight="0.0" textFill="#9c6d6d">
+                        <Label fx:id="lblStatus" prefHeight="15.0" prefWidth="330.0" textFill="#9c6d6d">
                            <font>
                               <Font name="Cambria" size="12.85" />
                            </font>
                         </Label>
-                        <Label fx:id="lblCreated" layoutX="10.0" layoutY="189.0" prefHeight="0.0" textFill="#9c6d6d">
+                        <Label fx:id="lblCreated" layoutX="10.0" layoutY="189.0" prefHeight="15.0" prefWidth="353.0" textFill="#9c6d6d">
                            <font>
                               <Font name="Cambria" size="12.85" />
                            </font>

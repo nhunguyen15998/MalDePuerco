@@ -174,8 +174,9 @@ public class ReservationCUController implements Initializable {
 					Alert alert = new Alert(AlertType.ERROR);
 					boolean checkPresent = (status.equals("4")&&checkToPresent(reserId));
 					boolean checkCancel = (status.equals("0")&&checkToCancel(reserId));
-					
-						if(checkPresent) {
+					 if(!checkPresent&&!checkCancel) {
+						 updateReser(re);
+					}else if(checkPresent) {
 							 updateReser(re);
 							
 						}else if(!checkPresent){
@@ -190,9 +191,7 @@ public class ReservationCUController implements Initializable {
 							alert.setHeaderText("Can not cancel reservation after 2 hours");
 							 alert.showAndWait();
 						}
-					else if(!checkPresent&&!checkCancel) {
-						 updateReser(re);
-					}
+					
 					
 					
 					
@@ -681,7 +680,7 @@ public class ReservationCUController implements Initializable {
 				}
 				count++;
 				System.out.println("count:"+ count);
-				if(count%3==0) {
+				if(count%4==0) {
 					value += "\n";
 				}
 				
