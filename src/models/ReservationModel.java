@@ -40,29 +40,28 @@ public class ReservationModel extends BaseModel{
 		
 		
 		
-	public static ReservationModel getInstance( int id,int no, int deposit, String decrease, int status,
-				int seats, String code, String name, String phone, String email, String start_time, String end_time,
-				String date_pick, String createdAt) {
-			if(reserModel ==  null) {
-				ReservationModel item = new ReservationModel();
-				item.id = id;
-				item.no = no;
-				item.deposit = deposit;
-				item.decrease = decrease;
-				item.status = status;
-				item.seats = seats;
-				item.code = code;
-				item.name = name;
-				item.phone = phone;
-				item.email = email;
-				item.start_time = start_time;
-				item.end_time = end_time;
-				item.date_pick = date_pick;
-				item.createdAt = createdAt;
-				return item;
-			}
-			return reserModel;
+	public ReservationModel( int id,int no, int deposit, String decrease, int status,
+			int seats, String code, String name, String phone, String email, String start_time, String end_time,
+			String date_pick, String createdAt) {
+			super(table, columns);
+			this.id = id;
+			this.deposit = deposit;
+			this.status = status;
+			this.seats = seats;
+			this.no = no;
+			this.code = code;
+			this.name = name;
+			this.phone = phone;
+			this.email = email;
+			this.start_time = start_time;
+			this.end_time = end_time;
+			this.date_pick = date_pick;
+			this.decrease = decrease;
+			this.createdAt = createdAt;
 		}
+
+
+
 
 
 	//get list

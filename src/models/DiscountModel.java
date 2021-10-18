@@ -37,24 +37,22 @@ public class DiscountModel extends BaseModel{
 			
 		}
 
-		public static DiscountModel getInstance( int id, int sequence, String code, String name,
+		public DiscountModel( int id, int sequence, String code, String name,
 				String descriptions, String start_date, String end_date, String createdAt, int status, float decrease) {
-			if(discountModel==null) {
-				DiscountModel item = new DiscountModel();
-				item.id = id;
-				item.sequence = sequence;
-				item.code = code;
-				item.name = name;
-				item.descriptions = descriptions;
-				item.start_date = start_date;
-				item.end_date = end_date;
-				item.createdAt = createdAt;
-				item.status = status;
-				item.decrease = decrease;
-				return item;
-			}
-			return discountModel;
+			super(table, columns);
+			this.id = id;
+			this.sequence = sequence;
+			this.code = code;
+			this.name = name;
+			this.descriptions = descriptions;
+			this.start_date = start_date;
+			this.end_date = end_date;
+			this.createdAt = createdAt;
+			this.status = status;
+			this.decrease = decrease;
 		}
+
+		
 		public ResultSet getDiscountList(ArrayList<CompareOperator> conditions) {
 			try {	
 				return this.getData(columns, conditions, null);

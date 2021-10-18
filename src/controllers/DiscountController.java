@@ -316,7 +316,7 @@ public class DiscountController implements Initializable {
 			ResultSet discounts = discountModel.getDiscountList(conditions);
 			
 			while(discounts.next()) {
-				discountList.add(DiscountModel.getInstance(
+				discountList.add(new DiscountModel(
 						discounts.getInt("id"),
 						discounts.getRow(),
 						discounts.getString("code"),

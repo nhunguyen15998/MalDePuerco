@@ -54,25 +54,21 @@ public class TableModel extends BaseModel{
 			}
 		}
 
-	public static TableModel getInstance( int id, int sequence, String code, String name, int seats,
-			String createdAt, int status, int is_set, String username, int userID ) {
-		if(tableModel ==  null) {
-			TableModel item = new TableModel();
-			item.id = id;
-			item.sequence = sequence;
-			item.code = code;
-			item.name = name;
-			item.seats = seats;
-			item.createdAt = createdAt;
-			item.status = status;
-			item.is_set = is_set;
-			item.username = username;
-			item.user_id = userID;
-			return item;
+	public TableModel( int id,int sequence,  String code,
+				String name, int seats, String createdAt, int status, int is_set,String username,  int user_id) {
+			super(table, columns);
+			this.id = id;
+			this.user_id = user_id;
+			this.sequence = sequence;
+			this.code = code;
+			this.username = username;
+			this.name = name;
+			this.seats = seats;
+			this.createdAt = createdAt;
+			this.status = status;
+			this.is_set = is_set;
 		}
-		return tableModel;
-		
-	}
+
 	//get data by id
 		public ResultSet getTableById(int id) {
 			try {		

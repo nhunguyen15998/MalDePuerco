@@ -247,7 +247,7 @@ public class ReservationController implements Initializable {
   		
   			ResultSet r = res.getReserList(conditions);
   			while(r.next()) {
-  				reserList.add( ReservationModel.getInstance(
+  				reserList.add(new ReservationModel(
   					r.getInt("id"),
   					r.getRow(),
   					r.getInt("deposit"),

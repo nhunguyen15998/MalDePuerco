@@ -243,7 +243,7 @@ public class TablesController implements Initializable {
   			
   			ResultSet table = tableModel.getTableList(conditions);
   			while(table.next()) {
-  				tableList.add(TableModel.getInstance(
+  				tableList.add(new TableModel(
   						table.getInt("id"),
   						table.getRow(),
   						table.getString("tables.code"),

@@ -65,7 +65,7 @@
                   <Font name="Cambria" size="13.5" />
                </font>
             </Label>
-            <Button fx:id="btnCancel" alignment="CENTER" layoutX="414.0" layoutY="444.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: linear-gradient(to right, #fbc6c4, #f4a29f, #fb8b87, #FB6E67); -fx-border-radius: 50px; -fx-background-radius: 50px;" text="Close" textFill="WHITE">
+            <Button fx:id="btnCancel" alignment="CENTER" layoutX="414.0" layoutY="444.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: linear-gradient(to right, #fbc6c4, #f4a29f, #fb8b87, #FB6E67); -fx-border-radius: 50px; -fx-background-radius: 50px; -fx-cursor: hand;" text="Close" textFill="WHITE">
                <effect>
                   <DropShadow color="#fb6e677d" />
                </effect>
