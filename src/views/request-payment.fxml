@@ -10,14 +10,14 @@
 
 <FlowPane fx:id="fpRequestPayment" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2B2B2B;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CustomerPaymentController">
    <children>
-      <AnchorPane fx:id="apLeft" prefHeight="400.0" prefWidth="300.0">
+      <AnchorPane prefHeight="400.0" prefWidth="300.0">
          <children>
-            <ScrollPane fx:id="secondScrollPane" hbarPolicy="NEVER" layoutX="13.0" layoutY="90.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="251.0" prefWidth="275.0" style="-fx-background-color: #2B2B2B; -fx-border-color: #2B2B2B;" vbarPolicy="NEVER">
+            <ScrollPane hbarPolicy="NEVER" layoutX="13.0" layoutY="90.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="247.0" prefWidth="275.0" style="-fx-background-color: #2B2B2B; -fx-border-color: #2B2B2B;" vbarPolicy="NEVER">
                <content>
-                  <AnchorPane fx:id="apChildPane" minHeight="0.0" minWidth="0.0" prefHeight="620.0" prefWidth="272.0" style="-fx-background-color: #2B2B2B;" />
+                  <AnchorPane fx:id="apChildPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="2000.0" prefWidth="272.0" style="-fx-background-color: #2B2B2B;" />
                </content>
             </ScrollPane>
-            <Pane fx:id="firstPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="300.0">
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="300.0">
                <children>
                   <Label layoutX="18.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="142.0" text="Order Payment" textFill="WHITE">
                      <font>
@@ -55,18 +55,18 @@
                   </Label>
                </children>
             </Pane>
-            <Button fx:id="btnCancel" contentDisplay="RIGHT" layoutX="20.0" layoutY="351.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="36.0" prefWidth="87.0" style="-fx-background-color: #2B2B2B; -fx-border-color: #ea7c69; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Cancel" textFill="WHITE">
+            <Button fx:id="btnCancel" contentDisplay="RIGHT" layoutX="20.0" layoutY="344.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="87.0" style="-fx-background-color: #2B2B2B; -fx-border-color: #ea7c69; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Cancel" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="apRight" prefHeight="400.0" prefWidth="300.0">
+      <AnchorPane prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: #3B3F40;">
          <children>
-            <AnchorPane fx:id="fourthPane" layoutX="13.0" layoutY="224.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="174.0" prefWidth="275.0">
+            <AnchorPane layoutX="13.0" layoutY="220.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="164.0" prefWidth="275.0">
                <children>
-                  <Pane layoutX="11.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="111.0" prefWidth="253.0" style="-fx-background-radius: 10px; -fx-background-color: #3B3F40; -fx-border-radius: 10px; -fx-border-color: #3B3F40;">
+                  <Pane layoutX="11.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="111.0" prefWidth="253.0" style="-fx-background-radius: 10px; -fx-background-color: #2B2B2B; -fx-border-radius: 10px; -fx-border-color: #3B3F40;">
                      <children>
                         <Label layoutX="20.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="50.0" text="Subtotal" textFill="#ffffff8f" textOverrun="WORD_ELLIPSIS">
                            <font>
@@ -88,7 +88,7 @@
                               <Font name="System Bold" size="11.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblDiscount" alignment="CENTER_RIGHT" layoutX="144.0" layoutY="37.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="81.0" text="($50)" textAlignment="RIGHT" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+                        <Label fx:id="lblDiscount" alignment="CENTER_RIGHT" layoutX="144.0" layoutY="37.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="81.0" text="0" textAlignment="RIGHT" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                            <font>
                               <Font name="System Bold" size="11.0" />
                            </font>
@@ -104,12 +104,12 @@
                               <Font size="10.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="tfTip" alignment="CENTER_RIGHT" layoutX="195.0" layoutY="22.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="30.0" style="-fx-background-radius: 5px;" text="1">
+                        <TextField fx:id="tfTip" alignment="CENTER_RIGHT" layoutX="201.0" layoutY="22.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="30.0" promptText="0" style="-fx-background-radius: 5px;" text="0">
                            <font>
                               <Font size="9.0" />
                            </font>
                         </TextField>
-                        <Label alignment="CENTER_RIGHT" layoutX="168.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="25.0" text="\$" textAlignment="RIGHT" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+                        <Label alignment="CENTER_RIGHT" layoutX="175.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="25.0" text="\$" textAlignment="RIGHT" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                            <font>
                               <Font name="System Bold" size="11.0" />
                            </font>
@@ -125,11 +125,8 @@
                            </font>
                         </Label>
                      </children>
-                     <effect>
-                        <DropShadow color="#000000e9" offsetY="8.0" />
-                     </effect>
                   </Pane>
-                  <Button fx:id="btnPay" contentDisplay="RIGHT" layoutX="11.0" layoutY="126.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="253.0" style="-fx-background-color: #2B2B2B; -fx-border-color: #ea7c69; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Pay" textFill="WHITE">
+                  <Button fx:id="btnPay" contentDisplay="RIGHT" layoutX="11.0" layoutY="121.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnPayAction" prefHeight="36.0" prefWidth="253.0" style="-fx-background-color: #3B3F40; -fx-border-color: #ea7c69; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Pay" textFill="WHITE">
                      <font>
                         <Font size="13.0" />
                      </font>
@@ -143,99 +140,54 @@
                   </Button>
                </children>
             </AnchorPane>
-            <Pane fx:id="thirdPane" layoutX="13.0" layoutY="123.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="275.0">
+            <Pane layoutX="13.0" layoutY="123.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="275.0">
                <children>
-                  <ScrollPane hbarPolicy="NEVER" layoutY="17.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="275.0" style="-fx-background-color: #2B2B2B;" vbarPolicy="NEVER">
-                     <content>
-                        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="40.0" prefWidth="360.0" style="-fx-background-color: #2B2B2B;">
-                           <children>
-                              <HBox fx:id="hboxTip" layoutX="10.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="275.0">
-                                 <children>
-                                    <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="43.0" style="-fx-background-color: #FBBC05; -fx-background-radius: 50px;" text="\$0" textFill="#383c3c">
-                                       <font>
-                                          <Font size="11.0" />
-                                       </font>
-                                    </Button>
-                                    <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="43.0" style="-fx-background-color: #2B2B2B; -fx-background-radius: 50px;" text="\$1" textFill="WHITE">
-                                       <font>
-                                          <Font size="11.0" />
-                                       </font>
-                                    </Button>
-                                    <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="43.0" style="-fx-background-color: #2B2B2B; -fx-background-radius: 50px;" text="\$2" textFill="WHITE">
-                                       <font>
-                                          <Font size="11.0" />
-                                       </font>
-                                    </Button>
-                                    <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="43.0" style="-fx-background-color: #2B2B2B; -fx-background-radius: 50px;" text="\$5" textFill="WHITE">
-                                       <font>
-                                          <Font size="11.0" />
-                                       </font>
-                                    </Button>
-                                    <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="43.0" style="-fx-background-color: #2B2B2B; -fx-background-radius: 50px;" text="\$10" textFill="WHITE">
-                                       <font>
-                                          <Font size="11.0" />
-                                       </font>
-                                    </Button>
-                                    <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="43.0" style="-fx-background-color: #2B2B2B; -fx-background-radius: 50px;" text="\$20" textFill="WHITE">
-                                       <font>
-                                          <Font size="11.0" />
-                                       </font>
-                                    </Button>
-                                    <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="43.0" style="-fx-background-color: #2B2B2B; -fx-background-radius: 50px;" text="\$50" textFill="WHITE">
-                                       <font>
-                                          <Font size="11.0" />
-                                       </font>
-                                    </Button>
-                                    <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="43.0" style="-fx-background-color: #2B2B2B; -fx-background-radius: 50px;" text="\$100" textFill="WHITE">
-                                       <font>
-                                          <Font size="11.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </ScrollPane>
-                  <Label layoutX="16.0" layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="166.0" text="Some tips for supportive servers?" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
-                     <font>
-                        <Font size="11.0" />
-                     </font>
-                  </Label>
-                  <ComboBox fx:id="cbDiscount" layoutX="143.0" layoutY="62.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="118.0" promptText="Discount" style="-fx-background-color: white;" />
-                  <CheckBox layoutX="19.0" layoutY="61.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="118.0" text="Has deposited?" textFill="WHITE">
+                  <ComboBox fx:id="cbDiscount" layoutX="143.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="118.0" promptText="Discount" style="-fx-background-color: white;" />
+                  <CheckBox fx:id="chbDeposit" layoutX="19.0" layoutY="6.0" mnemonicParsing="false" onMouseClicked="#chbDepositChecked" prefHeight="27.0" prefWidth="118.0" text="Has deposited?" textFill="WHITE">
                      <font>
                         <Font size="12.0" />
                      </font>
                   </CheckBox>
+                  <TextField fx:id="tfPhone" layoutX="20.0" layoutY="44.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="159.0" promptText="Reservation phone">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </TextField>
+                  <Button contentDisplay="RIGHT" layoutX="193.0" layoutY="44.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnClearAllAction" prefHeight="30.0" prefWidth="69.0" style="-fx-background-color: #2B2B2B; -fx-border-color: #ea7c69; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Clear All" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
                </children>
             </Pane>
-            <Pane fx:id="thirdPane1" layoutX="13.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="111.0" prefWidth="275.0">
+            <Pane layoutX="13.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="111.0" prefWidth="275.0">
                <children>
                   <Label layoutX="10.0" layoutY="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="166.0" text="Select a payment method:" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ScrollPane hbarPolicy="NEVER" layoutX="9.0" layoutY="36.0" prefHeight="77.0" prefWidth="266.0" style="-fx-background-color: #2B2B2B;" vbarPolicy="NEVER">
+                  <ScrollPane hbarPolicy="NEVER" layoutX="9.0" layoutY="36.0" prefHeight="77.0" prefWidth="266.0" style="-fx-background-color: #3B3F40; -fx-border-radius: 10px;" vbarPolicy="NEVER">
                      <content>
-                        <GridPane fx:id="gpPaymentMethod" prefHeight="77.0" prefWidth="264.0" style="-fx-background-color: #2B2B2B;">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <RadioButton fx:id="rbPaymentMethod" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="20.0" prefWidth="245.0" text="Cash" textFill="WHITE" GridPane.halignment="CENTER">
-                                 <font>
-                                    <Font size="12.0" />
-                                 </font>
-                              </RadioButton>
-                           
-                           </children>
-                        </GridPane>
+                     	<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="77.0" prefWidth="266.0" style="-fx-background-color: #3B3F40;">
+                            <children>
+                        		<GridPane fx:id="gpPaymentMethod" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="53.0" prefWidth="264.0">
+                          			<columnConstraints>
+                            			<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          			</columnConstraints>
+                          			<rowConstraints>
+                           				<RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="ALWAYS" />
+                          			</rowConstraints>
+                           			<children>
+                              			<RadioButton fx:id="rbPaymentMethod" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="245.0" text="Cash" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                 			<font>
+                                    			<Font size="12.0" />
+                                 			</font>
+                              			</RadioButton>
+                           			</children>
+                        		</GridPane>
+                        	</children>
+                        </AnchorPane>
                      </content>
                   </ScrollPane>
                </children>

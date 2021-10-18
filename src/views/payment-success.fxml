@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="361.0" prefWidth="690.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ReviewOrderController">
+   <children>
+      <ImageView fitHeight="67.0" fitWidth="63.0" layoutX="112.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/success.gif" />
+         </image>
+      </ImageView>
+      <Text layoutX="32.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hooray! Your order has been successfully paid. " textAlignment="CENTER" wrappingWidth="223.78076171875">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Text>
+      <Button fx:id="btnCancel" contentDisplay="RIGHT" layoutX="25.0" layoutY="304.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="36.0" prefWidth="87.0" style="-fx-background-color: #2B2B2B; -fx-border-color: #ea7c69; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Cancel" textFill="WHITE">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <AnchorPane layoutX="286.0" prefHeight="361.0" prefWidth="405.0" style="-fx-background-color: #3B3F40;">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" text="Rating and Review" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+            <Button contentDisplay="RIGHT" layoutX="304.0" layoutY="311.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnSendAction" prefHeight="36.0" prefWidth="87.0" style="-fx-background-color: #2B2B2B; -fx-border-color: #ea7c69; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Send" textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
+            <Label layoutX="14.0" layoutY="103.0" text="Service" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Text fill="WHITE" layoutX="14.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please let us know if you are well served. We always treasure your comments!" wrappingWidth="385.0498046875">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Text>
+            <TextArea fx:id="taComment" layoutX="24.0" layoutY="218.0" prefHeight="69.0" prefWidth="360.0" promptText="Write something">
+               <font>
+                  <Font size="13.0" />
+               </font></TextArea>
+            <Pane layoutX="14.0" layoutY="125.0" prefHeight="63.0" prefWidth="377.0">
+               <children>
+                  <RadioButton fx:id="rbSatisfied" layoutX="166.0" layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="20.0" prefWidth="82.0" text="Satisfied" textFill="WHITE">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </RadioButton>
+                  <RadioButton fx:id="rbESatisfied" layoutX="9.0" layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="20.0" prefWidth="125.0" text="Extremely satisfied" textFill="WHITE">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </RadioButton>
+                  <RadioButton fx:id="rbNormal" layoutX="278.0" layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="20.0" prefWidth="82.0" text="Normal" textFill="WHITE">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </RadioButton>
+                  <RadioButton fx:id="rbEDisappointed" layoutX="166.0" layoutY="39.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="20.0" prefWidth="162.0" text="Extremely disappointed" textFill="WHITE">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </RadioButton>
+                  <RadioButton fx:id="rbDisappointed" layoutX="9.0" layoutY="39.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="20.0" prefWidth="125.0" text="Disappointed" textFill="WHITE">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </RadioButton>
+               </children>
+            </Pane>
+            <Label layoutX="25.0" layoutY="198.0" text="Your comments" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Text layoutX="51.0" layoutY="232.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thank you for coming today, see you again" textAlignment="CENTER" wrappingWidth="184.0498046875">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Text>
+   </children>
+   <effect>
+      <DropShadow color="#2f2a2adb" height="53.27" radius="30.57" spread="0.56" width="71.01" />
+   </effect>
+</AnchorPane>

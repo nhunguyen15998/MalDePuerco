@@ -1,6 +1,11 @@
 package controllers;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.sql.ResultSet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,6 +15,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
+
+import javax.swing.event.ChangeListener;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -54,6 +61,7 @@ import models.ServingCategoryModel;
 import models.ServingModel;
 import utils.CompareOperator;
 import utils.DataMapping;
+import utils.HandleNotifications;
 import utils.Helpers;
 
 public class CustomerHomeController implements Initializable {
@@ -62,6 +70,7 @@ public class CustomerHomeController implements Initializable {
 	private OrderModel orderModel = new OrderModel();
 	private OrderDetailModel orderDetailModel = new OrderDetailModel();
 	private ServingAttributeModel servingAttributeModel = new ServingAttributeModel();
+
 
 //	private TableModel tableModel = ;
 	public static boolean isActive = false;
@@ -115,7 +124,7 @@ public class CustomerHomeController implements Initializable {
 	@FXML
 	private Button btnReloadUpdated;
 	@FXML
-	private Label lblOrderCode;
+	public Label lblOrderCode;
 	
 	//pane
 	@FXML
@@ -174,9 +183,18 @@ public class CustomerHomeController implements Initializable {
 	//--------------METHODS---------------------
 	//----------initialize & search-------------
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	public void initialize(URL arg0, ResourceBundle arg1){
+		// connect to socket
+//		try {
+//			HandleNotifications.getInstance().handleReceivedMessage();
+//			//this.customerMasterHolder.setVisible(false);
+//		} catch (IOException e1) {
+//			e1.printStackTrace();
+//		}
+
+		
 		try {
-			this.lblTableName.setText(OrderModel.tableName);
+			//this.lblTableName.setText(OrderModel.tableName);
 			this.vboxOrderList.getChildren().clear();
 			this.addItemToOrderList();
 			this.btnAllAction();
@@ -185,9 +203,6 @@ public class CustomerHomeController implements Initializable {
 			//btns
 			
 			btnServer.setOnMouseClicked(event -> {
-				
-			});
-			btnNoti.setOnMouseClicked(event -> {
 				
 			});
 			btnHelp.setOnMouseClicked(event -> {
@@ -203,6 +218,7 @@ public class CustomerHomeController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
 	//load latest unpaid order - get updated data -> add to updated list, draw updated list -> render
 	public void loadLatestUnpaidOrder() {
 		ArrayList<CompareOperator> unpaidOrder =  new ArrayList<CompareOperator>();
@@ -381,11 +397,7 @@ public class CustomerHomeController implements Initializable {
 	
 	//btnnoti
 	public void btnNotiAction() {
-		try {
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 	}
 	
 	//btnserver
@@ -559,9 +571,7 @@ public class CustomerHomeController implements Initializable {
 					this.customServingLayout(id);
 				});
 				servingPane.getChildren().addAll(prodId, servingImage, servingName, servingPrice, servingStock, addItem);
-				this.servingGridPane.add(servingPane, x, y);//0,0 1,0 2,0 3,0
-															//0,1 1,0 1,1 2,1 
-															//0,2 2,0 1,2 2,2 
+				this.servingGridPane.add(servingPane, x, y);
 				count++;
 				x++;
 				if(count % 4 == 0) {
@@ -763,11 +773,6 @@ public class CustomerHomeController implements Initializable {
 			deleteIcon.setFitWidth(15);
 			btnDelete.setGraphic(deleteIcon);
 			
-//			Button btnRefresh = new Button("reload");
-//			btnRefresh.setOnMouseClicked(event -> {
-//				CustomerHomeController.updatedList.clear();
-//				this.getUpdated();
-//			});
 			//Pane
 			Pane vboxPane = new Pane();
 			vboxPane.setPrefSize(275, 100);
@@ -930,6 +935,7 @@ public class CustomerHomeController implements Initializable {
 			this.emptyOrderList();
 		}
 	}
+	
 	//load updated 
 	public ArrayList<CompareOperator> loadUpdatedData() {
 		ArrayList<CompareOperator> updated = new ArrayList<CompareOperator>();
@@ -963,6 +969,9 @@ public class CustomerHomeController implements Initializable {
 				));
 			}
 			this.lblOrderCode.setText("#"+this.orderCode);
+			if(!orderDetails.next()) {
+				this.lblOrderCode.setText("");
+			}
 			System.out.println(">>>after updated: "+this.totalPlace);
 			return orderId;
 		} catch (Exception e) {
@@ -1132,6 +1141,32 @@ public class CustomerHomeController implements Initializable {
 
 	public void setServingId(int servingId) {
 		this.servingId = servingId;
+	}
+	
+	
+	public void handleMessage() {
+		try {
+			AnchorPane apNotiAlert;
+			Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/notification-alert.fxml"));
+			apNotiAlert = root.load();
+
+			//controller
+			NotificationController controller = root.getController();
+			controller.initialize(null, null);
+			
+			Scene scene = new Scene(apNotiAlert, 340, 460);
+			Stage stage = new Stage();
+			stage.initStyle(StageStyle.TRANSPARENT);
+			scene.setFill(Color.TRANSPARENT);
+			stage.setX((screenBounds.getWidth() - 340)/2);
+			stage.setY((screenBounds.getHeight() - 460)/2);
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.setScene(scene);
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
