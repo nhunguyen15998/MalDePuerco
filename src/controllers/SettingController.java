@@ -121,7 +121,9 @@ public class SettingController implements Initializable {
 		if(!choose.equals("")) {
 			SettingController.tablet_code=(preference.get("cbb", cbbCode.getValue().toString()));
 			preference.put("tabletCode", SettingController.tablet_code);
-			 System.out.println("new:"+SettingController.tablet_code);
+			SettingController.tableId= (preference.getInt("tableId", tableId));
+			preference.putInt("tabletId", SettingController.tableId);
+			 System.out.println("new:"+SettingController.tablet_code+ "\n Table id: "+SettingController.tableId);
 			 ArrayList<DataMapping> code = new ArrayList<DataMapping>();
 				code.add(DataMapping.getInstance("is_set", "1"));
 						tableModel.updateTableById(SettingController.tableId, code);
@@ -142,7 +144,8 @@ public class SettingController implements Initializable {
 		// TODO Auto-generated method stub
 		preference = Preferences.userNodeForPackage(SettingController.class);
 		SettingController.tablet_code =(preference.get("tabletCode", ""));
-		System.out.println("old: "+ SettingController.tablet_code );
+		SettingController.tableId =preference.getInt("tabletId", 0);
+		System.out.println("old: "+ SettingController.tablet_code +"\n Table id: "+SettingController.tableId );
 		cbbCode.setValue(SettingController.tablet_code );
 		updateData();
 		//invoice
