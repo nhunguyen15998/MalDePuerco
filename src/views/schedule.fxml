@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="426.0" prefWidth="219.0" style="-fx-background-color: white;" stylesheets="@../css/item.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.ScheduleController">
+   <children>
+      <Pane fx:id="paneStatus" layoutY="86.0" prefHeight="341.0" prefWidth="219.0">
+         <children>
+            <VBox fx:id="vbox" prefHeight="341.0" prefWidth="220.0">
+               <children>
+                  <ScrollPane prefHeight="403.0" prefWidth="220.0" VBox.vgrow="ALWAYS">
+                     <content>
+                        <GridPane fx:id="grid" prefHeight="0.0" prefWidth="97.0">
+                           <columnConstraints>
+                              <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                        </GridPane>
+                     </content>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </ScrollPane>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+      <Pane prefHeight="38.0" prefWidth="220.0" style="-fx-background-color: #fff7f8;">
+         <children>
+            <DatePicker fx:id="dpDate" focusTraversable="false" layoutX="94.0" layoutY="7.0" onAction="#dateChoose" prefHeight="25.0" prefWidth="112.0" style="-fx-border-color: #d1bcbc; -fx-border-radius: 5;" />
+            <Label layoutX="14.0" layoutY="11.0" text="Schedules of" textFill="#965f5f">
+               <font>
+                  <Font name="Cambria" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Label id="6" fx:id="lblAll" alignment="CENTER" layoutX="4.0" layoutY="42.0" onMouseClicked="#tabAll" prefHeight="18.0" prefWidth="30.0" style="-fx-background-color: gray; -fx-text-fill: white; -fx-background-radius: 15;" styleClass="btnSchedule" stylesheets="@../css/item.css" text="All" textFill="#864242">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font>
+      </Label>
+      <Label id="1" fx:id="lblNew" alignment="CENTER" layoutX="38.0" layoutY="42.0" onMouseClicked="#tabNew" prefHeight="18.0" prefWidth="40.0" stylesheets="@../css/item.css" text="New" textFill="#864242">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font>
+         <styleClass>
+            <String fx:value="new" />
+            <String fx:value="btnSchedule" />
+         </styleClass>
+      </Label>
+      <Label id="2" fx:id="lblConfirm" alignment="CENTER" layoutX="82.0" layoutY="42.0" onMouseClicked="#tabConfirm" prefHeight="18.0" prefWidth="69.0" stylesheets="@../css/item.css" text="Confirmed" textFill="#864242">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font>
+         <styleClass>
+            <String fx:value="confirm" />
+            <String fx:value="btnSchedule" />
+         </styleClass>
+      </Label>
+      <Label id="3" fx:id="lblDepo" alignment="CENTER" layoutX="154.0" layoutY="42.0" onMouseClicked="#tabDepo" prefHeight="18.0" prefWidth="63.0" stylesheets="@../css/item.css" text="Deposited" textFill="#864242">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font>
+         <styleClass>
+            <String fx:value="diposit" />
+            <String fx:value="btnSchedule" />
+         </styleClass>
+      </Label>
+      <Label id="4" fx:id="lblPresent" alignment="CENTER" layoutX="4.0" layoutY="63.0" onMouseClicked="#tabPresent" prefHeight="18.0" prefWidth="60.0" stylesheets="@../css/item.css" text="Present" textFill="#864242">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font>
+         <styleClass>
+            <String fx:value="present" />
+            <String fx:value="btnSchedule" />
+         </styleClass>
+      </Label>
+      <Label id="5" fx:id="lblExpired" alignment="CENTER" layoutX="70.0" layoutY="63.0" onMouseClicked="#tabExpired" prefHeight="18.0" prefWidth="69.0" stylesheets="@../css/item.css" text="Expired" textFill="#864242">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font>
+         <styleClass>
+            <String fx:value="expired" />
+            <String fx:value="btnSchedule" />
+         </styleClass>
+      </Label>
+      <Label id="0" fx:id="lblCancel" alignment="CENTER" layoutX="146.0" layoutY="63.0" onMouseClicked="#tabCancel" prefHeight="18.0" prefWidth="72.0" stylesheets="@../css/item.css" text="Cancelled" textFill="#864242">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font>
+         <styleClass>
+            <String fx:value="cancel" />
+            <String fx:value="btnSchedule" />
+         </styleClass>
+      </Label>
+   </children>
+</AnchorPane>

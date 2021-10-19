@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="562.0" prefWidth="809.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx" fx:controller="controllers.ServingCategoriesController">
+   <children>
+      <Pane prefHeight="121.0" prefWidth="854.0" style="-fx-background-color: linear-gradient(to right, #4673db, #4596d9, #55c2e0, #6cd9e6);">
+         <children>
+            <Label layoutX="48.0" layoutY="31.0" text="Serving Categories Management" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="btnCancel" disable="true" fitHeight="46.0" fitWidth="37.0" layoutX="815.0" layoutY="3.0" onMouseClicked="#btnCancelAction" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="close">
+               <image>
+                  <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/close.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="45.0" layoutY="68.0" prefHeight="426.0" prefWidth="765.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.8),30, 0,10, 10);">
+         <children>
+            <TableView fx:id="tblDiscount" focusTraversable="false" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="735.0" styleClass="tblDiscount" stylesheets="@../css/discount.css">
+               <columns>
+                  <TableColumn fx:id="colNo" prefWidth="43.99996566772461" styleClass="col-header" text="#" />
+                  <TableColumn fx:id="colName" prefWidth="242.3999481201172" styleClass="col-header" text="Name" />
+                  <TableColumn fx:id="colParent" prefWidth="212.00006103515625" styleClass="col-header" text="Parent name" />
+                  <TableColumn fx:id="colCreatedAt" prefWidth="134.39996337890625" styleClass="col-header" text="Created at" />
+                  <TableColumn fx:id="colStatus" minWidth="0.0" prefWidth="100.800048828125" styleClass="col-header" text="Status" />
+                  <TableColumn prefWidth="75.0" text="ID" visible="false" />
+               </columns>
+            </TableView>
+            <TextField fx:id="tfName" focusTraversable="false" layoutX="290.0" layoutY="233.0" prefHeight="25.0" prefWidth="211.0" promptText="Name" style="-fx-background-color: #f0f9fa; -fx-border-width: 0 0 1 0; -fx-border-color: linear-gradient(to right, #4673db, #4596d9, #55c2e0, #6cd9e6);" />
+            <Label layoutX="203.0" layoutY="240.0" text="Name:" />
+            <Label layoutX="203.0" layoutY="326.0" text="Status:" />
+            <ComboBox fx:id="cbStatus" layoutX="290.0" layoutY="322.0" prefHeight="25.0" prefWidth="211.0" style="-fx-background-color: linear-gradient(to right, #e6f1f2,#d5e8eb);" />
+            <Button alignment="CENTER" layoutX="248.0" layoutY="375.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: linear-gradient(to right, #8DC9F8, #69B5F2, #4BA4EC, #3292E6); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btn" stylesheets="@../css/serving_cate.css" text="Save" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#5873de7d" />
+               </effect>
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
+                     <image>
+                        <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/save.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button alignment="CENTER" layoutX="336.0" layoutY="375.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: linear-gradient(to right, #ffdead, #f7b34d); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btn" stylesheets="@../css/serving_cate.css" text="Update" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#62a38d7d" />
+               </effect>
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/edit.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button alignment="CENTER" layoutX="431.0" layoutY="375.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: linear-gradient(to right, #dbd9d5, #a39e96); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btn" stylesheets="@../css/serving_cate.css" text="Reset" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#62a38d7d" />
+               </effect>
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../asset/reset.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Label layoutX="203.0" layoutY="283.0" text="Parent:" />
+            <ComboBox fx:id="cbParent" layoutX="290.0" layoutY="279.0" prefHeight="25.0" prefWidth="211.0" style="-fx-background-color: linear-gradient(to right, #e6f1f2,#d5e8eb);" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

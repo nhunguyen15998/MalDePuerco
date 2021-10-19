@@ -1,0 +1,45 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+.btn, .btnBar{
+    -fx-cursor:hand;
+    -fx-background-radius:0;
+    -fx-background-color: transparent;
+}
+ 
+.btnFocused{
+	
+    -fx-background-color: #752332;
+    -fx-border-color: white;
+    -fx-border-width:0 0 0 3;
+    -fx-padding: 0 0 0 6;
+}
+.btnBarFocused{
+	-fx-background-color:#913344;
+	 -fx-border-color: white;
+    -fx-border-width:0 0 3 0;
+}
+.btnBar:hover{
+	-fx-background-color:#913344;
+}
+.btn:hover{
+    -fx-background-color:#c46a7b;
+    -fx-border-color: white;
+    -fx-border-width:0 0 0 5;
+    -fx-font-size:13;
+}
+.btnMyAcccount{
+ -fx-background-color: transparent;
+}
+.btnMyAcccount:hover{
+-fx-background-color:rgba(211, 225, 230,0.5);
+}
+.tfMyAcc{
+-fx-background-color: #e8eced;
+-fx-border-color: linear-gradient(to left, #bccacf, #91a4ab);
+-fx-border-width:0 0 1.5 0;
+}

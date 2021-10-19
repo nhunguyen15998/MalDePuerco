@@ -116,44 +116,43 @@ public class ReservationModel extends BaseModel{
 			return null;
 		}
 	}
-	
-	
-	//create
-	public int createReser(ArrayList<DataMapping> data) {
-		try {
-			return this.create(data);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return 0;
+
+		//create
+		public int createReser(ArrayList<DataMapping> data) {
+			try {
+				return this.create(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return 0;
+			}
 		}
-	}
-	
-	//update
-	public boolean updateReserById(int id, ArrayList<DataMapping> data) {
-		try {
-			
-			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
-			conditions.add(CompareOperator.getInstance("reservations.id", "=", String.valueOf(id)));
-			return this.update(data, conditions);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-	
-	//delete
-	public boolean deleteReserById(int id) {
-		try {
-			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
-			conditions.add(CompareOperator.getInstance("reservations.id", "=", String.valueOf(id)));
-			
-			return this.delete(conditions);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
 		
+		//update
+		public boolean updateReserById(int id, ArrayList<DataMapping> data) {
+			try {
+				
+				ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
+				conditions.add(CompareOperator.getInstance("reservations.id", "=", String.valueOf(id)));
+				return this.update(data, conditions);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		
+		//delete
+		public boolean deleteReserById(int id) {
+			try {
+				ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
+				conditions.add(CompareOperator.getInstance("reservations.id", "=", String.valueOf(id)));
+				
+				return this.delete(conditions);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+
 	public int getId() {
 		return id;
 	}
@@ -252,6 +251,5 @@ public class ReservationModel extends BaseModel{
 	public void setNo(int no) {
 		this.no = no;
 	}
-	
 	
 }

@@ -1,0 +1,45 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+.table-view .column-header{
+    -fx-background-color: #ba1841;
+   
+}
+.table-view .column-header .label {
+    -fx-text-fill: white;
+}
+
+.table-view *.scroll-bar:horizontal *.increment-button,
+.table-view *.scroll-bar:horizontal *.decrement-button {
+  -fx-background-color: null;
+  -fx-background-radius: 0;
+  -fx-background-insets: 0;
+  -fx-padding: 0;
+}
+
+.table-view *.scroll-bar:horizontal *.increment-arrow,
+.table-view *.scroll-bar:horizontal *.decrement-arrow {
+  -fx-background-color: null;
+  -fx-background-radius: 0;
+  -fx-background-insets: 0;
+  -fx-padding: 0;
+  -fx-shape: null;
+}
+.date-picker .text-field {
+    -fx-control-inner-background:  #f0f9fa ;
+}
+.tfDiscount{
+-fx-background-color: #fcf7f9;
+-fx-border-color: linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1)linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1);
+-fx-border-width:0 0 1.5 0;
+}
+.cbbDiscount{
+-fx-background-color: linear-gradient(to right, #fcebee,#fcd7dd);
+}
+.btnDiscountUC:hover{
+-fx-cursor:hand;
+}

@@ -9,7 +9,7 @@ import utils.DataMapping;
 public class DiscountModel extends BaseModel{
 	private static String table = "discounts";
 	private static String[] columns = {"id, code, name, descriptions, order_total, start_date, end_date, created_at, decrease, status"};
-	
+
 	private int id;
 	private int sequence;
 	private String code;
@@ -21,14 +21,15 @@ public class DiscountModel extends BaseModel{
 	private String createdAt;
 	private int status;
 	private float decrease;
+
 	//status
 	public static final int DISCOUNT_ACTIVATED = 1;
 	public static final int DISCOUNT_DEACTIVATED = 0;
 	public static DataMapping isActivated = DataMapping.getInstance(DISCOUNT_ACTIVATED, "Activated");
 	public static DataMapping isDeactivated = DataMapping.getInstance(DISCOUNT_DEACTIVATED, "Deactivated");
-	
+
 	public DiscountModel() {
-		super(table, columns);	
+		super(table, columns);
 	}
 
 	public DiscountModel( int id, int sequence, String code, String name, double orderTotal,
@@ -57,7 +58,6 @@ public class DiscountModel extends BaseModel{
 		}
 	}
 
-	//create
 	public int createDiscount(ArrayList<DataMapping> data) {
 		try {
 			return this.create(data);
@@ -101,7 +101,7 @@ public class DiscountModel extends BaseModel{
 			return false;
 		}
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -190,6 +190,6 @@ public class DiscountModel extends BaseModel{
 	public void setOrderTotal(double orderTotal) {
 		this.orderTotal = orderTotal;
 	}
-		
+			
 		
 }

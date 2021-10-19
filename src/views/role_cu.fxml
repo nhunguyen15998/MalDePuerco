@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="376.0" prefWidth="570.0" style="-fx-background-color: #f0e9ec;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.RoleCUController">
+   <stylesheets>
+      <URL value="@/css/role_cu.css" />
+   </stylesheets>
+   <children>
+      <Pane layoutX="-8.0" layoutY="-6.0" prefHeight="117.0" prefWidth="602.0" style="-fx-background-color: linear-gradient(to right, #ff304f,#ffabb7);">
+         <children>
+            <Label fx:id="lblRole" layoutX="55.0" layoutY="29.0" prefHeight="30.0" prefWidth="526.0" text="Create update role" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="48.0" layoutY="62.0" prefHeight="237.0" prefWidth="498.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(212, 165, 174,0.5),30, 0,10, 10);">
+         <children>
+            <Label layoutX="82.0" layoutY="39.0" text="Name:" />
+            <Label layoutX="82.0" layoutY="82.0" text="Code:" />
+            <Label layoutX="82.0" layoutY="123.0" text="Status:" />
+            <Button fx:id="btnCancel" alignment="CENTER" layoutX="380.0" layoutY="183.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="30.0" prefWidth="88.0" style="-fx-background-color: linear-gradient(to right, #fbc6c4, #f4a29f, #fb8b87, #FB6E67); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnRoleCU" stylesheets="@../css/role_cu.css" text="Cancel" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#fb6e677d" />
+               </effect>
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
+                     <image>
+                        <Image url="@../assets/close.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button alignment="CENTER" layoutX="275.0" layoutY="183.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: linear-gradient(to right, #8DC9F8, #69B5F2, #4BA4EC, #3292E6); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnRoleCU" stylesheets="@../css/role_cu.css" text="Save" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#5873de7d" />
+               </effect>
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
+                     <image>
+                        <Image url="@../assets/save.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <TextField fx:id="tfCode" focusTraversable="false" layoutX="151.0" layoutY="77.0" prefHeight="30.0" prefWidth="248.0" promptText="  code" style="-fx-background-color: #fcf7f9; -fx-border-color: linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1)linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1); -fx-border-width: 0 0 1.5 0; -fx-background-radius: 5; -fx-border-radius: 5;" />
+            <ComboBox fx:id="cbStatus" layoutX="154.0" layoutY="123.0" prefHeight="25.0" prefWidth="129.0" style="-fx-background-color: linear-gradient(to right, #fcebee,#fcd7dd);" />
+            <TextField fx:id="tfName" focusTraversable="false" layoutX="151.0" layoutY="33.0" prefHeight="30.0" prefWidth="248.0" promptText="  name" style="-fx-background-color: #fcf7f9; -fx-border-color: linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1)linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1); -fx-border-width: 0 0 1.5 0; -fx-background-radius: 5; -fx-border-radius: 5;" />
+            <Label fx:id="lblNameError" layoutX="151.0" layoutY="16.0" prefHeight="9.0" prefWidth="234.0" textFill="#a17064">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblCodeError" layoutX="151.0" layoutY="61.0" prefHeight="11.0" prefWidth="234.0" textFill="#a17064">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

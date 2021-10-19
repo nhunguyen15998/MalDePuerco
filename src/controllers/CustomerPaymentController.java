@@ -94,8 +94,8 @@ public class CustomerPaymentController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		//set table code
-		this.lblTableCode.setText(OrderModel.tableName);
-		this.tableId = OrderModel.tableId;
+		this.lblTableCode.setText(SettingController.tableName);
+		this.tableId = SettingController.tableId;
 		//radio
 		this.renderPaymentMethodGrid();
 		//cancel

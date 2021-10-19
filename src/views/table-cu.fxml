@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="417.0" prefWidth="603.0" style="-fx-background-color: #f0e9ec;" styleClass="mainFxmlClass" stylesheets="@../css/table-cu.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.TableCUController">
+   <children>
+      <Pane prefHeight="117.0" prefWidth="602.0" style="-fx-background-color: linear-gradient(to right, #ff304f,#ffabb7);">
+         <children>
+            <Label fx:id="lblTable" layoutX="38.0" layoutY="37.0" prefHeight="30.0" prefWidth="526.0" text="Create update table" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="38.0" layoutY="72.0" prefHeight="292.0" prefWidth="526.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(212, 165, 174,0.5),30, 0,10, 10);">
+         <children>
+            <TextField fx:id="tfName" focusTraversable="false" layoutX="178.0" layoutY="34.0" prefHeight="30.0" prefWidth="248.0" promptText="  name" style="-fx-background-color: #fcf7f9; -fx-border-color: linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1)linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1); -fx-border-width: 0 0 1.5 0; -fx-background-radius: 5; -fx-border-radius: 5;" />
+            <TextField fx:id="tfCode" focusTraversable="false" layoutX="178.0" layoutY="122.0" prefHeight="30.0" prefWidth="248.0" promptText="  code" style="-fx-background-color: #fcf7f9; -fx-border-color: linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1)linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1); -fx-border-width: 0 0 1.5 0; -fx-background-radius: 5; -fx-border-radius: 5;" />
+            <ComboBox fx:id="cbStatus" layoutX="178.0" layoutY="168.0" prefHeight="25.0" prefWidth="129.0" style="-fx-background-color: linear-gradient(to right, #fcebee,#fcd7dd);" />
+            <Label layoutX="100.0" layoutY="41.0" text="Name:" textFill="#e11b46">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="101.0" layoutY="85.0" text="Seats:" textFill="#e11b46">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="102.0" layoutY="128.0" text="Code:" textFill="#e11b46">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="102.0" layoutY="171.0" text="Status:" textFill="#e11b46">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Button alignment="CENTER" layoutX="175.0" layoutY="212.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: linear-gradient(to right, #8DC9F8, #69B5F2, #4BA4EC, #3292E6); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnCUTable" stylesheets="@../css/table-cu.css" text="Save" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#5873de7d" />
+               </effect>
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
+                     <image>
+                        <Image url="@../assets/save.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnCancel" alignment="CENTER" layoutX="263.0" layoutY="212.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="30.0" prefWidth="88.0" style="-fx-background-color: linear-gradient(to right, #fbc6c4, #f4a29f, #fb8b87, #FB6E67); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnCUTable" stylesheets="@../css/table-cu.css" text="Cancel" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#fb6e677d" />
+               </effect>
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
+                     <image>
+                        <Image url="@../assets/close.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <TextField fx:id="tfSeats" focusTraversable="false" layoutX="178.0" layoutY="80.0" prefHeight="30.0" prefWidth="248.0" promptText="  seats" style="-fx-background-color: #fcf7f9; -fx-border-color: linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1)linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1); -fx-border-width: 0 0 1.5 0; -fx-background-radius: 5; -fx-border-radius: 5;" />
+            <Label fx:id="lblCodeError" layoutX="178.0" layoutY="152.0" prefHeight="11.0" prefWidth="234.0" textFill="#a17064">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblSeatsError" layoutX="178.0" layoutY="108.0" prefHeight="11.0" prefWidth="234.0" textFill="#a17064">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblNameError" layoutX="178.0" layoutY="64.0" prefHeight="11.0" prefWidth="234.0" textFill="#a17064">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

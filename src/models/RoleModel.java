@@ -33,15 +33,15 @@ public class RoleModel extends BaseModel {
 	}
 	
 	public static RoleModel getInstance(int id, int sequence, String code, String name, String createdAt, int status) {
-		if(roleModel != null) {
-			roleModel = new RoleModel();
-			roleModel.setId(id);
-			roleModel.setSequence(sequence);
-			roleModel.setCode(code);
-			roleModel.setName(name);
-			roleModel.setCreatedAt(createdAt);
-			roleModel.setStatus(status);
-			return roleModel;
+	if(roleModel == null) {
+			RoleModel item = new RoleModel();
+			item.setId(id);
+			item.setSequence(sequence);
+			item.setCode(code);
+			item.setName(name);
+			item.setCreatedAt(createdAt);
+			item.setStatus(status);
+			return item;
 		}
 		return roleModel;
 	}

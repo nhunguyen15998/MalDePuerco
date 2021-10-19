@@ -26,8 +26,6 @@ public class OrderModel extends BaseModel {
 	private int orderQuantity;
 	
 	public static int currentOrderId = 0;
-	public static final int tableId = 1;
-	public static final String tableName = "Table 1";
 	
 	//status
 	public static final int PENDING = 0;
@@ -105,6 +103,18 @@ public class OrderModel extends BaseModel {
 			joins.add(JoinCondition.getInstance("left join", "order_details", orderDetailCondition));
 
 			return this.getData(selects, conditions, joins, null, null, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	//get by id
+	public ResultSet getOrderById(int id) {
+		try {		
+			ArrayList<CompareOperator> condition = new ArrayList<CompareOperator>();
+			condition.add(CompareOperator.getInstance("id", " = ", String.valueOf(id)));
+			return this.getData(columns, condition, null, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

@@ -14,7 +14,9 @@ public class CompareOperator {
 			item.value = value;
 			return item;
 		}
+
 		return compareOperator;
 	}
-	 
+
+
 }

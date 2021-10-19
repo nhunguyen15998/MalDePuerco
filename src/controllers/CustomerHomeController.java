@@ -15,6 +15,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
+import java.util.prefs.Preferences;
 
 import javax.swing.event.ChangeListener;
 
@@ -34,6 +35,7 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -59,6 +61,7 @@ import models.OrderModel;
 import models.ServingAttributeModel;
 import models.ServingCategoryModel;
 import models.ServingModel;
+import models.TableModel;
 import utils.CompareOperator;
 import utils.DataMapping;
 import utils.HandleNotifications;
@@ -70,7 +73,8 @@ public class CustomerHomeController implements Initializable {
 	private OrderModel orderModel = new OrderModel();
 	private OrderDetailModel orderDetailModel = new OrderDetailModel();
 	private ServingAttributeModel servingAttributeModel = new ServingAttributeModel();
-
+	public MasterController masterController;
+	private TableModel tableModel = new TableModel();
 
 //	private TableModel tableModel = ;
 	public static boolean isActive = false;
@@ -95,6 +99,7 @@ public class CustomerHomeController implements Initializable {
 	public double totalPlace;
 	public String orderCode = "";
 	private int servingId;
+	private String tableName;
 	
 	//sidebar btn
 	@FXML
@@ -194,12 +199,10 @@ public class CustomerHomeController implements Initializable {
 
 		
 		try {
-			//this.lblTableName.setText(OrderModel.tableName);
 			this.vboxOrderList.getChildren().clear();
 			this.addItemToOrderList();
 			this.btnAllAction();
-			this.btnReloadUpdated.setVisible(false);
-			this.lblOrderCode.setText(null);
+						
 			//btns
 			
 			btnServer.setOnMouseClicked(event -> {
@@ -208,11 +211,21 @@ public class CustomerHomeController implements Initializable {
 			btnHelp.setOnMouseClicked(event -> {
 				
 			});
-			btnHelp.setOnMouseClicked(event -> {
-				
-			});
-			
-			this.loadLatestUnpaidOrder();
+
+			Preferences preferences;
+			preferences = Preferences.userNodeForPackage(SettingController.class);
+			TableModel.tableId = preferences.getInt("tableId", SettingController.tableId);
+			if(TableModel.tableId != 0) { 
+				getTableName(TableModel.tableId);
+				String code = this.loadLatestUnpaidOrder();
+				if(OrderModel.currentOrderId != 0) {
+					this.lblOrderCode.setText("#"+code);
+				} else {
+					this.lblOrderCode.setText("");
+				}
+			} else {
+				this.lblTableName.setText("");
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -220,13 +233,37 @@ public class CustomerHomeController implements Initializable {
 	}
 	
 	//load latest unpaid order - get updated data -> add to updated list, draw updated list -> render
-	public void loadLatestUnpaidOrder() {
-		ArrayList<CompareOperator> unpaidOrder =  new ArrayList<CompareOperator>();
-		unpaidOrder.add(CompareOperator.getInstance("orders.table_id", "=", String.valueOf(OrderModel.tableId)));
-		unpaidOrder.add(CompareOperator.getInstance("orders.status", "!=", String.valueOf(OrderModel.COMPLETED)));
-		String orderBys = "order_details.id desc";
-		this.renderUpdatedOrderList(unpaidOrder, orderBys);
-		System.out.println(">>> OrderId:"+OrderModel.currentOrderId);
+	public String loadLatestUnpaidOrder() {
+		try {
+			ArrayList<CompareOperator> unpaidOrder =  new ArrayList<CompareOperator>();
+			unpaidOrder.add(CompareOperator.getInstance("orders.table_id", "=", String.valueOf(TableModel.tableId)));
+			unpaidOrder.add(CompareOperator.getInstance("orders.status", "!=", String.valueOf(OrderModel.COMPLETED)));
+			String orderBys = "order_details.id desc";
+			this.renderUpdatedOrderList(unpaidOrder, orderBys);
+			System.out.println(">>> OrderId:"+OrderModel.currentOrderId);
+			ResultSet code = this.orderModel.getOrderById(OrderModel.currentOrderId);
+			while(code.next()) {
+				this.orderCode = code.getString("code");
+			}
+			return this.orderCode;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	//get table name
+	public String getTableName(int id) {
+		try {
+			ResultSet name = this.tableModel.getTableById(id);
+			while(name.next()) {
+				lblTableName.setText(name.getString("name"));
+			}
+			return this.tableName;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	//filter
@@ -371,6 +408,12 @@ public class CustomerHomeController implements Initializable {
 		}
 	}
 	
+	//load master
+	public MasterController loadMaster(MasterController masterController) {
+		this.masterController = masterController;
+		return this.masterController;
+	}
+	
 	//btnsetting
 	public void btnSettingAction() {
 		try {
@@ -382,6 +425,7 @@ public class CustomerHomeController implements Initializable {
 			//controller
 			CustomerOptionController controller = root.getController();
 			controller.showForm(this);
+			
 			
 			Scene scene = new Scene(customerHolder, 307, 349);
 			Stage stage = new Stage();
@@ -939,7 +983,7 @@ public class CustomerHomeController implements Initializable {
 	//load updated 
 	public ArrayList<CompareOperator> loadUpdatedData() {
 		ArrayList<CompareOperator> updated = new ArrayList<CompareOperator>();
-		updated.add(CompareOperator.getInstance("orders.table_id", "=", String.valueOf(OrderModel.tableId)));
+		updated.add(CompareOperator.getInstance("orders.table_id", "=", String.valueOf(TableModel.tableId)));
 		updated.add(CompareOperator.getInstance("orders.id", "=", String.valueOf(OrderModel.currentOrderId)));
 		return updated;
 	}
@@ -1015,7 +1059,7 @@ public class CustomerHomeController implements Initializable {
 		try {
 			ArrayList<DataMapping> orderData = new ArrayList<DataMapping>();
 			orderData.add(DataMapping.getInstance("code", "OC"+Helpers.randomString(6)));
-			orderData.add(DataMapping.getInstance("table_id", String.valueOf(OrderModel.tableId)));
+			orderData.add(DataMapping.getInstance("table_id", String.valueOf(TableModel.tableId)));
 			orderData.add(DataMapping.getInstance("user_id", String.valueOf(this.userId)));
 			orderData.add(DataMapping.getInstance("total_amount", String.valueOf(this.totalPlace)));
 			OrderModel.currentOrderId = this.orderModel.createOrder(orderData);
@@ -1071,18 +1115,18 @@ public class CustomerHomeController implements Initializable {
 	}
 
 	//load data from orderdetail by order id
-	public void btnReloadUpdatedAction(){
-		try {
-			//has order id
-			if(OrderModel.currentOrderId != 0) {
-				this.renderUpdatedOrderList(null, null);
-			} else {
-				this.btnReloadUpdated.setDisable(true);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	public void btnReloadUpdatedAction(){
+//		try {
+//			//has order id
+//			if(OrderModel.currentOrderId != 0) {
+//				this.renderUpdatedOrderList(null, null);
+//			} else {
+//				this.btnReloadUpdated.setDisable(true);
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 	
 	//draw custom serving
 	public void customServingLayout(int id) {

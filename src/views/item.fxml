@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchor" prefHeight="50.0" prefWidth="219.0" style="-fx-background-color: white;" styleClass="mainClass" stylesheets="@../css/item.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.ItemController">
+   <children>
+      <HBox prefHeight="50.0" prefWidth="219.0" styleClass="hbox" stylesheets="@../css/item.css">
+         <children>
+            <VBox prefHeight="50.0" prefWidth="102.0">
+               <children>
+                  <Label fx:id="lblTime" alignment="TOP_CENTER" contentDisplay="TOP" prefHeight="34.0" prefWidth="90.0" text="(14:00-16:00)" textAlignment="CENTER" textFill="#946e6e">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                     <padding>
+                        <Insets top="4.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="lblTable" alignment="CENTER" prefHeight="51.0" prefWidth="88.0" text="Table 1 Table 2&#10;" textAlignment="CENTER" textFill="#946e6e">
+                     <font>
+                        <Font size="9.5" />
+                     </font>
+                     <padding>
+                        <Insets top="-6.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets left="2.0" />
+                     </VBox.margin></Label>
+               </children>
+            </VBox>
+            <VBox prefHeight="50.0" prefWidth="141.0">
+               <children>
+                  <Label fx:id="lblCusName" prefHeight="18.0" prefWidth="146.0" text="Vo Huynh Ngoc Tram" textFill="#864242">
+                     <font>
+                        <Font name="Cambria" size="13.5" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="4.0" top="7.5" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="lblStatus" styleClass="lblStatus" stylesheets="@../css/item.css" text="Label" textFill="#864242">
+                     <font>
+                        <Font name="Cambria" size="11.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="4.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

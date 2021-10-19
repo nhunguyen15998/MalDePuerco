@@ -1,0 +1,221 @@
+package controllers;
+
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
+import db.MySQLJDBC;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+
+import javafx.scene.control.Label;
+
+import javafx.scene.input.MouseEvent;
+
+import javafx.scene.control.DatePicker;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import models.ItemModel;
+import models.ReservationModel;
+import utils.CompareOperator;
+import utils.DataMapping;
+import utils.Helpers;
+
+public class ScheduleController implements Initializable {
+   private static ReservationModel reserModel = new ReservationModel();
+    @FXML
+    private GridPane grid;
+    @FXML
+    private VBox vbox;
+
+    @FXML
+    private DatePicker dpDate;
+
+    @FXML
+    private Label all;
+
+    @FXML
+    private Label lblNew;
+
+    @FXML
+    private Label lblConfirm;
+
+    @FXML
+    private Label lblDepo;
+
+    @FXML
+    private Label lblPresent;
+
+    @FXML
+    private Pane paneStatus;
+    @FXML
+    private Label lblExpired;
+
+    @FXML
+    private Label lblCancel;
+    private List<ItemModel> item = new ArrayList<>();
+    
+    public static ResultSet getDataReser(String condition) throws SQLException{
+    	String sql = "select reservations.*,decrease from reservations left join discounts on reservations.discount_id = discounts.id "+condition ;
+       Statement stmt = MySQLJDBC.connection.createStatement();
+		return stmt.executeQuery(sql);
+       
+	//
+      
+    }
+    private String getTableName(int id) throws SQLException{
+    	String tablename = "";
+    	int count = 0;
+    	String sql = "select tables.name from tables_reservation join tables on table_id=tables.id join reservations on reservation_id=reservations.id where reservation_id="+id;
+    	Statement st = MySQLJDBC.connection.createStatement();
+    	ResultSet rs = st.executeQuery(sql);
+    	while(rs.next()) {
+    		tablename+=rs.getString("tables.name")+" ";
+    		count++;
+    		if(count%2==0) {
+    			tablename+="\n";
+    		}
+    	}
+    	return tablename;
+    	
+    }
+    private List<ItemModel> getData(LocalDate date, String status) throws SQLException{
+    	List<ItemModel> i = new ArrayList<>();
+    	ItemModel items;
+
+    	String value =" where date_pick ='"+date+"' order by start_time asc";
+    	if(!status.equals("")) {
+    	 value="where date_pick ='"+date+"' and reservations.status="+status+" order by start_time asc";
+    	}
+    	ResultSet rs = getDataReser(value);
+    	int k =0;
+    	while(rs.next()){
+    		items = new ItemModel();
+    		items.setStart(Helpers.formatTime(rs.getString("start_time")));
+    		items.setEnd(Helpers.formatTime(rs.getString("end_time")));
+    		items.setDate(rs.getString("date_pick"));
+    		items.setTable(getTableName(rs.getInt("id")));
+    		items.setCusName(rs.getString("customer_name"));
+    		items.setStatus(rs.getInt("status"));
+    		i.add(items);
+    		
+    		k++;
+    		
+    	}
+    	return i;
+    }
+    
+    @Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+    	dpDate.setValue(LocalDate.now());
+    	this.dateChoose();
+	}
+    //load data
+    
+   private void loadData(LocalDate date,String status) {
+
+	   grid.getChildren().clear();
+	   item.removeAll(item);
+	   try {
+			item.addAll(getData( date,status));
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	   	int col = 0;
+	   	int row =0;
+	   	try {
+	   		System.out.println("size: "+item.size());
+	   		if(item.size()==0) {
+	   			FXMLLoader root = new FXMLLoader();
+	   	   		root.setLocation(getClass().getResource("/views/schedule-support.fxml"));
+	   	   		AnchorPane anchor = root.load();
+	   	   		paneStatus.getChildren().setAll(anchor);
+	   		}else {
+	   			paneStatus.getChildren().clear();
+	   			paneStatus.getChildren().setAll(vbox);
+	   		}
+	   	for(int i =0;i<item.size(); i++) {
+   		FXMLLoader root = new FXMLLoader();
+   		root.setLocation(getClass().getResource("/views/item.fxml"));
+   		AnchorPane anchor = root.load();
+   		ItemController itemControl = root.getController();
+   		itemControl.setData(item.get(i));
+   		if(col==1) {
+   			col=0;
+   			row++;
+   		}
+   		grid.add(anchor, col, row++);
+   		GridPane.setMargin(anchor, new Insets(0,0,2,0));
+   		
+   	}
+   	}catch (Exception e) {
+			// TODO: handle exception
+		}
+   }
+    @FXML
+    void dateChoose() {
+    	
+    	loadData(dpDate.getValue(),"");
+    
+    	
+    }
+
+    @FXML
+    void tabAll() {
+    	this.dateChoose();
+    
+    }
+
+    @FXML
+    void tabCancel(MouseEvent event) {
+    	loadData(dpDate.getValue(), lblCancel.getId());
+    	
+    	
+    }
+
+    @FXML
+    void tabConfirm(MouseEvent event) {
+    	loadData(dpDate.getValue(), lblConfirm.getId());
+    }
+
+    @FXML
+    void tabDepo(MouseEvent event) {
+    	loadData(dpDate.getValue(), lblDepo.getId());
+    }
+
+    @FXML
+    void tabExpired(MouseEvent event) {
+    	loadData(dpDate.getValue(), lblExpired.getId());
+    }
+
+    @FXML
+    void tabNew(MouseEvent event) {
+    	loadData(dpDate.getValue(), lblNew.getId());
+    }
+
+    @FXML
+    void tabPresent(MouseEvent event) {
+    	loadData(dpDate.getValue(), lblPresent.getId());
+    }
+
+	
+
+}

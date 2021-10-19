@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="550.0" prefWidth="838.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.myAccountController">
+   <children>
+      <Pane layoutX="38.0" layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="737.0">
+         <children>
+            <Label layoutX="52.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="685.0" text="My account">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: linear-gradient(to right, #D586F9, #BA6BF8, #A056F7); -fx-background-radius: 5;">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../Users/LENOVO/Downloads/MuscleBar/MuscleBar/src/images/myaccount.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="38.0" layoutY="75.0" prefHeight="275.0" prefWidth="226.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.5),30, 0,10, 10);">
+         <children>
+            <VBox prefHeight="275.0" prefWidth="226.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <children>
+                  <ImageView fitHeight="145.0" fitWidth="141.0" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="45.0" right="40.0" top="10.0" />
+                     </VBox.margin>
+                     <image>
+                        <Image url="@../assets/profile.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="lblName" alignment="CENTER" prefHeight="18.0" prefWidth="246.0" text="Tram Vo" textFill="#9c7a7a">
+                     <font>
+                        <Font name="Cambria" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblRole" alignment="CENTER" layoutX="10.0" layoutY="167.0" prefHeight="18.0" prefWidth="246.0" text="Super Admin" textFill="#9c7a7a">
+                     <font>
+                        <Font name="Cambria" size="12.0" />
+                     </font>
+                  </Label>
+                  <Button mnemonicParsing="false" onAction="#changePassword" prefHeight="26.0" prefWidth="258.0" styleClass="btnMyAcccount" stylesheets="@../css/master_layout.css" text="Change password" textFill="#2964b7">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+      <Pane layoutX="281.0" layoutY="75.0" prefHeight="275.0" prefWidth="514.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.8),30, 0,10, 10);">
+         <children>
+            <Label layoutX="28.0" layoutY="14.0" text="Name:" />
+            <TextField fx:id="tfName" layoutX="28.0" layoutY="31.0" prefHeight="25.0" prefWidth="218.0" promptText=" " styleClass="tfMyAcc" stylesheets="@../css/master_layout.css" />
+            <Label layoutX="273.0" layoutY="14.0" text="Code:" />
+            <TextField fx:id="tfCode" disable="true" layoutX="273.0" layoutY="31.0" prefHeight="25.0" prefWidth="218.0" promptText=" " styleClass="tfMyAcc" stylesheets="@../css/master_layout.css" />
+            <Label layoutX="28.0" layoutY="70.0" text="Email:" />
+            <TextField fx:id="tfEmail" layoutX="28.0" layoutY="87.0" prefHeight="25.0" prefWidth="218.0" promptText=" " styleClass="tfMyAcc" stylesheets="@../css/master_layout.css" />
+            <Label layoutX="28.0" layoutY="132.0" text="Phone:" />
+            <TextField fx:id="tfPhone" layoutX="28.0" layoutY="149.0" prefHeight="25.0" prefWidth="218.0" promptText=" " styleClass="tfMyAcc" stylesheets="@../css/master_layout.css" />
+            <Label layoutX="273.0" layoutY="70.0" text="User type:" />
+            <TextField fx:id="tfUserType" disable="true" layoutX="273.0" layoutY="87.0" prefHeight="25.0" prefWidth="218.0" promptText=" " styleClass="tfMyAcc" stylesheets="@../css/master_layout.css" />
+            <Button alignment="CENTER" layoutX="412.0" layoutY="216.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="30.0" prefWidth="79.0" style="-fx-background-color: linear-gradient(to right, #8DC9F8, #69B5F2, #4BA4EC, #3292E6); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnUserUC" stylesheets="@../css/useruc.css" text="Save" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#5873de7d" />
+               </effect>
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
+                     <image>
+                        <Image url="@../assets/save.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Label fx:id="lblNameError" layoutX="28.0" layoutY="57.0" prefHeight="9.0" prefWidth="234.0" textFill="#a17064">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblEmailError" layoutX="28.0" layoutY="114.0" prefHeight="9.0" prefWidth="234.0" textFill="#a17064">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblPhoneError" layoutX="28.0" layoutY="176.0" prefHeight="9.0" prefWidth="234.0" textFill="#a17064">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
