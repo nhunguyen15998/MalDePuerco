@@ -4,41 +4,170 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import db.MySQLJDBC;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+
+import models.ChefItemModel;
+import models.OrderDetailModel;
+import utils.Helpers;
+
 
 public class OrderChefController implements Initializable {
-
+	private static OrderDetailModel odetailModel = new OrderDetailModel();
+	
 	@FXML
-    private ListView<String> listView;
+    private Button btnPen;
+
+    @FXML
+    private Button btnCook;
+
+    @FXML
+    private Button btnReady;
+
+    @FXML
+    private Button btnServing;
+    
+    @FXML
+    private Button btnServed;
+
+    @FXML
+    private Button btnCanceled;
+
+    @FXML
+    private Pane pane;
+
+    @FXML
+    private VBox vbox;
+
+    @FXML
+    private GridPane grid;
+    
+    private List<ChefItemModel> item = new ArrayList<>();
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		Connection conDB = MySQLJDBC.Instance().getConn();
 		
-		try {
-			Statement stm = MySQLJDBC.connection.createStatement();
-			String query = "select no, (select code from orders where order_id = orders.id) as orderID, (select name from servings where serving_id = servings.id) as servingID, quantity from order_details";
+	}
+	
+	public static ResultSet getDataOrderDetails(String condition) throws SQLException {
+		String sql = "select order_details.id, orders.code as orderCode, servings.name as serName, size,"
+				+ " order_details.serving_status, order_details.quantity, time(order_details.created_at) as time, users.name as userName from order_details"
+				+ " LEFT JOIN orders on orders.id = order_details.order_id LEFT JOIN servings on servings.id = order_details.serving_id"
+				+ " LEFT JOIN users on users.id = order_details.user_id"+condition;
+		Statement stm = MySQLJDBC.connection.createStatement();
+			return stm.executeQuery(sql);
+	}
+	
+	private List<ChefItemModel> getData(String status) throws SQLException {
+		List<ChefItemModel> i = new ArrayList<>();
+		ChefItemModel items;
+		String value ="";
+		if(!status.equals("")) {
+		value =" where order_details.serving_status="+status+"";
+		}
+		
+		ResultSet rs = getDataOrderDetails(value);
+		int k = 0;
+		while(rs.next()) {
+			items = new ChefItemModel();
+			items.setId(rs.getInt("order_details.id"));
+			items.setOderCode(rs.getString("orderCode"));
+			items.setServingName(rs.getString("serName"));
+			items.setSize(rs.getString("order_details.size"));
+			items.setQuantity("x" + rs.getInt("order_details.quantity"));
+			items.setCreatedAt(rs.getString("time"));
+			items.setUserCode(rs.getString("userName"));
+			items.setStatus(rs.getInt("order_details.serving_status"));
+			i.add(items);
 			
-			ResultSet queryOutput = stm.executeQuery(query);
-			while(queryOutput.next()) {
-				int no = queryOutput.getRow();
-				String code = queryOutput.getString( "orderID");
-				String name = queryOutput.getString( "servingID");
-				int quantity = queryOutput.getInt( "quantity");
-				String listOut = code + " \"" + name + " \"" ;
-				
-				listView.getItems().add(listOut);
+			k++;
+		}
+		
+		return i;
+	}
+	
+	//load data
+	private void loadData(String status) {
+		grid.getChildren().clear();
+		item.removeAll(item);
+		try {
+			item.addAll(getData(status));
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		int col = 0;
+		int row = 0;
+		try {
+			System.out.println("size: " +item.size());
+			if(item.size() == 0) {
+				FXMLLoader root = new FXMLLoader();
+				root.setLocation(getClass().getResource("/views/orderChef-Support.fxml"));
+				AnchorPane anchor = root.load();
+				pane.getChildren().setAll(anchor);
+			} else {
+				pane.getChildren().clear();
+				pane.getChildren().setAll(vbox);
+			}
+			for(int i = 0; i < item.size(); i++) {
+				FXMLLoader root = new FXMLLoader();
+				root.setLocation(getClass().getResource("/views/chef.fxml"));
+				AnchorPane pane = root.load();
+				ChefItemController chefItemControl = root.getController();
+				chefItemControl.setData(item.get(i));
+				if(col==1) {
+					col=0;
+					row++;
+				}
+				grid.add(pane,  col,  row++);
+				GridPane.setMargin(pane, new Insets(0,0,2,0));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
+	@FXML void tabPending(MouseEvent event) {
+		loadData(btnPen.getId());
+	}
+	
+	@FXML void tabCooking(MouseEvent event) {
+		loadData(btnCook.getId());
+	}
+	
+	@FXML void tabReady(MouseEvent event) {
+		loadData(btnReady.getId());
+	}
+	
+	@FXML void tabServing(MouseEvent event) {
+		loadData(btnServing.getId());
+	}
+	
+	@FXML void tabServed(MouseEvent event) {
+		loadData(btnServed.getId());
+	}
+	
+	@FXML void tabCanceled(MouseEvent event) {
+		loadData(btnCanceled.getId());
+	}
 }
+

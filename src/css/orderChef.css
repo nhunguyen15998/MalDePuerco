@@ -22,3 +22,11 @@
 	-fx-background-color : #D21502;
 	-fx-background-radius : 10;
 }
+.Serving {
+	-fx-background-color : #E2D3D6;
+	-fx-background-radius : 10;
+}
+.Served {
+	-fx-background-color : #CEDDF2;
+	-fx-background-radius : 10;
+}

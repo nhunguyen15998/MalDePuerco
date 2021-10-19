@@ -10,30 +10,18 @@ import utils.JoinCondition;
 public class ServingAttributeModel extends BaseModel {
 
 	private static String table = "serving_attributes";
-	private static String[] columns = {"id", "serving_id", "attribute", "price", "created_at"};
+	private static String[] columns = {"id", "serving_id", "attribute_id", "quantity", "price", "created_at"};
 	private static ServingAttributeModel SerAttModel;
 	
 	private int id;
 	private int sequence;
 	private String servingName;
-	private int attribute;
+	private String attribute;
 	private double price;
 	private String createAt;
+	private int quantity;
 	
-	//attribute
-	public static final int SERVING_ATTRIBUTE_S = 0;
-	public static final int SERVING_ATTRIBUTE_M = 1;
-	public static final int SERVING_ATTRIBUTE_L = 2;
-	public static DataMapping isS = DataMapping.getInstance(SERVING_ATTRIBUTE_S, "Size S"); 
-	public static DataMapping isM = DataMapping.getInstance(SERVING_ATTRIBUTE_M, "Size M");
-	public static DataMapping isL = DataMapping.getInstance(SERVING_ATTRIBUTE_L, "Size L");
 	
-	//status
-	public static final int SERVING_ATTRIBUTE_ACTIVATED = 1;
-	public static final int SERVING_ATTRIBUTE_DEACTIVATED = 0;
-	public static DataMapping isActivated = DataMapping.getInstance(SERVING_ATTRIBUTE_ACTIVATED, "Activated");
-	public static DataMapping isDeactivated = DataMapping.getInstance(SERVING_ATTRIBUTE_DEACTIVATED, "Deactivated");
-
 	public static boolean isShown = false;
 
 	//constructor - overloading
@@ -44,32 +32,34 @@ public class ServingAttributeModel extends BaseModel {
 		}
 	}
 
-	public static ServingAttributeModel getInstance(int sequence, int id, String servingName, int attribute, double price, String createAt) {
-		if (SerAttModel == null) {
-			ServingAttributeModel item = new ServingAttributeModel();
-			item.sequence = sequence;
-			item.id = id;
-			item.servingName = servingName;
-			item.attribute = attribute;
-			item.price = price;
-			item.createAt = createAt;
-			return item;
-		} 
-		return SerAttModel;
+	public ServingAttributeModel (int sequence, int id, String servingName, String attribute, int quantity, double price, String createAt) {
+		super(table, columns);
+		this.sequence = sequence;
+		this.id = id;
+		this.servingName = servingName;
+		this.attribute = attribute;
+		this.quantity = quantity;
+		this.price = price;
+		this.createAt = createAt;
+		
 	}
 	
 	//get data
 	public ResultSet getSerAttList(ArrayList<CompareOperator> conditions) {
 		try {
 			String[] selects = {"serving_attributes.id", "servings.name as servingID",
-								"serving_attributes.attribute", "serving_attributes.price", "serving_attributes.created_at"};
+								"attributes.name as attName", "serving_attributes.quantity",
+								"serving_attributes.price", "serving_attributes.created_at"};
 			ArrayList<CompareOperator> joinServings = new ArrayList<CompareOperator>();
 			joinServings.add(CompareOperator.getInstance("serving_attributes.serving_id", "=", "servings.id"));
+			ArrayList<CompareOperator> joinAttribute = new ArrayList<CompareOperator>();
+			joinAttribute.add(CompareOperator.getInstance("serving_attributes.attribute_id", "=", "attributes.id"));
 			
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
 			joins.add(JoinCondition.getInstance("join", "servings", joinServings));
+			joins.add(JoinCondition.getInstance("join", "attributes", joinAttribute));
 			
-			return this.getData(selects, conditions, joins);
+			return this.getData(selects, conditions, joins, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -89,7 +79,7 @@ public class ServingAttributeModel extends BaseModel {
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
 			joins.add(JoinCondition.getInstance("join", "servings", joinConditions));
 			
-			return this.getData(selects, conditions, joins);
+			return this.getData(selects, conditions, joins, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -156,11 +146,11 @@ public class ServingAttributeModel extends BaseModel {
 		this.servingName = servingName;
 	}
 
-	public int getAttribute() {
+	public String getAttribute() {
 		return attribute;
 	}
 
-	public void setAttribute(int attribute) {
+	public void setAttribute(String attribute) {
 		this.attribute = attribute;
 	}
 
@@ -178,6 +168,14 @@ public class ServingAttributeModel extends BaseModel {
 
 	public void setCreateAt(String createAt) {
 		this.createAt = createAt;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 	
 	

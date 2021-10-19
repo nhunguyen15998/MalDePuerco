@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="604.0" prefWidth="275.0" style="-fx-background-color: #2B2B2B;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="17.0" layoutY="44.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="418.0" prefWidth="240.0">
+         <children>
+            <Pane prefHeight="47.0" prefWidth="240.0">
+               <children>
+                  <RadioButton layoutY="10.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="240.0" text="Cash" textFill="WHITE">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </RadioButton>
+               </children>
+            </Pane>
+            <Pane prefHeight="47.0" prefWidth="240.0">
+               <children>
+                  <RadioButton layoutY="10.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="240.0" text="Card" textFill="WHITE">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </RadioButton>
+               </children>
+            </Pane>
+            <Pane prefHeight="47.0" prefWidth="240.0">
+               <children>
+                  <RadioButton layoutY="10.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="240.0" text="Momo" textFill="WHITE">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </RadioButton>
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+      <Button contentDisplay="RIGHT" layoutX="11.0" layoutY="553.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="123.0" style="-fx-background-color: #2B2B2B; -fx-border-color: #ea7c69; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Accept" textFill="WHITE">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Label layoutX="17.0" layoutY="4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="240.0" text="Select your payment method" textFill="#ea7c69">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Button contentDisplay="RIGHT" layoutX="141.0" layoutY="553.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="123.0" style="-fx-background-color: #2B2B2B; -fx-border-color: #ea7c69; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Cancel" textFill="WHITE">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

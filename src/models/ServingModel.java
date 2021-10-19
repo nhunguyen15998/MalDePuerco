@@ -11,7 +11,7 @@ import utils.Helpers;
 
 public class ServingModel extends BaseModel {
 	private static String table = "servings";
-	private static String[] columns = {"id, name, category_id, descriptions, price, created_at, status, quantity, thumbnail"};
+	private static String[] columns = {"id, name, category_id, type, descriptions, quantity, price, created_at, status, thumbnail"};
 	
 	private static ServingModel serModel;
 	private int id;
@@ -24,11 +24,21 @@ public class ServingModel extends BaseModel {
 	private int status;	
 	private int quantity;
 	private String path;
+	private int type;
 	
+	//status
 	public static final int SERVING_ACTIVATED = 1;
 	public static final int SERVING_DEACTIVATED = 0;
 	public static DataMapping isActivated = DataMapping.getInstance(SERVING_ACTIVATED, "Activated");
 	public static DataMapping isDeactivated = DataMapping.getInstance(SERVING_DEACTIVATED, "Deactivated");
+	
+	//type
+	public static final int FOOD = 0;
+	public static final int HOT_DRINK = 1;
+	public static final int COLD_DRINK = 2;
+	public static DataMapping isFood = DataMapping.getInstance(FOOD, "Food");
+	public static DataMapping isHotDrink = DataMapping.getInstance(HOT_DRINK, "Hot Drink");
+	public static DataMapping isColdDrink = DataMapping.getInstance(COLD_DRINK, "Cold Drink");
 	
 	public static boolean isShown = false;
 	
@@ -38,29 +48,29 @@ public class ServingModel extends BaseModel {
 			ServingModel serModel = new ServingModel();
 		}
 	}
-	
-	public static ServingModel getInstance(int sequence, int id, String name, String categoryName, String descriptions, double price, String createAt, int status, int quantity, String path) {
-		if(serModel==null) {
-			ServingModel item = new ServingModel();
-			item.sequence = sequence;
-			item.id = id;
-			item.name = name;
-			item.categoryName = categoryName;
-			item.descriptions = descriptions;
-			item.price = price;
-			item.createAt = createAt;
-			item.status = status;
-			item.quantity = quantity;
-			item.path = path;
-		} return serModel;
+	public ServingModel (int sequence, int id, String name, String categoryName, 
+			int type, String descriptions,  int quantity, double price, String createAt, int status, String path) {
+		super(table, columns);
+		this.sequence = sequence;
+		this.id = id;
+		this.name = name;
+		this.categoryName = categoryName;
+		this.type = type;
+		this.descriptions = descriptions;
+		this.quantity = quantity;
+		this.price = price;
+		this.createAt = createAt;
+		this.status = status;
+		this.path = path;
 	}
 	
 	
 	//get list
 	public ResultSet getServingList(ArrayList<CompareOperator> conditions) {
 		try {
-			String[] selects = {"servings.id", "servings.name as name", "sc.name as cateName",
-					"servings.descriptions", "servings.price", "servings.created_at", "servings.status", "servings.quantity"};
+			String[] selects = {"servings.id", "servings.name as nameSer", "sc.name as cateName",
+					"servings.type", "servings.descriptions","servings.quantity",
+					"servings.price", "servings.created_at", "servings.status", "servings.thumbnail"};
 			ArrayList<CompareOperator> joinCondition = new ArrayList<CompareOperator>();
 			joinCondition.add(CompareOperator.getInstance("servings.category_id", "=", "sc.id"));
 //			joinCondition.add(CompareOperator.getInstance("servings.thumbnail", "=", "si.path"));
@@ -70,7 +80,7 @@ public class ServingModel extends BaseModel {
 			
 //			joins.add(JoinCondition.getInstance("join", "serving_image si", joinCondition));
 			
-			return this.getData(selects, conditions, joins);
+			return this.getData(selects, conditions, joins, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -80,9 +90,9 @@ public class ServingModel extends BaseModel {
 	//get by id
 	public ResultSet getSerById(int id) {
 		try {
-			String[] selects = {"servings.id", "servings.name as name", "sc.name as cateName", 
-								"servings.descriptions", "servings.price", "servings.created_at",
-								"servings.status", "servings.thumbnail"};
+			String[] selects = {"servings.id", "servings.name as nameSer", "sc.name as cateName",
+					"servings.type", "servings.descriptions","servings.quantity", 
+					"servings.price", "servings.created_at", "servings.status"};
 			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
 			conditions.add(CompareOperator.getInstance("servings.id", "=", String.valueOf(id)));
 			
@@ -92,7 +102,7 @@ public class ServingModel extends BaseModel {
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
 			joins.add(JoinCondition.getInstance("join", "serving_categories sc", joinConditions));
 			
-			return this.getData(selects, joinConditions, joins);
+			return this.getData(selects, joinConditions, joins, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -213,4 +223,11 @@ public class ServingModel extends BaseModel {
 		this.path = path;
 	}
 	
+	public void setType(int type) {
+		this.type = type;
+	}
+	
+	public int getType() {
+		return type;
+	}
 }

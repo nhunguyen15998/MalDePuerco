@@ -54,12 +54,9 @@ public class ServingCateController implements Initializable {
 
     @FXML
     private TableColumn<ServingCategoryModel, String> colName;
-    
-    private ImageView serImage;
 
     @FXML
     private TableColumn<ServingCategoryModel, Integer> colParent;
-    private static String path="";
     @FXML
     private TableColumn<ServingCategoryModel, String> colStatus;
     
@@ -90,12 +87,12 @@ public class ServingCateController implements Initializable {
     		//get row from db
     		ResultSet sercate = servingcateModel.getServingCategoryList(conditions);
     		while(sercate.next()) {
-    			boolean add = list.add(servingcateModel.getInstance(
+    			list.add(new ServingCategoryModel(
     					sercate.getRow(),
-    					sercate.getInt("id"),
-    					sercate.getString("name"),
+    					sercate.getInt("id"), 
     					sercate.getString("name"),
     					sercate.getString("parentID"),
+    					sercate.getDate("created_at").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy")),
     					sercate.getInt("status"),
     					sercate.getString("thumbnail")
     					));

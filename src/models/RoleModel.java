@@ -49,7 +49,7 @@ public class RoleModel extends BaseModel {
 	//get
 	public ResultSet getRoleList(ArrayList<CompareOperator> conditions) {
 		try {	
-			return this.getData(columns, conditions, null);
+			return this.getData(columns, conditions, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -62,7 +62,7 @@ public class RoleModel extends BaseModel {
 			ArrayList<CompareOperator> joinRole = new ArrayList<CompareOperator>();
 			joinRole.add(CompareOperator.getInstance("id", " = ", String.valueOf(id)));
 			
-			return this.getData(columns, joinRole, null);
+			return this.getData(columns, joinRole, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

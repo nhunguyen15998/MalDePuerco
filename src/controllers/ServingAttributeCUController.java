@@ -19,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
+import models.AttributeModel;
 import models.ServingAttributeModel;
 import models.ServingModel;
 import utils.CompareOperator;
@@ -30,6 +31,7 @@ import utils.Validations;
 public class ServingAttributeCUController implements Initializable {
 	private ServingAttributeModel serattModel = new ServingAttributeModel();
 	private ServingModel serModel = new ServingModel();
+	private AttributeModel attModel = new AttributeModel();
 	private int serattId;
 	public ServingAttributeController serattController;
 	
@@ -56,27 +58,33 @@ public class ServingAttributeCUController implements Initializable {
 
     @FXML
     private Label lbl;
+    
+    @FXML
+    private TextField tfQuantity;
+
+    @FXML
+    private Label lblQuantityError;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		this.getServingList();
-		
-		ObservableList<DataMapping> attribute = FXCollections.observableArrayList(ServingAttributeModel.isS, ServingAttributeModel.isM, ServingAttributeModel.isL);
-		cbAttribute.setItems(attribute);
+		this.getAttributeList();
 	}
 	
 	//validate
-	public boolean validated(String serving, String attribute, String price) {
+	public boolean validated(String serving, String attribute, String price, String quantity) {
 		try {
 			lblServingError.setText("");
 			lblAttributeError.setText("");
 			lblPriceError.setText("");
+			lblQuantityError.setText("");
 			
 			ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
 			data.add(new ValidationDataMapping("serving", serving, "lblServingError", "required"));
 			data.add(new ValidationDataMapping("attribute", attribute, "lblAttributeError", "required"));
 			data.add(new ValidationDataMapping("price", price, "lblPriceError", "required|numberic"));
+			data.add(new ValidationDataMapping("quantity", quantity, "lblQuantityError", "required"));
 			
 			ArrayList<DataMapping> mess = Validations.validated(data);
 			if(mess.size() > 0) {
@@ -90,6 +98,9 @@ public class ServingAttributeCUController implements Initializable {
 							break;
 						case "lblPriceError":
 							lblPriceError.setText(message.value);
+							break;
+						case "lblQuantityError":
+							lblQuantityError.setText(message.value);
 							break;
 						default:
 							System.out.println("validatation");
@@ -110,12 +121,14 @@ public class ServingAttributeCUController implements Initializable {
 			String attribute = cbAttribute.getValue() != null ? cbAttribute.getValue().key : null;
 			String price = tfPrice.getText();
 			String serving = cbServing.getValue() != null ? cbServing.getValue().key : null;
+			String quantity = tfQuantity.getText();
 			
-			if(validated(serving, attribute, price)) {
+			if(validated(serving, attribute, price, quantity)) {
 				ArrayList<DataMapping> servingattribute = new ArrayList<DataMapping>();
 				servingattribute.add(DataMapping.getInstance("serving_id", serving));
-				servingattribute.add(DataMapping.getInstance("attribute", attribute));
+				servingattribute.add(DataMapping.getInstance("attribute_id", attribute));
 				servingattribute.add(DataMapping.getInstance("price", price));
+				servingattribute.add(DataMapping.getInstance("quantity", quantity));
 				
 				if(this.serattId == 0) {
 					serattModel.createSerAtt(servingattribute);
@@ -165,10 +178,27 @@ public class ServingAttributeCUController implements Initializable {
 			
 			ResultSet serving = serModel.getServingList(null);
 			while(serving.next()) {
-				servingOptions.add(DataMapping.getInstance(serving.getInt("id"), serving.getString("name")));
+				servingOptions.add(DataMapping.getInstance(serving.getInt("id"), serving.getString("nameSer")));
 			}
+			
 			cbServing.getItems().setAll(servingOptions);
 			return serving;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public ResultSet getAttributeList() {
+		try {
+			ArrayList<DataMapping> attOptions = new ArrayList<DataMapping>();
+			
+			ResultSet att = attModel.getAttributeList(null);
+			while(att.next()) {
+				attOptions.add(DataMapping.getInstance(att.getInt("id"), att.getString("attributes.name")));
+			}
+			cbAttribute.getItems().setAll(attOptions);
+			return att;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -186,7 +216,7 @@ public class ServingAttributeCUController implements Initializable {
 				ResultSet currentServingAtt = this.serattModel.getSerAttById(this.serattId);
 				if(currentServingAtt.next()) {
 					tfPrice.setText(currentServingAtt.getString("price"));
-					
+					tfQuantity.setText(currentServingAtt.getString("quantity"));
 					//load combobox 
 					for(DataMapping serving : cbServing.getItems()) {
 						if(serving.key != null & Integer.parseInt(serving.key) == currentServingAtt.getInt("serving_id")) {
@@ -196,8 +226,9 @@ public class ServingAttributeCUController implements Initializable {
 					}
 					
 					for (DataMapping attribute : cbAttribute.getItems()) {
-						if(attribute.key != null & Integer.parseInt(attribute.key) == currentServingAtt.getInt("attribute"));
-						cbAttribute.setValue(attribute);
+						if(attribute.key != null & Integer.parseInt(attribute.key) == currentServingAtt.getInt("attribute_id"));
+							cbAttribute.setValue(attribute);
+							break;
 					}
 				}
 			}

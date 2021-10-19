@@ -46,7 +46,7 @@
                   <Font name="Consolas" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="15.0" layoutY="347.0" text="Status:" textFill="#e11b46">
+            <Label layoutX="238.0" layoutY="299.0" text="Status:" textFill="#e11b46">
                <font>
                   <Font name="Consolas" size="18.0" />
                </font>
@@ -56,18 +56,18 @@
                   <Font name="Consolas" size="14.0" />
                </font>
             </TextField>
-            <TextField fx:id="tfDes" layoutX="163.0" layoutY="103.0" prefHeight="99.0" prefWidth="276.0" promptText="Descriptions" styleClass="text" stylesheets="@../css/servingsCU.css">
+            <TextField fx:id="tfDes" alignment="TOP_LEFT" layoutX="163.0" layoutY="103.0" prefHeight="99.0" prefWidth="276.0" promptText="Descriptions" styleClass="text" stylesheets="@../css/servingsCU.css">
                <font>
                   <Font name="Consolas" size="14.0" />
                </font>
             </TextField>
-            <TextField fx:id="tfPrice" layoutX="164.0" layoutY="239.0" prefHeight="28.0" prefWidth="107.0" promptText="Price" styleClass="text" stylesheets="@../css/servingsCU.css">
+            <TextField fx:id="tfPrice" layoutX="111.0" layoutY="239.0" prefHeight="28.0" prefWidth="107.0" promptText="Price" styleClass="text" stylesheets="@../css/servingsCU.css">
                <font>
                   <Font name="Consolas" size="14.0" />
                </font>
             </TextField>
             <ComboBox fx:id="cbCate" layoutX="163.0" layoutY="58.0" prefHeight="27.0" prefWidth="276.0" styleClass="text" stylesheets="@../css/servingsCU.css" />
-            <ComboBox fx:id="cbStatus" layoutX="164.0" layoutY="345.0" prefHeight="27.0" prefWidth="107.0" styleClass="text" stylesheets="@../css/servingsCU.css" />
+            <ComboBox fx:id="cbStatus" layoutX="387.0" layoutY="297.0" prefHeight="27.0" prefWidth="107.0" styleClass="text" stylesheets="@../css/servingsCU.css" />
             <Button fx:id="btnCancel" layoutX="366.0" layoutY="385.0" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="30.0" prefWidth="90.0" styleClass="btnCancel" stylesheets="@../css/servingsCU.css" text="     Cancel" textFill="WHITE">
                <font>
                   <Font size="14.0" />
@@ -92,19 +92,26 @@
             <Label fx:id="lblNameError" layoutX="163.0" layoutY="39.0" prefHeight="17.0" prefWidth="276.0" />
             <Label fx:id="lblCategoryError" layoutX="163.0" layoutY="82.0" prefHeight="17.0" prefWidth="276.0" />
             <Label fx:id="lblDesError" layoutX="164.0" layoutY="217.0" prefHeight="17.0" prefWidth="276.0" />
-            <Label fx:id="lblPriceError" layoutX="164.0" layoutY="267.0" prefHeight="17.0" prefWidth="157.0" />
+            <Label fx:id="lblPriceError" layoutX="59.0" layoutY="274.0" prefHeight="17.0" prefWidth="157.0" />
             <ImageView fx:id="imageView" fitHeight="170.0" fitWidth="200.0" layoutX="471.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" />
-            <Label layoutX="15.0" layoutY="294.0" text="Quantity:" textFill="#e11b46">
+            <Label layoutX="238.0" layoutY="242.0" text="Quantity:" textFill="#e11b46">
                <font>
                   <Font name="Consolas" size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="tfQuantity" layoutX="164.0" layoutY="291.0" prefHeight="28.0" prefWidth="107.0" promptText="Quantity" styleClass="text" stylesheets="@../css/servingsCU.css">
+            <TextField fx:id="tfQuantity" layoutX="387.0" layoutY="239.0" prefHeight="28.0" prefWidth="107.0" promptText="Quantity" styleClass="text" stylesheets="@../css/servingsCU.css">
                <font>
                   <Font name="Consolas" size="14.0" />
                </font>
             </TextField>
-            <Label fx:id="lblQuantityError" layoutX="164.0" layoutY="323.0" prefHeight="17.0" prefWidth="157.0" />
+            <Label fx:id="lblQuantityError" layoutX="333.0" layoutY="274.0" prefHeight="17.0" prefWidth="157.0" />
+            <Label layoutX="14.0" layoutY="300.0" text="Type:" textFill="#e11b46">
+               <font>
+                  <Font name="Consolas" size="18.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cbType" layoutX="111.0" layoutY="297.0" prefHeight="27.0" prefWidth="107.0" styleClass="text" stylesheets="@../css/servingsCU.css" />
+            <Label fx:id="lblTypeError" layoutX="59.0" layoutY="338.0" prefHeight="17.0" prefWidth="157.0" />
          </children>
       </AnchorPane>
    </children>

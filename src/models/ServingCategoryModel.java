@@ -35,20 +35,15 @@ public class ServingCategoryModel extends BaseModel {
 			ServingCategoryModel item = new ServingCategoryModel();
 		}
 	}
-	// ti nho them path
-	public static ServingCategoryModel getInstance(int sequence, int id, String name, String parentName, String createdAt, int status, String path) {
-		if (SerCateModel == null) {
-			ServingCategoryModel item = new ServingCategoryModel();
-			item.sequence = sequence;
-			item.id = id;
-			item.name = name;
-			item.parentName = parentName;
-			item.createdAt = createdAt;
-			item.status = status;
-			item.path = path;
-			return item;
-		}
-		return SerCateModel;
+	public ServingCategoryModel (int sequence, int id, String name, String parentName, String createdAt, int status, String path) {
+		super(table, columns);
+		this.sequence = sequence;
+		this.id = id;
+		this.name = name;
+		this.parentName = parentName;
+		this.createdAt = createdAt;
+		this.status = status;
+		this.path = path;
 	}
 	
 	//get list
@@ -63,7 +58,7 @@ public class ServingCategoryModel extends BaseModel {
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
 			joins.add(JoinCondition.getInstance(" join", "serving_categories sc", joinCondition));
 			
-			return this.getData(selects, conditions, joins);
+			return this.getData(selects, conditions, joins, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -84,7 +79,7 @@ public class ServingCategoryModel extends BaseModel {
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
 			joins.add(JoinCondition.getInstance("left join", "serving_categories sc", joinConditions));
 			
-			return this.getData(selects, conditions, joins);
+			return this.getData(selects, conditions, joins, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

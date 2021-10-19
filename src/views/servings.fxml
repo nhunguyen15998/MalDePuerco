@@ -42,16 +42,16 @@
             <TableView fx:id="tbl_servings" layoutX="20.0" layoutY="72.0" onMouseClicked="#getTableDataByClick" prefHeight="280.0" prefWidth="799.0" stylesheets="@../css/servings.css">
               <columns>
                 <TableColumn fx:id="col_no" prefWidth="31.0" text="#" />
-                <TableColumn fx:id="col_id" prefWidth="119.0" style="-fx-background-color: #858B97; -fx-text-color: white;" text="C2" visible="false" />
+                <TableColumn fx:id="col_id" prefWidth="119.0" style="-fx-background-color: #858B97; -fx-text-color: white;" visible="false" />
                   <TableColumn fx:id="col_name" prefWidth="85.0" text="Name" />
                   <TableColumn fx:id="col_cate" prefWidth="128.0" text="Category" />
-                  <TableColumn fx:id="col_des" prefWidth="179.0" text="Descriptions" />
-                  <TableColumn fx:id="col_price" prefWidth="90.0" text="Price" />
-                  <TableColumn fx:id="col_created" prefWidth="104.0" text="Created At" />
-                  <TableColumn fx:id="col_status" minWidth="0.0" prefWidth="96.0" text="Status" />
-                  <TableColumn fx:id="colQuantity" prefWidth="67.0" text="Quantity" />
-                  <TableColumn prefWidth="18.0" />
-                  <TableColumn fx:id="colPath" prefWidth="75.0" text="Column X" visible="false" />
+                  <TableColumn fx:id="col_type" prefWidth="82.0" text="Type" />
+                  <TableColumn fx:id="col_des" prefWidth="151.0" text="Description" />
+                  <TableColumn fx:id="colQuantity" prefWidth="58.0" text="Quantity" />
+                  <TableColumn fx:id="col_price" minWidth="0.0" prefWidth="56.0" text="Price" />
+                  <TableColumn fx:id="col_created" prefWidth="109.0" text="Created At" />
+                  <TableColumn fx:id="col_status" prefWidth="84.0" text="Status" />
+                  <TableColumn fx:id="colPath" prefWidth="75.0" visible="false" />
               </columns>
             </TableView>
             <Button layoutX="483.0" layoutY="24.0" mnemonicParsing="false" onAction="#btnCreateAction" prefHeight="31.0" prefWidth="106.0" styleClass="btnCreate" stylesheets="@../css/servings.css" text="         Create " textFill="WHITE">

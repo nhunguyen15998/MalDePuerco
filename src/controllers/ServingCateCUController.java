@@ -165,36 +165,23 @@ public class ServingCateCUController implements Initializable{
 		}
 		
 		//upload
-				public void upload() throws FileNotFoundException {
-//					stage = (Stage) anchorPane.getScene().getWindow();
-//					file = fileChooser.showOpenDialog(stage);    
-//					if(file != null) {
-//						System.out.println(""+file.getAbsolutePath());
-//						try {
-//							image = new Image(file.getAbsoluteFile().toURL().toString(), 200, 170, false, false);
-//							imageView.setImage(image);
-//						} catch (MalformedURLException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						}
-//					}
-					stage = new Stage();
-					fileChooser = new FileChooser();
-					fileChooser.getExtensionFilters().addAll(
-							new FileChooser.ExtensionFilter("IMAGE FILES", "*.jpg", "*.png", "*.gif")
-							);
-					file = fileChooser.showOpenDialog(stage);
-					String newPath = "/asset/";
-					File directory = new File(newPath);
-					if(file != null) {
-						
-						System.out.println("path:"+directory);
-						Image im = new Image(new FileInputStream(newPath), 200, 170, false, false);
-						imageView.setImage(im);
-					} else {
-						System.out.println("error");
-					}
-				}
+		public void upload() throws FileNotFoundException {
+			stage = new Stage();
+			fileChooser = new FileChooser();
+			fileChooser.getExtensionFilters().addAll(
+					new FileChooser.ExtensionFilter("IMAGE FILES", "*.jpg", "*.png", "*.gif")
+					);
+			file = fileChooser.showOpenDialog(stage);    
+			if(file != null) {
+				path = file.getPath();
+				System.out.println("path:" +path);
+				Image im = new Image(new FileInputStream(path), 200, 170, false, false);
+				imageView.setImage(im);
+				} 
+			else {
+				System.out.println("error path");
+			}
+		}
 		
 		//load ccb parent
 		public ResultSet getParentList() {
@@ -238,7 +225,7 @@ public class ServingCateCUController implements Initializable{
 								cbStatus.setValue(status);
 								break;
 							}
-						}//m len db i
+						}
 						String paths = currentSC.getString("thumbnail").replaceAll("'\'", "/");
 						System.out.println("path "+paths);
 						if(paths == null || paths.isEmpty()) {

@@ -1,8 +1,10 @@
 package app;
 
+
 import java.util.ArrayList;
 
 import db.MySQLJDBC;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;

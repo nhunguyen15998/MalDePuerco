@@ -71,7 +71,7 @@ public class UserModel extends BaseModel {
 			conditions.add(CompareOperator.getInstance("phone", "=", phone));
 			//conditions.add(CompareOperator.getInstance("password", "=", hashPassword));
 			conditions.add(CompareOperator.getInstance("status", "=", String.valueOf(USER_ACTIVATED)));
-			ResultSet results = this.getData(selects, conditions, null);
+			ResultSet results = this.getData(selects, conditions, null, null, null);
 			return results;
 		} catch (Exception eLogin) {
 			eLogin.printStackTrace();
@@ -92,7 +92,7 @@ public class UserModel extends BaseModel {
 			
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
 			joins.add(JoinCondition.getInstance(" join ", " roles ", joinRole));
-			return this.getData(selects, conditions, joins);
+			return this.getData(selects, conditions, joins, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -115,9 +115,23 @@ public class UserModel extends BaseModel {
 			
 			
 			
-			return this.getData(selects, conditions, joins);
+			return this.getData(selects, conditions, joins, null, null);
 		} catch (Exception eGetUserById) {
 			eGetUserById.printStackTrace();
+			return null;
+		}
+	}
+	
+	//load ccb Chef
+	public ResultSet getChefById(int role_id) {
+		try {
+			String[] selects = {"users.name", "users.role_id"};
+			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
+			conditions.add(CompareOperator.getInstance("role_id", "=", "4"));
+			
+			return this.getData(selects, conditions, null, null, null);
+		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}

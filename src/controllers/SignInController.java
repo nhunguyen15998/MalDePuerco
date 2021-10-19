@@ -60,7 +60,7 @@ public class SignInController implements Initializable {
 
     @FXML
     private void signinAction() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/myfx/pjsem2/view/master_layout.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/master_layout.fxml"));
                         try{
                             AnchorPane managerPane = loader.load();
                             Stage substage=new Stage();

@@ -87,6 +87,12 @@ public class ServingsCUController implements Initializable{
     @FXML private TextField tfImage;
     
     @FXML
+    private ComboBox<DataMapping> cbType;
+
+    @FXML
+    private Label lblTypeError;
+    
+    @FXML
     private ImageView imageView;
     private Image image;
     private static String path = "";
@@ -105,6 +111,9 @@ public class ServingsCUController implements Initializable{
 			ObservableList<DataMapping> status = FXCollections.observableArrayList(ServingModel.isActivated, ServingModel.isDeactivated);
 			cbStatus.setItems(status);
 			
+			ObservableList<DataMapping> type = FXCollections.observableArrayList(ServingModel.isFood, ServingModel.isHotDrink, ServingModel.isColdDrink);
+			cbType.setItems(type);
+			
 			fileChooser = new FileChooser();
 			fileChooser.getExtensionFilters().addAll(
 					new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.gif")
@@ -112,13 +121,14 @@ public class ServingsCUController implements Initializable{
 		}
 		
 		//validate
-		public boolean validated(String name, String category, String descriptions, String price, String quantity) {
+		public boolean validated(String name, String category, String descriptions, String price, String quantity, String type) {
 			try {
 				lblNameError.setText("");
 				lblCategoryError.setText("");
 				lblDesError.setText("");
 				lblPriceError.setText("");
 				lblQuantityError.setText("");
+				lblTypeError.setText("");
 				
 				ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
 				data.add(new ValidationDataMapping("name", name, "lblNameError", "required|string|min:5"));
@@ -126,6 +136,7 @@ public class ServingsCUController implements Initializable{
 				data.add(new ValidationDataMapping("descriptions", descriptions, "lblDesError", "required|string|min:20"));
 				data.add(new ValidationDataMapping("price", price, "lblPriceError", "required"));
 				data.add(new ValidationDataMapping("quantity", quantity, "lblQuantityError", "required|numberic"));
+				data.add(new ValidationDataMapping("type", type, "lblTypeError", "required"));
 				
 				ArrayList<DataMapping> message = Validations.validated(data);
 				if(message.size() > 0) {
@@ -188,8 +199,9 @@ public class ServingsCUController implements Initializable{
 				String des = tfDes.getText();
 				String price = tfPrice.getText();
 				String quantity = tfQuantity.getText();
+				String type = cbType.getValue() != null ? cbType.getValue().key : null;
 				
-				if(validated(name, cate, des, price, quantity)) {
+				if(validated(name, cate, des, price, quantity, type)) {
 					ArrayList<DataMapping> servings = new ArrayList<DataMapping>();
 					servings.add(DataMapping.getInstance("name", name));
 					servings.add(DataMapping.getInstance("category_id", cate));
@@ -197,6 +209,7 @@ public class ServingsCUController implements Initializable{
 					servings.add(DataMapping.getInstance("price", price));
 					servings.add(DataMapping.getInstance("quantity", quantity));
 					servings.add(DataMapping.getInstance("thumbnail", path));
+					servings.add(DataMapping.getInstance("type", type));
 					
 					
 					if(this.servingID == 0) {
@@ -277,6 +290,13 @@ public class ServingsCUController implements Initializable{
 						for(DataMapping cate : cbCate.getItems()) {
 							if(cate.key != null && Integer.parseInt(cate.key) == currentSer.getInt("category_id")) {
 								cbCate.setValue(cate);
+								break;
+							}
+						}
+						
+						for(DataMapping type : cbType.getItems()) {
+							if(type.key != null && Integer.parseInt(type.key) == currentSer.getInt("type")) {
+								cbType.setValue(type);
 								break;
 							}
 						}

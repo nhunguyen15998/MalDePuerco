@@ -60,7 +60,9 @@ public class ServingAttributeController implements Initializable{
     private TableColumn<ServingAttributeModel, Integer> colServing;
 
     @FXML
-    private TableColumn<ServingAttributeModel, String> colAttribute;
+    private TableColumn<ServingAttributeModel, Integer> colAttribute;
+    
+    @FXML private TableColumn<ServingAttributeModel, Integer> colQuantity;
 
     @FXML
     private TableColumn<ServingAttributeModel, String> colPrice;
@@ -88,15 +90,12 @@ public class ServingAttributeController implements Initializable{
 		try {
 			ObservableList<ServingAttributeModel> serattList = FXCollections.observableArrayList();
 			
-			//get row form db
+			//get row form model
 			colNo.setCellValueFactory(new PropertyValueFactory<ServingAttributeModel, Integer>("sequence"));
 			colId.setCellValueFactory(new PropertyValueFactory<ServingAttributeModel, Integer>("id"));
 			colServing.setCellValueFactory(new PropertyValueFactory<ServingAttributeModel, Integer>("servingName"));
-			colAttribute.setCellValueFactory(cellData -> new ReadOnlyStringWrapper (
-							cellData.getValue().getAttribute() == ServingAttributeModel.SERVING_ATTRIBUTE_S ? String.valueOf(ServingAttributeModel.isS) :
-								cellData.getValue().getAttribute() == ServingAttributeModel.SERVING_ATTRIBUTE_M ? String.valueOf(ServingAttributeModel.isM) :
-									String.valueOf(ServingAttributeModel.isL)
-					));
+			colAttribute.setCellValueFactory(new PropertyValueFactory<ServingAttributeModel, Integer>("attribute"));
+			colQuantity.setCellValueFactory(new PropertyValueFactory<ServingAttributeModel, Integer>("quantity"));
 			colPrice.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(Helpers.formatNumber(null).format(cellData.getValue().getPrice())));
 			colCreated.setCellValueFactory(new PropertyValueFactory<ServingAttributeModel, LocalDate>("createAt"));
 			
@@ -105,14 +104,15 @@ public class ServingAttributeController implements Initializable{
 			while (servingatt.next()) {
 				//int no, int id, String serving_id, String attribute
 				//double price, String created_at
-				boolean add = serattList.add(ServingAttributeModel.getInstance(
-						servingatt.getRow(),
+				serattList.add(new ServingAttributeModel(
+						servingatt.getRow(), 
 						servingatt.getInt("id"),
 						servingatt.getString("servingID"),
-						servingatt.getInt("attribute"),
-						servingatt.getInt("price"),  ////////
-						servingatt.getDate("created_at").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy")))
-						);
+						servingatt.getString("attName"),
+						servingatt.getInt("quantity"), 
+						servingatt.getInt("price"), 
+						servingatt.getDate("created_at").toLocalDate().format(Helpers.formatDate("dd-My-yyyy"))
+						));
 			}
 			tblAttribute.setItems(serattList);
 		} catch (Exception e) {
@@ -208,7 +208,7 @@ public class ServingAttributeController implements Initializable{
 			try {
 				String code = tfFind.getText();
 				ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
-				conditions.add(CompareOperator.getInstance("servings.name or serving_attributes.attribute"," like ", "%"+ code + "%"));
+				conditions.add(CompareOperator.getInstance("servings.name or attributes.name"," like ", "%"+ code + "%"));
 				return conditions;
 			} catch (Exception e) {
 				e.printStackTrace();

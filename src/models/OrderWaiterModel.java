@@ -9,8 +9,8 @@ import utils.JoinCondition;
 
 public class OrderWaiterModel extends BaseModel{
 	private static String table = "orders";
-	private static String[] columns = {"id", "code", "table_id", "reservation_id", "tip", 
-							"total_amount", "payment_method_id", "created_at", "status"};
+	private static String[] columns = {"id, code, table_id, reservation_id, tip, total_amount, "
+									  + "payment_method_id, created_at, status, user_id"};
 	
 	private static OrderWaiterModel orderWModel;
 	
@@ -24,17 +24,19 @@ public class OrderWaiterModel extends BaseModel{
 	private String paymentID;
 	private String createdAt;
 	private int status;
+	private String userCode;
+	private int quantity;
 	
 	//status
-	public static final int	PENDING_ORDER = 0;
-	public static final int PROCESSING_ORDER = 1;
-	public static final int SERVED_ORDER = 3;
-	public static final int COMPLETED_ORDER = 4;
+	public static final int	PENDING = 0;
+	public static final int PROCESSING = 1;
+	public static final int SERVED = 2;
+	public static final int COMPLETED = 3;
 	
-	public static DataMapping isPending = DataMapping.getInstance(PENDING_ORDER, "Pending");
-	public static DataMapping isProcessing = DataMapping.getInstance(PROCESSING_ORDER, "Processing");
-	public static DataMapping isServed = DataMapping.getInstance(SERVED_ORDER, "Served");
-	public static DataMapping isCompleted = DataMapping.getInstance(COMPLETED_ORDER, "Complete");
+	public static DataMapping isPending = DataMapping.getInstance(PENDING, "Pending");
+	public static DataMapping isProcessing = DataMapping.getInstance(PROCESSING, "Processing");
+	public static DataMapping isServed = DataMapping.getInstance(SERVED, "Served");
+	public static DataMapping isCompleted = DataMapping.getInstance(COMPLETED, "Complete");
 	
 	//shown
 	public static boolean isShown = false;
@@ -48,48 +50,55 @@ public class OrderWaiterModel extends BaseModel{
 		}
 	}
 
-	public static OrderWaiterModel getInstance(int id, int sequence, String code, String tableID,
+	public OrderWaiterModel (int id, int sequence, String code, String tableID,
 											   String reservationID, double tip, double total_amount, 
-											   String paymentID, String createdAt, int status) {
-		if(orderWModel == null) {
-			OrderWaiterModel item = new OrderWaiterModel();
-			item.setId(id);
-			item.setSequence(sequence);
-			item.setCode(code);
-			item.setTableID(tableID);
-			item.setReservationID(reservationID);
-			item.setTip(tip);
-			item.setTotal_amount(total_amount);
-			item.setPaymentID(paymentID);
-			item.setCreatedAt(createdAt);
-			item.setStatus(status);
-		}
-		return orderWModel;
+											   String paymentID, int quantity, int status, String userCode) {
+		super(table, columns);
+		this.id = id;
+		this.sequence = sequence;
+		this.code = code;
+		this.tableID = tableID;
+		this.reservationID = reservationID;
+		this.tip = tip;
+		this.total_amount = total_amount;
+		this.paymentID = paymentID;
+		this.quantity = quantity;
+		this.status = status;
+		this.userCode = userCode;
 	}
 	
 	//getList
-	public ResultSet getOrderList(ArrayList<CompareOperator> conditions) {
+	public ResultSet getOrderList(ArrayList<CompareOperator> conditions, String[] groupBys) {
 		try {
 			
 			String[] selects = {"orders.id", "orders.code", "tables.name as tblNameID",
 								"reservations.code as reservationCode", "orders.tip", 
-								"order.total_amount", "payment_method.name as payment_id", 
-								"orders.created_at", "orders.status"};
+								"orders.total_amount", "payment_method.name as payment_id", 
+								"sum(order_details.quantity) as orderQuantity", "orders.status", "users.name as userID"};
 			ArrayList<CompareOperator> tableJoin = new ArrayList<CompareOperator>();
 			tableJoin.add(CompareOperator.getInstance("tables.id", "=", "orders.table_id"));
 			
 			ArrayList<CompareOperator> reserJoin = new ArrayList<CompareOperator>();
-			reserJoin.add(CompareOperator.getInstance("reservations.id", "=", "tables.reservation_id"));
+			reserJoin.add(CompareOperator.getInstance("reservations.id", "=", "orders.reservation_id"));
 			
 			ArrayList<CompareOperator> payJoin = new ArrayList<CompareOperator>();
-			payJoin.add(CompareOperator.getInstance("payment_method.id", "=", "tables.payment_method_id"));
+			payJoin.add(CompareOperator.getInstance("payment_method.id", "=", "orders.payment_method_id"));
+			
+			ArrayList<CompareOperator> userJoin = new ArrayList<CompareOperator>();
+			userJoin.add(CompareOperator.getInstance("users.id", "=", "orders.user_id"));
+			
+			ArrayList<CompareOperator> orderdetailJoin = new ArrayList<CompareOperator>();
+			orderdetailJoin.add(CompareOperator.getInstance("order_details.order_id", "=", "orders.id group by orders.id"));
+			
 			
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
-			joins.add(JoinCondition.getInstance("join", "tables", tableJoin));
-			joins.add(JoinCondition.getInstance("join", "reservations", reserJoin));
-			joins.add(JoinCondition.getInstance("join", "payment_method", payJoin));
+			joins.add(JoinCondition.getInstance("left join", "tables", tableJoin));
+			joins.add(JoinCondition.getInstance("left join", "reservations", reserJoin));
+			joins.add(JoinCondition.getInstance("left join", "payment_method", payJoin));
+			joins.add(JoinCondition.getInstance("left join", "users", userJoin));
+			joins.add(JoinCondition.getInstance("left join", "order_details", orderdetailJoin));
 			
-			return this.getData(selects, conditions, joins);
+			return this.getData(selects, conditions, joins, groupBys, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -177,6 +186,23 @@ public class OrderWaiterModel extends BaseModel{
 	public void setStatus(int status) {
 		this.status = status;
 	}
+
+	public String getUserCode() {
+		return userCode;
+	}
+
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	
 	
 	
 }

@@ -38,27 +38,38 @@
             <Label fx:id="lblAttributeError" layoutX="271.0" layoutY="162.0" prefHeight="17.0" prefWidth="237.0" />
             <Label fx:id="lblPriceError" layoutX="270.0" layoutY="244.0" prefHeight="17.0" prefWidth="243.0" />
             <Label fx:id="lblServingError" layoutX="270.0" layoutY="91.0" prefHeight="17.0" prefWidth="237.0" />
-            <Button fx:id="btnCancel" layoutX="372.0" layoutY="293.0" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="30.0" prefWidth="90.0" styleClass="btnCancel" stylesheets="@../css/serattributesCU.css" text="     Cancel" textFill="WHITE">
+            <Button fx:id="btnCancel" layoutX="372.0" layoutY="334.0" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="30.0" prefWidth="90.0" styleClass="btnCancel" stylesheets="@../css/serattributesCU.css" text="     Cancel" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <ImageView fitHeight="28.0" fitWidth="40.0" layoutX="378.0" layoutY="294.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="28.0" fitWidth="40.0" layoutX="378.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/cancel.png" />
                </image>
             </ImageView>
-            <Button layoutX="248.0" layoutY="293.0" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="28.0" prefWidth="90.0" styleClass="btnSave" stylesheets="@../css/serattributesCU.css" text="       Save" textFill="WHITE">
+            <Button layoutX="248.0" layoutY="334.0" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="28.0" prefWidth="90.0" styleClass="btnSave" stylesheets="@../css/serattributesCU.css" text="       Save" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <ImageView fitHeight="28.0" fitWidth="40.0" layoutX="255.0" layoutY="294.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="28.0" fitWidth="40.0" layoutX="255.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/save.png" />
                </image>
             </ImageView>
             <ComboBox fx:id="cbAttribute" layoutX="274.0" layoutY="127.0" prefHeight="27.0" prefWidth="237.0" styleClass="text" stylesheets="@../css/serattributes.css" />
+            <Label layoutX="185.0" layoutY="265.0" text="Quantity" textFill="#e11b46">
+               <font>
+                  <Font name="Consolas" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfQuantity" layoutX="271.0" layoutY="261.0" prefHeight="28.0" prefWidth="243.0" styleClass="text" stylesheets="@../css/serattributes.css">
+               <font>
+                  <Font name="Corbel Light" size="14.0" />
+               </font>
+            </TextField>
+            <Label fx:id="lblQuantityError" layoutX="270.0" layoutY="304.0" prefHeight="17.0" prefWidth="243.0" />
          </children>
       </AnchorPane>
       <Label fx:id="lbl" layoutX="62.0" layoutY="25.0" prefHeight="32.0" prefWidth="698.0" text="Create Serving Attributes" textFill="WHITE">

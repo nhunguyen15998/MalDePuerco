@@ -55,6 +55,8 @@ public class ServingsController  implements Initializable {
     @FXML
     private TableColumn<ServingModel, Integer> col_cate;
     @FXML
+    private TableColumn<ServingModel, String> col_type;
+    @FXML
     private TableColumn<ServingModel, String> col_des;
     @FXML
     private TableColumn<ServingModel, String> col_price;
@@ -71,7 +73,7 @@ public class ServingsController  implements Initializable {
     @FXML
     private Button btnUpdate;
     @FXML
-    private TextField tffind;
+    private TextField tfFind;
     @FXML
     private Button btnClear;
     @FXML 
@@ -94,28 +96,33 @@ public class ServingsController  implements Initializable {
 			col_id.setCellValueFactory(new PropertyValueFactory<ServingModel, Integer>("id"));
 			col_name.setCellValueFactory(new PropertyValueFactory<ServingModel, String>("name"));
 			col_cate.setCellValueFactory(new PropertyValueFactory<ServingModel, Integer>("categoryName"));
+			col_type.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(
+					cellData.getValue().getType() == ServingModel.FOOD ? String.valueOf(ServingModel.isFood) :
+						(cellData.getValue().getType() == ServingModel.HOT_DRINK ? String.valueOf(ServingModel.isHotDrink) : String.valueOf(ServingModel.isColdDrink))
+					));
 			col_des.setCellValueFactory(new PropertyValueFactory<ServingModel, String>("descriptions"));
+			colQuantity.setCellValueFactory(new PropertyValueFactory<ServingModel, Integer>("quantity"));
 			col_price.setCellValueFactory(new PropertyValueFactory<ServingModel, String>("price"));
 			col_created.setCellValueFactory(new PropertyValueFactory<ServingModel, LocalDate>("createAt"));
 			col_status.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(				
 					cellData.getValue().getStatus() == ServingModel.SERVING_ACTIVATED ? String.valueOf(ServingModel.isActivated) : String.valueOf(ServingModel.isDeactivated)));
-			colQuantity.setCellValueFactory(new PropertyValueFactory<ServingModel, Integer>("quantity"));
 			colPath.setVisible(true);
 			//get data form db
 			ResultSet servings = this.servingModel.getServingList(conditions);
 			while (servings.next()) {
 				//int no, int id, String name, String categoryName, String descriptions
-				//double price, String createAt, int status
-				boolean add = Servingslist.add(ServingModel.getInstance(
+				//double price, String createAt, int status 
+				Servingslist.add(new ServingModel(
 						servings.getRow(),
 						servings.getInt("id"),
-						servings.getString("name"),
+						servings.getString("nameSer"), 
 						servings.getString("cateName"),
+						servings.getInt("type"), 
 						servings.getString("descriptions"),
-						servings.getInt("price"),
-						servings.getDate("created_at").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy")), 
-						servings.getInt("status"),
 						servings.getInt("quantity"),
+						servings.getInt("price"),
+						servings.getDate("created_at").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy")),
+						servings.getInt("status"),
 						servings.getString("servings.thumbnail")
 						));
 			}
@@ -210,7 +217,7 @@ public class ServingsController  implements Initializable {
 		//filter
 		public ArrayList<CompareOperator> getFilter() {
 			try {
-				String code = tffind.getText();
+				String code = tfFind.getText();
 				ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
 				conditions.add(CompareOperator.getInstance("name or sc.name", " like ", "%"+ code + "%"));
 				return conditions;
@@ -231,7 +238,7 @@ public class ServingsController  implements Initializable {
 		
 		public void btnClearAction() {
 			try {
-				tffind.setText("");
+				tfFind.setText("");
 				this.loadData(getFilter());
 			} catch (Exception e ) {
 				e.printStackTrace();
