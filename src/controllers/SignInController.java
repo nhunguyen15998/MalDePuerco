@@ -77,7 +77,6 @@ public class SignInController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     	//remember login
-    	
     	preference = Preferences.userNodeForPackage(SignInController.class);
        if(preference != null ) {
     	   if(!preference.get("tfUsername", "").isEmpty() && preference.get("tfUsername", "") != null) {

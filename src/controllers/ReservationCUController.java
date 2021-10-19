@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
@@ -112,6 +113,7 @@ public class ReservationCUController implements Initializable {
 	ArrayList<DataMapping> listTable = new ArrayList<DataMapping>();
 	private static int seats = 0;
 	boolean checkTable=true;
+	private int timeCancel;
 	@FXML
 	public void btnSaveAction(ActionEvent event) {
 		try {
@@ -174,21 +176,23 @@ public class ReservationCUController implements Initializable {
 					Alert alert = new Alert(AlertType.ERROR);
 					boolean checkPresent = (status.equals("4")&&checkToPresent(reserId));
 					boolean checkCancel = (status.equals("0")&&checkToCancel(reserId));
-					 if(!checkPresent&&!checkCancel) {
+					 if(!status.equals("4")&&!status.equals("0")) {
 						 updateReser(re);
 					}else if(checkPresent) {
 							 updateReser(re);
+							 System.out.println("hereeee");
 							
-						}else if(!checkPresent){
+						}else if(!checkPresent&&!status.equals("0")){
 							alert.setHeaderText("Not at the right time to update");
 							 alert.showAndWait();
 							
 						}
 						else if(checkCancel) {
 							 updateReser(re);
-						}else if(!checkCancel) {
-							
-							alert.setHeaderText("Can not cancel reservation after 2 hours");
+						}else if(!checkCancel&&!status.equals("4")) {
+							int time = 2;
+							time = timeCancel;
+							alert.setHeaderText("Can not cancel reservation after "+time+" hours");
 							 alert.showAndWait();
 						}
 					
@@ -207,7 +211,7 @@ public class ReservationCUController implements Initializable {
 	}
 	public void updateReser(ArrayList<DataMapping> re) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Update User Confirmation");
+		alert.setTitle("Update Reservation Confirmation");
 		alert.setHeaderText("Do you want to make this change?");
 		Optional<ButtonType> option = alert.showAndWait();
 		if (option.get() == ButtonType.OK) {
@@ -233,14 +237,15 @@ public class ReservationCUController implements Initializable {
 		} 
 	}
 	private boolean checkToPresent(int id) {
-		boolean check = false;
-		String sql ="select date_pick, start_time,end_time from reservations where id="+id+" and date_pick=curdate() and curtime()>=start_time";
+		boolean check = true;
+		String sql ="select date_pick, start_time,end_time from reservations where (id="+id+" and date_pick=curdate() and curtime()<start_time) or (id="+id+" and date_pick<curdate())  or (id="+id+" and date_pick>curdate()) ";
+
+		System.out.println(sql);
 		try {
 			Statement st = MySQLJDBC.connection.createStatement();
 			ResultSet rs = st.executeQuery(sql);
-			System.out.println(sql);
 			if(rs.next()) {
-				check=true;
+				check=false;
 			}
 		}catch (Exception e) {
 			// TODO: handle exception
@@ -249,14 +254,16 @@ public class ReservationCUController implements Initializable {
 				
 	}
 	private boolean checkToCancel(int id) {
-		boolean check = false;
-		String sql ="select created_at, date_pick from reservations where id="+id+" and date_add(now() , INTERVAL -2 HOUR)<= created_at";
+		boolean check = true;
+		int time=2;
+		time = timeCancel;
+		String sql ="select created_at, date_pick from reservations where (id="+id+" and date_add(now() , INTERVAL -"+time+" HOUR)> created_at) or (id="+id+" and created_at<now())";
+		System.out.println(sql);
 		try {
 			Statement st = MySQLJDBC.connection.createStatement();
 			ResultSet rs = st.executeQuery(sql);
-			System.out.println(sql);
 			if(rs.next()) {
-				check=true;
+				check=false;
 			}
 		}catch (Exception e) {
 			// TODO: handle exception
@@ -305,8 +312,9 @@ public class ReservationCUController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		ObservableList<DataMapping> status=FXCollections.observableArrayList(ReservationModel.isNew,ReservationModel.isDeposited,ReservationModel.isPresent, ReservationModel.isExpried,ReservationModel.isCancelled );
-		
-		
+		Preferences preference;
+		preference = Preferences.userNodeForPackage(SettingController.class);
+		timeCancel=preference.getInt("timeCancel",0);
 		
 		cbStatus.setItems(status);
 		cbStatus.setValue(ReservationModel.isNew);
@@ -469,7 +477,7 @@ public class ReservationCUController implements Initializable {
 		    	LocalTime time = LocalTime.parse(start);
 		        LocalTime time2 = LocalTime.parse(end);
 		        boolean checkTime = Validations.checkTime(time , time2, lblTimeError, "unachievable!");
-		    	
+		     
 		        if(!checkTime||!checkTable) {
 		        	lblTableError.setText("please choose");
 		        	return false;
@@ -528,7 +536,10 @@ public class ReservationCUController implements Initializable {
 	    @FXML
 	    void changeStatus(KeyEvent event) { 
 	    	if(reserId==0) {
-	    	if(!tfDeposit.getText().equals("")) {
+	    	if(tfDeposit.getText().equals("0")) {
+	    		cbStatus.setValue(ReservationModel.isNew);
+	    		
+	    	}else if(!tfDeposit.getText().equals("")){
 	    		cbStatus.setValue(ReservationModel.isDeposited);
 	    	}else {
 	    		cbStatus.setValue(ReservationModel.isNew);
@@ -596,8 +607,11 @@ public class ReservationCUController implements Initializable {
 	    	LocalTime time = LocalTime.parse(start);
 	        LocalTime time2 = LocalTime.parse(end);
 	        boolean checkTime = Validations.checkTime(time , time2, lblTimeError, "unachievable!");
-	    	
-	        if(!checkTime) {
+	        boolean checkTimeToUpdate =true;
+	        if(reserId==0) {
+	        	checkTimeToUpdate= Validations.checkTimeUpdate(time, lblTimeError, "unachievable!");
+	        }
+	        if(!checkTime||checkTimeToUpdate) {
 	        	check= false;
 	           
 	        }else {
@@ -729,8 +743,13 @@ public class ReservationCUController implements Initializable {
 	  		}
 	  	@FXML
 	  	public void dateAction() {
+	  		seats=0;
+	    	listTable.clear();
+	    	tfTable.setText("");
+	    	btnAdd.setDisable(false);
 	  		if(reserId==0) {
 	  		this.getTableList(dpDate.getValue().toString(),tfStart.getText(), tfEnd.getText(),"");
+	  		
 	  		}else {
 	  			this.getTableList(dpDate.getValue().toString(),tfStart.getText(), tfEnd.getText()," and reservation_id!="+reserId);
 	  		}

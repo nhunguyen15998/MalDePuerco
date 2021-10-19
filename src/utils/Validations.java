@@ -10,8 +10,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.prefs.Preferences;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import controllers.SettingController;
+
 import java.text.ParseException;
 
 import db.MySQLJDBC;
@@ -218,8 +222,26 @@ public class Validations {
 		         check=false;
 		         lb.setText(er);
 		     }
+		     
 		     return check;
 		 }
+	  public static boolean checkTimeUpdate(LocalTime time, Label lb, String er){
+		  boolean check= true;
+		  int timeBook;
+		  	Preferences preference;
+			preference = Preferences.userNodeForPackage(SettingController.class);
+			timeBook =preference.getInt("timeBook",0);
+		     LocalTime now = LocalTime.now();
+		     int timePush = 2;
+		     timePush = timeBook;
+		     LocalTime timeCheck=LocalTime.of(now.getHour()+timePush, now.getMinute());
+		     if(time.compareTo(timeCheck)<=0){
+		         check=false;
+		         lb.setText(er);
+		     }
+		     
+		     return check;
+	  }
 	
 }
 

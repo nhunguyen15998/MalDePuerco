@@ -21,6 +21,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
@@ -32,18 +33,29 @@ import models.TableModel;
 import utils.CompareOperator;
 import utils.DataMapping;
 import utils.Helpers;
+import utils.ValidationDataMapping;
+import utils.Validations;
 
 public class SettingController implements Initializable {
 	TableModel tableModel= new TableModel();
 	public  static String tablet_code;
 	public static int tableId;
-	
+	public static int timeBook;
+	public static int timeCancel;
 	@FXML
 	private Label lblRole;
 	@FXML
 	private Label lblWarn;
 	@FXML
 	private Label lblStatus;
+	@FXML
+	private Label lblBookError;
+	@FXML
+	private Label lblCancelError;
+	@FXML
+	private TextField tfBook;
+	@FXML
+	private TextField tfCancel;
 	@FXML
 	private ImageView imgStatus;
 	@FXML
@@ -119,6 +131,7 @@ public class SettingController implements Initializable {
 	public void btnSaveAction(ActionEvent event) {
 		String choose = cbbCode.getValue().toString();
 		if(!choose.equals("")) {
+			
 			SettingController.tablet_code=(preference.get("cbb", cbbCode.getValue().toString()));
 			preference.put("tabletCode", SettingController.tablet_code);
 			SettingController.tableId= (preference.getInt("tableId", tableId));
@@ -128,15 +141,62 @@ public class SettingController implements Initializable {
 				code.add(DataMapping.getInstance("is_set", "1"));
 						tableModel.updateTableById(SettingController.tableId, code);
 						updateData();
-						Helpers.status("success");
 						
-		} else {
+		} 
+		if(!tfBook.getText().isEmpty()) {
+			if(validated(tfBook.getText(), "lblBookError")) {
+			SettingController.timeBook = Integer.parseInt((preference.get("timeB", tfBook.getText())));
+			System.out.println("Time book new: " + SettingController.timeBook );
+			preference.putInt("timeBook", SettingController.timeBook);
+			}
+		}
+		if(!tfCancel.getText().isEmpty()) {
+			if(validated(tfCancel.getText(), "lblCancelError")) {
+			SettingController.timeCancel = Integer.parseInt((preference.get("timeC", tfCancel.getText())));
+			System.out.println("Time cancel new:" + SettingController.timeCancel );
+			preference.putInt("timeCancel", SettingController.timeCancel);
+			}
+		}
+
+		if(choose.equals("")&&tfBook.getText().isEmpty()&&tfCancel.getText().isEmpty()){
 				Alert alert = new Alert(AlertType.ERROR);
-				alert.setHeaderText("Please select table code");
+				alert.setHeaderText("Please fill in the input");
 				alert.showAndWait();
+		}
+		if(validated(tfBook.getText(), "lblBookError")&&validated(tfCancel.getText(), "lblCancelError")) {
+		Helpers.status("success");
 		}
 		
 		
+		
+	}
+	private boolean validated(String time, String lbl) {
+		try{
+			ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
+				data.add(new ValidationDataMapping("time", time, lbl, "numeric|min:0"));
+				ArrayList<DataMapping> messages = Validations.validated(data);
+				if(messages.size() > 0) {
+					for(DataMapping message : messages) {
+						switch(message.key) {
+							case "lblCancelError":
+								lblCancelError.setText(message.value);
+								break;
+							case "lblBookError":
+								lblBookError.setText(message.value);
+								break;
+							
+							default:
+								System.out.println("abcde");
+						}
+
+					}
+					return false;
+				}
+					return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
 	}
 
 	@Override
@@ -145,16 +205,19 @@ public class SettingController implements Initializable {
 		preference = Preferences.userNodeForPackage(SettingController.class);
 		SettingController.tablet_code =(preference.get("tabletCode", ""));
 		SettingController.tableId =preference.getInt("tabletId", 0);
-		System.out.println("old: "+ SettingController.tablet_code +"\n Table id: "+SettingController.tableId );
+		SettingController.timeBook= preference.getInt("timeBook",0);
+		System.out.println("Time book old: " + SettingController.timeBook );
+		SettingController.timeCancel = preference.getInt("timeCancel", 0);
+		System.out.println("Time cancel old: " + SettingController.timeCancel );
 		cbbCode.setValue(SettingController.tablet_code );
+		tfBook.setText(timeBook+"");
+		tfCancel.setText(timeCancel+"");
 		updateData();
 		//invoice
-		btnClear.setVisible(false);
-		btnClear.setManaged(false);
+		btnClear.setDisable(true);
 		
 		if(AuthenticationModel.hasPermission("CLEAR_TABLET") || AuthenticationModel.roleName.equals("Super Admin")) {
-			btnClear.setVisible(true);
-			btnClear.setManaged(true);
+			btnClear.setDisable(false);
 		}
 		this.getTableCodeList();
 		this.getTableInfo();
@@ -172,7 +235,6 @@ public class SettingController implements Initializable {
 		Image im = new Image("/assets/tablet_yes.png");  
         imgStatus.setImage(im);
 	    btnClear.setDisable(false);
-		btnSave.setDisable(true);
 		cbbCode.setDisable(true);
 		lblWarn.setText("You must clear to be re-selected number of this tablet");
 		
