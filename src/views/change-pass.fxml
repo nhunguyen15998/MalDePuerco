@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="370.0" prefWidth="600.0" style="-fx-background-color: #f0e9ec;" stylesheets="@../css/setting.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChangePassController">
+<AnchorPane prefHeight="370.0" prefWidth="600.0" style="-fx-background-color: #f0e9ec;" stylesheets="@../css/setting.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.ChangePassController">
    <children>
       <Pane prefHeight="94.0" prefWidth="638.0" style="-fx-background-color: linear-gradient(to right, #ff304f,#ffabb7);">
          <children>

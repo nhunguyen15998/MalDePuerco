@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DiscountController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.DiscountController">
    <children>
       <Pane layoutX="37.0" layoutY="68.0" prefHeight="453.0" prefWidth="766.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(212, 165, 174,0.5),30, 0,10, 10);">
          <children>
