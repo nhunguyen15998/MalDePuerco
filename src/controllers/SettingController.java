@@ -59,7 +59,7 @@ public class SettingController implements Initializable {
 	@FXML
 	private ImageView imgStatus;
 	@FXML
-	private ComboBox <String> cbbCode;
+	private ComboBox <DataMapping> cbbCode;//nhu
 	@FXML
 	private Label lblTableInfo;
 	@FXML
@@ -99,13 +99,16 @@ public class SettingController implements Initializable {
 	//load table code
 		public ResultSet getTableCodeList() {
 			try {
-				ObservableList<String> codeOptions = FXCollections.observableArrayList();
-				String[] selects = {"code"};
+				ObservableList<DataMapping> codeOptions = FXCollections.observableArrayList();//string ->dm nhu
+				String[] selects = {"id, code"};
 				ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
 				conditions.add(CompareOperator.getInstance("is_set", "=", String.valueOf(TableModel.NO)));
 				ResultSet code = tableModel.getData(selects, conditions, null);
 				while(code.next()) {
-					codeOptions.add(code.getString("code"));
+					//codeOptions.add(code.getString("code"));
+					//nhu
+					codeOptions.add(DataMapping.getInstance(code.getString("id"), code.getString("code")));
+					//-----
 				}
 				cbbCode.setItems(codeOptions);
 				return code;
@@ -124,29 +127,50 @@ public class SettingController implements Initializable {
 		tableModel.updateTableById(SettingController.tableId, code);
 		SettingController.tableId=0;
 		preference.putInt("tabletId", SettingController.tableId);
+		System.out.println("NEW CODE:"+SettingController.tablet_code +"\nNEW ID: "+SettingController.tableId);
 		notSet();
 		this.getTableCodeList();
-		 System.out.println("NEW CODE:"+(preference.get("tabletCode", ""))+ "\nNEW ID: "+preference.getInt("tabletId", 0));
 		Helpers.status("success");
-
 		
 	}
 	@FXML
 	public void btnSaveAction(ActionEvent event) {
-		String choose = cbbCode.getValue().toString();
-		if(tableId!=0) {
-			
-			SettingController.tablet_code=(preference.get("cbb", cbbCode.getValue().toString()));
+		String key = cbbCode.getValue() != null ? cbbCode.getValue().key : null;
+		System.out.println(SettingController.tableId);
+		System.out.println("choose: "+key);
+		//if reselect => choose
+		if(key != null) {
+			SettingController.tablet_code = cbbCode.getValue().value;
+			SettingController.tableId = Integer.parseInt(key);
 			preference.put("tabletCode", SettingController.tablet_code);
-			SettingController.tableId= (preference.getInt("tableId", tableId));
 			preference.putInt("tabletId", SettingController.tableId);
-			 System.out.println("NEW CODE:"+(preference.get("tabletCode", ""))+ "\nNEW ID: "+preference.getInt("tabletId", 0));
-			 ArrayList<DataMapping> code = new ArrayList<DataMapping>();
-				code.add(DataMapping.getInstance("is_set", "1"));
-						tableModel.updateTableById(SettingController.tableId, code);
-						updateData();
-						
+			System.out.println("table: "+SettingController.tableId);
+			System.out.println("key: "+key);
+			ArrayList<DataMapping> code = new ArrayList<DataMapping>();
+			code.add(DataMapping.getInstance("is_set", "1"));
+			tableModel.updateTableById(SettingController.tableId, code);
+			updateData();
 		} 
+		//if not => get old value
+		//if(!choose.equals("")) {
+			
+			//SettingController.tablet_code=(preference.get("cbb", cbbCode.getValue().toString()));
+			//nhu
+//			SettingController.tablet_code=(preference.get("cbb", cbbCode.getValue().value));
+//			//---
+//			preference.put("tabletCode", SettingController.tablet_code);
+//			SettingController.tableId= (preference.getInt("tableId", Integer.parseInt(choose)));
+//			//---nhu
+//			System.out.println("here: "+SettingController.tableId);
+//			//----
+//			preference.putInt("tabletId", SettingController.tableId);
+//			 System.out.println("NEW CODE:"+SettingController.tablet_code+ "\nNEW ID: "+SettingController.tableId);
+//			 ArrayList<DataMapping> code = new ArrayList<DataMapping>();
+//				code.add(DataMapping.getInstance("is_set", "1"));
+//						tableModel.updateTableById(SettingController.tableId, code);
+//						updateData();		
+		//} 
+		
 		if(!tfBook.getText().isEmpty()) {
 			if(validated(tfBook.getText(), "lblBookError")) {
 			SettingController.timeBook = Integer.parseInt((preference.get("timeB", tfBook.getText())));
@@ -162,7 +186,7 @@ public class SettingController implements Initializable {
 			}
 		}
 
-		if(choose.equals("")&&tfBook.getText().isEmpty()&&tfCancel.getText().isEmpty()){
+		if(key.equals("")&&tfBook.getText().isEmpty()&&tfCancel.getText().isEmpty()){
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setHeaderText("Please fill in the input");
 				alert.showAndWait();
@@ -206,18 +230,21 @@ public class SettingController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
+		
 		preference = Preferences.userNodeForPackage(SettingController.class);
+		
 		SettingController.tablet_code =(preference.get("tabletCode", ""));
 		SettingController.tableId =preference.getInt("tabletId", 0);
-		SettingController.timeBook= preference.getInt("timeBook",2);
 		System.out.println("OLD CODE: " + SettingController.tablet_code );
-		SettingController.timeCancel = preference.getInt("timeCancel", 2);
 		System.out.println("OLD ID: " + SettingController.tableId );
-		cbbCode.setValue(SettingController.tablet_code );
+		cbbCode.setValue(DataMapping.getInstance(SettingController.tableId, SettingController.tablet_code));
+		
+		updateData();
+		SettingController.timeBook= preference.getInt("timeBook",2);
+		SettingController.timeCancel = preference.getInt("timeCancel", 2);
+		cbbCode.setValue(DataMapping.getInstance(SettingController.tableId, SettingController.tablet_code));
 		tfBook.setText(timeBook+"");
 		tfCancel.setText(timeCancel+"");
-		updateData();
-		//invoice
 		btnClear.setDisable(true);
 		
 		if(AuthenticationModel.hasPermission("CLEAR_TABLET") || AuthenticationModel.roleName.equals("Super Admin")) {
@@ -231,10 +258,9 @@ public class SettingController implements Initializable {
 		}
 		this.getTableCodeList();
 		this.getTableInfo();
-		
 	}
 	private void updateData() {
-		if(!cbbCode.getValue().toString().isEmpty()) {
+		if(cbbCode.getValue()!=null) {
 			isSet();
 		}else {
 			notSet();
@@ -258,8 +284,9 @@ public class SettingController implements Initializable {
 		lblWarn.setText("");
 		cbbCode.setDisable(false);
 		lblTableInfo.setText("");
-		cbbCode.setValue("");
-		getTableInfo();
+		cbbCode.setValue(DataMapping.getInstance(SettingController.tableId, SettingController.tablet_code));
+		//cbbCode.setValue("");
+		this.getTableInfo();
 	}
 	
 }
