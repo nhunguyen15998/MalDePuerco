@@ -136,7 +136,7 @@ public class SettingController implements Initializable {
 			preference.put("tabletCode", SettingController.tablet_code);
 			SettingController.tableId= (preference.getInt("tableId", tableId));
 			preference.putInt("tabletId", SettingController.tableId);
-			 System.out.println("new:"+SettingController.tablet_code+ "\n Table id: "+SettingController.tableId);
+			 System.out.println("new code:"+SettingController.tablet_code+ "\nNew table id: "+SettingController.tableId);
 			 ArrayList<DataMapping> code = new ArrayList<DataMapping>();
 				code.add(DataMapping.getInstance("is_set", "1"));
 						tableModel.updateTableById(SettingController.tableId, code);
@@ -206,9 +206,9 @@ public class SettingController implements Initializable {
 		SettingController.tablet_code =(preference.get("tabletCode", ""));
 		SettingController.tableId =preference.getInt("tabletId", 0);
 		SettingController.timeBook= preference.getInt("timeBook",2);
-		System.out.println("Time book old: " + SettingController.timeBook );
+		System.out.println("table id old: " + SettingController.tableId );
 		SettingController.timeCancel = preference.getInt("timeCancel", 2);
-		System.out.println("Time cancel old: " + SettingController.timeCancel );
+		System.out.println("Table code old: " + SettingController.tablet_code );
 		cbbCode.setValue(SettingController.tablet_code );
 		tfBook.setText(timeBook+"");
 		tfCancel.setText(timeCancel+"");
