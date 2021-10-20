@@ -130,7 +130,7 @@ public class OrderDetailModel extends BaseModel {
 		try {
 			String[] selects = {"order_details.id", "orders.code as code", "servings.name as serName",
 								"order_details.size", "order_details.quantity", "order_details.price",
-								"order_details.total", "users.code as uCode", "time(created_at) as time", "order_details.seving_status"};
+								"order_details.total", "users.code as uCode", "time(order_details.created_at) as time", "order_details.serving_status"};
 			//orders
 			ArrayList<CompareOperator> orderCondition = new ArrayList<CompareOperator>();
 			orderCondition.add(CompareOperator.getInstance("orders.id", "=", "order_details.order_id"));
@@ -150,6 +150,23 @@ public class OrderDetailModel extends BaseModel {
 			joins.add(JoinCondition.getInstance("left join", "users", userCondition));
 			joins.add(JoinCondition.getInstance("left join", "tables", tableCondition));
 			return this.getData(selects, conditions, joins, null, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public ResultSet getById(int id) {
+		try {
+			String[] selects = {"order_details.id", "orders.code as code", "servings.name as serName",
+					"order_details.size", "order_details.quantity", "order_details.price",
+					"order_details.total", "users.code as uCode", "time(order_details.created_at) as time", "order_details.serving_status"};
+			
+			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
+			conditions.add(CompareOperator.getInstance("order_details.id", "=", String.valueOf(id)));
+			
+			
+			return this.getData(selects, conditions, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

@@ -8,7 +8,7 @@ public class CompareOperator {
 	
 	public static CompareOperator getInstance(String key, String operator, String value) {
 		if(compareOperator == null) {
-			CompareOperator item = new CompareOperator();
+			CompareOperator item = new CompareOperator(value, value, value);
 			item.key = key;
 			item.operator = operator;
 			item.value = value;
@@ -18,4 +18,10 @@ public class CompareOperator {
 		return compareOperator;
 	}
 	 
+	public CompareOperator(String key, String operator, String value) {
+		this.key = key;
+		this.value = value;
+		this.operator = operator;
+	}
+	
 }

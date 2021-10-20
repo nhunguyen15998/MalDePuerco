@@ -30,7 +30,7 @@
          </children></AnchorPane>
       <AnchorPane fx:id="anchorOrder" layoutX="12.0" layoutY="104.0" prefHeight="421.0" prefWidth="815.0" style="-fx-background-color: white;" styleClass="anchorPane" stylesheets="@../css/orderWaiter.css">
          <children>
-            <TableView fx:id="tblOrder" layoutX="20.0" layoutY="22.0" prefHeight="326.0" prefWidth="782.0" stylesheets="@../css/orderWaiter.css">
+            <TableView fx:id="tblOrder" layoutX="20.0" layoutY="22.0" onMouseClicked="#getTableByClick" prefHeight="326.0" prefWidth="782.0" stylesheets="@../css/orderWaiter.css">
               <columns>
                 <TableColumn fx:id="col_id" prefWidth="75.0" text="Id" visible="false" />
                   <TableColumn fx:id="col_no" prefWidth="20.0" text="#" />

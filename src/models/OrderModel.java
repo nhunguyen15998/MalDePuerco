@@ -114,6 +114,23 @@ public class OrderModel extends BaseModel {
 		}
 	}
 	
+	//load combobox
+	public ResultSet getStatus(int status) {
+		try {
+			String[] selects = {"orders.status"};
+			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
+			conditions.add(CompareOperator.getInstance("status", "=", "0"));
+			conditions.add(CompareOperator.getInstance("status", "=", "1"));
+			conditions.add(CompareOperator.getInstance("status", "=", "2"));
+			conditions.add(CompareOperator.getInstance("status", "=", "3"));
+			
+			return this.getData(selects, conditions, null, null, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	//create
 	public int createOrder(ArrayList<DataMapping> data) {
 		try {

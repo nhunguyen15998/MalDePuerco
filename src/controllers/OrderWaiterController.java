@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -98,7 +99,14 @@ public class OrderWaiterController implements Initializable {
 			col_pay.setCellValueFactory(new PropertyValueFactory<OrderWaiterModel, String>("paymentID"));
 			col_quantity.setCellValueFactory(new PropertyValueFactory<OrderWaiterModel, Integer>("quantity"));
 			col_user.setCellValueFactory(new PropertyValueFactory<OrderWaiterModel, Integer>("userCode"));
-			col_status.setCellValueFactory(new PropertyValueFactory<OrderWaiterModel, String>("status"));
+			col_status.setCellValueFactory(cellData -> new ReadOnlyStringWrapper (
+					cellData.getValue().getStatus() == OrderWaiterModel.PENDING ? String.valueOf(OrderWaiterModel.isPending) : 
+						(cellData.getValue().getStatus() == OrderWaiterModel.PROCESSING ? String.valueOf(OrderWaiterModel.isProcessing) :
+							(cellData.getValue().getStatus() == OrderWaiterModel.SERVED ? String.valueOf(OrderWaiterModel.isServed) :
+								String.valueOf(OrderWaiterModel.isCompleted)
+									)
+								)
+					));
 			
 			/*(cellData -> new ReadOnlyStringWrapper(
 					cellData.getValue().getStatus() == OrderWaiterModel.PENDING ? String.valueOf(OrderWaiterModel.isPending) :
@@ -132,6 +140,23 @@ public class OrderWaiterController implements Initializable {
 		}
 	}
 
+	//on mouse click
+	public void getTableByClick(MouseEvent e) {
+		try {
+			if(e.getClickCount() > 0) {
+				OrderWaiterModel item = tblOrder.getSelectionModel().getSelectedItem();
+				if(item != null) {
+					this.orderCode = item.getCode();
+					this.orderId = item.getId();
+					System.out.println(this.orderCode);
+					System.out.println(this.orderId);
+				}
+			}
+		} catch (Exception err) {
+			err.printStackTrace();
+		}
+	}
+	
 	//show order details
 	public void showODForm() {
 		try {
@@ -156,8 +181,6 @@ public class OrderWaiterController implements Initializable {
 	
 	public void btnOrderDetail() {
 		try {
-			
-		} catch (Exception e) {
 			if(this.orderId != 0) {
 				if(OrderDetailModel.isShown != true) {
 					OrderDetailModel.isShown = true;
@@ -168,6 +191,8 @@ public class OrderWaiterController implements Initializable {
 			} else {
 				System.out.println("select a row");
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	

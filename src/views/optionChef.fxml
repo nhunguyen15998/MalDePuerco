@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="139.0" prefWidth="261.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChefOptionController">
    <children>
-      <ComboBox prefHeight="25.0" prefWidth="261.0" promptText="Choose Chef" />
+      <ComboBox fx:id="cbChef" prefHeight="25.0" prefWidth="261.0" promptText="Choose Chef" />
       <Button layoutX="44.0" layoutY="57.0" mnemonicParsing="false" onAction="#btnChefOption" prefHeight="25.0" prefWidth="60.0" text="OK" />
       <Button layoutX="143.0" layoutY="57.0" mnemonicParsing="false" text="CANCEL" />
    </children>
