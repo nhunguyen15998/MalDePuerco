@@ -205,9 +205,9 @@ public class SettingController implements Initializable {
 		preference = Preferences.userNodeForPackage(SettingController.class);
 		SettingController.tablet_code =(preference.get("tabletCode", ""));
 		SettingController.tableId =preference.getInt("tabletId", 0);
-		SettingController.timeBook= preference.getInt("timeBook",0);
+		SettingController.timeBook= preference.getInt("timeBook",2);
 		System.out.println("Time book old: " + SettingController.timeBook );
-		SettingController.timeCancel = preference.getInt("timeCancel", 0);
+		SettingController.timeCancel = preference.getInt("timeCancel", 2);
 		System.out.println("Time cancel old: " + SettingController.timeCancel );
 		cbbCode.setValue(SettingController.tablet_code );
 		tfBook.setText(timeBook+"");
@@ -218,6 +218,12 @@ public class SettingController implements Initializable {
 		
 		if(AuthenticationModel.hasPermission("CLEAR_TABLET") || AuthenticationModel.roleName.equals("Super Admin")) {
 			btnClear.setDisable(false);
+		}
+		tfBook.setDisable(true);
+		tfCancel.setDisable(true);
+		if(AuthenticationModel.hasPermission("SETTING_TIME") || AuthenticationModel.roleName.equals("Super Admin")) {
+			tfBook.setDisable(false);
+			tfCancel.setDisable(false);
 		}
 		this.getTableCodeList();
 		this.getTableInfo();

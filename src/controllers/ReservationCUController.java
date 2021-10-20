@@ -190,9 +190,8 @@ public class ReservationCUController implements Initializable {
 						else if(checkCancel) {
 							 updateReser(re);
 						}else if(!checkCancel&&!status.equals("4")) {
-							int time = 2;
-							time = timeCancel;
-							alert.setHeaderText("Can not cancel reservation after "+time+" hours");
+							
+							alert.setHeaderText("Can not cancel reservation after "+timeCancel+" hours");
 							 alert.showAndWait();
 						}
 					
@@ -255,9 +254,7 @@ public class ReservationCUController implements Initializable {
 	}
 	private boolean checkToCancel(int id) {
 		boolean check = true;
-		int time=2;
-		time = timeCancel;
-		String sql ="select created_at, date_pick from reservations where (id="+id+" and date_add(now() , INTERVAL -"+time+" HOUR)> created_at) or (id="+id+" and created_at<now())";
+		String sql ="select created_at, date_pick from reservations where (id="+id+" and date_add(now() , INTERVAL -"+timeCancel+" HOUR)> created_at) or (id="+id+" and created_at<now())";
 		System.out.println(sql);
 		try {
 			Statement st = MySQLJDBC.connection.createStatement();
@@ -314,7 +311,7 @@ public class ReservationCUController implements Initializable {
 		ObservableList<DataMapping> status=FXCollections.observableArrayList(ReservationModel.isNew,ReservationModel.isDeposited,ReservationModel.isPresent, ReservationModel.isExpried,ReservationModel.isCancelled );
 		Preferences preference;
 		preference = Preferences.userNodeForPackage(SettingController.class);
-		timeCancel=preference.getInt("timeCancel",0);
+		timeCancel=preference.getInt("timeCancel",2);
 		
 		cbStatus.setItems(status);
 		cbStatus.setValue(ReservationModel.isNew);

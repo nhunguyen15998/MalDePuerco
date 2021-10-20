@@ -230,11 +230,9 @@ public class Validations {
 		  int timeBook;
 		  	Preferences preference;
 			preference = Preferences.userNodeForPackage(SettingController.class);
-			timeBook =preference.getInt("timeBook",0);
+			timeBook =preference.getInt("timeBook",2);
 		     LocalTime now = LocalTime.now();
-		     int timePush = 2;
-		     timePush = timeBook;
-		     LocalTime timeCheck=LocalTime.of(now.getHour()+timePush, now.getMinute());
+		     LocalTime timeCheck=LocalTime.of(now.getHour()+timeBook, now.getMinute());
 		     if(time.compareTo(timeCheck)<=0){
 		         check=false;
 		         lb.setText(er);
