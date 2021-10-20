@@ -233,6 +233,7 @@ public class Validations {
 			timeBook =preference.getInt("timeBook",2);
 		     LocalTime now = LocalTime.now();
 		     LocalTime timeCheck=LocalTime.of(now.getHour()+timeBook, now.getMinute());
+		     
 		     if(time.compareTo(timeCheck)<=0){
 		         check=false;
 		         lb.setText(er);

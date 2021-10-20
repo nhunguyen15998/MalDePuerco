@@ -18,6 +18,8 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -312,7 +314,7 @@ public class ReservationCUController implements Initializable {
 		Preferences preference;
 		preference = Preferences.userNodeForPackage(SettingController.class);
 		timeCancel=preference.getInt("timeCancel",2);
-		
+		tfDeposit.setDisable(true);
 		cbStatus.setItems(status);
 		cbStatus.setValue(ReservationModel.isNew);
 		dpDate.setValue(LocalDate.now());
@@ -466,22 +468,10 @@ public class ReservationCUController implements Initializable {
 				lblPhoneError.setText("");
 				lblEmailError.setText("");
 				lblSeatError.setText("");
-				lblDepoError.setText("");
 				lblTimeError.setText("");
 				String s = tfStart.getText();
 		    	String e = tfEnd.getText();
-		    	if(lblTimeError.getText().equals("")&&s.length()==5&&e.length()==5) {
-		    	LocalTime time = LocalTime.parse(start);
-		        LocalTime time2 = LocalTime.parse(end);
-		        boolean checkTime = Validations.checkTime(time , time2, lblTimeError, "unachievable!");
-		     
-		        if(!checkTime||!checkTable) {
-		        	lblTableError.setText("please choose");
-		        	return false;
-		        }else {
-		        	return true;
-		        }
-		    	}
+		    	
 				ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
 				data.add(new ValidationDataMapping("name", name, "lblNameError", "required|string|min:5"));
 				data.add(new ValidationDataMapping("phone", phone, "lblPhoneError", "required|phone|max:10"));
@@ -521,7 +511,19 @@ public class ReservationCUController implements Initializable {
 					}
 					return false;
 				}
-				
+				if(lblTimeError.getText().equals("")&&s.length()==5&&e.length()==5) {
+			    	LocalTime time = LocalTime.parse(start);
+			        LocalTime time2 = LocalTime.parse(end);
+			        boolean checkTime = Validations.checkTime(time , time2, lblTimeError, "unachievable!");
+			      
+			        if(!checkTime||!checkTable||listTable.isEmpty()) {
+			        	lblTableError.setText("please choose");
+			        	return false;
+			        }
+			        if(!lblDepoError.getText().isEmpty()) {
+			        	return false;
+			        }
+			    	}
 				return true;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -530,9 +532,13 @@ public class ReservationCUController implements Initializable {
 		}
 // create: show new and deposited, if textfield deposit typed => status change to Diposited and not type => New
 //Update: show deposited, present, cancelled, expired
+		
+		//key event
 	    @FXML
-	    void changeStatus(KeyEvent event) { 
+	    void changeStatus() { 
 	    	if(reserId==0) {
+	    	
+	    	depoCheck(tfDeposit.getText());
 	    	if(tfDeposit.getText().equals("0")) {
 	    		cbStatus.setValue(ReservationModel.isNew);
 	    		
@@ -543,7 +549,28 @@ public class ReservationCUController implements Initializable {
 	    	}
 	    	}
 	    }
-	    
+	    private boolean depoCheck(String depo) {
+	    	
+
+		lblDepoError.setText("");
+		    	ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
+		    	data.add(new ValidationDataMapping("deposit", depo, "lblDepoError", "numeric|min:100000|required"));
+				ArrayList<DataMapping> messages = Validations.validated(data);
+		    	if(messages.size() > 0) {
+					for(DataMapping message : messages) {
+					switch(message.key) {
+						case "lblDepoError":
+							lblDepoError.setText(message.value);
+							break;
+						default:
+							System.out.println("abcde");
+					}
+
+				}
+				return false;
+			}
+	    	return true;
+}
 	    @FXML
 	    void checkTime() { 
 	    	seats=0;
@@ -556,6 +583,29 @@ public class ReservationCUController implements Initializable {
 	    	int seat=0;
 	    	if(seats.length()>0) {
 	    	seat = Integer.parseInt(seats);
+	    	}
+
+	    	lblDepoError.setText("");
+	    	if(seat>4) {
+	    		lblDepoError.setText("You have to deposit at least 100 000 VND");
+	    		tfDeposit.setDisable(false);
+	    	}else {
+	    		tfDeposit.setText("");
+	    		tfDeposit.setDisable(true);
+	    	}
+	    	
+	    	if(!tfDeposit.getText().isEmpty()) {
+	    		int depo = Integer.parseInt(tfDeposit.getText());
+	    	
+	    		if(seat>4&&depo<100000) {
+	    		lblDepoError.setText("You have to deposit at least 100 000 VND");
+	    		tfDeposit.setDisable(false);
+	    	}else {
+
+		    	lblDepoError.setText("");
+	    	}
+
+		    	changeStatus();
 	    	}
 	    	if(!end.equals("")&&!start.equals("")&&!(seat<=0)) {
 	    	if(time(seats,start, end)&&reserId==0&&seat>0) {
@@ -571,13 +621,15 @@ public class ReservationCUController implements Initializable {
 	    	}
 	    	
 	    	}
-	    	if(end.equals("")||start.equals("")||seat<=0) {
+	    	
+	    	if(end.equals("")||start.equals("")||seat<=0||!lblTimeError.getText().isEmpty()) {
 	    		cbbTable.setDisable(true);
 	    	}
+
 	    	
 	    }
 	    private boolean time(String seats,String start, String end) {
-	    	boolean check = true;
+	    	
 
 	    	lblTimeError.setText("");
 	    	ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
@@ -596,7 +648,7 @@ public class ReservationCUController implements Initializable {
 					}
 
 				}
-				check= false;
+				return false;
 			}
 	    	String s = tfStart.getText();
 	    	String e = tfEnd.getText();
@@ -605,17 +657,20 @@ public class ReservationCUController implements Initializable {
 	        LocalTime time2 = LocalTime.parse(end);
 	        boolean checkTime = Validations.checkTime(time , time2, lblTimeError, "unachievable!");
 	        boolean checkTimeToUpdate =true;
-	        if(reserId==0) {
+	        Calendar now = Calendar.getInstance();
+	           int year= now.get(Calendar.YEAR);
+	           int month= (now.get(Calendar.MONTH) + 1);
+	           int day= + now.get(Calendar.DATE);
+	        LocalDate nowLocal = LocalDate.of(year,month,day);
+	        if(reserId==0&&dpDate.getValue().compareTo(nowLocal)==0) {
 	        	checkTimeToUpdate= Validations.checkTimeUpdate(time, lblTimeError, "unachievable!");
 	        }
-	        if(!checkTime||checkTimeToUpdate) {
-	        	check= false;
+	        if(!checkTime||!checkTimeToUpdate) {
+	        	return false;
 	           
-	        }else {
-			check= true;
 	        }
 	    	}
-	    	return check;
+	    	return true;
 	    	
 	    }
 	    @FXML
@@ -750,6 +805,8 @@ public class ReservationCUController implements Initializable {
 	  		}else {
 	  			this.getTableList(dpDate.getValue().toString(),tfStart.getText(), tfEnd.getText()," and reservation_id!="+reserId);
 	  		}
+
+	    	checkTime();
 	  	}
 	  	//load code discount
 	  		public ResultSet getTableList(String date,String st, String et, String cond) {
