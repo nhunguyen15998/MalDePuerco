@@ -126,7 +126,7 @@ public class SettingController implements Initializable {
 		preference.putInt("tabletId", SettingController.tableId);
 		notSet();
 		this.getTableCodeList();
-		System.out.println("NEW CODE:"+SettingController.tablet_code +"\nNEW ID: "+SettingController.tableId);
+		 System.out.println("NEW CODE:"+(preference.get("tabletCode", ""))+ "\nNEW ID: "+preference.getInt("tabletId", 0));
 		Helpers.status("success");
 
 		
@@ -140,7 +140,7 @@ public class SettingController implements Initializable {
 			preference.put("tabletCode", SettingController.tablet_code);
 			SettingController.tableId= (preference.getInt("tableId", tableId));
 			preference.putInt("tabletId", SettingController.tableId);
-			 System.out.println("NEW CODE:"+SettingController.tablet_code+ "\nNEW ID: "+SettingController.tableId);
+			 System.out.println("NEW CODE:"+(preference.get("tabletCode", ""))+ "\nNEW ID: "+preference.getInt("tabletId", 0));
 			 ArrayList<DataMapping> code = new ArrayList<DataMapping>();
 				code.add(DataMapping.getInstance("is_set", "1"));
 						tableModel.updateTableById(SettingController.tableId, code);
