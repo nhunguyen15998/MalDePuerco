@@ -396,6 +396,7 @@ public class MasterController implements Initializable {
     	this.customerHomeController = customerHomeController;
     	return this.customerHomeController;
     }
+    
     public CustomerOptionController itemOption(CustomerOptionController customerOptionController) {
     	this.customerOptionController = customerOptionController;
     	return this.customerOptionController;
