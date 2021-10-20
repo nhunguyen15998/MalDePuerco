@@ -155,7 +155,7 @@ public class SignInController implements Initializable {
 				//controller
 				 MasterController controller = loader.getController();
 				 this.customerHomeController.customerMasterHolder.setDisable(false);
-				 controller.itemCustomer(this.customerHomeController);
+				 //controller.itemCustomer(this.customerHomeController);
 
 			}else {
 				lblErrorMessage.setText("Invalid login. Please try again");

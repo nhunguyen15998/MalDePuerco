@@ -328,10 +328,12 @@ public class CustomServingController implements Initializable {
 			ResultSet sizes = this.servingAttributeModel.getServingAttributeList(servingCondition);
 			ObservableList<DataMapping> attributes = FXCollections.observableArrayList();
 			while(sizes.next()) {
+				
 				int servingAttributeId = sizes.getInt("serving_attributes.id");
 				String attributeName = sizes.getString("attribute_name");
 				attributes.add(DataMapping.getInstance(servingAttributeId, attributeName));
 			}
+			System.out.println("attri "+attributes);
 			cbSize.getItems().setAll(attributes);
 			cbSize.getSelectionModel().selectFirst();
 			String defKey = cbSize.getSelectionModel().getSelectedItem().key;

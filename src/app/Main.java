@@ -1,16 +1,10 @@
 package app;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-//=======
-import javafx.scene.control.Button;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.StackPane;
-//>>>>>>> tram
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -33,15 +27,6 @@ public class Main extends Application{
 			primaryStage.setResizable(true);
 			primaryStage.setScene(scene);
 			primaryStage.initStyle(StageStyle.UNDECORATED);
-//=======
-//			
-//			Parent root = FXMLLoader.load(getClass().getResource("/views/sign_in.fxml")); 
-//			Scene scene = new Scene(root);
-//            //primaryStage.setResizable(true);
-//			primaryStage.initStyle(StageStyle.UNDECORATED);;
-//			primaryStage.setScene(scene);
-//			 
-//>>>>>>> tram
 			primaryStage.show();
 			
 		} catch (Exception e) {

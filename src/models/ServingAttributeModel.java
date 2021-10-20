@@ -45,7 +45,7 @@ public class ServingAttributeModel extends BaseModel {
 			
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
 			joins.add(JoinCondition.getInstance("left join", "servings", servingJoin));
-			joins.add(JoinCondition.getInstance("left join", "attributes", attributeJoin));
+			joins.add(JoinCondition.getInstance("inner join", "attributes", attributeJoin));
 			return this.getData(selects, conditions, joins, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();

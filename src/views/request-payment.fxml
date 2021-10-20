@@ -131,7 +131,7 @@
                         <Font size="13.0" />
                      </font>
                      <graphic>
-                        <Label contentDisplay="RIGHT" text="with cash" textFill="WHITE">
+                        <Label fx:id="lblPaymentMethod" contentDisplay="RIGHT" textFill="WHITE">
                            <font>
                               <Font size="13.0" />
                            </font>

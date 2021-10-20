@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,6 +36,7 @@ import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import models.AuthenticationModel;
 import models.PermissionModel;
+import models.TableModel;
 import models.UserModel;
 
 /**
@@ -401,6 +403,9 @@ public class MasterController implements Initializable {
     
     //btnHomeAction
     public void btnHomeAction() {
+    	Preferences preferences = Preferences.userNodeForPackage(getClass());
+		TableModel.tableId = preferences.getInt("tabletId", SettingController.tableId);
+    	System.out.println("MC table id "+TableModel.tableId);
     	this.customerHomeController.customerMasterHolder.setDisable(false);
     	Stage stageHome = (Stage) this.customerHomeController.customerMasterHolder.getScene().getWindow();
     	stageHome.show();

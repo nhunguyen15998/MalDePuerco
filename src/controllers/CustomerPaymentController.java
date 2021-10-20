@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
+import camera.Camera;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -86,6 +87,8 @@ public class CustomerPaymentController implements Initializable {
 	@FXML
 	private Label lblTotal;
 	@FXML
+	private Label lblPaymentMethod;
+	@FXML
 	private ComboBox<DataMapping> cbDiscount;
 	@FXML
 	private CheckBox chbDeposit;	
@@ -94,7 +97,7 @@ public class CustomerPaymentController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		//set table code
-		this.lblTableCode.setText(SettingController.tableName);
+		this.lblTableCode.setText("");
 		this.tableId = SettingController.tableId;
 		//radio
 		this.renderPaymentMethodGrid();
@@ -284,9 +287,11 @@ public class CustomerPaymentController implements Initializable {
 			rbPaymentMethod.setToggleGroup(group);//method.key
 			if(count == 1) {
 				rbPaymentMethod.setSelected(true);
+				lblPaymentMethod.setText("with "+method.value);
 			}
 			rbPaymentMethod.setOnMouseClicked(event -> {
 				selectedPayment = method.value;
+				lblPaymentMethod.setText("with "+method.value);
 			});
 			
 			//grid
@@ -301,7 +306,7 @@ public class CustomerPaymentController implements Initializable {
 	public void btnPayAction() {
 		try {
 			System.out.println("payment "+selectedPayment);
-			//cash -> change to view pending , send noti to server -> server respond
+			//cash -> change to view pending, send noti to server -> server respond
 			//-> server confirm payment -> view payment success -> clear order basket
 			String path = "cash-payment-request.fxml";
 			if(selectedPayment.equals("Cash")) { //->send noti to server
@@ -314,20 +319,23 @@ public class CustomerPaymentController implements Initializable {
 			if(selectedPayment.equals("Momo")) {
 //				Pay abc = new Pay();
 //				abc.payAction();
+				Camera camera = new Camera();
+				Stage stage = new Stage();
+				camera.start(stage);
 			}
 			
-			this.paymentConfirmed = true; 
-			if(this.paymentConfirmed = true) { //noti server 
-				path = "payment-success.fxml";
-				FXMLLoader root = this.loadView(path, 690, 361);
-				//controller review
-				ReviewOrderController controller = root.getController();
-				controller.loadOrder(this);
-				//clear
-			} else {
-				path = "payment-failure.fxml";
-				this.loadView(path, 690, 361);
-			}
+			this.paymentConfirmed = false; 
+//			if(this.paymentConfirmed = true) { //noti server 
+//				path = "payment-success.fxml";
+//				FXMLLoader root = this.loadView(path, 690, 361);
+//				//controller review
+//				ReviewOrderController controller = root.getController();
+//				controller.loadOrder(this);
+//				//clear
+//			} else {
+//				path = "payment-failure.fxml";
+//				this.loadView(path, 690, 361);
+//			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();

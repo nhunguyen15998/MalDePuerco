@@ -212,9 +212,9 @@ public class CustomerHomeController implements Initializable {
 				
 			});
 
-			Preferences preferences;
-			preferences = Preferences.userNodeForPackage(SettingController.class);
-			TableModel.tableId = preferences.getInt("tableId", SettingController.tableId);
+			Preferences preferences = Preferences.userNodeForPackage(getClass());
+			TableModel.tableId = preferences.getInt("tabletId", SettingController.tableId);
+			System.out.println("home table id "+TableModel.tableId);
 			if(TableModel.tableId != 0) { 
 				getTableName(TableModel.tableId);
 				String code = this.loadLatestUnpaidOrder();
@@ -225,6 +225,7 @@ public class CustomerHomeController implements Initializable {
 				}
 			} else {
 				this.lblTableName.setText("");
+				this.lblOrderCode.setText("");
 			}
 
 		} catch (Exception e) {
@@ -236,7 +237,7 @@ public class CustomerHomeController implements Initializable {
 	public String loadLatestUnpaidOrder() {
 		try {
 			ArrayList<CompareOperator> unpaidOrder =  new ArrayList<CompareOperator>();
-			unpaidOrder.add(CompareOperator.getInstance("orders.table_id", "=", String.valueOf(TableModel.tableId)));
+			unpaidOrder.add(CompareOperator.getInstance("orders.table_id", "=", String.valueOf(TableModel.tableId)));//TableModel.tableId
 			unpaidOrder.add(CompareOperator.getInstance("orders.status", "!=", String.valueOf(OrderModel.COMPLETED)));
 			String orderBys = "order_details.id desc";
 			this.renderUpdatedOrderList(unpaidOrder, orderBys);
@@ -1013,9 +1014,6 @@ public class CustomerHomeController implements Initializable {
 				));
 			}
 			this.lblOrderCode.setText("#"+this.orderCode);
-			if(!orderDetails.next()) {
-				this.lblOrderCode.setText("");
-			}
 			System.out.println(">>>after updated: "+this.totalPlace);
 			return orderId;
 		} catch (Exception e) {
@@ -1039,6 +1037,7 @@ public class CustomerHomeController implements Initializable {
 				CustomerHomeController.updatedList.clear();
 			} else {
 				this.emptyOrderList();
+				this.lblOrderCode.setText("");
 			}	
 			return OrderModel.currentOrderId;
 		} catch (Exception e) {
@@ -1070,7 +1069,9 @@ public class CustomerHomeController implements Initializable {
 				this.emptyOrderList();
 			}
 			CustomerHomeController.isCreated = false;
-			this.renderUpdatedOrderList(null, null);
+			ArrayList<CompareOperator> condition = new ArrayList<CompareOperator>();
+			condition.add(CompareOperator.getInstance("orders.id", "=", String.valueOf( OrderModel.currentOrderId)));
+			this.renderUpdatedOrderList(condition, null);
 			return OrderModel.currentOrderId;
 		} catch (Exception e) {
 			e.printStackTrace();
