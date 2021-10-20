@@ -119,7 +119,6 @@ public class SettingController implements Initializable {
 	public void btnClearAction(ActionEvent event) {
 		SettingController.tablet_code="";
 		preference.put("tabletCode", SettingController.tablet_code);
-		System.out.println("NEW CODE:"+SettingController.tablet_code +"\nNEW ID: "+SettingController.tableId);
 		ArrayList<DataMapping> code = new ArrayList<DataMapping>();
 		code.add(DataMapping.getInstance("is_set", "0"));
 		tableModel.updateTableById(SettingController.tableId, code);
@@ -127,13 +126,15 @@ public class SettingController implements Initializable {
 		preference.putInt("tabletId", SettingController.tableId);
 		notSet();
 		this.getTableCodeList();
+		System.out.println("NEW CODE:"+SettingController.tablet_code +"\nNEW ID: "+SettingController.tableId);
 		Helpers.status("success");
+
 		
 	}
 	@FXML
 	public void btnSaveAction(ActionEvent event) {
 		String choose = cbbCode.getValue().toString();
-		if(!choose.equals("")) {
+		if(tableId!=0) {
 			
 			SettingController.tablet_code=(preference.get("cbb", cbbCode.getValue().toString()));
 			preference.put("tabletCode", SettingController.tablet_code);
