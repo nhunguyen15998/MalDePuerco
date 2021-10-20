@@ -5,16 +5,19 @@
  */
 package controllers;
 
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
+import java.util.stream.IntStream;
 
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -35,12 +38,15 @@ import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
 import javafx.util.Duration;
 import models.AuthenticationModel;
 import models.RoleModel;
 import models.UserModel;
 import utils.DataMapping;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+
+import app.Main;
 
 /**
  * FXML Controller class
@@ -67,33 +73,43 @@ public class SignInController implements Initializable {
 	public Parent root;
 	public static Stage substage;
 	public static String dropSession ;
-	
+	public static int checkRemember;
 	Preferences preference;
 	
     /**
      * Initializes the controller class.
      */
+	
+	
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     	//remember login
     	preference = Preferences.userNodeForPackage(SignInController.class);
-       if(preference != null ) {
-    	   if(!preference.get("tfUsername", "").isEmpty() && preference.get("tfUsername", "") != null) {
-    		   tfUsername.setText(preference.get("tfUsername", ""));
-    	       tfPassHidden.setText(preference.get("tfPassHidden", ""));
-    	      
-    	   } 
-    	   
-       }
+    	checkRemember=preference.getInt("remind", 0);
+    	System.out.println("remember:"+checkRemember);
+
+      
 
   	 dropSession = preference.get("session", "");
   	 System.out.println("session:"+dropSession);
        if(dropSession.equals("0")) {
     	   deleteLoginSession();
+       	}
+    	
+       if(preference != null ) {
+    	   if(!preference.get("tfUsername", "").isEmpty() && preference.get("tfUsername", "") != null) {
+	    		   tfUsername.setText(preference.get("tfUsername", ""));
+	    	       tfPassHidden.setText(preference.get("tfPassHidden", ""));
+ 	       if(checkRemember==1) {
+ 	    	  
+    	       chkRemember.setSelected(true);
+    	       
+    	       
+    	   }
+    	   }
+    	   
        }
-      
-     
     }    
     public void deleteLoginSession() {
     	preference = Preferences.userNodeForPackage(SignInController.class);
@@ -116,35 +132,26 @@ public class SignInController implements Initializable {
 			if(signedIn&&sign.next()) {
 				System.out.println("fereee");
 				//remember login
+				
 				if(chkRemember.isSelected()) {
 					preference.put("tfUsername",tfUsername.getText());
 					preference.put("tfPassHidden", tfPassHidden.getText());
+					checkRemember= (preference.getInt("remember", 1));
+				    preference.putInt("remind", checkRemember);
+				    System.out.println("remember:"+checkRemember);
 					preference.put("session", "");
 				}else {
 					preference.put("tfUsername","");
 					preference.put("tfPassHidden", "");
 					tfUsername.setText("");
+					checkRemember= (preference.getInt("remember", 0));
+				    preference.putInt("remind", checkRemember);
+				    System.out.println("remember:"+checkRemember);
 					tfPassHidden.setText("");
 				}
-				
 				AuthenticationModel.id = sign.getInt("id");
 				AuthenticationModel.name = sign.getString("name");
-				 FXMLLoader loader = new FXMLLoader(SignInController.this.getClass().getResource("/views/master_layout.fxml"));
-		         AnchorPane managerPane;
-				try {
-					managerPane = loader.load();
-					 substage =new Stage();
-			         substage.initModality(Modality.WINDOW_MODAL);
-			         substage.initStyle(StageStyle.UNDECORATED);
-			         substage.setScene(new Scene(managerPane));
-			         substage.show();  
-			         btnSignin.getScene().getWindow().hide();
-			    	 System.out.println("ABC");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
+				loadMaster();
 			}else {
 				lblErrorMessage.setText("Invalid login. Please try again");
 				
@@ -158,10 +165,30 @@ public class SignInController implements Initializable {
        
          
     }
+   
 
+  
+    private void loadMaster() {
+    	FXMLLoader loader = new FXMLLoader(SignInController.this.getClass().getResource("/views/master_layout.fxml"));
+        AnchorPane managerPane;
+		try {
+			managerPane = loader.load();
+			 substage =new Stage();
+	         substage.initModality(Modality.WINDOW_MODAL);
+	         substage.initStyle(StageStyle.UNDECORATED);
+	         substage.setScene(new Scene(managerPane));
+	         substage.show();  
+	         btnSignin.getScene().getWindow().hide();
+	    	 System.out.println("ABC");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
     @FXML
     private void closeSignIn() {
         System.exit(0);
+        
     }
 
 

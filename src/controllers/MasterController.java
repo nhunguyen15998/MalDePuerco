@@ -11,7 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
+import app.Main;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -84,7 +86,6 @@ public class MasterController implements Initializable {
 	private AnchorPane settingHolder;
     @FXML
     private Button btnSetting;
-	private Stage stage;
 	
     /**
      * Initializes the controller class.
@@ -93,7 +94,6 @@ public class MasterController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         btnDashBoardAction();
-        
         try {
 		lblCurrentUser.setText(AuthenticationModel.name);
 		lblCurrentUserRole.setText(AuthenticationModel.roleName);
@@ -204,21 +204,22 @@ public class MasterController implements Initializable {
 		Stage stage = SignInController.substage;
 		stage.close();
 	}
+	
     @FXML
     private void logoutAction() {
-        FXMLLoader loader = new FXMLLoader(MasterController.this.getClass().getResource("/views/sign_in.fxml"));
-                                  try{
-                                      AnchorPane managerPane = loader.load();
-                                    
-                                      Stage substage=new Stage();
-                                      substage.initModality(Modality.WINDOW_MODAL);
-                                      substage.initStyle(StageStyle.UNDECORATED);
-                                      substage.setScene(new Scene(managerPane));
-                                      substage.show();  
-                                      btnSignOut.getScene().getWindow().hide();
-                                  }catch(IOException ex){
-                                      ex.printStackTrace();
-                                  }
+    	 FXMLLoader loader = new FXMLLoader(MasterController.this.getClass().getResource("/views/sign_in.fxml"));
+         try{
+             AnchorPane managerPane = loader.load();
+           
+             Stage substage=new Stage();
+             substage.initModality(Modality.WINDOW_MODAL);
+             substage.initStyle(StageStyle.UNDECORATED);
+             substage.setScene(new Scene(managerPane));
+             substage.show();  
+             btnSignOut.getScene().getWindow().hide();
+         }catch(IOException ex){
+             ex.printStackTrace();
+         }
     }
  
     

@@ -89,6 +89,7 @@ public class SettingController implements Initializable {
 			if(results.next()) {
 				lblTableInfo.setText("Table name: "+results.getString("name")+"\nSeats: "+ results.getInt("seats"));
 				tableId=results.getInt("id");
+				System.out.println("tableid select:"+tableId);
 			}
 		} catch (Exception eLogin) {
 			eLogin.printStackTrace();
@@ -118,10 +119,12 @@ public class SettingController implements Initializable {
 	public void btnClearAction(ActionEvent event) {
 		SettingController.tablet_code="";
 		preference.put("tabletCode", SettingController.tablet_code);
-		System.out.println("new:"+SettingController.tablet_code);
+		System.out.println("NEW CODE:"+SettingController.tablet_code +"\nNEW ID: "+SettingController.tableId);
 		ArrayList<DataMapping> code = new ArrayList<DataMapping>();
 		code.add(DataMapping.getInstance("is_set", "0"));
 		tableModel.updateTableById(SettingController.tableId, code);
+		SettingController.tableId=0;
+		preference.putInt("tabletId", SettingController.tableId);
 		notSet();
 		this.getTableCodeList();
 		Helpers.status("success");
@@ -136,7 +139,7 @@ public class SettingController implements Initializable {
 			preference.put("tabletCode", SettingController.tablet_code);
 			SettingController.tableId= (preference.getInt("tableId", tableId));
 			preference.putInt("tabletId", SettingController.tableId);
-			 System.out.println("new code:"+SettingController.tablet_code+ "\nNew table id: "+SettingController.tableId);
+			 System.out.println("NEW CODE:"+SettingController.tablet_code+ "\nNEW ID: "+SettingController.tableId);
 			 ArrayList<DataMapping> code = new ArrayList<DataMapping>();
 				code.add(DataMapping.getInstance("is_set", "1"));
 						tableModel.updateTableById(SettingController.tableId, code);
@@ -206,9 +209,9 @@ public class SettingController implements Initializable {
 		SettingController.tablet_code =(preference.get("tabletCode", ""));
 		SettingController.tableId =preference.getInt("tabletId", 0);
 		SettingController.timeBook= preference.getInt("timeBook",2);
-		System.out.println("table id old: " + SettingController.tableId );
+		System.out.println("OLD CODE: " + SettingController.tablet_code );
 		SettingController.timeCancel = preference.getInt("timeCancel", 2);
-		System.out.println("Table code old: " + SettingController.tablet_code );
+		System.out.println("OLD ID: " + SettingController.tableId );
 		cbbCode.setValue(SettingController.tablet_code );
 		tfBook.setText(timeBook+"");
 		tfCancel.setText(timeCancel+"");
