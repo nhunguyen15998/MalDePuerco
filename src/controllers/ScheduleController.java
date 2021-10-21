@@ -170,6 +170,8 @@ public class ScheduleController implements Initializable {
 			// TODO: handle exception
 		}
    }
+   
+   
     @FXML
     void dateChoose() {
     	

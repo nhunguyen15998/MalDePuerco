@@ -116,6 +116,7 @@ public class ReservationCUController implements Initializable {
 	private static int seats = 0;
 	boolean checkTable=true;
 	private int timeCancel;
+	private DataMapping stus= null;
 	@FXML
 	public void btnSaveAction(ActionEvent event) {
 		try {
@@ -384,7 +385,7 @@ public class ReservationCUController implements Initializable {
 	  					tfPhone.setText(re.getString("phone"));
 	  					tfEmail.setText(re.getString("email"));
 	  					tfSeat.setText(re.getString("seats_pick"));
-	  					tfDeposit.setText(re.getString("deposit"));
+	  					tfDeposit.setText((int)(re.getInt("deposit"))+"");
 	  					dpDate.setValue(re.getDate("date_pick").toLocalDate());
 	  					tfStart.setText(Helpers.formatTime(re.getString("start_time")));
 	  					tfEnd.setText(Helpers.formatTime(re.getString("end_time")));
@@ -393,10 +394,12 @@ public class ReservationCUController implements Initializable {
 	  					for(DataMapping status : cbStatus.getItems()) {
 	  						if(status.key != null && Integer.parseInt(status.key) == re.getInt("status")) {
 	  							cbStatus.setValue(status);
+	  							stus=status;
 	  							System.out.println(status);
 	  							break;
 	  						}
 	  					}
+	  					
 	  					for(DataMapping code : cbbDiscount.getItems()) {
 							if(code.key != null && Integer.parseInt(code.key) == re.getInt("discount_id")) {
 								cbbDiscount.setValue(code);
@@ -536,20 +539,28 @@ public class ReservationCUController implements Initializable {
 		//key event
 	    @FXML
 	    void changeStatus() { 
-	    	if(reserId==0) {
-	    	depoCheck(tfDeposit.getText());
+
+			lblDepoError.setText("");
 	    	if(tfDeposit.getText().equals("0")) {
+	    		if(reserId==0) {
 	    		cbStatus.setValue(ReservationModel.isNew);
+	    		}else {
+	    			cbStatus.setValue(stus);
+	    		}
 	    		cbbDiscount.setDisable(true);
 	    		
-	    	}else if(!tfDeposit.getText().isEmpty()&&depoCheck(tfDeposit.getText())){
+	    	}else if(!tfDeposit.getText().equals("0")&&!tfDeposit.getText().isEmpty()&&depoCheck(tfDeposit.getText())){
 	    		cbStatus.setValue(ReservationModel.isDeposited);
 	    		cbbDiscount.setDisable(false);
 	    	}else {
-	    		cbStatus.setValue(ReservationModel.isNew);
+	    		if(reserId==0) {
+		    		cbStatus.setValue(ReservationModel.isNew);
+		    		}else {
+		    			cbStatus.setValue(stus);
+		    		}
 	    		cbbDiscount.setDisable(true);
 	    	}
-	    	}
+	    	
 	    }
 	    private boolean depoCheck(String depo) {
 	    	
