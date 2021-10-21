@@ -88,33 +88,31 @@ public class SignInController implements Initializable {
     	preference = Preferences.userNodeForPackage(SignInController.class);
     	checkRemember=preference.getInt("remind", 0);
     	System.out.println("remember:"+checkRemember);
-
-      
-
-  	 dropSession = preference.get("session", "");
-  	 System.out.println("session:"+dropSession);
-       if(dropSession.equals("0")) {
-    	   deleteLoginSession();
-       	}
-    	
        if(preference != null ) {
     	   if(!preference.get("tfUsername", "").isEmpty() && preference.get("tfUsername", "") != null) {
 	    		   tfUsername.setText(preference.get("tfUsername", ""));
 	    	       tfPassHidden.setText(preference.get("tfPassHidden", ""));
  	       if(checkRemember==1) {
- 	    	  
     	       chkRemember.setSelected(true);
-    	       
-    	       
+    	   }else {
+    		   chkRemember.setSelected(false);
     	   }
     	   }
     	   
        }
+       dropSession = preference.get("session", "1");
+    	 System.out.println("session:"+dropSession);
+         if(dropSession.equals("0")) {
+        	 deleteLoginSession();
+         	}
+      	
     }    
     public void deleteLoginSession() {
     	preference = Preferences.userNodeForPackage(SignInController.class);
     	preference.put("session", "0");
-    	dropSession = preference.get("session", "");
+    	dropSession = preference.get("session", "1");
+
+   	 	System.out.println("session hehe:"+dropSession);
     	tfUsername.setText("");
     	tfPassHidden.setText("");
     }

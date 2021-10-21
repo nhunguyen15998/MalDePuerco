@@ -314,13 +314,13 @@ public class ReservationCUController implements Initializable {
 		Preferences preference;
 		preference = Preferences.userNodeForPackage(SettingController.class);
 		timeCancel=preference.getInt("timeCancel",2);
-		tfDeposit.setDisable(true);
 		cbStatus.setItems(status);
 		cbStatus.setValue(ReservationModel.isNew);
 		dpDate.setValue(LocalDate.now());
 		LocalDate maxDate = LocalDate.now();
 		this.getDecreaseList();
 		this.getCodeList();
+		cbbDiscount.setDisable(true);
 		dpDate.setDayCellFactory(d ->
 		           new DateCell() {
 		               @Override public void updateItem(LocalDate item, boolean empty) {
@@ -537,15 +537,17 @@ public class ReservationCUController implements Initializable {
 	    @FXML
 	    void changeStatus() { 
 	    	if(reserId==0) {
-	    	
 	    	depoCheck(tfDeposit.getText());
 	    	if(tfDeposit.getText().equals("0")) {
 	    		cbStatus.setValue(ReservationModel.isNew);
+	    		cbbDiscount.setDisable(true);
 	    		
-	    	}else if(!tfDeposit.getText().equals("")){
+	    	}else if(!tfDeposit.getText().isEmpty()&&depoCheck(tfDeposit.getText())){
 	    		cbStatus.setValue(ReservationModel.isDeposited);
+	    		cbbDiscount.setDisable(false);
 	    	}else {
 	    		cbStatus.setValue(ReservationModel.isNew);
+	    		cbbDiscount.setDisable(true);
 	    	}
 	    	}
 	    }
@@ -554,7 +556,7 @@ public class ReservationCUController implements Initializable {
 
 		lblDepoError.setText("");
 		    	ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
-		    	data.add(new ValidationDataMapping("deposit", depo, "lblDepoError", "numeric|min:100000|required"));
+		    	data.add(new ValidationDataMapping("deposit", depo, "lblDepoError", "numeric|min:100000"));
 				ArrayList<DataMapping> messages = Validations.validated(data);
 		    	if(messages.size() > 0) {
 					for(DataMapping message : messages) {
@@ -585,27 +587,21 @@ public class ReservationCUController implements Initializable {
 	    	seat = Integer.parseInt(seats);
 	    	}
 
+    		changeStatus();
 	    	lblDepoError.setText("");
+    		
+	    	
+	    	
 	    	if(seat>4) {
+	    		if(tfDeposit.getText().isEmpty()) {
 	    		lblDepoError.setText("You have to deposit at least 100 000 VND");
-	    		tfDeposit.setDisable(false);
-	    	}else {
-	    		tfDeposit.setText("");
-	    		tfDeposit.setDisable(true);
-	    	}
-	    	
-	    	if(!tfDeposit.getText().isEmpty()) {
-	    		int depo = Integer.parseInt(tfDeposit.getText());
-	    	
-	    		if(seat>4&&depo<100000) {
-	    		lblDepoError.setText("You have to deposit at least 100 000 VND");
-	    		tfDeposit.setDisable(false);
-	    	}else {
-
-		    	lblDepoError.setText("");
-	    	}
-
-		    	changeStatus();
+		    	}
+	    		if(!tfDeposit.getText().isEmpty()) {
+	    			int depo = Integer.parseInt(tfDeposit.getText());
+		    		if(tfDeposit.getText().isEmpty()||depo<100000) {
+		    			lblDepoError.setText("You have to deposit at least 100 000 VND+");
+			    	}
+	    		}
 	    	}
 	    	if(!end.equals("")&&!start.equals("")&&!(seat<=0)) {
 	    	if(time(seats,start, end)&&reserId==0&&seat>0) {

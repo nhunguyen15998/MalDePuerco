@@ -177,6 +177,7 @@ public class DiscountController implements Initializable {
 				users.add(DataMapping.getInstance("descriptions", descript));
 				users.add(DataMapping.getInstance("decrease", dec+""));
 				users.add(DataMapping.getInstance("start_date", dpStart.getValue().toString()));
+				users.add(DataMapping.getInstance("end_date", dpEnd.getValue().toString()));
 				users.add(DataMapping.getInstance("status", status));
 				
 				if(idDiscount ==0) {
@@ -195,6 +196,7 @@ public class DiscountController implements Initializable {
 					} 
 					
 				}
+				resetInput();
 				this.parseData(null);
 				
 				}
@@ -218,11 +220,12 @@ public class DiscountController implements Initializable {
   			java.sql.Date date1 = java.sql.Date.valueOf(start);
             java.sql.Date date2 = java.sql.Date.valueOf(end);
             boolean codeDup;
-            boolean checkDate = Validations.checkDate(date1, date2, lblDateError, "Unavailable");
+            boolean checkDate=true;
 			if(idDiscount!=0) {
 			codeDup =  Validations.checkDup("code", "discounts", " id !="+idDiscount+" and ", tfCode.getText(), lblCodeError, "This code already exists");
 			}else {
 			codeDup =  Validations.checkDup("code", "discounts", " ", tfCode.getText(), lblCodeError, "This code already exists");
+			checkDate = Validations.checkDate(date1, date2, lblDateError, "Unavailable");
 			
 			}
             
@@ -279,6 +282,9 @@ public class DiscountController implements Initializable {
     	btnUpdate.setDisable(true);
     	tfDecrease.setText("");
     	cbStatus.setValue(DiscountModel.isActivated);
+    	dpStart.setDisable(false);
+		dpEnd.setDisable(false);
+		tfDecrease.setDisable(false);
     	
     }
     private void checkStartDate() {
@@ -405,7 +411,9 @@ public class DiscountController implements Initializable {
     }
     @FXML
     void getDataRowSelected(MouseEvent event) throws ParseException {
-    	
+    		dpStart.setDisable(false);
+    		dpEnd.setDisable(false);
+    		tfDecrease.setDisable(false);
 			if(event.getClickCount() > 0) {
 				btnAdd.setDisable(true);
 				btnUpdate.setDisable(false);
@@ -423,6 +431,7 @@ public class DiscountController implements Initializable {
 				tfName.setText(item.getName());
 				tfCode.setText(item.getCode());
 				tfDescript.setText(item.getDescriptions());
+					LocalDate now = LocalDate.now();
 				    Date date1= new SimpleDateFormat("dd-MM-yyyy").parse(item.getStart_date());
 				    Date date2= new SimpleDateFormat("dd-MM-yyyy").parse(item.getEnd_date());
 					ZoneId defaultZoneId = ZoneId.systemDefault();
@@ -433,6 +442,11 @@ public class DiscountController implements Initializable {
 				dpStart.setValue(localDate);
 				dpEnd.setValue(localDate2);
 				cbStatus.setValue(status);
+				if(now.compareTo(localDate)>0) {
+					dpStart.setDisable(true);
+		    		dpEnd.setDisable(true);
+		    		tfDecrease.setDisable(true);
+				}
 			}else {
 				System.out.println("not click in table");
 				idDiscount=0;

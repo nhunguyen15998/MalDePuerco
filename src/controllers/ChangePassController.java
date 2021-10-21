@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 import javafx.stage.Window;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -119,6 +120,8 @@ public class ChangePassController implements Initializable{
 			Optional<ButtonType> option1 = alert.showAndWait();
 			if (option1.get() == ButtonType.OK) {
 			    Platform.runLater( () -> new Main().start( new Stage() ) );
+			    Preferences preference = Preferences.userNodeForPackage(SignInController.class);
+			    preference.putInt("remind", 0);
 			    session.deleteLoginSession();
 			    close();
 			    
@@ -192,7 +195,9 @@ public class ChangePassController implements Initializable{
 	}
     @FXML
     void check(KeyEvent event) {
-    	
+    	tfConfirm.setDisable(true);
+		tfConfirmHidden.setDisable(true);
+		openConfirm.setDisable(true);
     	if(validatedNew(tfNew.getText())||validatedNew(tfNewHidden.getText())) {
     		tfConfirm.setDisable(false);
     		tfConfirmHidden.setDisable(false);

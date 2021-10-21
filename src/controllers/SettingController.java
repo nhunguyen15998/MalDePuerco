@@ -151,26 +151,7 @@ public class SettingController implements Initializable {
 			tableModel.updateTableById(SettingController.tableId, code);
 			updateData();
 		} 
-		//if not => get old value
-		//if(!choose.equals("")) {
-			
-			//SettingController.tablet_code=(preference.get("cbb", cbbCode.getValue().toString()));
-			//nhu
-//			SettingController.tablet_code=(preference.get("cbb", cbbCode.getValue().value));
-//			//---
-//			preference.put("tabletCode", SettingController.tablet_code);
-//			SettingController.tableId= (preference.getInt("tableId", Integer.parseInt(choose)));
-//			//---nhu
-//			System.out.println("here: "+SettingController.tableId);
-//			//----
-//			preference.putInt("tabletId", SettingController.tableId);
-//			 System.out.println("NEW CODE:"+SettingController.tablet_code+ "\nNEW ID: "+SettingController.tableId);
-//			 ArrayList<DataMapping> code = new ArrayList<DataMapping>();
-//				code.add(DataMapping.getInstance("is_set", "1"));
-//						tableModel.updateTableById(SettingController.tableId, code);
-//						updateData();		
-		//} 
-		
+	
 		if(!tfBook.getText().isEmpty()) {
 			if(validated(tfBook.getText(), "lblBookError")) {
 			SettingController.timeBook = Integer.parseInt((preference.get("timeB", tfBook.getText())));
