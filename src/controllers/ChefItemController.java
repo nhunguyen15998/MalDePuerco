@@ -9,13 +9,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import models.ChefItemModel;
 import models.OrderDetailModel;
 import utils.DataMapping;
+import utils.Helpers;
 
 public class ChefItemController {
+	private int chefID;
+	private String table;
+	
 	@FXML
     private AnchorPane anchor;
 
@@ -46,6 +52,9 @@ public class ChefItemController {
     private ChefItemModel item;
     
     @FXML private MenuItem chef;
+    
+    @FXML private AnchorPane optionHolder;
+    @FXML private AnchorPane Holder;
     
     public void setData(ChefItemModel items) {
     	this.item = items;
@@ -88,20 +97,75 @@ public class ChefItemController {
 
     @FXML
     private void handleChefOption(ActionEvent event) {
-    	String chef = lblUser.getTypeSelector();
-    	if(chef == null) {
-    		System.out.println("select row");
-    		return;
-    	}
+    	System.out.println("Chef Option");
     	try {
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/optionChef.fxml"));
-    		Parent root = loader.load();
-			Stage stage = new Stage();
-			stage.setScene(new Scene(root));
-			stage.show();
+    		FXMLLoader root = new FXMLLoader(getClass().getResource("/views/optionChef.fxml"));
+    		optionHolder = root.load();
+    		
+    		ChefOptionController control = root.<ChefOptionController>getController();
+    		control.loadDataById(this);
+    		
+    		Scene scene = new Scene(optionHolder, 260, 140);
+    		Stage optionStage = new Stage();
+    		optionStage.initStyle(StageStyle.UNDECORATED);
+    		optionStage.setScene(scene);
+    		optionStage.show();
     	} catch (Exception e) {
     		e.printStackTrace();
+    	    System.out.println(e);
     	}
-    	
     }
+    
+    @FXML private void handleStatusOption(ActionEvent event) {
+    	System.out.println("Status Option");
+    	try {
+    		FXMLLoader root = new FXMLLoader(getClass().getResource("/views/optionChefS.fxml"));
+    		Holder = root.load();
+    		
+    		ChefOptionController control = root.<ChefOptionController>getController();
+    		control.loadDataById(this);
+    		
+    		Scene scene = new Scene(Holder, 260, 140);
+    		Stage optionStage = new Stage();
+    		optionStage.initStyle(StageStyle.UNDECORATED);
+    		optionStage.setScene(scene);
+    		optionStage.show();
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	    System.out.println(e);
+    	}
+    }
+
+    public void btnClick(MouseEvent event, int id) {
+		switch (event.getButton()) {
+		case PRIMARY:
+			break;
+		case SECONDARY:
+			chefID = id;
+			break;
+		  default:
+			break;
+		}
+	}
+    
+	public int getChefID() {
+		return chefID;
+	}
+
+
+	public void setChefID(int chefID) {
+		this.chefID = chefID;
+	}
+
+
+	public String getTable() {
+		return table;
+	}
+
+
+	public void setTable(String table) {
+		this.table = table;
+	}
+    
+    
 }

@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,6 +34,7 @@ public class OrderWaiterController implements Initializable {
 	private int orderId;
 	private String orderCode;
 	@FXML private AnchorPane odHolder;
+	@FXML private AnchorPane optionHolder;
 
     @FXML
     private AnchorPane anchorOrder;
@@ -174,6 +176,37 @@ public class OrderWaiterController implements Initializable {
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void showOption() {
+		try {
+			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/optionWaiter.fxml"));
+			optionHolder = root.load();
+			
+			WaiterOptionController Wcontroller = root.<WaiterOptionController>getController();
+			Wcontroller.loadDataById(this);
+			
+			Scene scene = new Scene(optionHolder, 260, 140);
+			Stage optionHolder = new Stage();
+			optionHolder.initStyle(StageStyle.UNDECORATED);
+			optionHolder.setScene(scene);
+			optionHolder.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+		}
+	}
+	
+	@FXML void btnOption(ActionEvent event) {
+		try {
+			if(this.orderId != 0) {
+				this.showOption();
+			} else {
+				Helpers.status("error");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

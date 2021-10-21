@@ -25,7 +25,7 @@ import javafx.scene.control.ButtonType;
 import models.OrderDetailModel;
 import models.UserModel;
 
-public class ChefOptionController implements Initializable{
+public class ChefOptionSController implements Initializable{
 	@FXML
     private ComboBox<DataMapping> cbChef;
 	@FXML private ComboBox<DataMapping> cbStatus;
@@ -43,41 +43,26 @@ public class ChefOptionController implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		this.getChefList();
+		ObservableList<DataMapping> status = FXCollections.observableArrayList(OrderDetailModel.isPending, OrderDetailModel.isCooking, OrderDetailModel.isReady, OrderDetailModel.isServing, OrderDetailModel.isServed, OrderDetailModel.isCanceled);
+		cbStatus.setItems(status);
 	}
 	
-	public ResultSet getChefList() {
+	@FXML void btnStatusOption(ActionEvent event1) {
 		try {
-			ArrayList<DataMapping> chefList = new ArrayList<DataMapping>();
-			ResultSet chef = userModel.getUserList(null);
-			while(chef.next()) {
-				chefList.add(DataMapping.getInstance(chef.getInt("id"), chef.getString("user_name")));
-			}
-			cbChef.getItems().setAll(chefList);
-			return chef;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	@FXML void btnChefOption(ActionEvent event) {
-		try {
-			String chefOp = cbChef.getValue() != null ? cbChef.getValue().key : null;
+			String statusOp = cbStatus.getValue() != null ? cbStatus.getValue().key : null;
 			
-			ArrayList<DataMapping> option = new ArrayList<DataMapping>();
-			option.add(DataMapping.getInstance("user_id", chefOp));
+			ArrayList<DataMapping> option1 = new ArrayList<DataMapping>();
+			option1.add(DataMapping.getInstance("status", statusOp));
 			
-			Alert al = new Alert(AlertType.CONFIRMATION);
-			Optional<ButtonType> opti = al.showAndWait();
-			if(opti.get() == ButtonType.OK) {
-				odModel.updateOrderDetail(orderID, option);
+			Alert al1 = new Alert(AlertType.CONFIRMATION);
+			Optional<ButtonType> opti1 = al1.showAndWait();
+			if(opti1.get() == ButtonType.OK) {
+				odModel.updateOrderDetail(orderID, option1);
 				Helpers.status("success");
 			}
 			citemControl.setData(null);
 			this.close();
-		} catch (Exception e) {
-			
+		} catch (Exception e ) {
 			e.printStackTrace();
 		}
 	}
@@ -147,3 +132,4 @@ public class ChefOptionController implements Initializable{
 	
 	
 }
+

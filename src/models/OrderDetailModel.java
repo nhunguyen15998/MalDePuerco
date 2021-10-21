@@ -328,6 +328,14 @@ public class OrderDetailModel extends BaseModel {
 		this.size = size;
 	}
 
+	public static String getTable() {
+		return table;
+	}
+
+	public static void setTable(String table) {
+		OrderDetailModel.table = table;
+	}
+
 	
 }
  

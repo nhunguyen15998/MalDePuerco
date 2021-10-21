@@ -105,6 +105,16 @@ public class OrderWaiterModel extends BaseModel{
 		}
 	}
 	
+	public ResultSet getOrderById(int id) {
+		try {		
+			ArrayList<CompareOperator> condition = new ArrayList<CompareOperator>();
+			condition.add(CompareOperator.getInstance("id", " = ", String.valueOf(id)));
+			return this.getData(columns, condition, null, null, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 	
 	public int getId() {
