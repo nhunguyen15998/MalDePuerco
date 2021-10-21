@@ -59,7 +59,6 @@ public class ReservationCUController implements Initializable {
 	private ReservationModel reserModel = new ReservationModel();
 	private TablesReserModel tblReserModel = new TablesReserModel();
 	private TableModel tableModel = new TableModel();
-	private DiscountModel disModel = new DiscountModel();
 	private ReservationController reController = new ReservationController();
 	private int reserId;
 	@FXML
@@ -74,8 +73,6 @@ public class ReservationCUController implements Initializable {
 	private TextField tfEmail;
 	@FXML
 	private TextField tfPhone;
-	@FXML
-	private ComboBox<DataMapping> cbbDiscount;
 	@FXML
 	private ComboBox<DataMapping> cbStatus;
 	@FXML
@@ -116,7 +113,7 @@ public class ReservationCUController implements Initializable {
 	private static int seats = 0;
 	boolean checkTable=true;
 	private int timeCancel;
-	private DataMapping stus= null;
+	private DataMapping stt;
 	@FXML
 	public void btnSaveAction(ActionEvent event) {
 		try {
@@ -126,7 +123,6 @@ public class ReservationCUController implements Initializable {
 			String start = tfStart.getText();
 			String end = tfEnd.getText();
 			String depo = tfDeposit.getText();
-			String idDis =  cbbDiscount.getValue() != null ? cbbDiscount.getValue().key: null;
 			String code = Helpers.randomCode("RS");
 			String seat = tfSeat.getText();
 			String date = dpDate.getValue().toString();
@@ -153,7 +149,6 @@ public class ReservationCUController implements Initializable {
 				re.add(DataMapping.getInstance("start_time", Helpers.formatTime(start)));
 				re.add(DataMapping.getInstance("end_time", Helpers.formatTime(end)));
 				re.add(DataMapping.getInstance("date_pick", date));
-				re.add(DataMapping.getInstance("discount_id", idDis));
 				re.add(DataMapping.getInstance("status", status));
 
 				if(this.reserId == 0) {
@@ -169,9 +164,7 @@ public class ReservationCUController implements Initializable {
 					}
 					Helpers.status("success");
 					close();
-					reController.parseData(null);
-					reController.loadSchedule("schedule.fxml");
-					reController.updateStatus();
+					 reController.refresh();
 					
 					
 				} else {
@@ -183,8 +176,6 @@ public class ReservationCUController implements Initializable {
 						 updateReser(re);
 					}else if(checkPresent) {
 							 updateReser(re);
-							 System.out.println("hereeee");
-							
 						}else if(!checkPresent&&!status.equals("0")){
 							alert.setHeaderText("Not at the right time to update");
 							 alert.showAndWait();
@@ -198,7 +189,7 @@ public class ReservationCUController implements Initializable {
 							 alert.showAndWait();
 						}
 					
-					
+					 
 					
 					
 				}
@@ -231,10 +222,7 @@ public class ReservationCUController implements Initializable {
 			Helpers.status("success");
 
 			close();
-			
-			reController.parseData(null);
-			reController.loadSchedule("schedule.fxml");
-			reController.updateStatus();
+			 reController.refresh();
 			
 		} 
 	}
@@ -318,10 +306,8 @@ public class ReservationCUController implements Initializable {
 		cbStatus.setItems(status);
 		cbStatus.setValue(ReservationModel.isNew);
 		dpDate.setValue(LocalDate.now());
+		tfDeposit.setDisable(true);
 		LocalDate maxDate = LocalDate.now();
-		this.getDecreaseList();
-		this.getCodeList();
-		cbbDiscount.setDisable(true);
 		dpDate.setDayCellFactory(d ->
 		           new DateCell() {
 		               @Override public void updateItem(LocalDate item, boolean empty) {
@@ -337,26 +323,7 @@ public class ReservationCUController implements Initializable {
 
 	}
 
-	//load cbb decrease
-		public ResultSet getDecreaseList() {
-			try {
-				ArrayList<DataMapping> code = new ArrayList<DataMapping>();
 
-				ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
-				conditions.add(CompareOperator.getInstance("status", "=", ""+DiscountModel.DISCOUNT_ACTIVATED));
-				ResultSet discount = disModel.getDiscountList(conditions);
-				while(discount.next()) {
-					code.add(DataMapping.getInstance(discount.getInt("id"), discount.getString("code")));
-					
-				}
-				cbbDiscount.getItems().setAll(code);
-				return discount;
-			} catch (Exception e) {
-				e.printStackTrace();
-				return null;
-			}
-			
-		}
 		
 		//load data update
 	  	public void loadDataUpdateById(ReservationController r) {
@@ -385,27 +352,24 @@ public class ReservationCUController implements Initializable {
 	  					tfPhone.setText(re.getString("phone"));
 	  					tfEmail.setText(re.getString("email"));
 	  					tfSeat.setText(re.getString("seats_pick"));
-	  					tfDeposit.setText((int)(re.getInt("deposit"))+"");
+	  					tfDeposit.setText((int)(re.getDouble("deposit"))+"");
 	  					dpDate.setValue(re.getDate("date_pick").toLocalDate());
 	  					tfStart.setText(Helpers.formatTime(re.getString("start_time")));
 	  					tfEnd.setText(Helpers.formatTime(re.getString("end_time")));
-	  					
-	  					
+	  					tfDeposit.setDisable(true);
+	  					if((int)(re.getDouble("deposit"))>4) {
+	  						tfDeposit.setDisable(false);
+	  					}
 	  					for(DataMapping status : cbStatus.getItems()) {
 	  						if(status.key != null && Integer.parseInt(status.key) == re.getInt("status")) {
 	  							cbStatus.setValue(status);
-	  							stus=status;
+	  							stt=status;
 	  							System.out.println(status);
 	  							break;
 	  						}
 	  					}
 	  					
-	  					for(DataMapping code : cbbDiscount.getItems()) {
-							if(code.key != null && Integer.parseInt(code.key) == re.getInt("discount_id")) {
-								cbbDiscount.setValue(code);
-								break;
-							}
-						}
+	  				
 	  		  			DataMapping content = getTableName(reserId);
 	  		  			tfTable.setText(content.value);
 	  		  			if(listTable.isEmpty()) {
@@ -419,6 +383,7 @@ public class ReservationCUController implements Initializable {
 	  			e.printStackTrace();
 	  		}
 	  	}
+		
 	  	public void loadDataPutMore(ReservationController r) {
 	  		try {
 	  			
@@ -514,7 +479,7 @@ public class ReservationCUController implements Initializable {
 					}
 					return false;
 				}
-				if(lblTimeError.getText().equals("")&&s.length()==5&&e.length()==5) {
+				if(lblTimeError.getText().isEmpty()&&s.length()==5&&e.length()==5) {
 			    	LocalTime time = LocalTime.parse(start);
 			        LocalTime time2 = LocalTime.parse(end);
 			        boolean checkTime = Validations.checkTime(time , time2, lblTimeError, "unachievable!");
@@ -526,7 +491,11 @@ public class ReservationCUController implements Initializable {
 			        if(!lblDepoError.getText().isEmpty()) {
 			        	return false;
 			        }
-			    	}
+				}
+			        if(listTable.isEmpty()) {
+			        	lblTableError.setText("please choose");
+			        	return false;
+			        }
 				return true;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -539,26 +508,24 @@ public class ReservationCUController implements Initializable {
 		//key event
 	    @FXML
 	    void changeStatus() { 
-
-			lblDepoError.setText("");
+	    	lblDepoError.setText("");
 	    	if(tfDeposit.getText().equals("0")) {
 	    		if(reserId==0) {
 	    		cbStatus.setValue(ReservationModel.isNew);
 	    		}else {
-	    			cbStatus.setValue(stus);
+	    			cbStatus.setValue(stt);
 	    		}
-	    		cbbDiscount.setDisable(true);
+	    		
 	    		
 	    	}else if(!tfDeposit.getText().equals("0")&&!tfDeposit.getText().isEmpty()&&depoCheck(tfDeposit.getText())){
 	    		cbStatus.setValue(ReservationModel.isDeposited);
-	    		cbbDiscount.setDisable(false);
+	    		
 	    	}else {
 	    		if(reserId==0) {
 		    		cbStatus.setValue(ReservationModel.isNew);
 		    		}else {
-		    			cbStatus.setValue(stus);
+		    			cbStatus.setValue(stt);
 		    		}
-	    		cbbDiscount.setDisable(true);
 	    	}
 	    	
 	    }
@@ -567,7 +534,7 @@ public class ReservationCUController implements Initializable {
 
 		lblDepoError.setText("");
 		    	ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
-		    	data.add(new ValidationDataMapping("deposit", depo, "lblDepoError", "numeric|min:100000"));
+		    	data.add(new ValidationDataMapping("deposit", depo, "lblDepoError", "numeric|min:10"));
 				ArrayList<DataMapping> messages = Validations.validated(data);
 		    	if(messages.size() > 0) {
 					for(DataMapping message : messages) {
@@ -597,20 +564,22 @@ public class ReservationCUController implements Initializable {
 	    	if(seats.length()>0) {
 	    	seat = Integer.parseInt(seats);
 	    	}
+	    	
 
     		changeStatus();
 	    	lblDepoError.setText("");
     		
 	    	
-	    	
+	    	tfDeposit.setDisable(true);
 	    	if(seat>4) {
+	    		tfDeposit.setDisable(false);
 	    		if(tfDeposit.getText().isEmpty()) {
-	    		lblDepoError.setText("You have to deposit at least 100 000 VND");
+	    		lblDepoError.setText("You have to deposit at least 10$");
 		    	}
 	    		if(!tfDeposit.getText().isEmpty()) {
 	    			int depo = Integer.parseInt(tfDeposit.getText());
-		    		if(tfDeposit.getText().isEmpty()||depo<100000) {
-		    			lblDepoError.setText("You have to deposit at least 100 000 VND+");
+		    		if(tfDeposit.getText().isEmpty()||depo<10) {
+		    			lblDepoError.setText("You have to deposit at least 10$");
 			    	}
 	    		}
 	    	}
@@ -779,27 +748,7 @@ public class ReservationCUController implements Initializable {
 						
 		    
 	    }
-	  //load code discount
-	  		public ResultSet getCodeList() {
-	  			try {
-	  				ArrayList<DataMapping> options = new ArrayList<DataMapping>();
-
-	  				ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
-	  				
-	  				conditions.add(CompareOperator.getInstance("status", "=", DiscountModel.DISCOUNT_ACTIVATED+""));
-	  				ResultSet code = disModel.getDiscountList(conditions);
-	  				while(code.next()) {
-	  					options.add(DataMapping.getInstance(code.getInt("id"), code.getString("code")));
-	  					
-	  				}
-	  				cbbDiscount.getItems().setAll(options);
-	  				return code;
-	  			} catch (Exception e) {
-	  				e.printStackTrace();
-	  				return null;
-	  			}
-	  			
-	  		}
+	  
 	  	@FXML
 	  	public void dateAction() {
 	  		seats=0;

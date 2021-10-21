@@ -78,6 +78,8 @@ public class DiscountController implements Initializable {
     @FXML
     private TableColumn<DiscountModel, Integer>  ID;
     @FXML
+    private TableColumn<DiscountModel, Double>  colTotal;
+    @FXML
     private TableColumn<DiscountModel, String> colName;
 
     @FXML
@@ -108,6 +110,8 @@ public class DiscountController implements Initializable {
   
     @FXML
     private TextField tfDescript;
+    @FXML
+    private TextField tfTotal;
 
     @FXML
     private DatePicker dpStart;
@@ -129,6 +133,8 @@ public class DiscountController implements Initializable {
     private TextField tfDecrease;
     @FXML
     private Label lblNameError;
+    @FXML
+    private Label lblTotalError;
 
     @FXML
     private Label lblCodeError;
@@ -161,12 +167,12 @@ public class DiscountController implements Initializable {
 			String code = tfCode.getText();
 			String descript = tfDescript.getText();
 			String decrease = tfDecrease.getText();
-			
+			String total = tfTotal.getText();
 			
 			
 			String status = cbStatus.getValue() != null ? cbStatus.getValue().key : String.valueOf(DiscountModel.DISCOUNT_DEACTIVATED);
 
-			if(validated( name, code, descript, decrease, dpStart.getValue(),dpEnd.getValue())) {
+			if(validated( name, code, total,descript, decrease, dpStart.getValue(),dpEnd.getValue())) {
 				if(!decrease.isEmpty()) {
 					float sup = Float.parseFloat(decrease);
 					float dec = sup/100;
@@ -179,7 +185,7 @@ public class DiscountController implements Initializable {
 				users.add(DataMapping.getInstance("start_date", dpStart.getValue().toString()));
 				users.add(DataMapping.getInstance("end_date", dpEnd.getValue().toString()));
 				users.add(DataMapping.getInstance("status", status));
-				
+				users.add(DataMapping.getInstance("order_total", total));
 				if(idDiscount ==0) {
 					discountModel.createDiscount(users);
 					Helpers.status("success");
@@ -209,7 +215,7 @@ public class DiscountController implements Initializable {
     }
     
   //validate
-  	public boolean validated( String name, String code, String descript, String decrease, LocalDate start, LocalDate end) {
+  	public boolean validated( String name, String code, String total,String descript, String decrease, LocalDate start, LocalDate end) {
   		try {
   			
   			lblNameError.setText("");
@@ -217,6 +223,7 @@ public class DiscountController implements Initializable {
   			lblDecreaseError.setText("");
   			lblDescriptError.setText("");
   			lblDateError.setText("");
+  			lblTotalError.setText("");
   			java.sql.Date date1 = java.sql.Date.valueOf(start);
             java.sql.Date date2 = java.sql.Date.valueOf(end);
             boolean codeDup;
@@ -234,7 +241,7 @@ public class DiscountController implements Initializable {
   			data.add(new ValidationDataMapping("code", code, "lblCodeError", "required|min:5"));
   			data.add(new ValidationDataMapping("descript", descript, "lblDescriptError", "required"));
   			data.add(new ValidationDataMapping("descrease", decrease, "lblDecreaseError", "required|numeric|max:100|min:0"));
-  			
+  			data.add(new ValidationDataMapping("total", total, "lblTotalError", "numeric|min:0"));
   			ArrayList<DataMapping> messages = Validations.validated(data);
   			if(messages.size() > 0) {
   				for(DataMapping message : messages) {
@@ -250,6 +257,9 @@ public class DiscountController implements Initializable {
   							break;
   						case "lblDescriptError":
   							lblDescriptError.setText(message.value);
+  							break;
+  						case "lblTotalError":
+  							lblTotalError.setText(message.value);
   							break;
   						default:
   							System.out.println("abcde");
@@ -285,6 +295,7 @@ public class DiscountController implements Initializable {
     	dpStart.setDisable(false);
 		dpEnd.setDisable(false);
 		tfDecrease.setDisable(false);
+		tfTotal.setText("");
     	
     }
     private void checkStartDate() {
@@ -312,6 +323,7 @@ public class DiscountController implements Initializable {
 			colDescrip.setCellValueFactory(new PropertyValueFactory<DiscountModel, String>("descriptions"));
 			colStartDate.setCellValueFactory(new PropertyValueFactory<DiscountModel, LocalDate>("start_date"));
 			colEndDate.setCellValueFactory(new PropertyValueFactory<DiscountModel, LocalDate>("end_date"));
+			colTotal.setCellValueFactory(new PropertyValueFactory<DiscountModel, Double>("orderTotal"));
 			colDecrease.setCellValueFactory(new PropertyValueFactory<DiscountModel, Float>("decrease"));
 			colCreatedAt.setCellValueFactory(new PropertyValueFactory<DiscountModel, LocalDate>("createdAt"));
 			//format col
@@ -332,7 +344,8 @@ public class DiscountController implements Initializable {
 						discounts.getDate("end_date").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy")),
 						discounts.getDate("created_at").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy")),
 						discounts.getInt("status"),
-						discounts.getFloat("decrease"))
+						discounts.getFloat("decrease"),
+						discounts.getDouble("order_total"))
 					);
 			}
 			tblDiscount.setItems(discountList);
@@ -428,6 +441,7 @@ public class DiscountController implements Initializable {
 					btnDelete.setDisable(true);
 				}
 				tfDecrease.setText((int) Math.round(item.getDecrease()*100)+"");
+				tfTotal.setText((int) item.getOrderTotal()+"");
 				tfName.setText(item.getName());
 				tfCode.setText(item.getCode());
 				tfDescript.setText(item.getDescriptions());

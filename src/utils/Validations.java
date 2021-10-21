@@ -105,7 +105,7 @@ public class Validations {
 				
 				//time
 				if(Arrays.asList(patternDatas).contains("time")) {
-					String regex = "^(?:[01]?\\d|2[0-3])(?::[0-5]\\d){1,2}$"; 
+					String regex = "^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"; 
 					if(!value.matches(regex)) {
 						message.value = "Invalid time";
 						messages.add(message);

@@ -161,6 +161,7 @@ public class TablesController implements Initializable {
     //load schedule
     private void loadSchedule() {
     	 AnchorPane anchor;
+    	 ScheduleController.inReser =0;
   		try {
   			anchor = FXMLLoader.load(getClass().getResource("/views/schedule.fxml"));
   			paneSchedule.getChildren().setAll(anchor);

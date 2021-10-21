@@ -9,11 +9,12 @@ import utils.JoinCondition;
 
 public class ReservationModel extends BaseModel{
 	private static String table = "reservations";
-	private static String[] columns = {"id, code, customer_name, phone,email, start_time,end_time, deposit,discount_id, date_pick, seats_pick, created_at, status"};
+	private static String[] columns = {"id, code, customer_name, phone,email, start_time,end_time, deposit, date_pick, seats_pick, created_at, status"};
 	private static ReservationModel reserModel;
 	
-	private int id, deposit, status, seats, no;
-	private String code, name, phone, email, start_time, end_time, date_pick,decrease, createdAt;
+	private int id, status, seats, no;
+	private double deposit;
+	private String code, name, phone, email, start_time, end_time, date_pick, createdAt;
 	
 	//status
 		public static final int RESER_NEW = 1;
@@ -40,7 +41,7 @@ public class ReservationModel extends BaseModel{
 		
 		
 		
-	public ReservationModel( int id,int no, int deposit, String decrease, int status,
+	public ReservationModel( int id,int no, double deposit, int status,
 			int seats, String code, String name, String phone, String email, String start_time, String end_time,
 			String date_pick, String createdAt) {
 			super(table, columns);
@@ -56,7 +57,6 @@ public class ReservationModel extends BaseModel{
 			this.start_time = start_time;
 			this.end_time = end_time;
 			this.date_pick = date_pick;
-			this.decrease = decrease;
 			this.createdAt = createdAt;
 		}
 
@@ -68,14 +68,7 @@ public class ReservationModel extends BaseModel{
 		public ResultSet getReserList(ArrayList<CompareOperator> conditions) {
 			try {
 				
-				String[] selects = {"reservations.*","decrease"};
-				
-				ArrayList<CompareOperator> joinDiscount = new ArrayList<CompareOperator>();
-				joinDiscount.add(CompareOperator.getInstance("reservations.discount_id", " = ", "discounts.id"));
-				
-				ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
-				joins.add(JoinCondition.getInstance("left join", "discounts", joinDiscount));
-				return this.getData(selects, conditions, joins);
+				return this.getData(columns, conditions, null);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return null;
@@ -85,20 +78,10 @@ public class ReservationModel extends BaseModel{
 		//get user by id
 		public ResultSet getReserById(int id) {
 			try {
-				String[] selects = {"reservations.*", "discounts.decrease"};
-				ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
-				conditions.add(CompareOperator.getInstance("reservations.id", "=", String.valueOf(id)));
-				
-				
-				ArrayList<CompareOperator> joinConditions = new ArrayList<CompareOperator>();
-				joinConditions.add(CompareOperator.getInstance("reservations.discount_id", "=", "discounts.id"));
-				
-				ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
-				joins.add(JoinCondition.getInstance("left join", "discounts", joinConditions));
-				
-				
-				 
-				return this.getData(selects, conditions, joins);
+				ArrayList<CompareOperator> cond = new ArrayList<CompareOperator>();
+				cond.add(CompareOperator.getInstance("id", " = ", String.valueOf(id)));
+			
+				return this.getData(columns, cond, null);
 			} catch (Exception eGetUserById) {
 				eGetUserById.printStackTrace();
 				return null;
@@ -147,23 +130,15 @@ public class ReservationModel extends BaseModel{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getDeposit() {
+	
+
+
+	public double getDeposit() {
 		return deposit;
 	}
-	public void setDeposit(int deposit) {
+	public void setDeposit(double deposit) {
 		this.deposit = deposit;
 	}
-	
-	public String getDecrease() {
-		return decrease;
-	}
-
-	public void setDecrease(String decrease) {
-		this.decrease = decrease;
-	}
-
-
-
 	public int getStatus() {
 		return status;
 	}

@@ -8,7 +8,7 @@ import utils.DataMapping;
 
 public class DiscountModel extends BaseModel{
 	private static String table = "discounts";
-	private static String[] columns = {"id, code, name, descriptions, start_date, end_date, created_at, decrease, status"};
+	private static String[] columns = {"id, code,order_total, name, descriptions, start_date, end_date, created_at, decrease, status"};
 	private static DiscountModel discountModel;
 	
 	
@@ -21,6 +21,7 @@ public class DiscountModel extends BaseModel{
 	private String start_date;
 	private String end_date;
 	private String createdAt;
+	private double orderTotal;
 	private int status;
 	private float decrease;
 	//status
@@ -38,7 +39,7 @@ public class DiscountModel extends BaseModel{
 		}
 
 		public DiscountModel( int id, int sequence, String code, String name,
-				String descriptions, String start_date, String end_date, String createdAt, int status, float decrease) {
+				String descriptions, String start_date, String end_date, String createdAt, int status, float decrease, double order) {
 			super(table, columns);
 			this.id = id;
 			this.sequence = sequence;
@@ -50,6 +51,7 @@ public class DiscountModel extends BaseModel{
 			this.createdAt = createdAt;
 			this.status = status;
 			this.decrease = decrease;
+			this.orderTotal = order;
 		}
 
 		
@@ -184,6 +186,14 @@ public class DiscountModel extends BaseModel{
 
 		public void setDecrease(float decrease) {
 			this.decrease = decrease;
+		}
+
+		public double getOrderTotal() {
+			return orderTotal;
+		}
+
+		public void setOrderTotal(double orderTotal) {
+			this.orderTotal = orderTotal;
 		}
 		
 		

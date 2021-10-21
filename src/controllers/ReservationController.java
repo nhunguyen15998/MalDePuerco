@@ -67,130 +67,124 @@ public class ReservationController implements Initializable {
 	private ReservationModel res = new ReservationModel();
 	private int reserId;
 	private String reserName;
+    @FXML
+    private TableView<ReservationModel> tblReser= new TableView();
 
     @FXML
-    private TableView<ReservationModel> tblReser;
+    private TableColumn<ReservationModel, Integer> colNo = new TableColumn();
 
     @FXML
-    private TableColumn<ReservationModel, Integer> colNo;
+    private TableColumn<ReservationModel, Integer> colID = new TableColumn();
 
     @FXML
-    private TableColumn<ReservationModel, Integer> colID;
+    private TableColumn<ReservationModel, String> colCode = new TableColumn();
 
     @FXML
-    private TableColumn<ReservationModel, String> colCode;
+    private TableColumn<ReservationModel, String> colCusName  = new TableColumn<ReservationModel, String>();
 
     @FXML
-    private TableColumn<ReservationModel, String> colCusName;
+    private TableColumn<ReservationModel, String> colPhone  = new TableColumn<ReservationModel, String>();
 
     @FXML
-    private TableColumn<ReservationModel, String> colPhone;
+    private TableColumn<ReservationModel, String> colEmail  = new TableColumn<ReservationModel, String>();
 
     @FXML
-    private TableColumn<ReservationModel, String> colEmail;
+    private TableColumn<ReservationModel, Integer> colSeats  = new TableColumn<ReservationModel, Integer>();
 
     @FXML
-    private TableColumn<ReservationModel, Integer> colSeats;
+    private TableColumn<ReservationModel, LocalDate> colDate  = new TableColumn<ReservationModel, LocalDate>();
 
     @FXML
-    private TableColumn<ReservationModel, LocalDate> colDate;
+    private TableColumn<ReservationModel, LocalDate> colStart= new TableColumn<ReservationModel, LocalDate>();
 
     @FXML
-    private TableColumn<ReservationModel, LocalDate> colStart;
+    private TableColumn<ReservationModel, LocalDate> colEnd = new TableColumn<ReservationModel, LocalDate>();
 
     @FXML
-    private TableColumn<ReservationModel, LocalDate> colEnd;
+    private TableColumn<ReservationModel, Double> colDeposit= new TableColumn<ReservationModel, Double>();
 
     @FXML
-    private TableColumn<ReservationModel, Integer> colDeposit;
+    private TableColumn<ReservationModel, LocalDate> colCreated = new TableColumn<ReservationModel, LocalDate>();
 
     @FXML
-    private TableColumn<ReservationModel, String> colDiscount;
+    private TableColumn<ReservationModel, String> colStatus = new TableColumn<ReservationModel, String>();
 
     @FXML
-    private TableColumn<ReservationModel, LocalDate> colCreated;
-
-    @FXML
-    private TableColumn<ReservationModel, String> colStatus;
-
-    @FXML
-    private TextField tfTable;
+    private TextField tfTable = new TextField();
 
 	@FXML
-	private AnchorPane createHolder;
+	private AnchorPane createHolder = new AnchorPane();
     @FXML
-    private DatePicker dpTo;
+    private DatePicker dpTo = new DatePicker();
 
     @FXML
-    private DatePicker dpFrom;
+    private DatePicker dpFrom = new DatePicker();
 
     @FXML
-    private RadioButton rdNew;
+    private RadioButton rdNew = new RadioButton();
 
     @FXML
-    private RadioButton rdConfirm;
+    private RadioButton rdConfirm= new RadioButton();
 
     @FXML
-    private RadioButton rdDeposit;
+    private RadioButton rdDeposit= new RadioButton();
 
     @FXML
-    private RadioButton rdPresent;
+    private RadioButton rdPresent= new RadioButton();
 
     @FXML
-    private RadioButton rdExpried;
+    private RadioButton rdExpried= new RadioButton();
 
     @FXML
-    private RadioButton rdCancel;
+    private RadioButton rdCancel= new RadioButton();
 
     @FXML
-    private Pane paneDetails;
+    private Pane paneDetails= new Pane();
 
     @FXML
-    private Label lblcode1;
+    private Label lblcode1 = new Label();
 
     @FXML
-    private Label lblCode;
+    private Label lblCode = new Label();
 
     @FXML
-    private Label lblCusName;
+    private Label lblCusName= new Label();
 
     @FXML
-    private Label lblSeats;
+    private Label lblSeats= new Label();
 
     @FXML
-    private Label lblCreated;
+    private Label lblCreated= new Label();
     @FXML
-    private Label lblTime;
+    private Label lblTime= new Label();
 
     @FXML
-    private Label lblPhone;
+    private Label lblPhone= new Label();
 
     @FXML
-    private Label lblEmail;
+    private Label lblEmail= new Label();
 
     @FXML
-    private Label lblDeposit;
+    private Label lblDeposit= new Label();
+
 
     @FXML
-    private Label lblDiscount;
-
+    private Label lblStatus= new Label();
     @FXML
-    private Label lblStatus;
-    @FXML
-    private Label lblTablePick;
+    private Label lblTablePick= new Label();
    
     @FXML
-    private Pane paneSchedule;
+    private Pane paneSchedule = new Pane();
     @FXML
-    private Button btnTablesSche;
+    private Button btnTablesSche = new Button();
     @FXML
-    private Button btnReserSche;
+    private Button btnReserSche= new Button();
     @FXML
-    private Button btnDelete;
+    private Button btnDelete= new Button();
     @FXML
-    private Button btnPut;
+    private Button btnPut= new Button();
     @FXML
-    private Button btnUpdate;
+    private Button btnUpdate= new Button();
     
 
     /**
@@ -220,38 +214,14 @@ public class ReservationController implements Initializable {
   			//create list, format date
 
   			ObservableList<ReservationModel> reserList = FXCollections.observableArrayList();
-  					
-  			//cols get from model
-  			colID.setCellValueFactory(new PropertyValueFactory<ReservationModel, Integer>("id"));
-  			colNo.setCellValueFactory(new PropertyValueFactory<ReservationModel, Integer>("no"));
-  			colCode.setCellValueFactory(new PropertyValueFactory<ReservationModel, String>("code"));
-  			colCusName.setCellValueFactory(new PropertyValueFactory<ReservationModel, String>("name"));
-  			colEmail.setCellValueFactory(new PropertyValueFactory<ReservationModel, String>("email"));
-  			colPhone.setCellValueFactory(new PropertyValueFactory<ReservationModel, String>("phone"));
-  			colSeats.setCellValueFactory(new PropertyValueFactory<ReservationModel, Integer>("seats"));
-  			colDeposit.setCellValueFactory(new PropertyValueFactory<ReservationModel, Integer>("deposit"));
-  			colCreated.setCellValueFactory(new PropertyValueFactory<ReservationModel, LocalDate>("createdAt"));
-  			colDate.setCellValueFactory(new PropertyValueFactory<ReservationModel, LocalDate>("date_pick"));
-  			colDiscount.setCellValueFactory(new PropertyValueFactory<ReservationModel, String>("decrease"));
-  			colStart.setCellValueFactory(new PropertyValueFactory<ReservationModel, LocalDate>("start_time"));
-  			colEnd.setCellValueFactory(new PropertyValueFactory<ReservationModel, LocalDate>("end_time"));
-  			//format col
-  			colStatus.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(
-  					cellData.getValue().getStatus() == ReservationModel.RESER_NEW ? String.valueOf(ReservationModel.isNew) :
-  						(cellData.getValue().getStatus() == ReservationModel.RESER_CANCELLED  ? String.valueOf(ReservationModel.isCancelled):
-  							(cellData.getValue().getStatus() == ReservationModel.RESER_PRESENT ? String.valueOf(ReservationModel.isPresent ):
-  							(cellData.getValue().getStatus() == ReservationModel.RESER_CONFIRMED ? String.valueOf(ReservationModel.isConfirmed ):
-  								(cellData.getValue().getStatus() == ReservationModel.RESER_DEPOSITED ? String.valueOf(ReservationModel.isDeposited ):String.valueOf(ReservationModel.isExpried)
-  							))))));
-  			//get data from db
-  		
+  		//get data from db
+  	  		
   			ResultSet r = res.getReserList(conditions);
   			while(r.next()) {
   				reserList.add(new ReservationModel(
   					r.getInt("id"),
   					r.getRow(),
-  					r.getInt("deposit"),
-  					r.getString("discounts.decrease"),
+  					r.getDouble("deposit"),
   					r.getInt("status"),
   					r.getInt("seats_pick"),
   					r.getString("code"),
@@ -266,6 +236,28 @@ public class ReservationController implements Initializable {
   			}
   			
   			tblReser.setItems(reserList);
+  			//cols get from model
+  			colID.setCellValueFactory(new PropertyValueFactory<ReservationModel, Integer>("id"));
+  			colNo.setCellValueFactory(new PropertyValueFactory<ReservationModel, Integer>("no"));
+  			colCode.setCellValueFactory(new PropertyValueFactory<ReservationModel, String>("code"));
+  			colCusName.setCellValueFactory(new PropertyValueFactory<ReservationModel, String>("name"));
+  			colEmail.setCellValueFactory(new PropertyValueFactory<ReservationModel, String>("email"));
+  			colPhone.setCellValueFactory(new PropertyValueFactory<ReservationModel, String>("phone"));
+  			colSeats.setCellValueFactory(new PropertyValueFactory<ReservationModel, Integer>("seats"));
+  			colDeposit.setCellValueFactory(new PropertyValueFactory<ReservationModel, Double>("deposit"));
+  			colCreated.setCellValueFactory(new PropertyValueFactory<ReservationModel, LocalDate>("createdAt"));
+  			colDate.setCellValueFactory(new PropertyValueFactory<ReservationModel, LocalDate>("date_pick"));
+  			colStart.setCellValueFactory(new PropertyValueFactory<ReservationModel, LocalDate>("start_time"));
+  			colEnd.setCellValueFactory(new PropertyValueFactory<ReservationModel, LocalDate>("end_time"));
+  			//format col
+  			colStatus.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(
+  					cellData.getValue().getStatus() == ReservationModel.RESER_NEW ? String.valueOf(ReservationModel.isNew) :
+  						(cellData.getValue().getStatus() == ReservationModel.RESER_CANCELLED  ? String.valueOf(ReservationModel.isCancelled):
+  							(cellData.getValue().getStatus() == ReservationModel.RESER_PRESENT ? String.valueOf(ReservationModel.isPresent ):
+  							(cellData.getValue().getStatus() == ReservationModel.RESER_CONFIRMED ? String.valueOf(ReservationModel.isConfirmed ):
+  								(cellData.getValue().getStatus() == ReservationModel.RESER_DEPOSITED ? String.valueOf(ReservationModel.isDeposited ):String.valueOf(ReservationModel.isExpried)
+  							))))));
+  			
   			
   		} catch (Exception e) {
   			e.printStackTrace();
@@ -281,7 +273,13 @@ public class ReservationController implements Initializable {
 			e.printStackTrace();
 		}
     }
-
+    @FXML
+    public void refresh() {
+	 System.out.println("--------------------------");
+	 this.updateStatus();
+	 this.parseData(null);
+	 this.loadSchedule("schedule.fxml");
+ }
     @FXML
     public void btnCreateAction() {
     	try {
@@ -489,7 +487,6 @@ public class ReservationController implements Initializable {
 					lblPhone.setText("Phone: \t"+item.getPhone());
 					lblEmail.setText("Email: \t"+item.getEmail());
 					lblDeposit.setText("Deposit: "+item.getDeposit());
-					lblDiscount.setText("Discount: "+item.getDecrease());
 					lblStatus.setText("Status: "+status);
 					lblCreated.setText("Created at: "+ item.getCreatedAt());
 					this.reserId = item.getId();
@@ -569,7 +566,8 @@ public class ReservationController implements Initializable {
 	}
 	   //load schedule
     public void loadSchedule(String path) {
-    	 AnchorPane anchor;
+    	 AnchorPane anchor = new AnchorPane();
+    	 ScheduleController.inReser=1;
    		try {
    			anchor = FXMLLoader.load(getClass().getResource("/views/"+path));
    			paneSchedule.getChildren().setAll(anchor);
