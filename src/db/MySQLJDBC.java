@@ -18,6 +18,7 @@ public class MySQLJDBC {
 	private static final String USER_NAME = "restaurant";
 	private static final String PASSWORD = "password";
 	public static Connection connection = null;
+	public static MySQLJDBC db = null;
 	
 	public String table;
 	public String[] columns;
@@ -245,6 +246,5 @@ public class MySQLJDBC {
 			return false;
 		}
     }
-	 
 
 }

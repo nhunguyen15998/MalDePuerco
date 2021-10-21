@@ -1,0 +1,32 @@
+.image {
+	-fx-background-color :  linear-gradient(to right, #D586F9, #BA6BF8, #A056F7);
+	-fx-background-radius : 5;
+}
+.btnReady {
+	-fx-background-color : #b06fd6;
+	-fx-background-radius : 5;
+}
+.Complete {
+	-fx-background-color : #CF9795;
+	-fx-background-radius : 10;
+}
+.All {
+	-fx-background-color : #795548;
+	-fx-background-radius : 10;
+}
+.Doing {
+	-fx-background-color : #bac1b3;
+	-fx-background-radius : 10;
+}
+.Cancel {
+	-fx-background-color : #D21502;
+	-fx-background-radius : 10;
+}
+.Serving {
+	-fx-background-color : #E2D3D6;
+	-fx-background-radius : 10;
+}
+.Served {
+	-fx-background-color : #CEDDF2;
+	-fx-background-radius : 10;
+}

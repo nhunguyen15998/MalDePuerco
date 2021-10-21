@@ -38,6 +38,9 @@ public class OrderModel extends BaseModel {
 	public static DataMapping isServed = DataMapping.getInstance(SERVED, "Served"); 
 	public static DataMapping isCompleted = DataMapping.getInstance(COMPLETED, "Completed"); 
 
+	//shown 
+	public static boolean isShown = false;
+	
 	public OrderModel() {
 		super(table, columns);	
 	}
@@ -115,6 +118,23 @@ public class OrderModel extends BaseModel {
 			ArrayList<CompareOperator> condition = new ArrayList<CompareOperator>();
 			condition.add(CompareOperator.getInstance("id", " = ", String.valueOf(id)));
 			return this.getData(columns, condition, null, null, null, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	//load combobox
+	public ResultSet getStatus(int status) {
+		try {
+			String[] selects = {"orders.status"};
+			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
+			conditions.add(CompareOperator.getInstance("status", "=", "0"));
+			conditions.add(CompareOperator.getInstance("status", "=", "1"));
+			conditions.add(CompareOperator.getInstance("status", "=", "2"));
+			conditions.add(CompareOperator.getInstance("status", "=", "3"));
+			
+			return this.getData(selects, conditions, null, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

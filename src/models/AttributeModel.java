@@ -41,12 +41,13 @@ public class AttributeModel extends BaseModel {
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
 			joins.add(JoinCondition.getInstance("left join", "attributes att", parentCondition));
 			return this.getData(selects, conditions, joins, null, null, null);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-	
+
 	//create
 	public int createAttribute(ArrayList<DataMapping> data) {
 		try {
@@ -68,6 +69,19 @@ public class AttributeModel extends BaseModel {
 			return false;
 		}
 	}
+
+	
+	public boolean updateAttributeById(int id) {
+		try {
+			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
+			conditions.add(CompareOperator.getInstance("id", "=", String.valueOf(id)));
+			return this.update(null, conditions);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 		
 	//delete
 	public boolean deleteAttribute(int id) {

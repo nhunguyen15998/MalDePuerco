@@ -7,12 +7,15 @@ import javafx.scene.control.Button;
 
 import javafx.scene.control.TextField;
 
+import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
 
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import utils.CompareOperator;
 import javafx.scene.input.KeyEvent;
 
 import javafx.scene.control.TableView;
@@ -41,7 +44,7 @@ public class InvoicesController {
 	@FXML
 	private Button btnDelete;
 	@FXML
-	private TextField tfUser;
+	private TextField tfInvoice;
 	@FXML
 	private AnchorPane viewDetails;
 
@@ -77,6 +80,9 @@ public class InvoicesController {
   			e.printStackTrace();
   		}
   	}
+	
+	
+	
 	// Event Listener on Button[#btnDelete].onAction
 	@FXML
 	public void deleteAction(ActionEvent event) {

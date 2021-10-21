@@ -1,7 +1,7 @@
 package utils;
 
 public class CompareOperator {
-	 public String key;
+	public String key;
 	 public String operator;
 	 public String value;
 	 private static CompareOperator compareOperator;
@@ -17,6 +17,5 @@ public class CompareOperator {
 
 		return compareOperator;
 	}
-
 
 }

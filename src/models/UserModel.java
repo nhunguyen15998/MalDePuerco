@@ -150,6 +150,20 @@ public class UserModel extends BaseModel {
 		}
 	}
 	
+	//load ccb Chef
+	public ResultSet getChefById(int role_id) {
+		try {
+			String[] selects = {"users.name", "users.role_id"};
+			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
+			conditions.add(CompareOperator.getInstance("role_id", "=", "4"));
+			
+			return this.getData(selects, conditions, null, null, null, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	//create
 	public int createUser(ArrayList<DataMapping> data) {
 		try {

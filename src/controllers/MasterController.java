@@ -257,6 +257,7 @@ public class MasterController implements Initializable {
       setBtn();
       btnMenu.getStyleClass().add("btnFocused");
       setBtnBar();
+      redirect("servings.fxml");      
 
     }
 
@@ -282,7 +283,11 @@ public class MasterController implements Initializable {
     		setBtn();
           btnOrder.getStyleClass().add("btnFocused");
           setBtnBar();
-
+         if(AuthenticationModel.roleName.equals("Chef")) {
+        	 redirect("orderChef.fxml");
+         } else {
+        	 redirect("orderWaiter.fxml");
+         }
     }
 
     @FXML
@@ -308,7 +313,7 @@ public class MasterController implements Initializable {
     	setBtn();
          btnServingCate.getStyleClass().add("btnFocused");
          setBtnBar();
-
+         redirect("sercate.fxml");
     }
 
     @FXML
@@ -316,7 +321,7 @@ public class MasterController implements Initializable {
     	setBtn();
          btnAttributes.getStyleClass().add("btnFocused");
          setBtnBar();
-
+         redirect("attributes.fxml");
     }
 
     @FXML

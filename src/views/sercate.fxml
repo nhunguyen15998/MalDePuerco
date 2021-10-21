@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ServingCateController">
+    <stylesheets>
+        <URL value="@../css/sercate.css" />
+    </stylesheets>
+   <children>
+      <AnchorPane prefHeight="141.0" prefWidth="838.0" styleClass="anchorTop" stylesheets="@../css/sercate.css">
+         <children>
+            <Label layoutX="92.0" layoutY="26.0" prefHeight="40.0" prefWidth="267.0" text="Servings Categories">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <AnchorPane layoutX="25.0" layoutY="21.0" prefHeight="50.0" prefWidth="52.0" styleClass="image" stylesheets="@../css/sercate.css">
+               <children>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="6.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/cate.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="window" layoutX="26.0" layoutY="78.0" prefHeight="437.0" prefWidth="785.0" styleClass="anchorPane" stylesheets="@../css/sercate.css">
+         <children>
+            <TableView fx:id="tbl_sercate" layoutX="23.0" layoutY="56.0" onMouseClicked="#getTableDataByClick" prefHeight="343.0" prefWidth="739.0">
+              <columns>
+                <TableColumn fx:id="colNo" prefWidth="32.0" text="#" />
+                <TableColumn fx:id="colId" prefWidth="118.0" text="id" visible="false" />
+                  <TableColumn fx:id="colName" prefWidth="170.0" text="Name" />
+                  <TableColumn fx:id="colParent" prefWidth="213.0" text="Parent" />
+                  <TableColumn fx:id="colCreate" prefWidth="163.0" text="Created At" />
+                  <TableColumn fx:id="colStatus" prefWidth="140.0" text="Status" />
+                  <TableColumn fx:id="colPath" minWidth="2.0" prefWidth="22.0" visible="false" />
+              </columns>
+            </TableView>
+            <Button layoutX="670.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="31.0" prefWidth="87.0" styleClass="btnDelete" stylesheets="@../css/sercate.css" text="     Delete " textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.9803921580314636" green="0.43921568989753723" blue="0.41960784792900085" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Button>
+            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="677.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/delete.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="462.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnCreateAction" prefHeight="31.0" prefWidth="87.0" styleClass="btnCreate" stylesheets="@../css/sercate.css" text="     Create" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.1725490242242813" green="0.4745098054409027" blue="0.8196078538894653" opacity="0.49000000953674316" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Button>
+            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="469.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/save.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="565.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="31.0" prefWidth="87.0" styleClass="btnUpdate" stylesheets="@../css/sercate.css" text="     Update" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.3843137323856354" green="0.6313725709915161" blue="0.545098066329956" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Button>
+            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="572.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/edit.png" />
+               </image>
+            </ImageView>
+            <TextField fx:id="tfFind" layoutX="25.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#onSearch" prefHeight="30.0" prefWidth="251.0" promptText="Find by name" style="-fx-background-radius: 50px;" />
+            <Button layoutX="288.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnClearAction" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #9C5978; -fx-background-radius: 50px;" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/clear.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <ImageView fitHeight="27.0" fitWidth="32.0" layoutX="243.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/search.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,34 @@
+.anchorPane {
+    -fx-background-color : #FFFFFF;
+    -fx-effect: dropshadow(two-pass-box, rgba(212, 165, 174,0.5),30, 0,10, 10);
+}
+.anchorTop {
+    -fx-background-color :  linear-gradient(to right, #ff304f,#ffabb7);
+}
+.btnSave {
+    -fx-background-color : linear-gradient(to right, #8DC9F8, #69B5F2, #4BA4EC, #3292E6);
+    -fx-background-radius : 50px;
+    -fx-border-radius : 50px;
+    -fx-cursor: hand;
+    -fx-fill: back;
+} 
+.btnCancel {
+    -fx-background-color :  linear-gradient(to right, #fbc6c4, #f4a29f, #fb8b87, #FB6E67);
+    -fx-background-radius : 50px;
+    -fx-border-radius : 50px;
+    -fx-cursor: hand;
+    -fx-fill: back;
+}
+.image {
+    -fx-background-color : linear-gradient(to right, #FA9284, #384E78);
+    -fx-background-radius : 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 0);
+}
+
+.text {
+	-fx-background-color :  #fcf7f9;
+	-fx-border-color : linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1)linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1);
+	-fx-border-width :  0 0 1.5 0;
+	-fx-background-radius : 5;
+	-fx-border-radius : 5;
+}

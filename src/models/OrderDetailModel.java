@@ -45,6 +45,8 @@ public class OrderDetailModel extends BaseModel {
 	public static DataMapping isServed = DataMapping.getInstance(SERVED, "Served"); 
 	public static DataMapping isCanceled = DataMapping.getInstance(CANCELED, "Canceled"); 
 
+	public static boolean isShown = false;
+	
 	public OrderDetailModel() {
 		super(table, columns);	
 	}
@@ -83,6 +85,22 @@ public class OrderDetailModel extends BaseModel {
 		this.setSize(size);
 	}
 	
+	public OrderDetailModel(int id, int sequence, String ordercode, String servingName, String size,
+			int quantity, int price, int total, String userCode, String createdAt, int servingStatus) {
+		super(table, columns);
+		this.id = id;
+		this.sequence = sequence;
+		this.orderCode = ordercode;
+		this.servingName = servingName;
+		this.size = size;
+		this.quantity = quantity;
+		this.price = price;
+		this.total = total;
+		this.userCode = userCode;
+		this.createdAt = createdAt;
+		this.servingStatus = servingStatus;
+	}
+	
 	//get data order_details - orders - servings - users - serving_image -tables
 	public ResultSet getOrderDetailList(ArrayList<CompareOperator> conditions, String orderBys) {
 		try {
@@ -113,7 +131,52 @@ public class OrderDetailModel extends BaseModel {
 		}
 	}
 	
+	public ResultSet getOrderDetailListD(ArrayList<CompareOperator> conditions) {
+		try {
+			String[] selects = {"order_details.id", "orders.code as code", "servings.name as serName",
+								"order_details.size", "order_details.quantity", "order_details.price",
+								"order_details.total", "users.code as uCode", "time(order_details.created_at) as time", "order_details.serving_status"};
+			//orders
+			ArrayList<CompareOperator> orderCondition = new ArrayList<CompareOperator>();
+			orderCondition.add(CompareOperator.getInstance("orders.id", "=", "order_details.order_id"));
+			//servings
+			ArrayList<CompareOperator> servingCondition = new ArrayList<CompareOperator>();
+			servingCondition.add(CompareOperator.getInstance("servings.id", "=", "order_details.serving_id"));
+			//user
+			ArrayList<CompareOperator> userCondition = new ArrayList<CompareOperator>();
+			userCondition.add(CompareOperator.getInstance("users.id", "=", "order_details.user_id"));
+			//tables
+			ArrayList<CompareOperator> tableCondition = new ArrayList<CompareOperator>();
+			tableCondition.add(CompareOperator.getInstance("tables.id", "=", "orders.table_id"));
+			//join
+			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
+			joins.add(JoinCondition.getInstance("left join", "orders", orderCondition));
+			joins.add(JoinCondition.getInstance("left join", "servings", servingCondition));
+			joins.add(JoinCondition.getInstance("left join", "users", userCondition));
+			joins.add(JoinCondition.getInstance("left join", "tables", tableCondition));
+			return this.getData(selects, conditions, joins, null, null, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
+	public ResultSet getById(int id) {
+		try {
+			String[] selects = {"order_details.id", "orders.code as code", "servings.name as serName",
+					"order_details.size", "order_details.quantity", "order_details.price",
+					"order_details.total", "users.code as uCode", "time(order_details.created_at) as time", "order_details.serving_status"};
+			
+			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
+			conditions.add(CompareOperator.getInstance("order_details.id", "=", String.valueOf(id)));
+			
+			
+			return this.getData(selects, conditions, null, null, null, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 	//create
 	public int createOrderDetail(ArrayList<DataMapping> data) {
@@ -277,7 +340,6 @@ public class OrderDetailModel extends BaseModel {
 	public void setSugar(String sugar) {
 		this.sugar = sugar;
 	}
-
 	public String getSize() {
 		return size;
 	}
@@ -286,10 +348,6 @@ public class OrderDetailModel extends BaseModel {
 		this.size = size;
 	}
 
-	
-	
-	
-	
 	
 }
  

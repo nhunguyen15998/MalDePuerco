@@ -54,7 +54,6 @@ public class Helpers {
 		}  
 	}
 	
-
 	//random
 	public static String randomString(int len){
 		String AB = "0123456789";
@@ -104,6 +103,5 @@ public class Helpers {
 				alert.showAndWait();
 			}
 		}
-	
 	
 }
