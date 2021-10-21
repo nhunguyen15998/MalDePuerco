@@ -27,17 +27,6 @@
             <TableView fx:id="tblDiscount" focusTraversable="false" layoutY="14.0" onMouseClicked="#getDataRowSelected" prefHeight="199.0" prefWidth="791.0" styleClass="tblDiscount" stylesheets="@../css/discount.css">
               <columns>
                 <TableColumn fx:id="colNo" prefWidth="28.799983978271484" styleClass="col-header" text="#" />
-<<<<<<< HEAD
-                <TableColumn fx:id="colCode" prefWidth="96.79998779296875" styleClass="col-header" text="Code" />
-                  <TableColumn fx:id="colName" prefWidth="141.6000518798828" styleClass="col-header" text="Name" />
-                  <TableColumn fx:id="colDecrease" prefWidth="60.00006103515625" styleClass="col-header" text="Decrease" />
-                  <TableColumn fx:id="colOrderTotal" prefWidth="60.00006103515625" styleClass="col-header" text="Total at least" />
-                  <TableColumn fx:id="colDescrip" prefWidth="137.59991455078125" styleClass="col-header" text="Desciptions" />
-                  <TableColumn fx:id="colStartDate" prefWidth="75.99993896484375" styleClass="col-header" text="Start date" />
-                  <TableColumn fx:id="colEndDate" prefWidth="72.00006103515625" styleClass="col-header" text="End date" />
-                  <TableColumn fx:id="colCreatedAt" prefWidth="83.20001220703125" styleClass="col-header" text="Created at" />
-                  <TableColumn fx:id="colStatus" minWidth="0.0" prefWidth="73.5999755859375" styleClass="col-header" text="Status" />
-=======
                 <TableColumn fx:id="colCode" prefWidth="83.20001220703125" styleClass="col-header" text="Code" />
                   <TableColumn fx:id="colName" prefWidth="134.40000915527344" styleClass="col-header" text="Name" />
                   <TableColumn fx:id="colDecrease" prefWidth="55.20001220703125" styleClass="col-header" text="Decrease" />
@@ -47,7 +36,6 @@
                   <TableColumn fx:id="colEndDate" prefWidth="60.79998779296875" styleClass="col-header" text="End date" />
                   <TableColumn fx:id="colCreatedAt" prefWidth="75.2000732421875" styleClass="col-header" text="Created at" />
                   <TableColumn fx:id="colStatus" minWidth="0.0" prefWidth="73.0" styleClass="col-header" text="Status" />
->>>>>>> tram
                   <TableColumn fx:id="ID" prefWidth="75.0" text="ID" visible="false" />
               </columns>
             </TableView>

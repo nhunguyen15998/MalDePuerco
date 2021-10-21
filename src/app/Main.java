@@ -1,8 +1,5 @@
 package app;
 
-import java.util.prefs.Preferences;
-
-import controllers.SignInController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;

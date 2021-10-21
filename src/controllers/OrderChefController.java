@@ -37,6 +37,7 @@ public class OrderChefController implements Initializable {
 	private static OrderDetailModel odetailModel = new OrderDetailModel();
 	public MasterController masterController;
 	
+	private int chefID;
 	@FXML
     private Button btnPen;
 
@@ -137,6 +138,10 @@ public class OrderChefController implements Initializable {
 				AnchorPane pane = root.load();
 				ChefItemController chefItemControl = root.getController();
 				chefItemControl.setData(item.get(i));
+				int id = item.get(i).getId();
+				pane.setOnMouseClicked(eh -> {
+					chefItemControl.btnClick(eh, id);
+				});
 				if(col==1) {
 					col=0;
 					row++;
@@ -148,6 +153,7 @@ public class OrderChefController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
 	
 	@FXML void tabPending(MouseEvent event) {
 		loadData(btnPen.getId());
@@ -198,6 +204,15 @@ public class OrderChefController implements Initializable {
   		this.masterController = masterController;
   		return this.masterController;
   	}
+
+	public int getChefID() {
+		return chefID;
+	}
+
+	public void setChefID(int chefID) {
+		this.chefID = chefID;
+	}
+	
 	
 }
 

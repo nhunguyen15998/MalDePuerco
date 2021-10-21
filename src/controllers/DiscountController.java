@@ -6,8 +6,6 @@
 package controllers;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,11 +18,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
-import org.springframework.security.crypto.bcrypt.BCrypt;
-
-import com.mysql.cj.xdevapi.PreparableStatement;
-
 import db.MySQLJDBC;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
@@ -32,7 +25,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -44,14 +36,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Screen;
 import models.AuthenticationModel;
 import models.DiscountModel;
-import models.RoleModel;
-import models.UserModel;
 import utils.CompareOperator;
 import utils.DataMapping;
 import utils.Helpers;
@@ -84,9 +72,6 @@ public class DiscountController implements Initializable {
 
     @FXML
     private TableColumn<DiscountModel, Float> colDecrease;
-    
-    @FXML
-    private TableColumn<DiscountModel, Double> colOrderTotal;
     
     @FXML
     private TableColumn<DiscountModel, String>  colDescrip;
@@ -360,7 +345,6 @@ public class DiscountController implements Initializable {
 			colNo.setCellValueFactory(new PropertyValueFactory<DiscountModel, Integer>("sequence"));
 			colCode.setCellValueFactory(new PropertyValueFactory<DiscountModel, String>("code"));
 			colName.setCellValueFactory(new PropertyValueFactory<DiscountModel, String>("name"));
-			colOrderTotal.setCellValueFactory(new PropertyValueFactory<DiscountModel, Double>("orderTotal"));
 			colDescrip.setCellValueFactory(new PropertyValueFactory<DiscountModel, String>("descriptions"));
 			colStartDate.setCellValueFactory(new PropertyValueFactory<DiscountModel, LocalDate>("start_date"));
 			colEndDate.setCellValueFactory(new PropertyValueFactory<DiscountModel, LocalDate>("end_date"));
@@ -380,7 +364,7 @@ public class DiscountController implements Initializable {
 						discounts.getRow(),
 						discounts.getString("code"),
 						discounts.getString("name"),
-						Double.parseDouble(Helpers.formatNumber(null).format(discounts.getDouble("order_total"))),
+						discounts.getDouble("order_total") != 0 ? Double.parseDouble(Helpers.formatNumber(null).format(discounts.getDouble("order_total"))) : 0,
 						discounts.getString("descriptions"),
 						discounts.getDate("start_date").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy")),
 						discounts.getDate("end_date").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy")),
