@@ -129,7 +129,7 @@ public class UserController  implements Initializable {
 			ResultSet users = userModel.getUserList(conditions);
 		
 			while(users.next()) {
-				userList.add( UserModel.getInstance(
+				userList.add(new UserModel(
 					users.getInt("users.id"),
 					users.getRow(),
 					users.getString("users.code"),

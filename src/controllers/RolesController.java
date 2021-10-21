@@ -99,7 +99,7 @@ public class RolesController implements Initializable {
 			
 			ResultSet roles = roleModel.getRoleList(conditions);
 			while(roles.next()) {
-				roleList.add(RoleModel.getInstance(
+				roleList.add(new RoleModel(
 					roles.getInt("id"),
 					roles.getRow(),
 					roles.getString("code"),

@@ -97,25 +97,24 @@ public class SettingController implements Initializable {
 		}
 	}
 	//load table code
-		public ResultSet getTableCodeList() {
-			try {
-				ObservableList<DataMapping> codeOptions = FXCollections.observableArrayList();//string ->dm nhu
-				String[] selects = {"id, code"};
-				ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
-				conditions.add(CompareOperator.getInstance("is_set", "=", String.valueOf(TableModel.NO)));
-				ResultSet code = tableModel.getData(selects, conditions, null, null, null, null);
-				while(code.next()) {
-					//codeOptions.add(code.getString("code"));
-					codeOptions.add(DataMapping.getInstance(code.getString("id"), code.getString("code")));
-				}
-				cbbCode.setItems(codeOptions);
-				return code;
-			} catch (Exception e) {
-				e.printStackTrace();
-				return null;
+	public ResultSet getTableCodeList() {
+		try {
+			ObservableList<DataMapping> codeOptions = FXCollections.observableArrayList();//string ->dm nhu
+			String[] selects = {"id, code"};
+			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
+			conditions.add(CompareOperator.getInstance("is_set", "=", String.valueOf(TableModel.NO)));
+			ResultSet code = tableModel.getData(selects, conditions, null, null, null, null);
+			while(code.next()) {
+				codeOptions.add(DataMapping.getInstance(code.getString("id"), code.getString("code")));
 			}
-			
+			cbbCode.setItems(codeOptions);
+			return code;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
+		
+	}
 	@FXML
 	public void btnClearAction(ActionEvent event) {
 		SettingController.tablet_code="";
@@ -150,33 +149,32 @@ public class SettingController implements Initializable {
 			updateData();
 		} 
 		
-//		if(!tfBook.getText().isEmpty()) {
-//			if(validated(tfBook.getText(), "lblBookError")) {
-//			SettingController.timeBook = Integer.parseInt((preference.get("timeB", tfBook.getText())));
-//			System.out.println("Time book new: " + SettingController.timeBook );
-//			preference.putInt("timeBook", SettingController.timeBook);
-//			}
-//		}
-//		if(!tfCancel.getText().isEmpty()) {
-//			if(validated(tfCancel.getText(), "lblCancelError")) {
-//			SettingController.timeCancel = Integer.parseInt((preference.get("timeC", tfCancel.getText())));
-//			System.out.println("Time cancel new:" + SettingController.timeCancel );
-//			preference.putInt("timeCancel", SettingController.timeCancel);
-//			}
-//		}
-//
-//		if(key.equals("")&&tfBook.getText().isEmpty()&&tfCancel.getText().isEmpty()){
-//				Alert alert = new Alert(AlertType.ERROR);
-//				alert.setHeaderText("Please fill in the input");
-//				alert.showAndWait();
-//		}
-//		if(validated(tfBook.getText(), "lblBookError")&&validated(tfCancel.getText(), "lblCancelError")) {
-//		Helpers.status("success");
-//		}
-		
-		
-		
+		if(!tfBook.getText().isEmpty()) {
+			if(validated(tfBook.getText(), "lblBookError")) {
+			SettingController.timeBook = Integer.parseInt((preference.get("timeB", tfBook.getText())));
+			System.out.println("Time book new: " + SettingController.timeBook );
+			preference.putInt("timeBook", SettingController.timeBook);
+			}
+		}
+		if(!tfCancel.getText().isEmpty()) {
+			if(validated(tfCancel.getText(), "lblCancelError")) {
+			SettingController.timeCancel = Integer.parseInt((preference.get("timeC", tfCancel.getText())));
+			System.out.println("Time cancel new:" + SettingController.timeCancel );
+			preference.putInt("timeCancel", SettingController.timeCancel);
+			}
+		}
+
+		if(key.equals("")&&tfBook.getText().isEmpty()&&tfCancel.getText().isEmpty()){
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setHeaderText("Please fill in the input");
+				alert.showAndWait();
+		}
+		if(validated(tfBook.getText(), "lblBookError")&&validated(tfCancel.getText(), "lblCancelError")) {
+		Helpers.status("success");
+		}	
 	}
+	
+	
 	private boolean validated(String time, String lbl) {
 		try{
 			ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
@@ -217,22 +215,23 @@ public class SettingController implements Initializable {
 		cbbCode.setValue(DataMapping.getInstance(SettingController.tableId, SettingController.tablet_code));
 		
 		updateData();
-//		SettingController.timeBook= preference.getInt("timeBook",2);
-//		SettingController.timeCancel = preference.getInt("timeCancel", 2);
+		
+		SettingController.timeBook= preference.getInt("timeBook",2);
+		SettingController.timeCancel = preference.getInt("timeCancel", 2);
 		cbbCode.setValue(DataMapping.getInstance(SettingController.tableId, SettingController.tablet_code));
-//		tfBook.setText(timeBook+"");
-//		tfCancel.setText(timeCancel+"");
+		tfBook.setText(timeBook+"");
+		tfCancel.setText(timeCancel+"");
 		btnClear.setDisable(true);
 		
 		if(AuthenticationModel.hasPermission("CLEAR_TABLET") || AuthenticationModel.roleName.equals("Super Admin")) {
 			btnClear.setDisable(false);
 		}
-//		tfBook.setDisable(true);
-//		tfCancel.setDisable(true);
-//		if(AuthenticationModel.hasPermission("SETTING_TIME") || AuthenticationModel.roleName.equals("Super Admin")) {
-//			tfBook.setDisable(false);
-//			tfCancel.setDisable(false);
-//		}
+		tfBook.setDisable(true);
+		tfCancel.setDisable(true);
+		if(AuthenticationModel.hasPermission("SETTING_TIME") || AuthenticationModel.roleName.equals("Super Admin")) {
+			tfBook.setDisable(false);
+			tfCancel.setDisable(false);
+		}
 		this.getTableCodeList();
 		this.getTableInfo();
 	}

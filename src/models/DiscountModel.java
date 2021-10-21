@@ -101,7 +101,8 @@ public class DiscountModel extends BaseModel{
 			return false;
 		}
 	}
-
+	
+	//get &set
 	public int getId() {
 		return id;
 	}
@@ -190,6 +191,6 @@ public class DiscountModel extends BaseModel{
 	public void setOrderTotal(double orderTotal) {
 		this.orderTotal = orderTotal;
 	}
-			
+
 		
 }

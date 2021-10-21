@@ -53,22 +53,20 @@ public class UserModel extends BaseModel {
 		}
 	}
 	
-	public static UserModel getInstance(int id, int sequence, String code, String name,String email, String phone, String role, String createdAt, int status) {
-		if(userModel==null) {
-			UserModel item = new UserModel();
-				item.setId(id);
-				item.setSequence(sequence);
-				item.setCode(code);
-				item.setName(name);
-				item.setEmail(email);
-				item.setPhone(phone);
-				item.setRole(role);
-				item.setCreatedAt(createdAt);
-				item.setStatus(status);
-				return item;
-		}
-		return userModel;
+	public UserModel(int id, int sequence, String code, String name, String email,
+			String phone, String role, String createdAt, int status) {
+		super(table, columns);
+		this.id = id;
+		this.sequence = sequence;
+		this.code = code;
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+		this.role = role;
+		this.createdAt = createdAt;
+		this.status = status;
 	}
+
 	
 	//login
 	public boolean doLogin(String phone, String password) {

@@ -20,17 +20,20 @@ import db.MySQLJDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-
+import javafx.event.EventHandler;
 import javafx.scene.control.Label;
-
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
-
+import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import models.ItemModel;
 import models.ReservationModel;
 import utils.CompareOperator;
@@ -69,10 +72,13 @@ public class ScheduleController implements Initializable {
 
     @FXML
     private Label lblCancel;
+    public static int inReser=0;
+    
+    private int reserId;
     private List<ItemModel> item = new ArrayList<>();
     
     public static ResultSet getDataReser(String condition) throws SQLException{
-    	String sql = "select reservations.*,decrease from reservations left join discounts on reservations.discount_id = discounts.id "+condition ;
+    	String sql = "select *from reservations "+condition ;
        Statement stmt = MySQLJDBC.connection.createStatement();
 		return stmt.executeQuery(sql);
        
@@ -107,6 +113,7 @@ public class ScheduleController implements Initializable {
     	int k =0;
     	while(rs.next()){
     		items = new ItemModel();
+    		items.setId(rs.getInt("id"));
     		items.setStart(Helpers.formatTime(rs.getString("start_time")));
     		items.setEnd(Helpers.formatTime(rs.getString("end_time")));
     		items.setDate(rs.getString("date_pick"));
@@ -114,7 +121,6 @@ public class ScheduleController implements Initializable {
     		items.setCusName(rs.getString("customer_name"));
     		items.setStatus(rs.getInt("status"));
     		i.add(items);
-    		
     		k++;
     		
     	}
@@ -126,6 +132,7 @@ public class ScheduleController implements Initializable {
 		// TODO Auto-generated method stub
     	dpDate.setValue(LocalDate.now());
     	this.dateChoose();
+    	 
 	}
     //load data
     
@@ -158,6 +165,26 @@ public class ScheduleController implements Initializable {
    		AnchorPane anchor = root.load();
    		ItemController itemControl = root.getController();
    		itemControl.setData(item.get(i));
+   		
+   		int id = item.get(i).getId();
+   		int stt = item.get(i).getStatus();
+   		ContextMenu contextMenu = new ContextMenu();
+
+        MenuItem item = new MenuItem("Update this reservation");
+        item.setOnAction(eh->{
+       	 btnUpdateAction();
+        });
+        contextMenu.getItems().addAll(item);
+   		anchor.setOnMouseClicked(eh->{
+   			if(inReser==1&&(stt==1||stt==2||stt==3)) {
+   			getIdOnRightClick(eh, id);
+   			}
+   		});
+   		anchor.setOnContextMenuRequested(eh->{
+   			if(inReser==1&&(stt==1||stt==2||stt==3)) {
+   			contextMenu.show(anchor, eh.getScreenX(), eh.getScreenY());
+   			}
+   		});
    		if(col==1) {
    			col=0;
    			row++;
@@ -170,6 +197,53 @@ public class ScheduleController implements Initializable {
 			// TODO: handle exception
 		}
    }
+   
+   private void getIdOnRightClick(MouseEvent event, int id) {
+	   switch(event.getButton()) {
+	   case PRIMARY:
+		   System.out.println("left click");
+		   
+		   break;
+	   case SECONDARY:
+		   reserId=id;
+		   System.out.println("reserId: "+reserId);
+		   break;
+	   default:
+		 break;
+	   }
+   }
+   
+   void btnUpdateAction() {
+   	try {
+			if(this.reserId != 0) {
+					this.shoUpdateForm();
+			} 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+   }
+	public void shoUpdateForm() {
+  		try {
+  			
+  			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/reservation-cu.fxml"));
+  			AnchorPane createHolder =  new AnchorPane();
+  			createHolder = root.load();
+  			
+  			//controller
+  			ReservationCUController controller = root.<ReservationCUController>getController();
+  			ReservationController ctr = new ReservationController();
+  			ctr.setReserId(reserId);
+  			controller.loadDataUpdateById(ctr);
+  			Scene scene = new Scene(createHolder, 680, 532);
+  			Stage createStage = new Stage();
+  			createStage.initStyle(StageStyle.UNDECORATED);
+  			createStage.setScene(scene);
+  			createStage.show();			
+  			
+  		} catch (Exception e) {
+  			e.printStackTrace();
+  		}
+  	}
     @FXML
     void dateChoose() {
     	
@@ -215,6 +289,18 @@ public class ScheduleController implements Initializable {
     void tabPresent(MouseEvent event) {
     	loadData(dpDate.getValue(), lblPresent.getId());
     }
+	public static int getInReser() {
+		return inReser;
+	}
+	public static void setInReser(int inReser) {
+		ScheduleController.inReser = inReser;
+	}
+	public int getReserId() {
+		return reserId;
+	}
+	public void setReserId(int reserId) {
+		this.reserId = reserId;
+	}
 
 	
 

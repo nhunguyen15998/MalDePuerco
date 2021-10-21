@@ -9,11 +9,11 @@ import utils.JoinCondition;
 
 public class ReservationModel extends BaseModel{
 	private static String table = "reservations";
-	private static String[] columns = {"id, code, customer_name, phone,email, start_time,end_time, deposit,discount_id, date_pick, seats_pick, created_at, status"};
-	private static ReservationModel reserModel;
+	private static String[] columns = {"id, code, customer_name, phone,email, start_time,end_time, deposit, date_pick, seats_pick, created_at, status"};
 	
-	private int id, deposit, status, seats, no;
-	private String code, name, phone, email, start_time, end_time, date_pick,decrease, createdAt;
+	private int id, status, seats, no;
+	private double deposit;
+	private String code, name, phone, email, start_time, end_time, date_pick, createdAt;
 	
 	//status
 	public static final int RESER_NEW = 1;
@@ -33,46 +33,36 @@ public class ReservationModel extends BaseModel{
 	
 	public ReservationModel() {
 		super(table, columns);
-		if(reserModel != null) {
-			reserModel = new ReservationModel();
-		}
 	}
 	
-	
-	
-	public static ReservationModel getInstance( int id,int no, int deposit, String decrease, int status,
+	public ReservationModel( int id,int no, double deposit, int status,
 			int seats, String code, String name, String phone, String email, String start_time, String end_time,
 			String date_pick, String createdAt) {
-		if(reserModel ==  null) {
-			ReservationModel item = new ReservationModel();
-			item.id = id;
-			item.no = no;
-			item.deposit = deposit;
-			item.decrease = decrease;
-			item.status = status;
-			item.seats = seats;
-			item.code = code;
-			item.name = name;
-			item.phone = phone;
-			item.email = email;
-			item.start_time = start_time;
-			item.end_time = end_time;
-			item.date_pick = date_pick;
-			item.createdAt = createdAt;
-			return item;
-		}
-		return reserModel;
+			super(table, columns);
+			this.id = id;
+			this.deposit = deposit;
+			this.status = status;
+			this.seats = seats;
+			this.no = no;
+			this.code = code;
+			this.name = name;
+			this.phone = phone;
+			this.email = email;
+			this.start_time = start_time;
+			this.end_time = end_time;
+			this.date_pick = date_pick;
+			this.createdAt = createdAt;
 	}
+
+
+
 
 
 	//get list
 	public ResultSet getReserList(ArrayList<CompareOperator> conditions) {
 		try {
 			
-			String[] selects = {"reservations.*","decrease"};
-			
-			ArrayList<CompareOperator> joinDiscount = new ArrayList<CompareOperator>();
-			joinDiscount.add(CompareOperator.getInstance("reservations.discount_id", " = ", "discounts.id"));
+			String[] selects = {"reservations.*"};
 			
 			//table
 			ArrayList<CompareOperator> joinTable = new ArrayList<CompareOperator>();
@@ -83,7 +73,6 @@ public class ReservationModel extends BaseModel{
 			
 			
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
-			joins.add(JoinCondition.getInstance("left join", "discounts", joinDiscount));
 			joins.add(JoinCondition.getInstance("left join", "tables_reservation", joinTableReservation));
 			joins.add(JoinCondition.getInstance("left join", "tables", joinTable));
 		
@@ -159,23 +148,15 @@ public class ReservationModel extends BaseModel{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getDeposit() {
+	
+
+
+	public double getDeposit() {
 		return deposit;
 	}
-	public void setDeposit(int deposit) {
+	public void setDeposit(double deposit) {
 		this.deposit = deposit;
 	}
-	
-	public String getDecrease() {
-		return decrease;
-	}
-
-	public void setDecrease(String decrease) {
-		this.decrease = decrease;
-	}
-
-
-
 	public int getStatus() {
 		return status;
 	}
@@ -237,16 +218,9 @@ public class ReservationModel extends BaseModel{
 		this.createdAt = createdAt;
 	}
 
-
-
-
-
-
 	public int getNo() {
 		return no;
 	}
-
-
 
 	public void setNo(int no) {
 		this.no = no;

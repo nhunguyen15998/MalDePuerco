@@ -161,6 +161,7 @@ public class TablesController implements Initializable {
     //load schedule
     private void loadSchedule() {
     	 AnchorPane anchor;
+    	 ScheduleController.inReser =0;
   		try {
   			anchor = FXMLLoader.load(getClass().getResource("/views/schedule.fxml"));
   			paneSchedule.getChildren().setAll(anchor);
@@ -184,7 +185,7 @@ public class TablesController implements Initializable {
     //update status New to Confirmed after 30 minutes
     public void updateStatus() {
     	String sql = "select tables.id, table_id, reservation_id, date_pick, r.status,start_time from tables_reservation t join tables  on tables.id= t.table_id join reservations r on r.id=t.reservation_id "
-    			+ "where r.status = 4 and curdate()=date_pick and curtime()>=start_time" ;
+    			+ "where r.status = 4 and curdate()=date_pick and curtime()>=start_time and curtime()<=end_time" ;
     	String sql2 = "select tables.id, table_id, reservation_id, date_pick, r.status,start_time from tables_reservation t join tables  on tables.id= t.table_id join reservations r on r.id=t.reservation_id where (r.status = 1 or r.status = 2 or r.status = 3) and curdate()=date_pick and start_time<=curtime() and curtime()<=date_add(start_time, INTERVAL 30 MINUTE)" ;
     	String sql3 = "select tables.id, table_id, reservation_id, date_pick, r.status,start_time from tables_reservation t join tables  on tables.id= t.table_id join reservations r on r.id=t.reservation_id where (r.status = 5 and curdate()=date_pick and curtime()>date_add(start_time, INTERVAL 30 MINUTE)) or (r.status = 0 and curdate()=date_pick)";
         try {
@@ -243,7 +244,7 @@ public class TablesController implements Initializable {
   			
   			ResultSet table = tableModel.getTableList(conditions);
   			while(table.next()) {
-  				tableList.add(TableModel.getInstance(
+  				tableList.add(new TableModel(
   						table.getInt("id"),
   						table.getRow(),
   						table.getString("tables.code"),

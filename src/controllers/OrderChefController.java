@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
@@ -25,7 +26,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import models.ChefItemModel;
 import models.OrderDetailModel;
 import utils.Helpers;
@@ -33,6 +35,7 @@ import utils.Helpers;
 
 public class OrderChefController implements Initializable {
 	private static OrderDetailModel odetailModel = new OrderDetailModel();
+	public MasterController masterController;
 	
 	@FXML
     private Button btnPen;
@@ -171,8 +174,30 @@ public class OrderChefController implements Initializable {
 	}
 	
 	//btnServerViewAction
+	@FXML
 	public void btnServerViewAction() {
-		
+		showServerView();
 	}
+	
+	//show form assign
+  	public void showServerView() {
+  		try {
+  			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/orderWaiter.fxml"));
+  			AnchorPane server = root.load();
+  			
+  			OrderWaiterController controller = root.getController();
+			controller.parseMaster(this.masterController);
+			this.masterController.masterHolder.getChildren().setAll(server);			
+  		} catch (Exception e) {
+  			e.printStackTrace();
+  		}
+  	}
+  	
+  	//parse master
+  	public MasterController parseMaster(MasterController masterController) {
+  		this.masterController = masterController;
+  		return this.masterController;
+  	}
+	
 }
 

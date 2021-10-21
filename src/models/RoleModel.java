@@ -32,19 +32,17 @@ public class RoleModel extends BaseModel {
 		}
 	}
 	
-	public static RoleModel getInstance(int id, int sequence, String code, String name, String createdAt, int status) {
-	if(roleModel == null) {
-			RoleModel item = new RoleModel();
-			item.setId(id);
-			item.setSequence(sequence);
-			item.setCode(code);
-			item.setName(name);
-			item.setCreatedAt(createdAt);
-			item.setStatus(status);
-			return item;
-		}
-		return roleModel;
+	public RoleModel( int id, int sequence, String code, String name, String createdAt,
+			int status) {
+		super(table, columns);
+		this.id = id;
+		this.sequence = sequence;
+		this.code = code;
+		this.name = name;
+		this.createdAt = createdAt;
+		this.status = status;
 	}
+
 
 	//get
 	public ResultSet getRoleList(ArrayList<CompareOperator> conditions) {

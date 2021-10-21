@@ -29,6 +29,7 @@ import utils.CompareOperator;
 import utils.Helpers;
 
 public class OrderWaiterController implements Initializable {
+	private MasterController masterController;
 	private OrderWaiterModel orderModel = new OrderWaiterModel();
 	private int orderId;
 	private String orderCode;
@@ -213,8 +214,26 @@ public class OrderWaiterController implements Initializable {
 	}
 	
 	//btnChefViewAction
+	@FXML
 	public void btnChefViewAction() {
-		
+		showChefView();
 	}
 	
+	//parse master
+	public void parseMaster(MasterController masterController) {
+		this.masterController = masterController;
+	}
+	
+	//show form assign
+  	public void showChefView() {
+  		try {
+  			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/orderChef.fxml"));
+  			AnchorPane chef = root.load();
+			OrderChefController controller = root.getController();
+			controller.masterController = this.masterController;		
+			this.masterController.masterHolder.getChildren().setAll(chef);
+  		} catch (Exception e) {
+  			e.printStackTrace();
+  		}
+  	}
 }

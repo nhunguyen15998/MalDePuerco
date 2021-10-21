@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
+import app.Main;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -77,7 +78,7 @@ public class MasterController implements Initializable {
     @FXML
     private Button btnRole;
     @FXML
-    private Pane masterHolder;
+    public Pane masterHolder;
     @FXML
     private Button btnSignOut;
     @FXML
@@ -86,12 +87,10 @@ public class MasterController implements Initializable {
     private Button btnUser;
     @FXML
     private Button btnOrder;
-
 	@FXML
-	private AnchorPane settingHolder;
+	public AnchorPane settingHolder;
     @FXML
     private Button btnSetting;
-	private Stage stage;
 	
     /**
      * Initializes the controller class.
@@ -100,7 +99,6 @@ public class MasterController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         btnDashBoardAction();
-        
         try {
 		lblCurrentUser.setText(AuthenticationModel.name);
 		lblCurrentUserRole.setText(AuthenticationModel.roleName);
@@ -211,6 +209,7 @@ public class MasterController implements Initializable {
 		Stage stage = SignInController.substage;
 		stage.close();
 	}
+	
     @FXML
     private void logoutAction() {
         FXMLLoader loader = new FXMLLoader(MasterController.this.getClass().getResource("/views/home.fxml"));
@@ -231,6 +230,7 @@ public class MasterController implements Initializable {
                                   }catch(IOException ex){
                                       ex.printStackTrace();
                                   }
+
     }
  
     
@@ -280,14 +280,14 @@ public class MasterController implements Initializable {
 
     @FXML
     private void orderAction() {
-    		setBtn();
-          btnOrder.getStyleClass().add("btnFocused");
-          setBtnBar();
-         if(AuthenticationModel.roleName.equals("Chef")) {
-        	 redirect("orderChef.fxml");
-         } else {
-        	 redirect("orderWaiter.fxml");
-         }
+    	setBtn();
+        btnOrder.getStyleClass().add("btnFocused");
+        setBtnBar();
+	     if(AuthenticationModel.roleName.equals("Chef")) {
+	    	 redirectOrderManagement("orderChef.fxml");
+	     } else {
+	    	 redirectOrderManagement("orderWaiter.fxml");
+	     }
     }
 
     @FXML
@@ -335,7 +335,6 @@ public class MasterController implements Initializable {
     @FXML
     private void settingAction() {
     	setBtnBar();
-    	btnSetting.getStyleClass().add("btnBarFocused");
     	setBtn();
     	try {
 			//draw
@@ -371,7 +370,23 @@ public class MasterController implements Initializable {
     private void redirect(String value){
         AnchorPane anchor;
 		try {
-			anchor = FXMLLoader.load(getClass().getResource("/views/"+value));
+			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/"+value));
+			anchor = root.load();
+			masterHolder.getChildren().setAll(anchor);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    private void redirectOrderManagement(String value){
+        AnchorPane anchor;
+		try {
+			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/"+value));
+			anchor = root.load();
+			
+			OrderWaiterController controller = root.getController();
+			controller.parseMaster(this);//here
+			
 			masterHolder.getChildren().setAll(anchor);
 		} catch (IOException e) {
 			e.printStackTrace();

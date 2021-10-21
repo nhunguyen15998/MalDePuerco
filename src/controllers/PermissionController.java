@@ -23,6 +23,7 @@ import models.RoleModel;
 import models.RolePermissionModel;
 import utils.CompareOperator;
 import utils.DataMapping;
+import utils.Helpers;
 
 /**
  * FXML Controller class
@@ -74,6 +75,7 @@ public class PermissionController implements Initializable {
   				for (PermissionModel permissionModel : perDatas) {
   					if(permissionName.equals(permissionModel.getName())){
   						checkBox.setSelected(true);
+  						checkBox.getStyleClass().add("box");
   					}
   				}
   				permissionPane.add(checkBox, x, y);
@@ -124,7 +126,6 @@ public class PermissionController implements Initializable {
   	//btnClose
   	public void close() {
   		try {
-  			PermissionModel.isShown = false;
   			Stage stage = (Stage) btnCancel.getScene().getWindow();
   			stage.close();
   		} catch (Exception e) {
@@ -153,9 +154,11 @@ public class PermissionController implements Initializable {
   						data.add(DataMapping.getInstance("permission_id", String.valueOf(permissions.getInt("id"))));
   						this.roleHasPermissionModel.create(data);
   					}
+
   		        }
   		    }
-  			this.close();
+
+			Helpers.status("success");
   			
   		} catch (Exception e) {
   			e.printStackTrace();
@@ -164,6 +167,8 @@ public class PermissionController implements Initializable {
     @FXML
      public void removeAll() {
     	for (Node node : permissionPane.getChildren()) {
+
+		        node.getStyleClass().add("box");
       	    if (node instanceof CheckBox) {
       	        ((CheckBox) node).setSelected(false);
       	    }
@@ -173,6 +178,7 @@ public class PermissionController implements Initializable {
     @FXML
     public void selectAll() {
     	for (Node node : permissionPane.getChildren()) {
+	        node.getStyleClass().add("box");
       	    if (node instanceof CheckBox) {
       	        ((CheckBox) node).setSelected(true);
       	    }

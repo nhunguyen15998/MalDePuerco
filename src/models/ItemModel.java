@@ -4,9 +4,17 @@ import java.util.ArrayList;
 
 public class ItemModel {
 	private String start,end,date, cusName, table;
-	private int status;
+	private int id, status;
 
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getTable() {
 		return table;
 	}

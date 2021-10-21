@@ -1,5 +1,8 @@
 package app;
 
+import java.util.prefs.Preferences;
+
+import controllers.SignInController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -8,13 +11,13 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
 
 public class Main extends Application{
 
 	public static void main(String[] args) {
 		launch(args);
 	}
-
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -28,7 +31,6 @@ public class Main extends Application{
 			primaryStage.setScene(scene);
 			primaryStage.initStyle(StageStyle.UNDECORATED);
 			primaryStage.show();
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

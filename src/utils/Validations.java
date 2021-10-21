@@ -10,8 +10,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.prefs.Preferences;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import controllers.SettingController;
+
 import java.text.ParseException;
 
 import db.MySQLJDBC;
@@ -101,7 +105,7 @@ public class Validations {
 				
 				//time
 				if(Arrays.asList(patternDatas).contains("time")) {
-					String regex = "^(?:[01]?\\d|2[0-3])(?::[0-5]\\d){1,2}$"; 
+					String regex = "^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"; 
 					if(!value.matches(regex)) {
 						message.value = "Invalid time";
 						messages.add(message);
@@ -218,8 +222,25 @@ public class Validations {
 		         check=false;
 		         lb.setText(er);
 		     }
+		     
 		     return check;
 		 }
+	  public static boolean checkTimeUpdate(LocalTime time, Label lb, String er){
+		  boolean check= true;
+		  int timeBook;
+		  	Preferences preference;
+			preference = Preferences.userNodeForPackage(SettingController.class);
+			timeBook =preference.getInt("timeBook",2);
+		     LocalTime now = LocalTime.now();
+		     LocalTime timeCheck=LocalTime.of(now.getHour()+timeBook, now.getMinute());
+		     
+		     if(time.compareTo(timeCheck)<=0){
+		         check=false;
+		         lb.setText(er);
+		     }
+		     
+		     return check;
+	  }
 	
 }
 
