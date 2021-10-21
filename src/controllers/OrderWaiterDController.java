@@ -19,7 +19,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import models.OrderDetailModel;
 import models.OrderModel;
 import utils.Helpers;
@@ -75,6 +77,8 @@ public class OrderWaiterDController implements Initializable{
     
     @FXML private Label lblCode;
 
+    @FXML AnchorPane createHolder;
+    
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
@@ -186,6 +190,40 @@ public class OrderWaiterDController implements Initializable{
 				e.printStackTrace();
 			}
 		}
+		
+		//update from
+		public void showUpdateFrom() {
+			System.out.println("Update " + this.odCode);
+			try {
+				FXMLLoader root = new FXMLLoader(getClass().getResource("/views/orderDetailsUpdate.fxml"));
+				createHolder = root.load();
+				
+//				OrderWaiterDUController DUcontroller = root.<OrderWaiterDUController>getController();
+//				DCcontroller.loadDataById(this);
+				
+				Scene scene = new Scene(createHolder, 600, 400);
+				Stage create = new Stage();
+				create.initStyle(StageStyle.UNDECORATED);
+				create.setScene(scene);
+				create.show();
+			}catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(e);
+			}
+		}
+		
+		@FXML
+	    void btnUpdateAction(ActionEvent event) {
+			try {
+				if(this.odID != 0) {
+					this.showUpdateFrom();
+				} else {
+					Helpers.status("error");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	    }
 		
 	//get & set
 	

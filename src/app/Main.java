@@ -26,7 +26,7 @@ public class Main extends Application{
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/views/orderChef.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/views/orderWaiter.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setWidth(850.0);
 			primaryStage.setHeight(600.0);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -21,14 +22,14 @@
    <children>
       <AnchorPane prefHeight="141.0" prefWidth="838.0" styleClass="anchorTop" stylesheets="@../css/servings.css">
          <children>
-            <Label layoutX="96.0" layoutY="34.0" prefHeight="40.0" prefWidth="267.0" text="Servings Management">
+            <Label layoutX="78.0" layoutY="20.0" prefHeight="40.0" prefWidth="267.0" text="Servings Management">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
             </Label>
-            <AnchorPane layoutX="29.0" layoutY="29.0" prefHeight="50.0" prefWidth="52.0" styleClass="image" stylesheets="@../css/servings.css">
+            <AnchorPane layoutX="29.0" layoutY="20.0" prefHeight="40.0" prefWidth="40.0" styleClass="image" stylesheets="@../css/servings.css">
                <children>
-                  <ImageView fitHeight="40.0" fitWidth="50.0" layoutX="6.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="30.0" fitWidth="50.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/serving.png" />
                      </image>
@@ -37,9 +38,9 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="-6.0" layoutY="97.0" prefHeight="430.0" prefWidth="838.0" styleClass="anchorPane" stylesheets="@../css/servings.css">
+      <AnchorPane layoutX="10.0" layoutY="70.0" prefHeight="448.0" prefWidth="816.0" style="-fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.8),30, 0,10, 10);" styleClass="anchorPane" stylesheets="@../css/servings.css">
          <children>
-            <TableView fx:id="tbl_servings" layoutX="20.0" layoutY="72.0" onMouseClicked="#getTableDataByClick" prefHeight="280.0" prefWidth="799.0" stylesheets="@../css/servings.css">
+            <TableView fx:id="tbl_servings" layoutX="12.0" layoutY="59.0" onMouseClicked="#getTableDataByClick" prefHeight="362.0" prefWidth="786.0" stylesheets="@../css/servings.css">
               <columns>
                 <TableColumn fx:id="col_no" prefWidth="31.0" text="#" />
                 <TableColumn fx:id="col_id" prefWidth="119.0" style="-fx-background-color: #858B97; -fx-text-color: white;" visible="false" />
@@ -54,7 +55,7 @@
                   <TableColumn fx:id="colPath" prefWidth="75.0" visible="false" />
               </columns>
             </TableView>
-            <Button layoutX="483.0" layoutY="24.0" mnemonicParsing="false" onAction="#btnCreateAction" prefHeight="31.0" prefWidth="106.0" styleClass="btnCreate" stylesheets="@../css/servings.css" text="         Create " textFill="WHITE">
+            <Button layoutX="408.0" layoutY="12.0" mnemonicParsing="false" onAction="#btnCreateAction" prefHeight="31.0" prefWidth="106.0" stylesheets="@../css/servings.css" text="         Create " textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -65,13 +66,17 @@
                      </color>
                   </DropShadow>
                </effect>
+               <styleClass>
+                  <String fx:value="btnCreate" />
+                  <String fx:value="btnServing" />
+               </styleClass>
             </Button>
-            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="496.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="420.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/save.png" />
                </image>
             </ImageView>
-            <Button layoutX="727.0" layoutY="24.0" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="31.0" prefWidth="106.0" styleClass="btnDelete" stylesheets="@../css/servings.css" text="       Delete " textFill="WHITE">
+            <Button layoutX="652.0" layoutY="12.0" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="31.0" prefWidth="106.0" stylesheets="@../css/servings.css" text="       Delete " textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -82,13 +87,17 @@
                      </color>
                   </DropShadow>
                </effect>
+               <styleClass>
+                  <String fx:value="btnDelete" />
+                  <String fx:value="btnServing" />
+               </styleClass>
             </Button>
-            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="738.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="663.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/delete.png" />
                </image>
             </ImageView>
-            <Button layoutX="604.0" layoutY="24.0" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="31.0" prefWidth="106.0" styleClass="btnUpdate" stylesheets="@../css/servings.css" text="         Update " textFill="WHITE">
+            <Button layoutX="529.0" layoutY="12.0" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="31.0" prefWidth="106.0" stylesheets="@../css/servings.css" text="         Update " textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -99,18 +108,22 @@
                      </color>
                   </DropShadow>
                </effect>
+               <styleClass>
+                  <String fx:value="btnUpdate" />
+                  <String fx:value="btnServing" />
+               </styleClass>
             </Button>
-            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="620.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="545.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/edit.png" />
                </image>
             </ImageView>
-            <TextField layoutX="14.0" layoutY="27.0" onKeyTyped="#onSearch" prefHeight="27.0" prefWidth="267.0" promptText="Find servings or category" style="-fx-background-radius: 50px;">
+            <TextField layoutX="14.0" layoutY="15.0" onKeyTyped="#onSearch" prefHeight="30.0" prefWidth="267.0" promptText="Find servings or category" style="-fx-background-radius: 50px;">
                <font>
-                  <Font name="Consolas" size="14.0" />
+                  <Font size="14.0" />
                </font>
             </TextField>
-            <Button layoutX="291.0" layoutY="28.0" mnemonicParsing="false" onAction="#btnClearAction" prefHeight="25.0" prefWidth="40.0" styleClass="Clear" stylesheets="@../css/servings.css">
+            <Button layoutX="291.0" layoutY="16.0" mnemonicParsing="false" onAction="#btnClearAction" prefHeight="25.0" prefWidth="40.0" stylesheets="@../css/servings.css">
                <graphic>
                   <ImageView fitHeight="17.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -118,10 +131,14 @@
                      </image>
                   </ImageView>
                </graphic>
+               <styleClass>
+                  <String fx:value="Clear" />
+                  <String fx:value="btnServing" />
+               </styleClass>
             </Button>
             <Pane layoutX="249.0" layoutY="27.0" prefHeight="25.0" prefWidth="32.0">
                <children>
-                  <ImageView fitHeight="27.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="27.0" fitWidth="32.0" layoutX="-2.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true" styleClass="btnServing">
                      <image>
                         <Image url="@../assets/search.png" />
                      </image>

@@ -6,9 +6,11 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="odHolder" prefHeight="550.0" prefWidth="838.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OrderWaiterDController">
@@ -66,5 +68,39 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <Button layoutX="691.0" layoutY="74.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="99.0" styleClass="btnDelete" stylesheets="@../css/serattributes.css" text="     Delete " textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color red="0.9800000190734863" green="0.44949331879615784" blue="0.4311999976634979" opacity="0.49000000953674316" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
+      <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="698.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/delete.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnUpdate" layoutX="574.0" layoutY="74.0" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="33.0" prefWidth="99.0" styleClass="btnUpdate" stylesheets="@../css/serattributes.css" text="     Update" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color red="0.38429999351501465" green="0.6299999952316284" blue="0.5440049767494202" opacity="0.49000000953674316" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
+      <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="581.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/edit.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
