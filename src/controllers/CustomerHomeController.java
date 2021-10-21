@@ -212,24 +212,29 @@ public class CustomerHomeController implements Initializable {
 				
 			});
 
-			Preferences preferences = Preferences.userNodeForPackage(getClass());
-			TableModel.tableId = preferences.getInt("tabletId", SettingController.tableId);
-			System.out.println("home table id "+TableModel.tableId);
-			if(TableModel.tableId != 0) { 
-				getTableName(TableModel.tableId);
-				String code = this.loadLatestUnpaidOrder();
-				if(OrderModel.currentOrderId != 0) {
-					this.lblOrderCode.setText("#"+code);
-				} else {
-					this.lblOrderCode.setText("");
-				}
-			} else {
-				this.lblTableName.setText("");
-				this.lblOrderCode.setText("");
-			}
+			loadOrderByTable();
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	//load order by table
+	public void loadOrderByTable() {
+		Preferences preferences = Preferences.userNodeForPackage(getClass());
+		TableModel.tableId = preferences.getInt("tabletId", SettingController.tableId);
+		System.out.println("home table id "+TableModel.tableId);
+		if(TableModel.tableId != 0) { 
+			getTableName(TableModel.tableId);
+			String code = this.loadLatestUnpaidOrder();
+			if(OrderModel.currentOrderId != 0) {
+				this.lblOrderCode.setText("#"+code);
+			} else {
+				this.lblOrderCode.setText("");
+			}
+		} else {
+			this.lblTableName.setText("");
+			this.lblOrderCode.setText("");
 		}
 	}
 	

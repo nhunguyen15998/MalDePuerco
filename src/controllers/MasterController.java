@@ -408,8 +408,9 @@ public class MasterController implements Initializable {
 		TableModel.tableId = preferences.getInt("tabletId", SettingController.tableId);
     	System.out.println("MC table id "+TableModel.tableId);
     	this.customerHomeController.customerMasterHolder.setDisable(false);
-    	Stage stageHome = (Stage) this.customerHomeController.customerMasterHolder.getScene().getWindow();
+    	Stage stageHome = (Stage) customerHomeController.customerMasterHolder.getScene().getWindow();
     	stageHome.show();
+    	customerHomeController.loadOrderByTable();
     	Stage stageManager = (Stage) anchorPane.getScene().getWindow();
     	stageManager.close();
     	this.customerHomeController.loadMaster(this);
