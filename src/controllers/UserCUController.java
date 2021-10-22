@@ -296,9 +296,11 @@ public class UserCUController implements Initializable {
 					cbStatus.setDisable(false);
 					if(this.userId==AuthenticationModel.id) {
 						cbStatus.setDisable(true);
+						cbUserType.setDisable(true);
 					}
 					if(AuthenticationModel.roleName.equals(currentUser.getString("role_name"))) {
 						cbStatus.setDisable(true);
+						cbUserType.setDisable(true);
 					}
 				}
 			}
