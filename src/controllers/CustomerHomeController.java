@@ -59,8 +59,7 @@ public class CustomerHomeController implements Initializable {
 	private ServingAttributeModel servingAttributeModel = new ServingAttributeModel();
 	public MasterController masterController;
 	private TableModel tableModel = new TableModel();
-
-//	private TableModel tableModel = ;
+	public static int tableId;
 	public static boolean isActive = false;
 	public static boolean isCreated = true; 
 	
@@ -83,7 +82,7 @@ public class CustomerHomeController implements Initializable {
 	public double totalPlace;
 	public String orderCode = "";
 	private int servingId;
-	private String tableName;
+	public static String tableName;
 	
 	//sidebar btn
 	@FXML
@@ -204,12 +203,13 @@ public class CustomerHomeController implements Initializable {
 	}
 	
 	//load order by table
-	public void loadOrderByTable() {
+	public int loadOrderByTable() {
 		Preferences preferences = Preferences.userNodeForPackage(getClass());
 		TableModel.tableId = preferences.getInt("tabletId", SettingController.tableId);
 		System.out.println("home table id "+TableModel.tableId);
 		if(TableModel.tableId != 0) { 
-			getTableName(TableModel.tableId);
+			String name = getTableName(TableModel.tableId);
+			this.tableName = name;
 			String code = this.loadLatestUnpaidOrder();
 			if(OrderModel.currentOrderId != 0) {
 				this.lblOrderCode.setText("#"+code);
@@ -220,6 +220,8 @@ public class CustomerHomeController implements Initializable {
 			this.lblTableName.setText("");
 			this.lblOrderCode.setText("");
 		}
+		this.tableId = TableModel.tableId;
+		return this.tableId;
 	}
 	
 	//load latest unpaid order - get updated data -> add to updated list, draw updated list -> render
@@ -507,8 +509,8 @@ public class CustomerHomeController implements Initializable {
 			servingName.setWrappingWidth(110);
 			servingName.setFont(Font.font("System Bold", 9));
 			//servingprice
-			servingPrice.setFont(Font.font("System Bold", 14));
-			servingPrice.setLayoutX(49);
+			servingPrice.setFont(Font.font("System Bold", 12));
+			servingPrice.setLayoutX(34);
 			servingPrice.setLayoutY(105);
 			servingPrice.setTextFill(Color.web("#ea7c69"));
 			//servingstock
@@ -594,7 +596,7 @@ public class CustomerHomeController implements Initializable {
 				servingName.setText(name);
 				Image image = new Image(thumbnail);
 				servingImage.setImage(image);
-				servingPrice.setText("$"+price);
+				servingPrice.setText(Helpers.formatNumber(null).format(price)+" vnd");
 				int qty = servings.getInt("quantity");
 				servingStock.setText(qty + " item(s) in stock");
 				//add
@@ -753,13 +755,13 @@ public class CustomerHomeController implements Initializable {
 			lblCreatedAt.setTextFill(Color.WHITE);
 			lblCreatedAt.setFont(Font.font("System Italic", 9));
 			
-			lblTotalPrice.setLayoutX(230);
+			lblTotalPrice.setLayoutX(223);
 			lblTotalPrice.setLayoutY(19);
 			lblTotalPrice.setTextFill(Color.web("#ea7c69"));
 			lblTotalPrice.setFont(Font.font("System Bold", 14));
 
 			lblAttribute = new Label();
-			lblAttribute.setLayoutX(75);
+			lblAttribute.setLayoutX(83);
 			lblAttribute.setPrefWidth(140);
 			lblAttribute.setLayoutY(28);
 			lblAttribute.setFont(Font.font("System Bold", 9));
@@ -894,8 +896,8 @@ public class CustomerHomeController implements Initializable {
 		}
 		lblAttribute.setText(item.getSize() + " " + sugar + " " + ice);
 		lblServingName.setText(item.getServingName());
-		lblItemPrice.setText("$"+ Helpers.formatNumber(null).format(item.getItemPrice()));
-		lblTotalPrice.setText("$"+Helpers.formatNumber(null).format(item.getTotalPrice()));
+		lblItemPrice.setText(Helpers.formatNumber(null).format(item.getItemPrice()));
+		lblTotalPrice.setText(Helpers.formatNumber(null).format(item.getTotalPrice()));
 		tfNote.setText(item.getNote());
 		tfQuantity.setText(String.valueOf(item.getQuantity()));
 		ivImageView.setImage(new Image(CustomerHomeController.class.getResourceAsStream(item.getThumbnail())));
@@ -937,8 +939,8 @@ public class CustomerHomeController implements Initializable {
 		lblAttribute.setText(item.getSize() + " " + sugar + " " + ice);				
 		lblCreatedAt.setText(item.getCreatedAt());
 		lblServingName.setText(item.getServingName());
-		lblItemPrice.setText("$"+ Helpers.formatNumber(null).format(item.getPrice()));
-		lblTotalPrice.setText("$"+Helpers.formatNumber(null).format(item.getTotal()));
+		lblItemPrice.setText(Helpers.formatNumber(null).format(item.getPrice()));
+		lblTotalPrice.setText(Helpers.formatNumber(null).format(item.getTotal()));
 		tfNote.setText(item.getServingNote());
 		tfQuantity.setText(String.valueOf(item.getQuantity()));
 		ivImageView.setImage(new Image(CustomerHomeController.class.getResourceAsStream(item.getThumbnail())));
@@ -963,8 +965,8 @@ public class CustomerHomeController implements Initializable {
 				this.renderVBoxPaneWithSetCreatedContent(item);
 				total += (item.getItemPrice()*item.getQuantity());
 			}			
-			this.totalPlace = Double.parseDouble(Helpers.formatNumber(null).format(total));
-			lblPlaceTotal.setText("$"+Helpers.formatNumber(null).format(total));
+			this.totalPlace = total;
+			lblPlaceTotal.setText(Helpers.formatNumber(null).format(total)+"vnd");
 		} else {
 			this.emptyOrderList();
 		}
@@ -1049,7 +1051,7 @@ public class CustomerHomeController implements Initializable {
 			orderData.add(DataMapping.getInstance("code", "OC"+Helpers.randomString(6)));
 			orderData.add(DataMapping.getInstance("table_id", String.valueOf(TableModel.tableId)));
 			orderData.add(DataMapping.getInstance("user_id", String.valueOf(this.userId)));
-			orderData.add(DataMapping.getInstance("total_amount", String.valueOf(this.totalPlace)));
+			orderData.add(DataMapping.getInstance("total_amount", String.valueOf(Math.round(this.totalPlace))));
 			OrderModel.currentOrderId = this.orderModel.createOrder(orderData);
 			this.totalPlace = 0;
 			int result = this.insertOrderDetails();
@@ -1082,8 +1084,8 @@ public class CustomerHomeController implements Initializable {
 				orderDetailData.add(DataMapping.getInstance("sugar", item.getSugar() != "" ? item.getSugar() : null));
 				orderDetailData.add(DataMapping.getInstance("ice", item.getIce() != "" ? item.getIce() : null));
 				orderDetailData.add(DataMapping.getInstance("quantity", String.valueOf(item.getQuantity())));
-				orderDetailData.add(DataMapping.getInstance("price", String.valueOf(Helpers.formatNumber(null).format(item.getItemPrice()))));
-				orderDetailData.add(DataMapping.getInstance("total", String.valueOf(Helpers.formatNumber(null).format(item.getTotalPrice()))));
+				orderDetailData.add(DataMapping.getInstance("price", String.valueOf(item.getItemPrice())));
+				orderDetailData.add(DataMapping.getInstance("total", String.valueOf(item.getTotalPrice())));
 				this.totalPlace+=item.getTotalPrice();
 				result = this.orderDetailModel.createOrderDetail(orderDetailData);
 				System.out.println("SUM: "+this.totalPlace);
@@ -1100,7 +1102,7 @@ public class CustomerHomeController implements Initializable {
 	//update order total
 	public void updateOrderTotal(OrderListModel item) {
 		ArrayList<DataMapping> updateTotalOrder = new ArrayList<DataMapping>();
-		updateTotalOrder.add(DataMapping.getInstance("total_amount", String.valueOf(Helpers.formatNumber(null).format(this.totalPlace))));
+		updateTotalOrder.add(DataMapping.getInstance("total_amount", String.valueOf(this.totalPlace)));
 		this.orderModel.updateOrder(OrderModel.currentOrderId, updateTotalOrder);
 	}
 

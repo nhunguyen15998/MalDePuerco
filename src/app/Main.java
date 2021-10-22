@@ -20,7 +20,7 @@ public class Main extends Application{
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/views/home.fxml")); //container
 			Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();//get screen width, height
-			Scene scene = new Scene(root, 1000.1, 600);
+			Scene scene = new Scene(root, 1002, 600);
 			scene.getStylesheets().add(getClass().getResource("/css/customer-home.css").toExternalForm());
 			primaryStage.setX((screenBounds.getWidth() - 1000)/2);
 			primaryStage.setY((screenBounds.getHeight() - 600)/2);
