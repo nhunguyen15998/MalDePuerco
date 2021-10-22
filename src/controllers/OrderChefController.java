@@ -59,13 +59,13 @@ public class OrderChefController implements Initializable {
     private Button btnCanceled;
 
     @FXML
-    private Pane pane;
+    private Pane pane=new Pane();
 
     @FXML
     private VBox vbox;
 
     @FXML
-    private GridPane grid;
+    private GridPane grid=new GridPane();
     
     private List<ChefItemModel> item = new ArrayList<>();
 	
@@ -121,7 +121,7 @@ public class OrderChefController implements Initializable {
 			item.addAll(getData(status));
 		} catch (Exception e1) {
 			e1.printStackTrace();
-		}
+		} 
 		int col = 0;
 		int row = 0;
 		try {

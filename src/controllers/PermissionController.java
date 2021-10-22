@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -75,20 +76,21 @@ public class PermissionController implements Initializable {
   				for (PermissionModel permissionModel : perDatas) {
   					if(permissionName.equals(permissionModel.getName())){
   						checkBox.setSelected(true);
-  						checkBox.getStyleClass().add("box");
+  						checkBox.getStyleClass().add("box"); 
   					}
   				}
+  				
   				permissionPane.add(checkBox, x, y);
   				count++;
   				if(count%2 == 0) {
   					y++;
+  				}else {
   				}
   				x++;
   				if(x>1) {
   					x = 0;
   				}
-  				
-  				
+  				GridPane.setMargin(checkBox, new Insets(0,0,18,0));
   			}
   			
   		} catch (Exception e) {

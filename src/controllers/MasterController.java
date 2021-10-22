@@ -60,9 +60,11 @@ public class MasterController implements Initializable {
     @FXML
     private Button btnInvoices;
     @FXML
-    private Button btnClose= new Button("");
+    private Button btnClose;
     @FXML
-    private Button btnMenu;
+    private Button btnServings;
+    @FXML
+    private Button btnOrderServer;
     @FXML
     private Button btnTables;
     @FXML
@@ -86,7 +88,11 @@ public class MasterController implements Initializable {
     @FXML
     private Button btnUser;
     @FXML
-    private Button btnOrder;
+//<<<<<<< HEAD
+//    private Button btnOrder;
+//=======
+    private Button btnOrderChef;
+//>>>>>>> tram
 	@FXML
 	public AnchorPane settingHolder;
     @FXML
@@ -131,7 +137,12 @@ public class MasterController implements Initializable {
 			btnRole.setManaged(true);
 		
 		}
-		
+		btnOrderChef.setText("  ORDERS PROCESS");
+		btnOrderServer.setText("  ORDERS CONFIRM");
+		if(AuthenticationModel.roleName.equals("Chef")||AuthenticationModel.roleName.equals("Server")) {
+			btnOrderChef.setText("  ORDERS");
+			btnOrderServer.setText("  ORDERS");
+		}
 		//user
 		btnUser.setVisible(false);
 		btnUser.setManaged(false);
@@ -175,9 +186,47 @@ public class MasterController implements Initializable {
 		btnInvoices.setVisible(false);
 		btnInvoices.setManaged(false);
 		
-		if(AuthenticationModel.hasPermission("VIEW_INVOICE") || AuthenticationModel.roleName.equals("Super Admin")) {
+		if(AuthenticationModel.hasPermission("VIEW_INVOICES") || AuthenticationModel.roleName.equals("Super Admin")) {
 			btnInvoices.setVisible(true);
 			btnInvoices.setManaged(true);
+		}
+		//serving
+		btnServings.setVisible(false);
+		btnServings.setManaged(false);
+		
+		if(AuthenticationModel.hasPermission("VIEW_SERVINGS") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnServings.setVisible(true);
+			btnServings.setManaged(true);
+		}
+		//sercate
+		btnServingCate.setVisible(false);
+		btnServingCate.setManaged(false);
+		
+		if(AuthenticationModel.hasPermission("VIEW_SERCATES") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnServingCate.setVisible(true);
+			btnServingCate.setManaged(true);
+		}
+		//attribute
+		btnAttributes.setVisible(false);
+		btnAttributes.setManaged(false);
+		
+		if(AuthenticationModel.hasPermission("VIEW_ATTRIBUTES") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnAttributes.setVisible(true);
+			btnAttributes.setManaged(true);
+		}
+		btnOrderChef.setVisible(false);
+		btnOrderChef.setManaged(false);
+		
+		if(AuthenticationModel.hasPermission("VIEW_ORDER_CHEF") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnOrderChef.setVisible(true);
+			btnOrderChef.setManaged(true);
+		}
+		btnOrderServer.setVisible(false);
+		btnOrderServer.setManaged(false);
+		
+		if(AuthenticationModel.hasPermission("VIEW_ORDER_SERVER") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnOrderServer.setVisible(true);
+			btnOrderServer.setManaged(true);
 		}
 		//setting tablet
 		btnSetting.setVisible(false);
@@ -253,13 +302,30 @@ public class MasterController implements Initializable {
     }
 
     @FXML
-    private void menuAction() {
+    private void orderServerAction() {
       setBtn();
-      btnMenu.getStyleClass().add("btnFocused");
+      btnOrderServer.getStyleClass().add("btnFocused");
+      setBtnBar();
+      redirect("orderWaiter.fxml");      
+
+    }
+    @FXML
+    private void orderChefAction() {
+      setBtn();
+      btnOrderChef.getStyleClass().add("btnFocused");
+      setBtnBar();
+      redirect("orderChef.fxml");      
+
+    }
+    @FXML
+    private void servingAction() {
+      setBtn();
+      btnServings.getStyleClass().add("btnFocused");
       setBtnBar();
       redirect("servings.fxml");      
 
     }
+  
 
     @FXML
     private void userAction() {
@@ -279,18 +345,21 @@ public class MasterController implements Initializable {
     }
 
     @FXML
-    private void orderAction() {
-    	setBtn();
-        btnOrder.getStyleClass().add("btnFocused");
-        setBtnBar();
-	     if(AuthenticationModel.roleName.equals("Chef")) {
-	    	 redirectOrderManagement("orderChef.fxml");
-	     } else {
-	    	 redirectOrderManagement("orderWaiter.fxml");
-	     }
-    }
-
-    @FXML
+//<<<<<<< HEAD
+//    private void orderAction() {
+//    	setBtn();
+//        btnOrder.getStyleClass().add("btnFocused");
+//        setBtnBar();
+//	     if(AuthenticationModel.roleName.equals("Chef")) {
+//	    	 redirectOrderManagement("orderChef.fxml");
+//	     } else {
+//	    	 redirectOrderManagement("orderWaiter.fxml");
+//	     }
+//    }
+//
+//    @FXML
+//=======
+//>>>>>>> tram
     private void tableAction() {
          redirect("tables.fxml");
          setBtn();
@@ -338,13 +407,11 @@ public class MasterController implements Initializable {
     	setBtn();
     	try {
 			//draw
-			Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+			Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/setting.fxml"));
 			settingHolder = root.load();
-			
 			//controller
 			SettingController controller = root.<SettingController>getController();
-			
 			Scene scene = new Scene(settingHolder, 546, 512);
 			Stage createStage = new Stage();
 			createStage.setX((screenBounds.getWidth() - 546)/2);
@@ -401,10 +468,11 @@ public class MasterController implements Initializable {
     private void setBtn() {
     	 btnInvoices.getStyleClass().remove("btnFocused");
          btnUser.getStyleClass().remove("btnFocused");
-         btnMenu.getStyleClass().remove("btnFocused");
+         btnOrderChef.getStyleClass().remove("btnFocused");
          btnServingCate.getStyleClass().remove("btnFocused");
          btnAttributes.getStyleClass().remove("btnFocused");
-         btnOrder.getStyleClass().remove("btnFocused");
+         btnOrderServer.getStyleClass().remove("btnFocused");
+         btnServings.getStyleClass().remove("btnFocused");
          btnReservation.getStyleClass().remove("btnFocused");
          btnTables.getStyleClass().remove("btnFocused");
          btnDiscount.getStyleClass().remove("btnFocused");

@@ -68,9 +68,13 @@ public class ChefItemController {
     	lblCreate.setText(item.getCreatedAt());
     	lblUser.setText(String.valueOf(item.getUserCode()));
     	//pending, cooking, ready, serving, served, canceled
-    	DataMapping status = OrderDetailModel.isCooking;
-    	
-    	 if(items.getStatus() == 2) {
+    	DataMapping status = OrderDetailModel.isPending;
+    	if (items.getStatus() == 1){
+    		status = OrderDetailModel.isCooking;
+    		lblStatus.getStyleClass().add("Cooking");
+    		anchor.getStyleClass().add("btnCooking");
+    	}
+    	else if(items.getStatus() == 2) {
     		status = OrderDetailModel.isReady;
     		lblStatus.getStyleClass().add("Ready");
     		anchor.getStyleClass().add("btnReady");
@@ -107,7 +111,7 @@ public class ChefItemController {
     		Stage optionStage = new Stage();
     		optionStage.initStyle(StageStyle.UNDECORATED);
     		optionStage.setScene(scene);
-    		optionStage.show();
+    		optionStage.show(); 
     	} catch (Exception e) {
     		e.printStackTrace();
     	    System.out.println(e);

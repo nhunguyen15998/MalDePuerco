@@ -62,6 +62,16 @@ public class ReservationModel extends BaseModel{
 	public ResultSet getReserList(ArrayList<CompareOperator> conditions) {
 		try {
 			
+			return this.getData(columns, conditions, null, null,null,null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public ResultSet getCustomerReserList(ArrayList<CompareOperator> conditions) {
+		try {
+			
 			String[] selects = {"reservations.*"};
 			
 			//table
@@ -74,8 +84,7 @@ public class ReservationModel extends BaseModel{
 			
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
 			joins.add(JoinCondition.getInstance("left join", "tables_reservation", joinTableReservation));
-			joins.add(JoinCondition.getInstance("left join", "tables", joinTable));
-		
+			joins.add(JoinCondition.getInstance("left join", "tables", joinTable));		
 			return this.getData(selects, conditions, joins, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -89,8 +98,7 @@ public class ReservationModel extends BaseModel{
 			String[] selects = {"reservations.*", "discounts.decrease"};
 			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
 			conditions.add(CompareOperator.getInstance("reservations.id", "=", String.valueOf(id)));
-			
-			
+						
 			ArrayList<CompareOperator> joinConditions = new ArrayList<CompareOperator>();
 			joinConditions.add(CompareOperator.getInstance("reservations.discount_id", "=", "discounts.id"));
 			
@@ -103,6 +111,7 @@ public class ReservationModel extends BaseModel{
 		} catch (Exception eGetUserById) {
 			eGetUserById.printStackTrace();
 			return null;
+
 		}
 	}
 
@@ -227,3 +236,4 @@ public class ReservationModel extends BaseModel{
 	}
 	
 }
+

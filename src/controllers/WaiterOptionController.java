@@ -62,7 +62,7 @@ public class WaiterOptionController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		ObservableList<DataMapping> status = FXCollections.observableArrayList(OrderModel.isPending, OrderModel.isProcessing, OrderModel.isServed, OrderModel.isCompleted);
+		ObservableList<DataMapping> status = FXCollections.observableArrayList(OrderModel.isProcessing, OrderModel.isServed, OrderModel.isCompleted);
 		cbStatus.setItems(status);
 	}
     

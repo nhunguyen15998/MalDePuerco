@@ -116,7 +116,7 @@ public class AttributeController implements Initializable{
 
     @FXML
     void btnDeleteAction(ActionEvent event) {
-    	try {
+    	try { 
 			if(this.attID != 0) {
 				Alert alert = new Alert(AlertType.CONFIRMATION);
 				alert.setTitle("Delete Attribute Confirmation");
@@ -322,9 +322,10 @@ public class AttributeController implements Initializable{
 	public ResultSet getParentList() {
 		try {
 			ArrayList<DataMapping> parentOptions = new ArrayList<DataMapping>();
+			
 			ResultSet parent = attModel.getAttributeList(null);
 			while(parent.next() ) {
-				parentOptions.add(DataMapping.getInstance(parent.getInt("id"), parent.getString("parent_id")));
+				parentOptions.add(DataMapping.getInstance(parent.getInt("id"), parent.getString("name")));
 			}
 			cbParent.getItems().setAll(parentOptions);
 			return parent;

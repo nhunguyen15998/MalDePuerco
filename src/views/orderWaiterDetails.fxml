@@ -29,7 +29,7 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <TableView fx:id="tblOrderD" layoutX="12.0" layoutY="120.0" prefHeight="360.0" prefWidth="820.0" stylesheets="@../css/orderWaiter.css">
+      <TableView fx:id="tblOrderD" layoutX="12.0" layoutY="120.0" onMouseClicked="#getDataByClick" prefHeight="360.0" prefWidth="820.0" stylesheets="@../css/orderWaiter.css">
          <columns>
             <TableColumn fx:id="col_id" prefWidth="75.0" text="Id" visible="false" />
             <TableColumn fx:id="col_no" prefWidth="23.0" text="#" />
@@ -69,7 +69,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="btnDel" layoutX="691.0" layoutY="74.0" mnemonicParsing="false" onAction="#btnDelete" prefHeight="33.0" prefWidth="99.0" styleClass="btnDelete" stylesheets="@../css/serattributes.css" text="     Delete " textFill="WHITE">
+      <Button fx:id="btnDel" layoutX="650.0" layoutY="78.0" mnemonicParsing="false" onAction="#btnDelete" prefHeight="33.0" prefWidth="99.0" styleClass="btnDelete" stylesheets="@../css/serattributes.css" text="     Delete " textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
@@ -81,12 +81,12 @@
             </DropShadow>
          </effect>
       </Button>
-      <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="698.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="657.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/delete.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnUpdate" layoutX="574.0" layoutY="74.0" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="33.0" prefWidth="99.0" styleClass="btnUpdate" stylesheets="@../css/serattributes.css" text="     Update" textFill="WHITE">
+      <Button fx:id="btnUpdate" layoutX="533.0" layoutY="78.0" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="33.0" prefWidth="99.0" styleClass="btnUpdate" stylesheets="@../css/serattributes.css" text="     Update" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
@@ -98,10 +98,22 @@
             </DropShadow>
          </effect>
       </Button>
-      <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="581.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="540.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/edit.png" />
          </image>
       </ImageView>
+      <Button layoutX="761.0" layoutY="79.0" mnemonicParsing="false" onAction="#refreshAction" prefHeight="21.0" prefWidth="52.0" style="-fx-background-color: linear-gradient(to right, #dbd9d5, #a39e96); -fx-border-radius: 50px; -fx-background-radius: 50px;" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/reset.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

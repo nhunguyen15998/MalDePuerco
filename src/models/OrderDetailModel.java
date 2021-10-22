@@ -167,7 +167,8 @@ public class OrderDetailModel extends BaseModel {
 		try {
 			String[] selects = {"order_details.id", "orders.code as code", "servings.name as serName",
 					"order_details.size", "order_details.quantity", "order_details.price",
-					"order_details.total", "users.code as uCode", "order_details.user_id","time(order_details.created_at) as time", "order_details.serving_status"};
+					"order_details.total", "users.code as uCode", "order_details.user_id",
+					"time(order_details.created_at) as time", "order_details.serving_status", "order_details.serving_note"};
 			
 			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
 			conditions.add(CompareOperator.getInstance("order_details.id", "=", String.valueOf(id)));
@@ -190,6 +191,7 @@ public class OrderDetailModel extends BaseModel {
 			joins.add(JoinCondition.getInstance("left join", "users", userCondition));
 			joins.add(JoinCondition.getInstance("left join", "tables", tableCondition));
 			return this.getData(selects, conditions, joins, null, null, null);
+
 		} catch (Exception e) {
 			e.printStackTrace(); 
 			return null;
@@ -199,12 +201,12 @@ public class OrderDetailModel extends BaseModel {
 	public ResultSet getID(int id) {
 		try {
 			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
-			conditions.add(CompareOperator.getInstance("order_details.id", "=", String.valueOf(id)));
+			conditions.add(CompareOperator.getInstance("id", "=", String.valueOf(id)));
 			
 			
 			return this.getData(columns, conditions, null, null, null, null);
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace(); 
 			return null;
 		}
 	}
@@ -223,7 +225,7 @@ public class OrderDetailModel extends BaseModel {
 	public boolean updateOrderDetail(int id, ArrayList<DataMapping> data) {
 		try {
 			ArrayList<CompareOperator> condition = new ArrayList<CompareOperator>();
-			condition.add(CompareOperator.getInstance("order_details.id", "=", String.valueOf(id)));
+			condition.add(CompareOperator.getInstance("id", "=", String.valueOf(id)));
 			return this.update(data, condition);
 		} catch (Exception e) {
 			e.printStackTrace();

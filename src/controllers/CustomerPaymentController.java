@@ -23,6 +23,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -40,6 +41,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import models.DiscountModel;
 import models.InvoiceModel;
+
 import models.OrderListModel;
 import models.OrderModel;
 import models.PaymentMethodModel;
@@ -50,6 +52,7 @@ import utils.DataMapping;
 import utils.Helpers;
 import webcam.Pos;
 
+
 public class CustomerPaymentController implements Initializable {
 	public static CustomerHomeController customerHomeController = new CustomerHomeController();
 	private DiscountModel discountModel = new DiscountModel();
@@ -57,6 +60,7 @@ public class CustomerPaymentController implements Initializable {
 	private ReservationModel reservationModel = new ReservationModel();
 	private OrderModel orderModel = new OrderModel();
 	private InvoiceModel invoiceModel = new InvoiceModel();
+
 	private static double subtotal;
 	private double total;
 	private float discount = 0;
@@ -68,7 +72,7 @@ public class CustomerPaymentController implements Initializable {
 	private int reservationId = 0;
 	public int orderId;
 	public String tableName;
-	
+
 	//xml
 	@FXML
 	private FlowPane fpRequestPayment;
@@ -129,7 +133,7 @@ public class CustomerPaymentController implements Initializable {
 	//tip
 	public double tipAmount() {
 		String tip = tfTip.getText().isEmpty() ? "0" : tfTip.getText();
-		this.tip = Double.parseDouble(Helpers.formatNumber(null).format(Double.parseDouble(tip)));
+		this.tip = Double.parseDouble(tip);
 		this.totalAmount(subtotal, this.tip, deposit, discount);
 		System.out.println("total: "+this.total);	
 		return this.tip;
@@ -139,8 +143,8 @@ public class CustomerPaymentController implements Initializable {
 	public double totalAmount(double subtotal, double tip, double deposit, double discount) {
 		double total = 0;
 		total = subtotal + tip - deposit - discount;
-		this.total = Double.parseDouble(Helpers.formatNumber(null).format(total));
-		this.lblTotal.setText("$"+this.total);
+		this.total = Double.parseDouble(String.valueOf(total));
+		this.lblTotal.setText(Helpers.formatNumber(null).format(this.total)+"vnd");
 		return this.total;
 	}
 	
@@ -155,9 +159,10 @@ public class CustomerPaymentController implements Initializable {
 		System.out.println(this.tableName);
 		//set table code
 		this.lblTableCode.setText(this.tableName);
+
 		//getsubtotal
 		this.subtotal = CustomerPaymentController.customerHomeController.totalPlace;
-		this.lblSubtotal.setText("$"+this.subtotal);
+		this.lblSubtotal.setText(Helpers.formatNumber(null).format(this.subtotal));
 		//set cb discount
 		ObservableList<DataMapping> discounts = this.loadDiscounts(this.subtotal);
 		this.cbDiscount.setItems(discounts);
@@ -165,7 +170,7 @@ public class CustomerPaymentController implements Initializable {
 			this.getComboboxItemByClicked();
 		});
 		this.total = CustomerPaymentController.subtotal;
-		this.lblTotal.setText("$"+this.total);
+		this.lblTotal.setText(Helpers.formatNumber(null).format(this.total)+"vnd");
 		return this.total;
 	}
 	
@@ -207,7 +212,7 @@ public class CustomerPaymentController implements Initializable {
 		if(item != null) {
 			float discount = Float.parseFloat(item.key);
 			this.discount = Float.parseFloat(Helpers.formatNumber(null).format(discount*this.subtotal));
-			this.lblDiscount.setText("($"+this.discount+")");
+			this.lblDiscount.setText("("+Helpers.formatNumber(null).format(this.discount)+")");
 			this.totalAmount(subtotal, tip, deposit, this.discount);
 			System.out.println("key: "+item.key);	
 		}
@@ -227,7 +232,7 @@ public class CustomerPaymentController implements Initializable {
 							System.out.println("deposit::"+deposit);
 							if(deposit != 0) {
 								this.deposit = deposit;
-								this.lblDeposit.setText("($"+this.deposit+")");
+								this.lblDeposit.setText("("+Helpers.formatNumber(null).format(this.deposit)+")");
 								this.totalAmount(subtotal, tip, this.deposit, discount);
 								System.out.println("total: "+this.total);	
 							} else {
@@ -264,10 +269,11 @@ public class CustomerPaymentController implements Initializable {
 			reservation.add(CompareOperator.getInstance("reservations.phone", "=", phone));
 			reservation.add(CompareOperator.getInstance("reservations.date_pick", "=", String.valueOf(currentDate)));
 			reservation.add(CompareOperator.getInstance("reservations.status", "=", String.valueOf(ReservationModel.RESER_PRESENT)));
-			ResultSet validReserved = this.reservationModel.getReserList(reservation);
+			ResultSet validReserved = this.reservationModel.getCustomerReserList(reservation);
 			while(validReserved.next()) {
 				deposit = validReserved.getInt("reservations.deposit");
 				reservationId = validReserved.getInt("reservations.id");
+
 			} 
 			return deposit;
 		} catch (Exception e) {
@@ -305,6 +311,7 @@ public class CustomerPaymentController implements Initializable {
 			rbPaymentMethod.setToggleGroup(group);//method.key
 			if(count == 1) {
 				selectedPayment = method.value;
+
 				rbPaymentMethod.setSelected(true);
 				lblPaymentMethod.setText("with "+method.value);
 			}
@@ -325,6 +332,7 @@ public class CustomerPaymentController implements Initializable {
 	public void btnPayAction() {
 		try {
 			Pos.momoCode = null;
+
 			System.out.println("payment "+selectedPayment);
 			//cash -> change to view pending, send noti to server -> server respond
 			//-> server confirm payment -> view payment success -> clear order basket
@@ -376,7 +384,6 @@ public class CustomerPaymentController implements Initializable {
 				path = "payment-failure.fxml";
 				this.loadView(path, 690, 361);
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -415,6 +422,7 @@ public class CustomerPaymentController implements Initializable {
 		}
 	}
 	
+
 	//load view
 	public FXMLLoader loadView(String path, double width, double height) {
 		try {
@@ -457,7 +465,7 @@ public class CustomerPaymentController implements Initializable {
 		Stage stage = (Stage) btnOKTimeOut.getScene().getWindow();
 		stage.close();
 	}
-	
+
 	//btnCancelAction
 	public void btnCancelAction() {	
 		CustomerPaymentController.customerHomeController.anchorPane.getChildren().setAll(CustomerHomeController.vboxOrderList);

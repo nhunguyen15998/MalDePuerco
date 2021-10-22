@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
-<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <FlowPane fx:id="customerMasterHolder" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #3B3F40;" stylesheets="@../css/customer-home.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CustomerHomeController">
    <children>
@@ -31,7 +49,7 @@
                   </Pane>
                   <Pane layoutX="272.0" layoutY="48.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="249.0">
                      <children>
-                        <TextField fx:id="searchBox" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#onSearch" prefHeight="30.0" prefWidth="247.0" promptText="Looking for something?" style="-fx-background-color: #2B2B2B; -fx-text-fill: white;">
+                        <TextField fx:id="searchBox" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onSearch" prefHeight="30.0" prefWidth="247.0" promptText="Looking for something?" style="-fx-background-color: #2B2B2B; -fx-text-fill: white;">
                            <font>
                               <Font size="12.0" />
                            </font>
@@ -52,16 +70,31 @@
                            <tooltip>
                               <Tooltip text="Empty Tooltip" />
                            </tooltip>
+
+                           <styleClass>
+                              <String fx:value="btnOther" />
+                              <String fx:value="btnServer" />
+                           </styleClass>
                         </Button>
                         <Button fx:id="btnNoti" layoutX="1.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnNotiAction" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" textFill="#263854">
                            <font>
                               <Font name="Georgia" size="8.0" />
                            </font>
+
+                           <styleClass>
+                              <String fx:value="btnOther" />
+                              <String fx:value="btnNoti" />
+                           </styleClass>
                         </Button>
                         <Button fx:id="btnOrder" layoutX="69.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" textFill="#263854">
                            <font>
                               <Font name="Georgia" size="8.0" />
                            </font>
+
+                           <styleClass>
+                              <String fx:value="btnOther" />
+                              <String fx:value="btnOrder" />
+                           </styleClass>
                         </Button>
                      </children>
                   </Pane>
@@ -129,6 +162,11 @@
                                  <padding>
                                     <Insets bottom="10.0" />
                                  </padding>
+
+                                 <styleClass>
+                                    <String fx:value="btnHome" />
+                                    <String fx:value="btnAll" />
+                                 </styleClass>
                               </Button>
                               <Button fx:id="btnAppetizer" alignment="BOTTOM_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnAppetizerAction" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Appetizers" textFill="WHITE">
                                  <font>
@@ -140,6 +178,11 @@
                                  <padding>
                                     <Insets bottom="10.0" />
                                  </padding>
+
+                                 <styleClass>
+                                    <String fx:value="btnHome" />
+                                    <String fx:value="btnAppetizer" />
+                                 </styleClass>
                               </Button>
                               <Button fx:id="btnSideOrder" alignment="BOTTOM_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnSideOrderAction" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Side orders" textFill="WHITE">
                                  <font>
@@ -151,6 +194,11 @@
                                  <padding>
                                     <Insets bottom="10.0" />
                                  </padding>
+
+                                 <styleClass>
+                                    <String fx:value="btnHome" />
+                                    <String fx:value="btnSideOrder" />
+                                 </styleClass>
                               </Button>
                               <Button fx:id="btnALaCarte" alignment="BOTTOM_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnALaCarteAction" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="A la carte" textFill="WHITE">
                                  <font>
@@ -162,6 +210,11 @@
                                  <padding>
                                     <Insets bottom="10.0" />
                                  </padding>
+
+                                 <styleClass>
+                                    <String fx:value="btnHome" />
+                                    <String fx:value="btnALaCarte" />
+                                 </styleClass>
                               </Button>
                               <Button fx:id="btnDessert" alignment="BOTTOM_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnDessertAction" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Desserts" textFill="WHITE">
                                  <font>
@@ -173,6 +226,11 @@
                                  <padding>
                                     <Insets bottom="10.0" />
                                  </padding>
+
+                                 <styleClass>
+                                    <String fx:value="btnHome" />
+                                    <String fx:value="btnDessert" />
+                                 </styleClass>
                               </Button>
                               <Button fx:id="btnBeverage" alignment="BOTTOM_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnBeverageAction" prefHeight="60.0" prefWidth="70.0" style="-fx-background-radius: 10px; -fx-background-color: transparent;" text="Beverages" textFill="WHITE">
                                  <font>
@@ -184,6 +242,11 @@
                                  <padding>
                                     <Insets bottom="10.0" />
                                  </padding>
+
+                                 <styleClass>
+                                    <String fx:value="btnHome" />
+                                    <String fx:value="btnBeverage" />
+                                 </styleClass>
                               </Button>
                            </children>
                         </VBox>
@@ -191,6 +254,11 @@
                            <font>
                               <Font name="Georgia" size="8.0" />
                            </font>
+
+                           <styleClass>
+                              <String fx:value="btnOther" />
+                              <String fx:value="btnSetting" />
+                           </styleClass>
                         </Button>
                         <Button fx:id="btnHelp" layoutX="28.0" layoutY="516.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnHelpAction" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" textFill="#263854">
                            <font>
@@ -203,6 +271,11 @@
                                  </font>
                               </Tooltip>
                            </tooltip>
+
+                           <styleClass>
+                              <String fx:value="btnOther" />
+                              <String fx:value="btnHelp" />
+                           </styleClass>
                         </Button>
                         <ImageView fitHeight="53.0" fitWidth="50.0" layoutX="17.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>

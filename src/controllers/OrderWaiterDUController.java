@@ -108,17 +108,18 @@ public class OrderWaiterDUController implements Initializable{
 	
 	//load data by id
 	public void loadDataById(OrderWaiterDController odControl) {
+		System.out.println("update");
 		try {
 			this.odControl = odControl;
 			this.oduID = odControl.getOdID();
 			
 			ResultSet rs = this.odModel.getById(this.oduID);
 			if(rs.next()) {
-				tfQuan.setText(rs.getString("quantity"));
-				tfNote.setText(rs.getString("serving_note"));
+				tfQuan.setText(rs.getString("order_details.quantity"));
+				tfNote.setText(rs.getString("order_details.serving_note"));
 				
 				for(DataMapping size : cbSize.getItems()) {
-					if(size.key != null & Integer.parseInt(size.key) == rs.getInt("attribute_id"));
+					if(size.key != null & Integer.parseInt(size.key) == rs.getInt("order_details.size"));
 					cbSize.setValue(size);
 					break;
 				}

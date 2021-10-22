@@ -95,12 +95,8 @@ public class ChangePassController implements Initializable{
 	private SignInController session = new SignInController();
 	@FXML
 	public void btnSaveAction(ActionEvent event) {
-		
-		if(!validated()){
-			lblOldPass.setText("Incorrect password");
-		}
 		if(lblConfirmPass.getText().equals("not match")) {
-			System.out.println("no");
+			System.out.println("not match");
 		}
 		else if(validated()){
 		Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -118,15 +114,19 @@ public class ChangePassController implements Initializable{
 			alert.setHeaderText("Please login again");
 			alert.initStyle(StageStyle.UNDECORATED);
 			Optional<ButtonType> option1 = alert.showAndWait();
+			
 			if (option1.get() == ButtonType.OK) {
 			    Platform.runLater( () -> new Main().start( new Stage() ) );
 			    Preferences preference = Preferences.userNodeForPackage(SignInController.class);
 			    preference.putInt("remind", 0);
 			    session.deleteLoginSession();
 			    close();
-			    
-				
-
+			}else if(option1.get()==ButtonType.FINISH) {
+				Platform.runLater( () -> new Main().start( new Stage() ) );
+			    Preferences preference = Preferences.userNodeForPackage(SignInController.class);
+			    preference.putInt("remind", 0);
+			    session.deleteLoginSession();
+			    close();
 			}
 		}
 		}
@@ -136,8 +136,25 @@ public class ChangePassController implements Initializable{
 	}
 	
 	private boolean validated() {
+		lblOldPass.setText("");
+		lblNewPass.setText("");
+		lblConfirmPass.setText("");
 		boolean check = userModel.doLogin(phone, tfOld.getText());
-		return check;
+		if(!check) {
+			lblOldPass.setText("Incorrect password");
+			return false;
+		}
+		if(tfNew.getText().isEmpty()&&tfNewHidden.getText().isEmpty()) {
+			lblNewPass.setText("Field new pass is required");
+			return false;
+		}
+		if(tfConfirm.getText().isEmpty()&&tfConfirmHidden.getText().isEmpty()) {
+			lblConfirmPass.setText("Field confirm pass is required");
+			return false;
+		}
+		
+		
+		return true;
 	}
 	@FXML
 	public void btnCancelAction() {

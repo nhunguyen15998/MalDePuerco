@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -21,7 +22,7 @@ import models.OrderDetailModel;
 import utils.DataMapping;
 import utils.Helpers;
 
-public class WaiterOptionSupport {
+public class WaiterOptionSupport implements Initializable{
 	@FXML ComboBox<DataMapping> cbStatus;
 	private OrderDetailModel odModel = new OrderDetailModel();
 	
@@ -48,7 +49,7 @@ public class WaiterOptionSupport {
     			odModel.updateOrderDetail(orderID, option);
     			Helpers.status("success");
     		}
-    		ODDController.loadData(null);
+    		ODDController.refreshAction(event);
     		this.close();
     	} catch (Exception e) {
     		e.printStackTrace();
@@ -59,6 +60,7 @@ public class WaiterOptionSupport {
 		// TODO Auto-generated method stub
 		ObservableList<DataMapping> status = FXCollections.observableArrayList(OrderDetailModel.isServing, OrderDetailModel.isServed);
 		cbStatus.setItems(status);
+		System.out.println("status");
 	}
     
 	//load data

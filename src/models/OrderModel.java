@@ -47,6 +47,7 @@ public class OrderModel extends BaseModel {
 	
 	public OrderModel(int id, int sequence, String orderCode, String tableCode, String reservationCode, double tip,
 					  int orderQuantity, double total, String paymentMethod, String createdAt, int status, String userCode) {
+
 		super(table, columns);	
 		this.setId(id);
 		this.setSequence(sequence);
@@ -63,6 +64,7 @@ public class OrderModel extends BaseModel {
 	
 	public OrderModel(int id, String orderCode, String tableCode, String reservationCode, double tip, int orderQuantity, 
 					  double total, String paymentMethod, int status, String userCode) {
+
 		super(table, columns);
 		this.setId(id);
 		this.setOrderCode(orderCode);

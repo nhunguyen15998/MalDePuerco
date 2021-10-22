@@ -115,7 +115,9 @@ public class UserModel extends BaseModel {
 			
 			ArrayList<CompareOperator> joinRole = new ArrayList<CompareOperator>();
 			joinRole.add(CompareOperator.getInstance("users.role_id", " = ", "roles.id"));
-			
+			if(!AuthenticationModel.roleName.equals("Super Admin")) {
+				joinRole.add(CompareOperator.getInstance("users.role_id", " != ", "1"));
+			}
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
 			joins.add(JoinCondition.getInstance(" join ", " roles ", joinRole));
 			return this.getData(selects, conditions, joins, null, null, null);

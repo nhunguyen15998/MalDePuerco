@@ -204,11 +204,11 @@ public class ServingsCUController implements Initializable{
 				
 				if(validated(name, cate, des, price, quantity, type)) {
 					ArrayList<DataMapping> servings = new ArrayList<DataMapping>();
-					servings.add(DataMapping.getInstance("nameSer", name));
-					servings.add(DataMapping.getInstance("cateName", cate));
+					servings.add(DataMapping.getInstance("name", name));
+					servings.add(DataMapping.getInstance("category_id", cate));
 					servings.add(DataMapping.getInstance("descriptions", des));
 					servings.add(DataMapping.getInstance("price", price));
-					servings.add(DataMapping.getInstance("stock_quantity", quantity));
+					servings.add(DataMapping.getInstance("quantity", quantity));
 					servings.add(DataMapping.getInstance("thumbnail", path));
 					servings.add(DataMapping.getInstance("type", type));
 					

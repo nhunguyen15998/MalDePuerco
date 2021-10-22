@@ -222,6 +222,7 @@ public class CustomerHomeController implements Initializable {
 		}
 		this.tableId = TableModel.tableId;
 		return this.tableId;
+
 	}
 	
 	//load latest unpaid order - get updated data -> add to updated list, draw updated list -> render
@@ -294,6 +295,9 @@ public class CustomerHomeController implements Initializable {
 		this.categorySelected = "";
 		this.categoryHBox.getChildren().clear();
 		this.servingGridPane.getChildren().clear();
+		setButtonStyle();
+		btnAll.getStyleClass().add("btnHomeFocused");
+		btnAll.getStyleClass().add("btnAllFocused");
 		try {
 			//category
 			ArrayList<CompareOperator> subCategoryCondition = new ArrayList<CompareOperator>();
@@ -310,6 +314,9 @@ public class CustomerHomeController implements Initializable {
 		this.categorySelected = "";
 		this.categoryHBox.getChildren().clear();
 		this.servingGridPane.getChildren().clear();
+		setButtonStyle();
+		btnAppetizer.getStyleClass().add("btnHomeFocused");
+		btnAppetizer.getStyleClass().add("btnAppetizerFocused");
 		try {
 			//category
 			ArrayList<CompareOperator> subCategoryCondition = new ArrayList<CompareOperator>();
@@ -328,6 +335,9 @@ public class CustomerHomeController implements Initializable {
 		this.categorySelected = "";
 		this.categoryHBox.getChildren().clear();
 		this.servingGridPane.getChildren().clear();
+		setButtonStyle();
+		btnSideOrder.getStyleClass().add("btnHomeFocused");
+		btnSideOrder.getStyleClass().add("btnSideOrderFocused");
 		try {
 			ArrayList<CompareOperator> subCategoryCondition = new ArrayList<CompareOperator>();
 			subCategoryCondition.add(CompareOperator.getInstance("sc.name", "=", CustomerHomeController.SIDE_ORDERS));
@@ -345,6 +355,9 @@ public class CustomerHomeController implements Initializable {
 		this.categorySelected = "";
 		this.categoryHBox.getChildren().clear();
 		this.servingGridPane.getChildren().clear();
+		setButtonStyle();
+		btnALaCarte.getStyleClass().add("btnHomeFocused");
+		btnALaCarte.getStyleClass().add("btnALaCarteFocused");
 		try {
 			ArrayList<CompareOperator> subCategoryCondition = new ArrayList<CompareOperator>();
 			subCategoryCondition.add(CompareOperator.getInstance("sc.name", "=", CustomerHomeController.A_LA_CARTE));
@@ -362,6 +375,9 @@ public class CustomerHomeController implements Initializable {
 		this.categorySelected = "";
 		this.categoryHBox.getChildren().clear();
 		this.servingGridPane.getChildren().clear();
+		setButtonStyle();
+		btnDessert.getStyleClass().add("btnHomeFocused");
+		btnDessert.getStyleClass().add("btnDessertFocused");
 		try {
 			ArrayList<CompareOperator> subCategoryCondition = new ArrayList<CompareOperator>();
 			subCategoryCondition.add(CompareOperator.getInstance("sc.name", "=", CustomerHomeController.DESSERTS));
@@ -379,6 +395,9 @@ public class CustomerHomeController implements Initializable {
 		this.categorySelected = "";
 		this.categoryHBox.getChildren().clear();
 		this.servingGridPane.getChildren().clear();
+		setButtonStyle();
+		btnBeverage.getStyleClass().add("btnHomeFocused");
+		btnBeverage.getStyleClass().add("btnBeverageFocused");
 		try {
 			ArrayList<CompareOperator> subCategoryCondition = new ArrayList<CompareOperator>();
 			subCategoryCondition.add(CompareOperator.getInstance("sc.name", "=", CustomerHomeController.BEVERAGES));
@@ -393,6 +412,7 @@ public class CustomerHomeController implements Initializable {
 	//----------------------icon btn------------------------
 	//btnhelp
 	public void btnHelpAction() {
+		setButtonStyle();
 		try {
 			
 		} catch (Exception e) {
@@ -407,7 +427,8 @@ public class CustomerHomeController implements Initializable {
 	}
 	
 	//btnsetting
-	public void btnSettingAction() {
+	public void btnSettingAction() { 
+		setButtonStyle();
 		try {
 			AnchorPane customerHolder;
 			Rectangle2D screenBounds = Screen.getPrimary().getBounds();
@@ -432,12 +453,15 @@ public class CustomerHomeController implements Initializable {
 	}
 	
 	//btnnoti
+	@FXML
 	public void btnNotiAction() {
-		
+		setButtonStyle();
 	}
 	
 	//btnserver
+	@FXML
 	public void btnServerAction() {
+		setButtonStyle();
 		try {
 			
 		} catch (Exception e) {
@@ -583,6 +607,7 @@ public class CustomerHomeController implements Initializable {
 				servingPrice = new Label();
 				servingStock = new Text();
 				Button addItem = new Button("Add");
+				addItem.getStyleClass().add("btnAdd");
 				Label prodId = new Label();
 				this.gridPaneLayout(servingPane, servingImage, servingName, servingPrice, servingStock);
 				//set
@@ -944,7 +969,7 @@ public class CustomerHomeController implements Initializable {
 		tfNote.setText(item.getServingNote());
 		tfQuantity.setText(String.valueOf(item.getQuantity()));
 		ivImageView.setImage(new Image(CustomerHomeController.class.getResourceAsStream(item.getThumbnail())));
-		this.lblPayTotal.setText("$"+this.totalPlace);
+		this.lblPayTotal.setText(Helpers.formatNumber(null).format(this.totalPlace)+"vnd");
 	}
 	
 	
@@ -1204,5 +1229,41 @@ public class CustomerHomeController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-
+	
+	private void setButtonStyle() {
+		//========= btn home=========
+	    btnAll.getStyleClass().remove("btnHomeFocused");
+	    btnAll.getStyleClass().remove("btnAllFocused");
+	    
+	    btnAppetizer.getStyleClass().remove("btnHomeFocused");
+	    btnAppetizer.getStyleClass().remove("btnAppetizerFocused");
+	    
+	    btnSideOrder.getStyleClass().remove("btnHomeFocused");
+	    btnSideOrder.getStyleClass().remove("btnSideOrderFocused");
+	    
+	   	btnALaCarte.getStyleClass().remove("btnHomeFocused");
+	   	btnALaCarte.getStyleClass().remove("btnALaCarteFocused");
+	   	
+	   	btnDessert.getStyleClass().remove("btnHomeFocused");
+	   	btnDessert.getStyleClass().remove("btnDessertFocused");
+        
+        btnBeverage.getStyleClass().remove("btnHomeFocused");
+        btnBeverage.getStyleClass().remove("btnBeverageFocused");
+        
+        //========== btn other==========
+        btnOrder.getStyleClass().remove("btnOtherFocused");
+        btnOrder.getStyleClass().remove("btnOrderFocused");
+        
+        btnHelp.getStyleClass().remove("btnOtherFocused");
+        btnHelp.getStyleClass().remove("btnHelpFocused");
+        
+        btnSetting.getStyleClass().remove("btnOtherFocused");
+        btnSetting.getStyleClass().remove("btnSettingFocused");
+        
+        btnNoti.getStyleClass().remove("btnOtherFocused");
+        btnNoti.getStyleClass().remove("btnNotiFocused");
+        
+        btnServer.getStyleClass().remove("btnOtherFocused");
+        btnServer.getStyleClass().remove("btnServerFocused");
+   }
 }

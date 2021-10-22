@@ -82,6 +82,7 @@ public class ChefOptionController implements Initializable{
 				odModel.updateOrderDetail(orderID, option);
 				Helpers.status("success");
 			}
+
 			chefControl.refreshAction(event);
 			this.close();
 		} catch (Exception e) {
@@ -96,7 +97,6 @@ public class ChefOptionController implements Initializable{
 			this.citemControl = citemControl;
 			this.orderID = citemControl.getChefID();
 			this.orderCode = citemControl.getOrderCode();
-			lblCode.setText("Code: " + this.orderCode);
 			
 			ResultSet rs = this.odModel.getById(orderID);
 			if(rs.next()) {

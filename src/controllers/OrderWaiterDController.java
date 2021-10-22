@@ -2,6 +2,7 @@ package controllers;
 
 import java.net.URL;
 import java.sql.ResultSet;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -23,6 +24,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -169,7 +171,9 @@ public class OrderWaiterDController implements Initializable{
 			e.printStackTrace();
 		}
 	}
-	
+	@FXML void refreshAction(ActionEvent event) {
+		this.getOrderCode(orderController);
+	}
 	//cancel
 		public void btnCancelAction() {
 			try {
@@ -278,6 +282,17 @@ public class OrderWaiterDController implements Initializable{
 				
 			} catch (Exception e) {
 				e.printStackTrace();
+			}
+		}
+		
+		@FXML void getDataByClick(MouseEvent event) {
+			if(event.getClickCount() > 0) {
+				OrderDetailModel item = tblOrderD.getSelectionModel().getSelectedItem();
+				if(item != null) {
+					this.odID = item.getId();
+					this.odName = item.getServingName();
+					System.out.println(this.odID);
+				}
 			}
 		}
 	//get & set

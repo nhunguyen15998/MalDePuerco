@@ -1,7 +1,30 @@
 /*sidebar*/
+/*btn*/
+.btnHome {
+	-fx-background-size: 20px 20px; 
+    -fx-background-repeat: no-repeat; 
+    -fx-background-position: 25px 10px;
+}
+.btnAll {
+	-fx-background-image: url("../assets/dinner-o.png");
+} 
+.btnAppetizer {
+	-fx-background-image: url("../assets/appetizer-o.png");
+}
+.btnSideOrder {
+	-fx-background-image: url("../assets/french-fries-o.png");
+}
+.btnALaCarte {
+	-fx-background-image: url("../assets/rice-bowl-o.png");
+}
+.btnDessert {
+	-fx-background-image: url("../assets/ice-cream-o.png");
+}
+.btnBeverage {
+	-fx-background-image: url("../assets/cocktail-o.png");
+}
 /*btn hover*/
-#btnAll:hover, #btnAppetizer:hover, #btnSideOrder:hover, #btnALaCarte:hover, #btnDessert:hover, #btnBeverage:hover, 
-#btnAll:focused, #btnAppetizer:focused, #btnSideOrder:focused, #btnALaCarte:focused, #btnDessert:focused, #btnBeverage:focused {
+.btnHome:hover {
 	-fx-background-color:   #EA7C69 !important;
 	-fx-background-radius: 10px !important;
 	-fx-border-color:   #EA7C69;
@@ -10,54 +33,32 @@
 	-fx-background-size: 20px 20px; 
     -fx-background-repeat: no-repeat; 
     -fx-background-position: 25px 10px;
+    -fx-cursor:hand;
 }
-#btnAll:hover, #btnAll:focused {
+
+.btnAll:hover {
 	-fx-background-image: url("../assets/menu.png");
 }
-#btnAppetizer:hover, #btnAppetizer:focused {
+.btnAppetizer:hover {
 	-fx-background-image: url("../assets/appetizer.png");	
 }
-#btnSideOrder:hover, #btnSideOrder:focused {
+.btnSideOrder:hover {
 	-fx-background-image: url("../assets/side-order.png");	
 }
-#btnALaCarte:hover, #btnALaCarte:focused {
+.btnALaCarte:hover{
 	-fx-background-image: url("../assets/alacarte.png");	
 }
-#btnDessert:hover, #btnDessert:focused {
+.btnDessert:hover {
 	-fx-background-image: url("../assets/dessert.png");	
 }
-#btnBeverage:hover, #btnBeverage:focused {
+.btnBeverage:hover{
 	-fx-background-image: url("../assets/beverage.png");	
 }
-/*btn*/
-#btnAll, #btnAppetizer, #btnSideOrder, #btnALaCarte, #btnDessert, #btnBeverage {
-	-fx-background-size: 20px 20px; 
-    -fx-background-repeat: no-repeat; 
-    -fx-background-position: 25px 10px;
-}
-#btnAll {
-	-fx-background-image: url("../assets/dinner-o.png");
-}
-#btnAppetizer {
-	-fx-background-image: url("../assets/appetizer-o.png");
-}
-#btnSideOrder {
-	-fx-background-image: url("../assets/french-fries-o.png");
-}
-#btnALaCarte {
-	-fx-background-image: url("../assets/rice-bowl-o.png");
-}
-#btnDessert {
-	-fx-background-image: url("../assets/ice-cream-o.png");
-}
-#btnBeverage {
-	-fx-background-image: url("../assets/cocktail-o.png");
-}
+
 /*------------------------- */
 /*icon btn */
 /*hover */
-#btnHelp:hover, #btnSetting:hover, #btnNoti:hover, #btnServer:hover, #btnOrder:hover, #btnClearAll:hover, #btnPlace:hover,
-#btnHelp:focused, #btnSetting:focused, #btnNoti:focused, #btnServer:focused, #btnOrder:focused {
+.btnOther:hover{
 	-fx-background-color:   #EA7C69 !important;
 	-fx-background-radius: 10px !important;
 	-fx-border-color:   #EA7C69;
@@ -66,48 +67,129 @@
 	-fx-background-size: 20px 20px; 
     -fx-background-repeat: no-repeat; 
     -fx-background-position: 5px 5px;
+    -fx-cursor: hand;
 }
-#btnHelp:hover, #btnHelp:focused {
+
+
+.btnHelp:hover {
 	-fx-background-image: url("../assets/question-mark-w.png");
+	
 }
-#btnSetting:hover, #btnSetting:focused {
+.btnSetting:hover {
 	-fx-background-image: url("../assets/settings-w.png");
+	
 }
-#btnNoti:hover, #btnNoti:focused {
+.btnNoti:hover {
 	-fx-background-image: url("../assets/bell-w.png");
+	
 }
-#btnServer:hover, #btnServer:focused {
+.btnServer:hover {
 	-fx-background-image: url("../assets/waiter-w.png");
+	
 }
-#btnOrder:hover, #btnOrder:focused {
+.btnOrder:hover {
 	-fx-background-image: url("../assets/order-w.png");
+	
 }
 /*btn*/
-#btnHelp, #btnSetting, #btnNoti, #btnServer, #btnOrder {
+.btnOther {
 	-fx-background-size: 20px 20px; 
     -fx-background-repeat: no-repeat; 
     -fx-background-position: 5px 5px;
 }
-#btnHelp {
+.btnHelp {
 	-fx-background-image: url("../assets/question-mark-o.png");
 }
-#btnSetting {
+.btnSetting {
 	-fx-background-image: url("../assets/settings-o.png");
 }
-#btnNoti {
+.btnNoti {
 	-fx-background-image: url("../assets/bell-o.png");
 }
-#btnServer {
+.btnServer {
 	-fx-background-image: url("../assets/waiter-o.png");
 }
-#btnOrder {
+.btnOrder {
 	-fx-background-image: url("../assets/order-o.png");
 }
+.btnOtherFocused{
+	-fx-background-color:   #EA7C69 !important;
+	-fx-background-radius: 10px !important;
+	-fx-border-color:   #EA7C69;
+	-fx-border-radius: 10px;
+	-fx-text-fill: #fff;
+	-fx-background-size: 20px 20px; 
+    -fx-background-repeat: no-repeat; 
+    -fx-background-position: 5px 5px;
+    -fx-cursor: hand;
+}
+.btnHelpFocused {
+	-fx-background-image: url("../assets/question-mark-w.png");
+	
+}
+.btnSettingFocused {
+	-fx-background-image: url("../assets/settings-w.png");
+	
+}
+.btnNotiFocused {
+	-fx-background-image: url("../assets/bell-w.png");
+	
+}
+.btnServerFocused {
+	-fx-background-image: url("../assets/waiter-w.png");
+	
+}
+.btnOrderFocused {
+	-fx-background-image: url("../assets/order-w.png");
+	
+}
+.btnAdd{
+	-fx-background-color:   #EA7C69  !important;
+	-fx-background-radius: 10 2 2 2 !important;
+	-fx-border-radius: 10 2 2 2;
+	-fx-text-fill:#fff;
+}
+.btnAdd:hover{
+	-fx-background-color:  rgba(234, 124, 105, 0.2)  !important;
+	-fx-background-radius: 10 2 2 2  !important;
+	-fx-border-radius:10 2 2 2;
+	-fx-text-fill:#EA7C69;
+	-fx-border-color:   #EA7C69;
+		-fx-cursor:hand;
+}
+.btnHomeFocused{
+	-fx-background-color:   #EA7C69  !important;
+	-fx-background-radius: 10px  !important;
+	-fx-border-color:   #EA7C69;
+	-fx-border-radius: 10px;
+	-fx-text-fill: #fff;
+	-fx-background-size: 20px 20px; 
+    -fx-background-repeat: no-repeat; 
+    -fx-background-position: 5px 5px;
+    -fx-cursor: hand;
+    -fx-background-size: 20px 20px; 
+    -fx-background-repeat: no-repeat; 
+    -fx-background-position: 25px 10px;
+}
+.btnAllFocused{
+    -fx-background-image: url("../assets/menu.png");
+}
 
-
-
-
-
+.btnAppetizerFocused{
+    -fx-background-image: url("../assets/appetizer.png");	
+}
+.btnSideOrderFocused {
+	-fx-background-image: url("../assets/side-order.png");	
+}
+.btnALaCarteFocused{
+	-fx-background-image: url("../assets/alacarte.png");	
+}
+.btnDessertFocused {
+	-fx-background-image: url("../assets/dessert.png");	
+}
+.btnBeverageFocused{
+	-fx-background-image: url("../assets/beverage.png");	
+} 
 
 
 
