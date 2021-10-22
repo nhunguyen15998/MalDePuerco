@@ -6,8 +6,6 @@
 package controllers;
 
 import java.awt.event.ActionEvent;
-
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -49,6 +47,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import models.AuthenticationModel;
 import models.DiscountModel;
 import models.ReservationModel;
 import models.TableModel;
@@ -89,7 +88,7 @@ public class ReservationController implements Initializable {
     private TableColumn<ReservationModel, String> colEmail  = new TableColumn<ReservationModel, String>();
 
     @FXML
-    private TableColumn<ReservationModel, Integer> colSeats  = new TableColumn<ReservationModel, Integer>();
+    private TableColumn<ReservationModel, Integer> colSeats  = new TableColumn<ReservationModel, Integer>(); 
 
     @FXML
     private TableColumn<ReservationModel, LocalDate> colDate  = new TableColumn<ReservationModel, LocalDate>();
@@ -184,6 +183,8 @@ public class ReservationController implements Initializable {
     @FXML
     private Button btnPut= new Button();
     @FXML
+    private Button btnCreate= new Button();
+    @FXML
     private Button btnUpdate= new Button();
     
 
@@ -192,8 +193,6 @@ public class ReservationController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-
   		updateStatus();
   		btnPut.setDisable(true);
   		LocalDate now = LocalDate.now();
@@ -203,6 +202,30 @@ public class ReservationController implements Initializable {
 		btnTablesSche.setVisible(true);
     	this.parseData(null);
 		this.loadSchedule("schedule.fxml");
+		//create
+		btnCreate.setDisable(true);
+		//btnPut
+		btnPut.setDisable(true);
+		//update
+		btnUpdate.setDisable(true);
+		
+		//delete
+		btnDelete.setDisable(true);
+		
+
+		
+		if(AuthenticationModel.hasPermission("CREATE_RESERVATION") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnCreate.setDisable(false);
+			btnPut.setDisable(false);
+		}
+		
+		if(AuthenticationModel.hasPermission("UPDATE_RESERVATION") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnUpdate.setDisable(false);
+		}
+		
+		if(AuthenticationModel.hasPermission("DELETE_RESERVATION") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnDelete.setDisable(false);
+		}
     }  
  
     

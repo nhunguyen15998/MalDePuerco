@@ -3,6 +3,7 @@ package models;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import controllers.SettingController;
 import utils.CompareOperator;
 import utils.DataMapping;
 import utils.JoinCondition;
@@ -19,6 +20,8 @@ public class TableModel extends BaseModel{
 	private String createdAt;
 	private int status;
 	private int is_set;
+	
+	public static int tableId = 0;
 	
 	//status
 
@@ -47,7 +50,7 @@ public class TableModel extends BaseModel{
 		public ResultSet getTableList(ArrayList<CompareOperator> conditions) {
 			try {	
 				
-				return this.getData(columns, conditions, null);
+				return this.getData(columns, conditions, null, null, null, null);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return null;
@@ -76,7 +79,7 @@ public class TableModel extends BaseModel{
 				ArrayList<CompareOperator> cond = new ArrayList<CompareOperator>();
 				cond.add(CompareOperator.getInstance("id", " = ", String.valueOf(id)));
 			
-				return this.getData(columns, cond, null);
+				return this.getData(columns, cond, null, null, null, null);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return null;
@@ -203,3 +206,4 @@ public class TableModel extends BaseModel{
 		
 		
 }
+

@@ -4,21 +4,18 @@ import java.security.SecureRandom;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-
-import javafx.geometry.Rectangle2D;
+import java.util.TimeZone;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Screen;
 
 public class Helpers {
 	
 	//format money
 	public static DecimalFormat formatNumber(String pattern) {
 		if(pattern == null) {
-			pattern = "###,###.###";
+			pattern = "###,###.##";
 		}
 		DecimalFormat decimalFormat = new DecimalFormat(pattern);
 		return decimalFormat;	
@@ -57,15 +54,31 @@ public class Helpers {
 		}  
 	}
 	
+	//random
 	public static String randomString(int len){
-		String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+		String AB = "0123456789";
 		SecureRandom rnd = new SecureRandom();
 	    StringBuilder sb = new StringBuilder(len);
-	    for(int i = 0; i < len; i++)
-	       sb.append(AB.charAt(rnd.nextInt(AB.length())));
-	    return sb.toString();
+	    StringBuilder prefix = new StringBuilder(len);
+	    for(int i = 0; i < len; i++) {
+		   sb.append(AB.charAt(rnd.nextInt(AB.length())));
+	    }
+	    return prefix.append(sb).toString();
 	}
 	
+	//local datetime
+	public static void convertSystemDateTime(String itemDate) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	    try {
+			Date date = sdf.parse(itemDate);
+			sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+			System.out.println(sdf.format(date));    
+			sdf.setTimeZone(TimeZone.getDefault());
+			System.out.println("test: "+sdf.format(date));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}  
+	}
 	  public static String randomCode(String ob){
 	        int max = 10000000;
 	        int min = 0;
@@ -90,6 +103,5 @@ public class Helpers {
 				alert.showAndWait();
 			}
 		}
-	
 	
 }

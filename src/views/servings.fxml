@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ServingsController">
+    <stylesheets>
+        <URL value="@../css/servings.css" />
+    </stylesheets>
+   <children>
+      <AnchorPane prefHeight="141.0" prefWidth="838.0" styleClass="anchorTop" stylesheets="@../css/servings.css">
+         <children>
+            <Label layoutX="96.0" layoutY="34.0" prefHeight="40.0" prefWidth="267.0" text="Servings Management">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <AnchorPane layoutX="29.0" layoutY="29.0" prefHeight="50.0" prefWidth="52.0" styleClass="image" stylesheets="@../css/servings.css">
+               <children>
+                  <ImageView fitHeight="40.0" fitWidth="50.0" layoutX="6.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/serving.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="1.0" layoutY="97.0" prefHeight="430.0" prefWidth="838.0" styleClass="anchorPane" stylesheets="@../css/servings.css">
+         <children>
+            <TableView fx:id="tbl_servings" layoutX="20.0" layoutY="72.0" onMouseClicked="#getTableDataByClick" prefHeight="280.0" prefWidth="799.0" stylesheets="@../css/servings.css">
+              <columns>
+                <TableColumn fx:id="col_no" prefWidth="31.0" text="#" />
+                <TableColumn fx:id="col_id" prefWidth="119.0" style="-fx-background-color: #858B97; -fx-text-color: white;" visible="false" />
+                  <TableColumn fx:id="col_name" prefWidth="85.0" text="Name" />
+                  <TableColumn fx:id="col_cate" prefWidth="128.0" text="Category" />
+                  <TableColumn fx:id="col_type" prefWidth="82.0" text="Type" />
+                  <TableColumn fx:id="col_des" prefWidth="151.0" text="Description" />
+                  <TableColumn fx:id="colQuantity" prefWidth="58.0" text="Quantity" />
+                  <TableColumn fx:id="col_price" minWidth="0.0" prefWidth="56.0" text="Price" />
+                  <TableColumn fx:id="col_created" prefWidth="109.0" text="Created At" />
+                  <TableColumn fx:id="col_status" prefWidth="84.0" text="Status" />
+                  <TableColumn fx:id="colPath" prefWidth="75.0" visible="false" />
+              </columns>
+            </TableView>
+            <Button layoutX="483.0" layoutY="24.0" mnemonicParsing="false" onAction="#btnCreateAction" prefHeight="31.0" prefWidth="106.0" styleClass="btnCreate" stylesheets="@../css/servings.css" text="         Create " textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color blue="0.8196078538894653" green="0.4745098054409027" opacity="0.49000000953674316" red="0.1725490242242813" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Button>
+            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="496.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/save.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="727.0" layoutY="24.0" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="31.0" prefWidth="106.0" styleClass="btnDelete" stylesheets="@../css/servings.css" text="       Delete " textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color blue="0.41960784792900085" green="0.43921568989753723" opacity="0.49000000953674316" red="0.9803921580314636" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Button>
+            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="738.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/delete.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="604.0" layoutY="24.0" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="31.0" prefWidth="106.0" styleClass="btnUpdate" stylesheets="@../css/servings.css" text="         Update " textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color blue="0.545098066329956" green="0.6313725709915161" opacity="0.49000000953674316" red="0.3843137323856354" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Button>
+            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="620.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/edit.png" />
+               </image>
+            </ImageView>
+            <TextField layoutX="14.0" layoutY="27.0" onKeyTyped="#onSearch" prefHeight="27.0" prefWidth="267.0" promptText="Find servings or category" style="-fx-background-radius: 50px;">
+               <font>
+                  <Font name="Consolas" size="14.0" />
+               </font>
+            </TextField>
+            <Button layoutX="291.0" layoutY="28.0" mnemonicParsing="false" onAction="#btnClearAction" prefHeight="25.0" prefWidth="40.0" styleClass="Clear" stylesheets="@../css/servings.css">
+               <graphic>
+                  <ImageView fitHeight="17.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/clear.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Pane layoutX="249.0" layoutY="27.0" prefHeight="25.0" prefWidth="32.0">
+               <children>
+                  <ImageView fitHeight="27.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/search.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Button layoutX="20.0" layoutY="376.0" mnemonicParsing="false" onAction="#btnAddAttributesAction" prefHeight="31.0" prefWidth="141.0" styleClass="btnCreate" stylesheets="@../css/servings.css" text="Add attributes" textFill="WHITE">
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color blue="0.8196078538894653" green="0.4745098054409027" opacity="0.49000000953674316" red="0.1725490242242813" />
+                     </color>
+                  </DropShadow>
+               </effect>
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="21.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/save.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

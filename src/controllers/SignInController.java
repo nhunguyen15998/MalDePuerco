@@ -54,7 +54,12 @@ import app.Main;
  * @author LENOVO
  */
 public class SignInController implements Initializable {
+	public CustomerHomeController customerHomeController;
 
+	@FXML
+    private AnchorPane managerPane;
+	@FXML
+    private Button btnBack;
     @FXML
     private Pane paneLeft;
     @FXML
@@ -107,6 +112,7 @@ public class SignInController implements Initializable {
          	}
       	
     }    
+    
     public void deleteLoginSession() {
     	preference = Preferences.userNodeForPackage(SignInController.class);
     	preference.put("session", "0");
@@ -116,6 +122,7 @@ public class SignInController implements Initializable {
     	tfUsername.setText("");
     	tfPassHidden.setText("");
     }
+    
     @FXML
     private void signinAction() {
     	
@@ -147,9 +154,11 @@ public class SignInController implements Initializable {
 				    System.out.println("remember:"+checkRemember);
 					tfPassHidden.setText("");
 				}
+				
 				AuthenticationModel.id = sign.getInt("id");
 				AuthenticationModel.name = sign.getString("name");
 				loadMaster();
+				
 			}else {
 				lblErrorMessage.setText("Invalid login. Please try again");
 				
@@ -158,18 +167,29 @@ public class SignInController implements Initializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-    	
-       
-         
-    }
-   
 
+    }
+    
+    //load CustomerOptionController
+    public CustomerHomeController itemCustomer(CustomerHomeController customerHomeController) {
+    	this.customerHomeController = customerHomeController;
+    	return this.customerHomeController;
+    }
+    
+    //btnBackAction
+    @FXML
+    private void btnBackAction() {
+    	this.customerHomeController.customerMasterHolder.setDisable(false);
+    	Stage stageHome = (Stage) this.customerHomeController.customerMasterHolder.getScene().getWindow();
+    	stageHome.show();
+    	Stage stageManager = (Stage) btnBack.getScene().getWindow();
+    	stageManager.close();
+    }
   
     private void loadMaster() {
-    	FXMLLoader loader = new FXMLLoader(SignInController.this.getClass().getResource("/views/master_layout.fxml"));
         AnchorPane managerPane;
 		try {
+			FXMLLoader loader = new FXMLLoader(SignInController.this.getClass().getResource("/views/master_layout.fxml"));
 			managerPane = loader.load();
 			 substage =new Stage();
 	         substage.initModality(Modality.WINDOW_MODAL);
@@ -178,11 +198,16 @@ public class SignInController implements Initializable {
 	         substage.show();  
 	         btnSignin.getScene().getWindow().hide();
 	    	 System.out.println("ABC");
+	    	 
+	    	//controller
+			 MasterController controller = loader.getController();
+			 this.customerHomeController.customerMasterHolder.setDisable(false);
+			 controller.itemCustomer(this.customerHomeController);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
+
     @FXML
     private void closeSignIn() {
         System.exit(0);

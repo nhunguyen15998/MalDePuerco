@@ -53,7 +53,7 @@ public class PermissionModel extends BaseModel{
 			joins.add(JoinCondition.getInstance("join", "role_permissions", pUserTypePermissionCondition));
 			joins.add(JoinCondition.getInstance("join", "roles", userTypePermissionUserTypeCondition));
 						
-			return this.getData(selects, conditions, joins);
+			return this.getData(selects, conditions, joins, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -87,7 +87,7 @@ public class PermissionModel extends BaseModel{
 			joins.add(JoinCondition.getInstance("join", "users", userTypeUserCondition));
 			
 			
-			return this.getData(selects, conditions, joins);
+			return this.getData(selects, conditions, joins, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.paint.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="550.0" prefWidth="838.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OrderWaiterController">
+   <children>
+      <AnchorPane prefHeight="141.0" prefWidth="838.0" styleClass="anchorTop" stylesheets="@../css/orderWaiter.css">
+         <children>
+            <Label layoutX="94.0" layoutY="44.0" prefHeight="40.0" prefWidth="227.0" text="Order Management">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <AnchorPane layoutX="29.0" layoutY="39.0" prefHeight="50.0" prefWidth="52.0" styleClass="image" stylesheets="@../css/orderWaiter.css">
+               <children>
+                  <ImageView fitHeight="40.0" fitWidth="50.0" layoutX="6.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/order1.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </children></AnchorPane>
+      <AnchorPane fx:id="anchorOrder" layoutX="12.0" layoutY="104.0" prefHeight="421.0" prefWidth="815.0" style="-fx-background-color: white;" styleClass="anchorPane" stylesheets="@../css/orderWaiter.css">
+         <children>
+            <TableView fx:id="tblOrder" layoutX="20.0" layoutY="22.0" onMouseClicked="#getTableByClick" prefHeight="326.0" prefWidth="782.0" stylesheets="@../css/orderWaiter.css">
+              <columns>
+                <TableColumn fx:id="col_id" prefWidth="75.0" text="Id" visible="false" />
+                  <TableColumn fx:id="col_no" prefWidth="20.0" text="#" />
+                  <TableColumn fx:id="col_code" prefWidth="70.0" text="Code" />
+                  <TableColumn fx:id="col_table" prefWidth="100.0" text="Table " />
+                  <TableColumn fx:id="col_res" prefWidth="100.0" text="Reservation" />
+                  <TableColumn fx:id="col_tip" prefWidth="50.0" text="Tip" />
+                  <TableColumn fx:id="col_total" prefWidth="50.0" text="Total" />
+                  <TableColumn fx:id="col_pay" prefWidth="100.0" text="Payment" />
+                  <TableColumn fx:id="col_quantity" prefWidth="61.0" text="Quantity" />
+                  <TableColumn fx:id="col_status" minWidth="0.0" prefWidth="120.0" text="Status" />
+                  <TableColumn fx:id="col_user" prefWidth="94.0" text="User" />
+              </columns>
+               <contextMenu>
+                  <ContextMenu>
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#btnOption" text="Unspecified Action" />
+                    </items>
+                  </ContextMenu>
+               </contextMenu>
+            </TableView>
+            <Button layoutX="641.0" layoutY="354.0" mnemonicParsing="false" onAction="#btnOrderDetail" prefHeight="40.0" prefWidth="160.0" styleClass="btnCofirm" stylesheets="@../css/orderWaiter.css" text="Order Details" textFill="WHITE">
+               <font>
+                  <Font name="Consolas" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/details.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button alignment="CENTER" layoutX="20.0" layoutY="359.0" mnemonicParsing="false" onAction="#btnChefViewAction" prefHeight="40.0" prefWidth="141.0" styleClass="btnCreate" stylesheets="@../css/servings.css" text="Chefs' view" textFill="WHITE">
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color blue="0.8196078538894653" green="0.4745098054409027" opacity="0.49000000953674316" red="0.1725490242242813" />
+                     </color>
+                  </DropShadow>
+               </effect>
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/menu.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

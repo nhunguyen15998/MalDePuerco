@@ -13,12 +13,12 @@ import utils.Helpers;
 import utils.JoinCondition;
 
 public class MySQLJDBC {
-	//db, username, password jdbc:mysql://ec2-3-15-8-122.us-east-2.compute.amazonaws.com:3306/mal_de_puerco
+	//db, username, password
 	private static final String DATABASE_URL = "jdbc:mysql://ec2-3-15-8-122.us-east-2.compute.amazonaws.com:3306/mal_de_puerco";
 	private static final String USER_NAME = "restaurant";
 	private static final String PASSWORD = "password";
-        public static MySQLJDBC db=null;
 	public static Connection connection = null;
+	public static MySQLJDBC db = null;
 	
 	public String table;
 	public String[] columns;
@@ -65,7 +65,7 @@ public class MySQLJDBC {
 	
 	//1366 x
 	//get data
-	public ResultSet getData(String[] selects, ArrayList<CompareOperator> conditions, ArrayList<JoinCondition> joins) {
+	public ResultSet getData(String[] selects, ArrayList<CompareOperator> conditions, ArrayList<JoinCondition> joins, String[] groupBys, String orderBys, String limit) {
 		try {
 			String conditionsStr = "";
     		String joinStr = "";
@@ -103,7 +103,23 @@ public class MySQLJDBC {
     		}
     		
     		String query = "select " + String.join(",", selects)  + " from " + this.table +" "+joinStr+ (conditionsStr.length() > 0 ? " where "+conditionsStr : "");
-			System.out.println(query);
+    		
+    		//groupby
+    		if(groupBys != null) {
+    			query += " group by " +  String.join(", ", groupBys);
+    		}
+    		
+    		//orderby 
+    		if(orderBys != null) {
+    			query += " order by " + orderBys;
+    		}
+    		    		
+    		//limit
+    		if(limit != null) {
+    			query += " limit " + limit;
+    		}
+    		
+    		System.out.println(query);
 			Statement stmt = MySQLJDBC.connection.createStatement();
 			return stmt.executeQuery(query);
 			
@@ -230,6 +246,5 @@ public class MySQLJDBC {
 			return false;
 		}
     }
-	 
 
 }

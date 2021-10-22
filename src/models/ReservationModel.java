@@ -68,7 +68,7 @@ public class ReservationModel extends BaseModel{
 		public ResultSet getReserList(ArrayList<CompareOperator> conditions) {
 			try {
 				
-				return this.getData(columns, conditions, null);
+				return this.getData(columns, conditions, null, null,null,null);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return null;
@@ -81,7 +81,7 @@ public class ReservationModel extends BaseModel{
 				ArrayList<CompareOperator> cond = new ArrayList<CompareOperator>();
 				cond.add(CompareOperator.getInstance("id", " = ", String.valueOf(id)));
 			
-				return this.getData(columns, cond, null);
+				return this.getData(columns, cond, null,null,null,null);
 			} catch (Exception eGetUserById) {
 				eGetUserById.printStackTrace();
 				return null;

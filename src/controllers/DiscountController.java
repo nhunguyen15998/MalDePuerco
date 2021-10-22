@@ -6,8 +6,6 @@
 package controllers;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,11 +18,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
-import org.springframework.security.crypto.bcrypt.BCrypt;
-
-import com.mysql.cj.xdevapi.PreparableStatement;
-
 import db.MySQLJDBC;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
@@ -32,7 +25,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -44,14 +36,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Screen;
 import models.AuthenticationModel;
 import models.DiscountModel;
-import models.RoleModel;
-import models.UserModel;
 import utils.CompareOperator;
 import utils.DataMapping;
 import utils.Helpers;
@@ -84,7 +72,7 @@ public class DiscountController implements Initializable {
 
     @FXML
     private TableColumn<DiscountModel, Float> colDecrease;
-
+    
     @FXML
     private TableColumn<DiscountModel, String>  colDescrip;
 
@@ -147,15 +135,50 @@ public class DiscountController implements Initializable {
 
     @FXML
     private Label lblDateError;
+    
+    @Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+
+		this.parseData(getFilter());
+		
+		resetInput();
+
+		ObservableList<DataMapping> status = FXCollections.observableArrayList(DiscountModel.isActivated, DiscountModel.isDeactivated);
+		cbStatus.setItems(status);
+		//create
+		btnAdd.setDisable(true);
+		
+		//update
+		btnUpdate.setDisable(true);
+		
+		//delete
+		btnDelete.setDisable(true);
+		
+
+		
+		if(AuthenticationModel.hasPermission("CREATE_DISCOUNT") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnAdd.setDisable(false);
+		}
+		
+		if(AuthenticationModel.hasPermission("UPDATE_DISCOUNT") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnUpdate.setDisable(false);
+		}
+		
+		if(AuthenticationModel.hasPermission("DELETE_DISCOUNT") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnDelete.setDisable(false);
+		}
+		
+	}
 
     @FXML
-    void btnSaveAction(ActionEvent event) {
+    public void btnSaveAction(ActionEvent event) {
     	idDiscount = 0;
     	ucAction();
     }
 
     @FXML
-    void btnUpdateAction(ActionEvent event) {
+    public void btnUpdateAction(ActionEvent event) {
     	ucAction();
     	idDiscount = 0;
     }
@@ -270,7 +293,7 @@ public class DiscountController implements Initializable {
   			}
   			if(!checkDate||!codeDup) {
 					return false;
-				}else {
+				}else { 
 
   			return true;
 				}
@@ -298,6 +321,7 @@ public class DiscountController implements Initializable {
 		tfTotal.setText("");
     	
     }
+    
     private void checkStartDate() {
     	String sql = "update discounts set status = 0 where curdate()<start_date or end_date<curdate()" ;
         try {
@@ -308,6 +332,7 @@ public class DiscountController implements Initializable {
     	}
     	
     }
+    
 	public void parseData(ArrayList<CompareOperator> conditions) {
 
 		checkStartDate();
@@ -339,14 +364,14 @@ public class DiscountController implements Initializable {
 						discounts.getRow(),
 						discounts.getString("code"),
 						discounts.getString("name"),
+						discounts.getDouble("order_total") != 0 ? Double.parseDouble(Helpers.formatNumber(null).format(discounts.getDouble("order_total"))) : 0,
 						discounts.getString("descriptions"),
 						discounts.getDate("start_date").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy")),
 						discounts.getDate("end_date").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy")),
 						discounts.getDate("created_at").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy")),
 						discounts.getInt("status"),
-						discounts.getFloat("decrease"),
-						discounts.getDouble("order_total"))
-					);
+						discounts.getFloat("decrease")
+					));
 			}
 			tblDiscount.setItems(discountList);
 		} catch (Exception e) {
@@ -368,43 +393,10 @@ public class DiscountController implements Initializable {
 			return null;
 		}
 	}
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-
-		this.parseData(getFilter());
-		
-		resetInput();
-
-		ObservableList<DataMapping> status = FXCollections.observableArrayList(DiscountModel.isActivated, DiscountModel.isDeactivated);
-		cbStatus.setItems(status);
-		//create
-		btnAdd.setDisable(true);
-		
-		//update
-		btnUpdate.setDisable(true);
-		
-		//delete
-		btnDelete.setDisable(true);
-		
-
-		
-		if(AuthenticationModel.hasPermission("CREATE_DISCOUNT") || AuthenticationModel.roleName.equals("Super Admin")) {
-			btnAdd.setDisable(false);
-		}
-		
-		if(AuthenticationModel.hasPermission("UPDATE_DISCOUNT") || AuthenticationModel.roleName.equals("Super Admin")) {
-			btnUpdate.setDisable(false);
-		}
-		
-		if(AuthenticationModel.hasPermission("DELETE_DISCOUNT") || AuthenticationModel.roleName.equals("Super Admin")) {
-			btnDelete.setDisable(false);
-		}
-		
-	}
+	
 
     @FXML
-    void btnClearAction(ActionEvent event) {
+    public void btnClearAction(ActionEvent event) {
     	try {
 			tfDiscount.setText("");
 			this.parseData(getFilter());
@@ -415,7 +407,7 @@ public class DiscountController implements Initializable {
 
 
     @FXML
-    void onSearch(KeyEvent event) {
+    public void onSearch(KeyEvent event) {
     	try {
 			this.parseData(getFilter());
 		} catch (Exception e) {

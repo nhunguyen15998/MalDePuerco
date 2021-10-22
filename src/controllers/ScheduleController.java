@@ -225,7 +225,7 @@ public class ScheduleController implements Initializable {
 
     @FXML
     void tabAll() {
-    	this.dateChoose();
+    	this.dateChoose(); 
     
     }
 

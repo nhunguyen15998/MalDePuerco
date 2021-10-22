@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -14,7 +22,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="550.0" prefWidth="838.0" stylesheets="@../css/tables.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.InvoicesController">
+<AnchorPane prefHeight="550.0" prefWidth="838.0" stylesheets="@../css/tables.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.InvoicesController">
+
    <children>
       <Pane layoutX="38.0" layoutY="67.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="448.0" prefWidth="760.0" style="-fx-background-color: #FFFFFF; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.8),30, 0,10, 10);">
          <children>
@@ -22,16 +31,17 @@
                <columns>
                   <TableColumn fx:id="colOrder" maxWidth="66.0" minWidth="0.0" prefWidth="30.0" text="#" />
                   <TableColumn fx:id="colId" prefWidth="53.0" text="Id" visible="false" />
-                  <TableColumn fx:id="colCode" prefWidth="139.199951171875" text="Code" />
-                  <TableColumn fx:id="colOrderCode" prefWidth="175.2000274658203" text="Order code " />
-                  <TableColumn fx:id="colTotal" prefWidth="128.79998779296875" text="Total" />
-                  <TableColumn fx:id="colPayment" prefWidth="105.5999755859375" text="Payment Status" />
-                  <TableColumn fx:id="colCreatedAt" minWidth="0.0" prefWidth="156.800048828125" text="Created at" />
+                  <TableColumn fx:id="colCode" prefWidth="106.0" text="Code" />
+                  <TableColumn fx:id="colOrderCode" prefWidth="128.0" text="Order code " />
+                  <TableColumn fx:id="colTotal" prefWidth="113.0" text="Total" />
+                  <TableColumn fx:id="colPayment" prefWidth="166.0" text="Payment method" />
+                  <TableColumn fx:id="colStatus" prefWidth="87.0" text="Status" />
+                  <TableColumn fx:id="colCreatedAt" minWidth="0.0" prefWidth="105.0" text="Created at" />
                </columns>
             </TableView>
             <Pane layoutX="15.0" layoutY="11.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="736.0">
                <children>
-                  <Button fx:id="btnView" alignment="CENTER" layoutX="319.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#viewAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: #2B79D3; -fx-border-radius: 50px; -fx-background-radius: 50px; -fx-cursor: hand;" styleClass="btnUser" stylesheets="@../css/user.css" text="View " textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="btnView" alignment="CENTER" layoutX="429.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#viewAction" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: #2B79D3; -fx-border-radius: 50px; -fx-background-radius: 50px; -fx-cursor: hand;" styleClass="btnUser" stylesheets="@../css/user.css" text="View " textAlignment="CENTER" textFill="WHITE">
                      <effect>
                         <DropShadow color="#2b79d37d" />
                      </effect>
@@ -46,7 +56,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnDelete" alignment="CENTER" layoutX="647.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#deleteAction" prefHeight="30.0" prefWidth="75.0" style="-fx-background-color: #FB6E67; -fx-border-radius: 50px; -fx-background-radius: 50px; -fx-cursor: hand;" styleClass="btnUser" stylesheets="@../css/user.css" text="Delete" textFill="WHITE">
+                  <Button fx:id="btnDelete" alignment="CENTER" layoutX="647.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="30.0" prefWidth="75.0" style="-fx-background-color: #FB6E67; -fx-border-radius: 50px; -fx-background-radius: 50px; -fx-cursor: hand;" styleClass="btnUser" stylesheets="@../css/user.css" text="Delete" textFill="WHITE">
                      <effect>
                         <DropShadow color="#fb6e677d" />
                      </effect>
@@ -70,7 +80,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <TextField fx:id="tfUser" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#onSearch" prefHeight="30.0" prefWidth="211.0" promptText="Find by code, date" style="-fx-background-radius: 50px;" />
+                  <TextField fx:id="tfUser" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#onSearch" prefHeight="30.0" prefWidth="211.0" promptText="Find by order code" style="-fx-background-radius: 50px;" />
                   <Pane layoutX="177.0" layoutY="7.0" prefHeight="30.0" prefWidth="30.0">
                      <children>
                         <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="7.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
@@ -80,22 +90,7 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Button alignment="CENTER" layoutX="540.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addOrderAction" prefHeight="30.0" prefWidth="97.0" style="-fx-background-color: linear-gradient(to right, #D586F9, #BA6BF8, #A056F7); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnUser" stylesheets="@../css/user.css" text="Add Order" textFill="WHITE">
-                     <effect>
-                        <DropShadow color="#62a38d7d" />
-                     </effect>
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
-                           <image>
-                              <Image url="@../../../MuscleBar/src/images/classes.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button alignment="CENTER" layoutX="417.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#printAction" prefHeight="30.0" prefWidth="111.0" style="-fx-background-color: linear-gradient(to right, #D586F9, #BA6BF8, #A056F7); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnUser" stylesheets="@../css/user.css" text="Print Invoice" textFill="WHITE">
+                  <Button alignment="CENTER" layoutX="527.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#printAction" prefHeight="30.0" prefWidth="111.0" style="-fx-background-color: linear-gradient(to right, #D586F9, #BA6BF8, #A056F7); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnUser" stylesheets="@../css/user.css" text="Print Invoice" textFill="WHITE">
                      <effect>
                         <DropShadow color="#62a38d7d" />
                      </effect>

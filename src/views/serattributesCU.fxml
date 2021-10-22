@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="550.0" prefWidth="838.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ServingAttributeCUController">
+   <children>
+      <AnchorPane prefHeight="141.0" prefWidth="838.0" styleClass="anchorTop" stylesheets="@../css/serattributesCU.css" />
+      <AnchorPane layoutX="62.0" layoutY="75.0" prefHeight="429.0" prefWidth="698.0" styleClass="anchorPane" stylesheets="@../css/serattributesCU.css">
+         <children>
+            <Label layoutX="186.0" layoutY="63.0" text="Serving:" textFill="#e11b46">
+               <font>
+                  <Font name="Consolas" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="187.0" layoutY="132.0" text="Attribute:" textFill="#e11b46">
+               <font>
+                  <Font name="Consolas" size="14.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cbServing" layoutX="270.0" layoutY="58.0" prefHeight="27.0" prefWidth="237.0" styleClass="text" stylesheets="@../css/serattributes.css" />
+            <Label layoutX="185.0" layoutY="205.0" text="Price" textFill="#e11b46">
+               <font>
+                  <Font name="Consolas" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfPrice" layoutX="271.0" layoutY="201.0" prefHeight="28.0" prefWidth="243.0" styleClass="text" stylesheets="@../css/serattributes.css">
+               <font>
+                  <Font name="Corbel Light" size="14.0" />
+               </font>
+            </TextField>
+            <Label fx:id="lblAttributeError" layoutX="271.0" layoutY="162.0" prefHeight="17.0" prefWidth="237.0" />
+            <Label fx:id="lblPriceError" layoutX="270.0" layoutY="244.0" prefHeight="17.0" prefWidth="243.0" />
+            <Label fx:id="lblServingError" layoutX="270.0" layoutY="91.0" prefHeight="17.0" prefWidth="237.0" />
+            <Button fx:id="btnCancel" layoutX="372.0" layoutY="334.0" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="30.0" prefWidth="90.0" styleClass="btnCancel" stylesheets="@../css/serattributesCU.css" text="     Cancel" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="28.0" fitWidth="40.0" layoutX="378.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/cancel.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="248.0" layoutY="334.0" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="28.0" prefWidth="90.0" styleClass="btnSave" stylesheets="@../css/serattributesCU.css" text="       Save" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="28.0" fitWidth="40.0" layoutX="255.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/save.png" />
+               </image>
+            </ImageView>
+            <ComboBox fx:id="cbAttribute" layoutX="274.0" layoutY="127.0" prefHeight="27.0" prefWidth="237.0" styleClass="text" stylesheets="@../css/serattributes.css" />
+            <Label layoutX="185.0" layoutY="265.0" text="Quantity" textFill="#e11b46">
+               <font>
+                  <Font name="Consolas" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfQuantity" layoutX="271.0" layoutY="261.0" prefHeight="28.0" prefWidth="243.0" styleClass="text" stylesheets="@../css/serattributes.css">
+               <font>
+                  <Font name="Corbel Light" size="14.0" />
+               </font>
+            </TextField>
+            <Label fx:id="lblQuantityError" layoutX="270.0" layoutY="304.0" prefHeight="17.0" prefWidth="243.0" />
+         </children>
+      </AnchorPane>
+      <Label fx:id="lbl" layoutX="62.0" layoutY="25.0" prefHeight="32.0" prefWidth="698.0" text="Create Serving Attributes" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

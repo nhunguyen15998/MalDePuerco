@@ -10,12 +10,21 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="1000" minHeight="600" minWidth="-Infinity" prefHeight="600.0" prefWidth="1038.0" styleClass="mainFxmlClass" stylesheets="@../css/master_layout.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.MasterController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="1000" minHeight="600" minWidth="-Infinity" prefHeight="600.0" prefWidth="1038.0" styleClass="mainFxmlClass" stylesheets="@../css/master_layout.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MasterController">
    <children>
       <Pane layoutX="200.0" layoutY="-2.0" prefHeight="54.0" prefWidth="838.0" style="-fx-background-color: #4f272e;">
          <children>
-            <HBox alignment="TOP_RIGHT" layoutX="582.0" layoutY="1.0" prefHeight="53.0" prefWidth="256.0">
+            <HBox alignment="TOP_RIGHT" layoutX="513.0" layoutY="1.0" prefHeight="53.0" prefWidth="325.0">
                <children>
+                  <Button fx:id="btnHome" mnemonicParsing="false" onAction="#btnHomeAction" prefHeight="52.5" prefWidth="54.0" styleClass="btnBar" stylesheets="@../css/master_layout.css">
+                     <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/home.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                   <Button fx:id="btnSetting" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#settingAction" prefHeight="52.5" prefWidth="54.0" styleClass="btnBar" stylesheets="@../css/master_layout.css">
                      <graphic>
                         <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
@@ -112,15 +121,6 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnMenu" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#menuAction" prefHeight="44.0" prefWidth="200.0" styleClass="btn" stylesheets="@../css/master_layout.css" text="  MENU" textAlignment="RIGHT" textFill="WHITE">
-                     <graphic>
-                        <ImageView disable="true" fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../assets/menu%20res.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
                   <Button fx:id="btnUser" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#userAction" prefHeight="44.0" prefWidth="200.0" styleClass="btn" stylesheets="@../css/master_layout.css" text="  USERS" textAlignment="RIGHT" textFill="WHITE">
                      <graphic>
                         <ImageView disable="true" fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
@@ -130,11 +130,20 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnOrder" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#orderAction" prefHeight="44.0" prefWidth="200.0" styleClass="btn" stylesheets="@../css/master_layout.css" text="  ORDERS" textAlignment="RIGHT" textFill="WHITE">
+                  <Button fx:id="btnOrderChef" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#orderChefAction" prefHeight="44.0" prefWidth="200.0" styleClass="btn" stylesheets="@../css/master_layout.css" text="  ORDERS PROCESS" textAlignment="RIGHT" textFill="WHITE">
                      <graphic>
                         <ImageView disable="true" fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../assets/order.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnOrderServer" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#orderServerAction" prefHeight="44.0" prefWidth="200.0" styleClass="btn" stylesheets="@../css/master_layout.css" text="  ORDERS CONFIRM" textAlignment="RIGHT" textFill="WHITE">
+                     <graphic>
+                        <ImageView disable="true" fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/order-w.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -157,11 +166,20 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnServingCate" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#servingCateAction" prefHeight="44.0" prefWidth="200.0" styleClass="btn" stylesheets="@../css/master_layout.css" text="  SERVING CATEGORIES" textAlignment="RIGHT" textFill="WHITE">
+                  <Button fx:id="btnServings" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#servingAction" prefHeight="44.0" prefWidth="200.0" styleClass="btn" stylesheets="@../css/master_layout.css" text="  SERVINGS" textAlignment="RIGHT" textFill="WHITE">
                      <graphic>
                         <ImageView disable="true" fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../assets/serving_cate.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnServingCate" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="274.0" mnemonicParsing="false" onAction="#servingCateAction" prefHeight="44.0" prefWidth="200.0" styleClass="btn" stylesheets="@../css/master_layout.css" text="  SERVING CATEGORIES" textAlignment="RIGHT" textFill="WHITE">
+                     <graphic>
+                        <ImageView disable="true" fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/servingCU.png" />
                            </image>
                         </ImageView>
                      </graphic>

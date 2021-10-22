@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="apNotiAlert" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="334.0" prefWidth="322.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.NotificationController">
+   <children>
+      <Pane prefHeight="334.0" prefWidth="322.0" style="-fx-background-color: #3B3F40;">
+         <effect>
+            <DropShadow color="#321c1c" height="50.03" radius="32.182500000000005" width="80.7" />
+         </effect>
+         <children>
+            <Label fx:id="lblDateTime" layoutX="25.0" layoutY="282.0" text="2021-10-15 17:23:33" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Text fx:id="txtMessage" fill="WHITE" layoutX="25.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message: Your &quot;dish name&quot; is ready to be served" textAlignment="CENTER" wrappingWidth="278.0">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Text>
+            <ImageView fx:id="ivThumbnail" fitHeight="120.0" fitWidth="134.0" layoutX="105.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/dish-5.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnOK" contentDisplay="RIGHT" layoutX="217.0" layoutY="274.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnOKAction" prefHeight="36.0" prefWidth="88.0" style="-fx-background-color: #2B2B2B; -fx-border-color: #ea7c69; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="OK " textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
+            <Pane fx:id="paneStatus" layoutX="173.0" layoutY="87.0" prefHeight="27.0" prefWidth="88.0" style="-fx-background-color: #34a853; -fx-background-radius: 50px;">
+               <children>
+                  <Label fx:id="lblStatus" layoutX="24.0" layoutY="4.0" text="Ready" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

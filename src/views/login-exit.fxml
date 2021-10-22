@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="apOption" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="349.0" prefWidth="307.0" style="-fx-background-color: #2B2B2B;" stylesheets="@../css/home-component.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CustomerOptionController">
+   <children>
+      <Pane layoutX="9.0" layoutY="10.0" prefHeight="30.0" prefWidth="289.0" style="-fx-background-color: #3B3F40;">
+         <children>
+            <Label layoutX="19.0" layoutY="6.0" text="Choose an option" textFill="#c6c4c4">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <ImageView fitHeight="90.0" fitWidth="93.0" layoutX="110.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/dish-5.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnSignIn" contentDisplay="RIGHT" layoutX="205.0" layoutY="49.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnSignInAction" prefHeight="36.0" prefWidth="88.0" style="-fx-background-color: #2B2B2B; -fx-border-color: #ea7c69; -fx-border-radius: 10px; -fx-background-radius: 10px;" styleClass="btnOption" stylesheets="@../css/home-component.css" text="Sign In" textFill="WHITE">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Button>
+      <Label fx:id="lblSignIn" layoutX="14.0" layoutY="59.0" textFill="#c6c4c4">
+         <font>
+            <Font name="System Italic" size="10.0" />
+         </font>
+      </Label>
+      <Button contentDisplay="RIGHT" layoutX="24.0" layoutY="286.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnExitAppAction" prefHeight="36.0" prefWidth="113.0" style="-fx-background-color: #2B2B2B; -fx-border-color: #ea7c69; -fx-border-radius: 10px; -fx-background-radius: 10px;" styleClass="btnOption" stylesheets="@../css/home-component.css" text="Exit Application" textFill="WHITE">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnCancel" contentDisplay="RIGHT" layoutX="196.0" layoutY="286.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="36.0" prefWidth="88.0" style="-fx-background-color: #2B2B2B; -fx-border-color: #ea7c69; -fx-border-radius: 10px; -fx-background-radius: 10px;" styleClass="btnOption" stylesheets="@../css/home-component.css" text="Cancel" textFill="WHITE">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnDashboard" contentDisplay="RIGHT" layoutX="110.0" layoutY="205.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnDashboardAction" prefHeight="36.0" prefWidth="88.0" style="-fx-background-color: #2B2B2B; -fx-border-color: #ea7c69; -fx-border-radius: 10px; -fx-background-radius: 10px;" styleClass="btnOption" stylesheets="@../css/home-component.css" text="Dashboard" textFill="WHITE">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Button>
+      <Label fx:id="lblUserName" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="157.0" prefHeight="19.0" prefWidth="309.0" text="User Name" textAlignment="CENTER" textFill="#c6c4c4">
+         <font>
+            <Font name="System Italic" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblRole" alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="175.0" prefHeight="15.0" prefWidth="307.0" text="Role" textAlignment="CENTER" textFill="#c6c4c4">
+         <font>
+            <Font name="System Italic" size="10.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -65,7 +66,7 @@ public class PermissionController implements Initializable {
   			}
   			
   			String[] selects = {"*"};
-  			ResultSet list = this.permissionModel.getData(selects, null, null);
+  			ResultSet list = this.permissionModel.getData(selects, null, null, null, null, null);
   			int x = 0;
   			int y = 0;
   			int count = 0;
@@ -75,20 +76,21 @@ public class PermissionController implements Initializable {
   				for (PermissionModel permissionModel : perDatas) {
   					if(permissionName.equals(permissionModel.getName())){
   						checkBox.setSelected(true);
-  						checkBox.getStyleClass().add("box");
+  						checkBox.getStyleClass().add("box"); 
   					}
   				}
+  				
   				permissionPane.add(checkBox, x, y);
   				count++;
   				if(count%2 == 0) {
   					y++;
+  				}else {
   				}
   				x++;
   				if(x>1) {
   					x = 0;
   				}
-  				
-  				
+  				GridPane.setMargin(checkBox, new Insets(0,0,18,0));
   			}
   			
   		} catch (Exception e) {
@@ -147,7 +149,7 @@ public class PermissionController implements Initializable {
   		        	ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
   		        	conditions.add(CompareOperator.getInstance("name", "=", cb.getText()));
   		        	String[] selects = {"*"};
-  					ResultSet permissions = this.permissionModel.getData(selects, conditions, null);
+  					ResultSet permissions = this.permissionModel.getData(selects, conditions, null, null, null, null);
   					while(permissions.next()) {
   						ArrayList<DataMapping> data = new ArrayList<DataMapping>();
   						data.add(DataMapping.getInstance("role_id", String.valueOf(this.roleId)));

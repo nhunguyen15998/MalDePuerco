@@ -85,7 +85,7 @@ public class SettingController implements Initializable {
 			String[] selects = {"id","seats", "name"};
 			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
 			conditions.add(CompareOperator.getInstance("code", "=", cbbCode.getValue().toString()));
-			ResultSet results = tableModel.getData(selects, conditions, null);
+			ResultSet results = tableModel.getData(selects, conditions, null, null, null, null);
 			if(results.next()) {
 				lblTableInfo.setText("Table name: "+results.getString("name")+"\nSeats: "+ results.getInt("seats"));
 				tableId=results.getInt("id");
@@ -97,27 +97,24 @@ public class SettingController implements Initializable {
 		}
 	}
 	//load table code
-		public ResultSet getTableCodeList() {
-			try {
-				ObservableList<DataMapping> codeOptions = FXCollections.observableArrayList();//string ->dm nhu
-				String[] selects = {"id, code"};
-				ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
-				conditions.add(CompareOperator.getInstance("is_set", "=", String.valueOf(TableModel.NO)));
-				ResultSet code = tableModel.getData(selects, conditions, null);
-				while(code.next()) {
-					//codeOptions.add(code.getString("code"));
-					//nhu
-					codeOptions.add(DataMapping.getInstance(code.getString("id"), code.getString("code")));
-					//-----
-				}
-				cbbCode.setItems(codeOptions);
-				return code;
-			} catch (Exception e) {
-				e.printStackTrace();
-				return null;
+	public ResultSet getTableCodeList() {
+		try {
+			ObservableList<DataMapping> codeOptions = FXCollections.observableArrayList();//string ->dm nhu
+			String[] selects = {"id, code"};
+			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
+			conditions.add(CompareOperator.getInstance("is_set", "=", String.valueOf(TableModel.NO)));
+			ResultSet code = tableModel.getData(selects, conditions, null, null, null, null);
+			while(code.next()) {
+				codeOptions.add(DataMapping.getInstance(code.getString("id"), code.getString("code")));
 			}
-			
+			cbbCode.setItems(codeOptions);
+			return code;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
+		
+	}
 	@FXML
 	public void btnClearAction(ActionEvent event) {
 		SettingController.tablet_code="";
@@ -151,7 +148,7 @@ public class SettingController implements Initializable {
 			tableModel.updateTableById(SettingController.tableId, code);
 			updateData();
 		} 
-	
+		
 		if(!tfBook.getText().isEmpty()) {
 			if(validated(tfBook.getText(), "lblBookError")) {
 			SettingController.timeBook = Integer.parseInt((preference.get("timeB", tfBook.getText())));
@@ -174,11 +171,10 @@ public class SettingController implements Initializable {
 		}
 		if(validated(tfBook.getText(), "lblBookError")&&validated(tfCancel.getText(), "lblCancelError")) {
 		Helpers.status("success");
-		}
-		
-		
-		
+		}	
 	}
+	
+	
 	private boolean validated(String time, String lbl) {
 		try{
 			ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
@@ -209,9 +205,7 @@ public class SettingController implements Initializable {
 	}
 
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-		
+	public void initialize(URL arg0, ResourceBundle arg1) {	
 		preference = Preferences.userNodeForPackage(SettingController.class);
 		
 		SettingController.tablet_code =(preference.get("tabletCode", ""));
@@ -221,6 +215,7 @@ public class SettingController implements Initializable {
 		cbbCode.setValue(DataMapping.getInstance(SettingController.tableId, SettingController.tablet_code));
 		
 		updateData();
+		
 		SettingController.timeBook= preference.getInt("timeBook",2);
 		SettingController.timeCancel = preference.getInt("timeCancel", 2);
 		cbbCode.setValue(DataMapping.getInstance(SettingController.tableId, SettingController.tablet_code));
@@ -266,7 +261,6 @@ public class SettingController implements Initializable {
 		cbbCode.setDisable(false);
 		lblTableInfo.setText("");
 		cbbCode.setValue(DataMapping.getInstance(SettingController.tableId, SettingController.tablet_code));
-		//cbbCode.setValue("");
 		this.getTableInfo();
 	}
 	

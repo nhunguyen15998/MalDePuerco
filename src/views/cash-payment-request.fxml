@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="272.0" prefWidth="358.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
+   <children>
+      <Pane prefHeight="55.0" prefWidth="358.0" style="-fx-background-color: #3B3F40;">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" text="Sending cash payment request" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <ImageView fitHeight="81.0" fitWidth="76.0" layoutX="141.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/loading.gif" />
+         </image>
+      </ImageView>
+      <Text layoutX="32.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your request will be responded in a few seconds" textAlignment="CENTER" wrappingWidth="294.4052734375">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Text>
+      <Button fx:id="btnCancel" contentDisplay="RIGHT" layoutX="257.0" layoutY="222.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="87.0" style="-fx-background-color: #2B2B2B; -fx-border-color: #ea7c69; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Cancel" textFill="WHITE">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+   </children>
+   <effect>
+      <DropShadow color="#2f2a2adb" height="53.27" radius="30.57" spread="0.56" width="71.01" />
+   </effect>
+</AnchorPane>

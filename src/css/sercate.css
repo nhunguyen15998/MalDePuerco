@@ -1,0 +1,53 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.anchorPane {
+	-fx-background-color : white;
+}
+
+.table-view .column-header{
+    -fx-background-color: #ba1841;
+   
+}
+.table-view .column-header .label {
+    -fx-text-fill: white;
+}
+.table-view *.scroll-bar:horizontal *.increment-button,
+.table-view *.scroll-bar:horizontal *.decrement-button {
+  -fx-background-color: null;
+  -fx-background-radius: 0;
+  -fx-background-insets: 0;
+  -fx-padding: 0;
+}
+
+.btnUpdate {
+	-fx-background-color :  #62A38D;
+	-fx-border-radius : 50px;
+	-fx-background-radius : 50px;
+}
+.btnCreate {
+	-fx-background-color :  #2B79D3;
+	-fx-border-radius : 50px;
+	-fx-background-radius : 50px;
+}
+.btnDelete {
+	-fx-background-color : #FB6E67;
+	-fx-border-radius : 50px;
+	-fx-background-radius : 50px;
+}
+.image {
+	-fx-background-color :  linear-gradient(to right, #D586F9, #BA6BF8, #A056F7);
+	-fx-background-radius : 5;
+}
+.text {
+	-fx-background-color :  #fcf7f9;
+	-fx-border-color : linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1)linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1);
+	-fx-border-width : 0 0 1.5 0;
+	-fx-background-radius : 5;
+	-fx-border-radius : 5;
+}
+.btnClear {
+	-fx-background-color :  #9C5978;
+	-fx-background-radius : 50px
+}

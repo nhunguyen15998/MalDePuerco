@@ -78,8 +78,7 @@ public class TableCUController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    		
+        // TODO    		
 		ObservableList<DataMapping> status = FXCollections.observableArrayList(TableModel.isEmpty, TableModel.isServing,  TableModel.isWaiting,TableModel.isPlaced);
 		cbStatus.setItems(status);
 		cbStatus.setValue(TableModel.isEmpty);
@@ -97,7 +96,7 @@ public class TableCUController implements Initializable {
   				if(currentTable.next()) {
   					tfCode.setText(currentTable.getString("code"));
   					tfName.setText(currentTable.getString("name"));
-  					tfSeats.setText(currentTable.getInt("seats")+"");
+  					tfSeats.setText(currentTable.getInt("seats")+""); 
   					
   					
   					

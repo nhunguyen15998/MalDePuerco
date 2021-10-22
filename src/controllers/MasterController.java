@@ -28,6 +28,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
@@ -36,6 +37,7 @@ import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import models.AuthenticationModel;
 import models.PermissionModel;
+import models.TableModel;
 import models.UserModel;
 
 /**
@@ -46,7 +48,11 @@ import models.UserModel;
 public class MasterController implements Initializable {
 	private UserModel userModel = new UserModel();
 	private PermissionModel permissionModel = new PermissionModel();
-	
+	private CustomerHomeController customerHomeController = new CustomerHomeController();
+	private CustomerOptionController customerOptionController = new CustomerOptionController();
+
+	@FXML
+	public AnchorPane anchorPane;
     @FXML
     private Label lblCurrentUser;
     @FXML
@@ -54,9 +60,11 @@ public class MasterController implements Initializable {
     @FXML
     private Button btnInvoices;
     @FXML
-    private Button btnClose= new Button("");
+    private Button btnClose;
     @FXML
-    private Button btnMenu;
+    private Button btnServings;
+    @FXML
+    private Button btnOrderServer;
     @FXML
     private Button btnTables;
     @FXML
@@ -72,7 +80,7 @@ public class MasterController implements Initializable {
     @FXML
     private Button btnRole;
     @FXML
-    private Pane masterHolder;
+    public Pane masterHolder;
     @FXML
     private Button btnSignOut;
     @FXML
@@ -80,10 +88,9 @@ public class MasterController implements Initializable {
     @FXML
     private Button btnUser;
     @FXML
-    private Button btnOrder;
-
+    private Button btnOrderChef;
 	@FXML
-	private AnchorPane settingHolder;
+	public AnchorPane settingHolder;
     @FXML
     private Button btnSetting;
 	
@@ -126,7 +133,12 @@ public class MasterController implements Initializable {
 			btnRole.setManaged(true);
 		
 		}
-		
+		btnOrderChef.setText("  ORDERS PROCESS");
+		btnOrderServer.setText("  ORDERS CONFIRM");
+		if(AuthenticationModel.roleName.equals("Chef")||AuthenticationModel.roleName.equals("Server")) {
+			btnOrderChef.setText("  ORDERS");
+			btnOrderServer.setText("  ORDERS");
+		}
 		//user
 		btnUser.setVisible(false);
 		btnUser.setManaged(false);
@@ -170,9 +182,47 @@ public class MasterController implements Initializable {
 		btnInvoices.setVisible(false);
 		btnInvoices.setManaged(false);
 		
-		if(AuthenticationModel.hasPermission("VIEW_INVOICE") || AuthenticationModel.roleName.equals("Super Admin")) {
+		if(AuthenticationModel.hasPermission("VIEW_INVOICES") || AuthenticationModel.roleName.equals("Super Admin")) {
 			btnInvoices.setVisible(true);
 			btnInvoices.setManaged(true);
+		}
+		//serving
+		btnServings.setVisible(false);
+		btnServings.setManaged(false);
+		
+		if(AuthenticationModel.hasPermission("VIEW_SERVINGS") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnServings.setVisible(true);
+			btnServings.setManaged(true);
+		}
+		//sercate
+		btnServingCate.setVisible(false);
+		btnServingCate.setManaged(false);
+		
+		if(AuthenticationModel.hasPermission("VIEW_SERCATES") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnServingCate.setVisible(true);
+			btnServingCate.setManaged(true);
+		}
+		//attribute
+		btnAttributes.setVisible(false);
+		btnAttributes.setManaged(false);
+		
+		if(AuthenticationModel.hasPermission("VIEW_ATTRIBUTES") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnAttributes.setVisible(true);
+			btnAttributes.setManaged(true);
+		}
+		btnOrderChef.setVisible(false);
+		btnOrderChef.setManaged(false);
+		
+		if(AuthenticationModel.hasPermission("VIEW_ORDER_CHEF") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnOrderChef.setVisible(true);
+			btnOrderChef.setManaged(true);
+		}
+		btnOrderServer.setVisible(false);
+		btnOrderServer.setManaged(false);
+		
+		if(AuthenticationModel.hasPermission("VIEW_ORDER_SERVER") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnOrderServer.setVisible(true);
+			btnOrderServer.setManaged(true);
 		}
 		//setting tablet
 		btnSetting.setVisible(false);
@@ -207,19 +257,25 @@ public class MasterController implements Initializable {
 	
     @FXML
     private void logoutAction() {
-    	 FXMLLoader loader = new FXMLLoader(MasterController.this.getClass().getResource("/views/sign_in.fxml"));
-         try{
-             AnchorPane managerPane = loader.load();
-           
-             Stage substage=new Stage();
-             substage.initModality(Modality.WINDOW_MODAL);
-             substage.initStyle(StageStyle.UNDECORATED);
-             substage.setScene(new Scene(managerPane));
-             substage.show();  
-             btnSignOut.getScene().getWindow().hide();
-         }catch(IOException ex){
-             ex.printStackTrace();
-         }
+        FXMLLoader loader = new FXMLLoader(MasterController.this.getClass().getResource("/views/home.fxml"));
+                                  try{
+                                      FlowPane managerPane = loader.load();
+                          			  Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+                                      Stage substage = new Stage();
+                                      substage.initModality(Modality.WINDOW_MODAL);
+                                      substage.initStyle(StageStyle.UNDECORATED);
+                                      substage.setScene(new Scene(managerPane, 1000.1, 600));
+                                      substage.setX((screenBounds.getWidth() - 1000)/2);
+                                      substage.setY((screenBounds.getHeight() - 600)/2);
+                                      substage.show();  
+                                      btnSignOut.getScene().getWindow().hide();
+                                      AuthenticationModel.id = 0;
+                                      AuthenticationModel.name = null;
+                                      AuthenticationModel.roleName = null;
+                                  }catch(IOException ex){
+                                      ex.printStackTrace();
+                                  }
+
     }
  
     
@@ -242,12 +298,30 @@ public class MasterController implements Initializable {
     }
 
     @FXML
-    private void menuAction() {
+    private void orderServerAction() {
       setBtn();
-      btnMenu.getStyleClass().add("btnFocused");
+      btnOrderServer.getStyleClass().add("btnFocused");
       setBtnBar();
+      redirect("orderWaiter.fxml");      
 
     }
+    @FXML
+    private void orderChefAction() {
+      setBtn();
+      btnOrderChef.getStyleClass().add("btnFocused");
+      setBtnBar();
+      redirect("orderChef.fxml");      
+
+    }
+    @FXML
+    private void servingAction() {
+      setBtn();
+      btnServings.getStyleClass().add("btnFocused");
+      setBtnBar();
+      redirect("servings.fxml");      
+
+    }
+  
 
     @FXML
     private void userAction() {
@@ -264,14 +338,6 @@ public class MasterController implements Initializable {
         setBtnBar();
     	btnRole.getStyleClass().add("btnBarFocused");
     	setBtn();
-    }
-
-    @FXML
-    private void orderAction() {
-    		setBtn();
-          btnOrder.getStyleClass().add("btnFocused");
-          setBtnBar();
-
     }
 
     @FXML
@@ -297,7 +363,7 @@ public class MasterController implements Initializable {
     	setBtn();
          btnServingCate.getStyleClass().add("btnFocused");
          setBtnBar();
-
+         redirect("sercate.fxml");
     }
 
     @FXML
@@ -305,7 +371,7 @@ public class MasterController implements Initializable {
     	setBtn();
          btnAttributes.getStyleClass().add("btnFocused");
          setBtnBar();
-
+         redirect("attributes.fxml");
     }
 
     @FXML
@@ -322,17 +388,12 @@ public class MasterController implements Initializable {
     	setBtn();
     	try {
 			//draw
-			Rectangle2D screenBounds = Screen.getPrimary().getBounds();
 			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/setting.fxml"));
 			settingHolder = root.load();
-			
 			//controller
 			SettingController controller = root.<SettingController>getController();
-			
 			Scene scene = new Scene(settingHolder, 546, 512);
 			Stage createStage = new Stage();
-			createStage.setX(screenBounds.getWidth() - 1000);
-			createStage.setY(screenBounds.getHeight() - 750);
 			createStage.initStyle(StageStyle.UNDECORATED);
 			createStage.setScene(scene);
 			createStage.show();			
@@ -354,7 +415,23 @@ public class MasterController implements Initializable {
     private void redirect(String value){
         AnchorPane anchor;
 		try {
-			anchor = FXMLLoader.load(getClass().getResource("/views/"+value));
+			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/"+value));
+			anchor = root.load();
+			masterHolder.getChildren().setAll(anchor);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    private void redirectOrderManagement(String value){
+        AnchorPane anchor;
+		try {
+			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/"+value));
+			anchor = root.load();
+			
+			OrderWaiterController controller = root.getController();
+			controller.parseMaster(this);//here
+			
 			masterHolder.getChildren().setAll(anchor);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -369,17 +446,41 @@ public class MasterController implements Initializable {
     private void setBtn() {
     	 btnInvoices.getStyleClass().remove("btnFocused");
          btnUser.getStyleClass().remove("btnFocused");
-         btnMenu.getStyleClass().remove("btnFocused");
+         btnOrderChef.getStyleClass().remove("btnFocused");
          btnServingCate.getStyleClass().remove("btnFocused");
          btnAttributes.getStyleClass().remove("btnFocused");
-         btnOrder.getStyleClass().remove("btnFocused");
+         btnOrderServer.getStyleClass().remove("btnFocused");
+         btnServings.getStyleClass().remove("btnFocused");
          btnReservation.getStyleClass().remove("btnFocused");
          btnTables.getStyleClass().remove("btnFocused");
          btnDiscount.getStyleClass().remove("btnFocused");
          btnDashBoard.getStyleClass().remove("btnFocused");
     }
     
+    //loadController
+    public CustomerHomeController itemCustomer(CustomerHomeController customerHomeController) {
+    	this.customerHomeController = customerHomeController;
+    	return this.customerHomeController;
+    }
     
+    public CustomerOptionController itemOption(CustomerOptionController customerOptionController) {
+    	this.customerOptionController = customerOptionController;
+    	return this.customerOptionController;
+    }
+    
+    //btnHomeAction
+    public void btnHomeAction() {
+    	Preferences preferences = Preferences.userNodeForPackage(getClass());
+		TableModel.tableId = preferences.getInt("tabletId", SettingController.tableId);
+    	System.out.println("MC table id "+TableModel.tableId);
+    	this.customerHomeController.customerMasterHolder.setDisable(false);
+    	Stage stageHome = (Stage) customerHomeController.customerMasterHolder.getScene().getWindow();
+    	stageHome.show();
+    	customerHomeController.loadOrderByTable();
+    	Stage stageManager = (Stage) anchorPane.getScene().getWindow();
+    	stageManager.close();
+    	this.customerHomeController.loadMaster(this);
+    }
     
     
     

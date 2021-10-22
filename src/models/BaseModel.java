@@ -22,8 +22,8 @@ public class BaseModel {
 	}
 	
 	//get data
-	public ResultSet getData(String[] selects, ArrayList<CompareOperator> conditions, ArrayList<JoinCondition> joins) {
-		return db.getData(selects, conditions, joins);
+	public ResultSet getData(String[] selects, ArrayList<CompareOperator> conditions, ArrayList<JoinCondition> joins, String[] groupBys, String orderBys, String limit) {
+		return db.getData(selects, conditions, joins, groupBys, orderBys, limit);
 	}
 	
 	//edit
