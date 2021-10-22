@@ -93,11 +93,15 @@ public class UserModel extends BaseModel {
 	public ResultSet loginSupport(String phone) {
 		try {
 			
-			String[] selects = {"id", "name"};
+			String[] selects = {"users.id", "users.name", "roles.code"};
 			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
-			conditions.add(CompareOperator.getInstance("phone", "=", phone));
-			conditions.add(CompareOperator.getInstance("status", "=", String.valueOf(USER_ACTIVATED)));
-			ResultSet results = this.getData(selects, conditions, null, null, null, null);
+			conditions.add(CompareOperator.getInstance("users.phone", "=", phone));
+			conditions.add(CompareOperator.getInstance("users.status", "=", String.valueOf(USER_ACTIVATED)));
+			ArrayList<CompareOperator> joinRole = new ArrayList<CompareOperator>();
+			joinRole.add(CompareOperator.getInstance("users.role_id", " = ", "roles.id"));
+			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
+			joins.add(JoinCondition.getInstance(" join ", " roles ", joinRole));
+			ResultSet results = this.getData(selects, conditions, joins, null, null, null);
 			return results;
 		} catch (Exception eLogin) {
 			eLogin.printStackTrace();

@@ -5,17 +5,12 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
-
 import javafx.application.Platform;
-
+import controllers.MasterController;
 import controllers.NotificationController;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
@@ -32,9 +27,9 @@ public class HandleNotifications {
 	
 	public static HandleNotifications inst = null;
 	
-	public static String currentRole = "CUSTOMER";
-	public static String currentTable  = "1";
-	public static String currentUser = "0123";
+	public static String currentRole = "";
+	public static String currentTable  = "";
+	public static int currentUser = 0;
 	
 	//customer
 	public static final String CUSTOMER_ORDER_CONFIRMED = "CUSTOMER_ORDER_CONFIRMED";
@@ -63,7 +58,6 @@ public class HandleNotifications {
 	//serving - served
 	public static final String CHEF_DISH_SERVING = "SERVER_DISH_SERVING";
 	public static final String CHEF_DISH_SERVED = "CHEF_DISH_SERVED";
-
 	
 	public static HandleNotifications getInstance() {
 		if(HandleNotifications.inst == null) {
@@ -76,6 +70,7 @@ public class HandleNotifications {
 		Socket sc;
 		try {
 			sc = new Socket(ip, serverPort);
+			System.out.println("Connected to server....");
 			dis = new DataInputStream(sc.getInputStream());
 			dos = new DataOutputStream(sc.getOutputStream());
 		} catch (UnknownHostException e) {
@@ -97,9 +92,8 @@ public class HandleNotifications {
 	}
 	
 	public void handleReceivedMessage() throws UnknownHostException, IOException{
-		
+		System.out.println("mmmmmm");
 		Thread readMessage = new Thread(new Runnable() {
-			
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
@@ -107,8 +101,8 @@ public class HandleNotifications {
 					try {
 						String msg = dis.readUTF();
 						System.out.println(msg);
-						// process message
-						// role#type#table#message#logged
+//						 process message
+//						 role#type#table#message#logged
 						String[] msgContents = msg.split("#");
 						if(msgContents.length == 5 ) {
 							String role = msgContents[0];
@@ -118,24 +112,31 @@ public class HandleNotifications {
 							String logged = msgContents[4];
 							System.out.println(role+" "+type+" "+table+" "+message+" "+logged);
 							FXMLLoader root = new FXMLLoader(getClass().getResource("/views/notification-alert.fxml"));
+							System.out.println("role:"+currentRole+" "+currentTable+" "+currentUser);
 							// load data customer
 							if(currentRole.equals("CUSTOMER") && role.equals("CUSTOMER")){
 								if(table.equals(currentTable)) {
 									switch(type) {
-										case HandleNotifications.CUSTOMER_ORDER_CONFIRMED:
-											handleMessage(root, role, type, table, message, logged);
-											break;
+//										case HandleNotifications.CUSTOMER_ORDER_CONFIRMED:
+//											handleMessage(root, role, type, table, message, logged);
+//											break;
 										case HandleNotifications.CUSTOMER_DISH_COOKING:
 										case HandleNotifications.CUSTOMER_DISH_READY:
 										case HandleNotifications.CUSTOMER_DISH_SERVING:
 										case HandleNotifications.CUSTOMER_DISH_SERVED:
 										case HandleNotifications.CUSTOMER_DISH_CANCELED:
-											//load list order
-											//handleMessage(root, role, type, table, message, logged);
+											//controller
+											if(MasterController.customerHomeController != null) {
+												Platform.runLater(() -> {
+													MasterController.customerHomeController.loadLatestUnpaidOrder();
+
+												});
+											}
 											break;
 										case HandleNotifications.CUSTOMER_CASH_PAYMENT_SUCESS:
 											handleMessage(root, role, type, table, message, logged);
 											// load lai man create order
+											
 											break;
 									}
 								}
@@ -143,22 +144,57 @@ public class HandleNotifications {
 		
 							// load data server
 							if(currentRole.equals("SERVER") && role.equals("SERVER")){
-								if(currentUser.equals(logged)) {
-									
+								if(currentUser == Integer.parseInt(logged)) {
+									switch(type) {
+									case HandleNotifications.SERVER_NEW_ORDER://done
+										handleMessage(root, role, type, table, message, logged);
+										//controller
+										if(MasterController.orderWaiterController != null) {
+											MasterController.orderWaiterController.loadData(null);
+										}
+										break;
+									case HandleNotifications.SERVER_DISH_COOKING:
+									case HandleNotifications.SERVER_DISH_READY:
+									case HandleNotifications.SERVER_DISH_CANCELED:
+										
+										
+										break;
+									case HandleNotifications.SERVER_CASH_PAYMENT_REQUEST:
+									case HandleNotifications.SERVER_ONLINE_PAYMENT_SUCCESS:
+						
+									case HandleNotifications.SERVER_HELP_REQUEST:
+										handleMessage(root, role, type, table, message, logged);
+										// load lai man create order
+										break;
+									}								
 								}
 							}
 							
 							// load data chef
 							if(currentRole.equals("CHEF") && role.equals("CHEF")){
-								if(currentUser.equals(logged)) {
-									
-								}
+								//if(currentUser == Integer.parseInt(logged)) {
+									switch(type) {
+										case HandleNotifications.CHEF_NEW_DISH:
+											if(MasterController.orderChefController != null) {
+												Platform.runLater(() -> {
+													MasterController.orderChefController.loadData("");
+												});												
+											}
+											break;
+										case HandleNotifications.CHEF_DISH_SERVING:
+										case HandleNotifications.CHEF_DISH_SERVED:
+											handleMessage(root, role, type, table, message, logged);
+											// load lai man create order
+										break;
+									}	
+								//}
 							}
 						}
 						
 						
 					} catch (IOException ie) {
 						System.out.println("qwerty");
+						break;
 						// TODO: handle exception
 					}
 				}

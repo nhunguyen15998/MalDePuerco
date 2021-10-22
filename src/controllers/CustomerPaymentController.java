@@ -365,12 +365,12 @@ public class CustomerPaymentController implements Initializable {
 					}
 				}
 			}
-			if(this.paymentConfirmed = true) { //noti server 
+			if(this.paymentConfirmed == true) { //noti server 
 				//clear + update order total, deposit, tip discount
 				boolean updated = updateOrderPrice();
 				if(!updated) {
 					path = "payment-failure.fxml";
-					this.loadView(path, 690, 361);
+					this.loadView(path, 358, 272);
 				}
 				this.createInvoice();
 				close();//close payment view
@@ -382,7 +382,7 @@ public class CustomerPaymentController implements Initializable {
 				controller.loadOrder(this);
 			} else {
 				path = "payment-failure.fxml";
-				this.loadView(path, 690, 361);
+				this.loadView(path, 358, 272);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

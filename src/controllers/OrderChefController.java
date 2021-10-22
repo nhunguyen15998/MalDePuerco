@@ -62,7 +62,7 @@ public class OrderChefController implements Initializable {
     private Pane pane=new Pane();
 
     @FXML
-    private VBox vbox;
+    private VBox vbox = new VBox();
 
     @FXML
     private GridPane grid=new GridPane();
@@ -72,7 +72,7 @@ public class OrderChefController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		
+		MasterController.orderChefController = this;
 	}
 	
 	public static ResultSet getDataOrderDetails(String condition) throws SQLException {
@@ -199,7 +199,7 @@ public class OrderChefController implements Initializable {
   			
   			OrderWaiterController controller = root.getController();
 			controller.parseMaster(this.masterController);
-			this.masterController.masterHolder.getChildren().setAll(server);			
+//			this.masterController.masterHolder.getChildren().setAll(server);			
   		} catch (Exception e) {
   			e.printStackTrace();
   		}

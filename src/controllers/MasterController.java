@@ -36,9 +36,11 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import models.AuthenticationModel;
+import models.OrderDetailModel;
 import models.PermissionModel;
 import models.TableModel;
 import models.UserModel;
+import utils.HandleNotifications;
 
 /**
  * FXML Controller class
@@ -48,8 +50,11 @@ import models.UserModel;
 public class MasterController implements Initializable {
 	private UserModel userModel = new UserModel();
 	private PermissionModel permissionModel = new PermissionModel();
-	private CustomerHomeController customerHomeController = new CustomerHomeController();
+	public static CustomerHomeController customerHomeController;
 	private CustomerOptionController customerOptionController = new CustomerOptionController();
+	private TableModel tableModel = new TableModel();
+	public static OrderWaiterController orderWaiterController;
+	public static OrderChefController orderChefController;
 
 	@FXML
 	public AnchorPane anchorPane;
@@ -98,11 +103,23 @@ public class MasterController implements Initializable {
     @FXML
     private Button btnSetting;
 	
+    private String tableName;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    	System.out.println("master id: "+AuthenticationModel.id);
+    	Preferences preferences = Preferences.userNodeForPackage(getClass());
+		TableModel.tableId = preferences.getInt("tabletId", SettingController.tableId);
+		getTableName(TableModel.tableId);
+		System.out.println("master table id "+TableModel.tableId);
+    	// connect to socket
+		HandleNotifications.currentRole = AuthenticationModel.roleCode == null? "CUSTOMER": AuthenticationModel.roleCode;
+		HandleNotifications.currentTable = String.valueOf(TableModel.tableId);
+		HandleNotifications.currentUser = AuthenticationModel.id;
+
+    	
         // TODO
         btnDashBoardAction();
         try {
@@ -504,6 +521,18 @@ public class MasterController implements Initializable {
     	this.customerHomeController.loadMaster(this);
     }
     
-    
+    //get table name
+  	public String getTableName(int id) {
+  		try {
+  			ResultSet name = this.tableModel.getTableById(id);
+  			while(name.next()) {
+  				this.tableName = name.getString("name");
+  			}
+  			return this.tableName;
+  		} catch (Exception e) {
+  			e.printStackTrace();
+  			return null;
+  		}
+  	}
     
 }

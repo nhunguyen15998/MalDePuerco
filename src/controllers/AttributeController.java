@@ -1,18 +1,10 @@
 package controllers;
 
-import java.awt.Component;
-import models.AuthenticationModel;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseListener;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-import javax.swing.SwingUtilities;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,6 +25,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import models.AttributeModel;
+import models.AuthenticationModel;
 import utils.DataMapping;
 import utils.Helpers;
 import utils.ValidationDataMapping;

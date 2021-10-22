@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 
 import db.MySQLJDBC;
 import utils.DataMapping;
+import utils.HandleNotifications;
 import utils.Helpers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,12 +24,14 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import models.OrderDetailModel;
+import models.OrderModel;
 import models.UserModel;
 
 public class ChefOptionSController implements Initializable{
 	@FXML private ComboBox<DataMapping> cbStatus;
 	private UserModel userModel = new UserModel();
 	private OrderDetailModel odModel = new OrderDetailModel();
+	private OrderModel orderModel = new OrderModel();
 	
 	private int orderID;
 	private String userCode;
@@ -59,6 +62,14 @@ public class ChefOptionSController implements Initializable{
 			if(opti1.get() == ButtonType.OK) {
 				odModel.updateOrderDetail(orderID, option1);
 				Helpers.status("success");
+				ResultSet orderDetail = odModel.getById(orderID);
+				orderDetail.next();
+				ResultSet order = orderModel.getOrderById(orderDetail.getInt("order_id"));
+				order.next();
+				
+				HandleNotifications.getInstance().sendMessage("SERVER#SERVER_DISH_COOKING#"+order.getInt("table_id")+"#This item(s) is being cooked!#"+order.getInt("user_id"));
+				HandleNotifications.getInstance().sendMessage("CUSTOMER#CUSTOMER_DISH_COOKING#"+order.getInt("table_id")+"#This item(s) is being cooked!#"+order.getInt("user_id"));
+				System.out.println("SERVER#SERVER_DISH_COOKING#"+order.getInt("table_id")+"#This item(s) is being cooked!#"+order.getInt("user_id"));
 			}
 			odControl.loadData(null);
 			this.close();

@@ -23,12 +23,13 @@ import models.OrderModel;
 import models.OrderWaiterModel;
 import utils.CompareOperator;
 import utils.DataMapping;
+import utils.HandleNotifications;
 import utils.Helpers;
 
 public class WaiterOptionController implements Initializable {
 	@FXML ComboBox<DataMapping> cbStatus;
 	private OrderWaiterModel oModel = new OrderWaiterModel();
-	
+	private OrderModel orderModel = new OrderModel();
 	private int orderID;
 	private String orderName;
 	
@@ -51,6 +52,14 @@ public class WaiterOptionController implements Initializable {
     		if(opti.get() == ButtonType.OK) {
     			oModel.updateOrder(orderID, option);
     			Helpers.status("success");
+    			//load table by order
+    			int orderTableId = 0;
+    			ResultSet tableOrder = this.orderModel.getOrderById(orderID);
+    			while(tableOrder.next()) {
+    				orderTableId = tableOrder.getInt("table_id");
+    			}
+    			HandleNotifications.getInstance().sendMessage("CHEF#CHEF_NEW_DISH#"+orderTableId+"#New item(s) requested!#"+0);
+    			System.out.println("CHEF#CHEF_NEW_DISH#"+orderTableId+"#New item(s) requested!#"+0);
     		}
     		ODController.loadData(null);
     		this.close();

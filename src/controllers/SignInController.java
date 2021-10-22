@@ -155,8 +155,12 @@ public class SignInController implements Initializable {
 					tfPassHidden.setText("");
 				}
 				
-				AuthenticationModel.id = sign.getInt("id");
-				AuthenticationModel.name = sign.getString("name");
+				AuthenticationModel.id = sign.getInt("users.id");
+				AuthenticationModel.name = sign.getString("users.name");
+				AuthenticationModel.roleCode = sign.getString("roles.code");
+				System.out.println("id:" + AuthenticationModel.id);
+				System.out.println("name:" + AuthenticationModel.name);
+				System.out.println("code:" + AuthenticationModel.roleCode);
 				loadMaster();
 				
 			}else {

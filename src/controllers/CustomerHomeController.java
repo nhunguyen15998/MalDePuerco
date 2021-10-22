@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import models.AuthenticationModel;
 import models.OrderDetailModel;
 import models.OrderListModel;
 import models.OrderModel;
@@ -49,6 +51,7 @@ import models.ServingModel;
 import models.TableModel;
 import utils.CompareOperator;
 import utils.DataMapping;
+import utils.HandleNotifications;
 import utils.Helpers;
 
 public class CustomerHomeController implements Initializable {
@@ -78,7 +81,7 @@ public class CustomerHomeController implements Initializable {
 
 	private OrderListModel selected;
 	
-	private int userId = 3;
+	public static int serverId = 0;
 	public double totalPlace;
 	public String orderCode = "";
 	private int servingId;
@@ -172,19 +175,25 @@ public class CustomerHomeController implements Initializable {
 	//----------initialize & search-------------
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1){
+		this.vboxOrderList.getChildren().clear();
+		this.addItemToOrderList();
+		this.btnAllAction();
+		MasterController.customerHomeController = this;
+		loadOrderByTable();
 		// connect to socket
-//		try {
-//			HandleNotifications.getInstance().handleReceivedMessage();
-//			//this.customerMasterHolder.setVisible(false);
-//		} catch (IOException e1) {
-//			e1.printStackTrace();
-//		}
+		try {
+			HandleNotifications.currentRole = AuthenticationModel.roleCode == null? "CUSTOMER": AuthenticationModel.roleCode;
+			HandleNotifications.currentTable = String.valueOf(tableId);
+			HandleNotifications.currentUser = AuthenticationModel.id;
+			HandleNotifications.getInstance().handleReceivedMessage();//
+			//this.customerMasterHolder.setVisible(false);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 
 		
 		try {
-			this.vboxOrderList.getChildren().clear();
-			this.addItemToOrderList();
-			this.btnAllAction();
+			
 						
 			//btns
 			
@@ -195,8 +204,8 @@ public class CustomerHomeController implements Initializable {
 				
 			});
 
-			loadOrderByTable();
-
+			//load server
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -227,6 +236,7 @@ public class CustomerHomeController implements Initializable {
 	
 	//load latest unpaid order - get updated data -> add to updated list, draw updated list -> render
 	public String loadLatestUnpaidOrder() {
+		System.out.println("vorrr r ne");
 		try {
 			ArrayList<CompareOperator> unpaidOrder =  new ArrayList<CompareOperator>();
 			unpaidOrder.add(CompareOperator.getInstance("orders.table_id", "=", String.valueOf(TableModel.tableId)));//TableModel.tableId
@@ -248,9 +258,10 @@ public class CustomerHomeController implements Initializable {
 	//get table name
 	public String getTableName(int id) {
 		try {
-			ResultSet name = this.tableModel.getTableById(id);
-			while(name.next()) {
-				lblTableName.setText(name.getString("name"));
+			ResultSet table = this.tableModel.getTableById(id);
+			while(table.next()) {
+				lblTableName.setText(table.getString("name"));
+				serverId = table.getInt("user_id");
 			}
 			return this.tableName;
 		} catch (Exception e) {
@@ -735,7 +746,7 @@ public class CustomerHomeController implements Initializable {
 	
 	//draw vbox - used in create, update, payment view
 	public void vboxLayout(OrderListModel item, OrderDetailModel detail) {
-		try {			
+		try {		
 			//new
 			ivImageView = new ImageView();
 			lblServingName = new Label();
@@ -1014,6 +1025,8 @@ public class CustomerHomeController implements Initializable {
 				this.orderCode = orderDetails.getString("orders.code");
 				this.totalPlace = orderDetails.getDouble("orders.total_amount");
 				orderId = orderDetails.getInt("orders.id");
+				System.out.println("kkk "+this.orderCode);
+
 				updatedList.add(new OrderDetailModel(
 						orderDetails.getInt("order_details.serving_id"),
 						orderDetails.getString("servings.thumbnail"),
@@ -1043,12 +1056,13 @@ public class CustomerHomeController implements Initializable {
 		try {
 			//get order detail from db
 			OrderModel.currentOrderId = this.getUpdated(updated, orderBys);
+			System.out.println("mmm "+updatedList.size());
 			if(updatedList.size() > 0) {
 				this.updateOrderListLayout();
 				vboxOrderList.getChildren().clear();
 				for(OrderDetailModel item : updatedList) {
-					this.renderVBoxPaneWithSetUpdatedContent(item);//servingname, thumbnail, quantity, total, serving note, 
-																	//sevingstatus, createdat, servingid, price
+					
+					this.renderVBoxPaneWithSetUpdatedContent(item);//servingname, thumbnail, quantity, total, serving note, 											//sevingstatus, createdat, servingid, price
 				}
 				CustomerHomeController.updatedList.clear();
 			} else {
@@ -1075,7 +1089,7 @@ public class CustomerHomeController implements Initializable {
 			ArrayList<DataMapping> orderData = new ArrayList<DataMapping>();
 			orderData.add(DataMapping.getInstance("code", "OC"+Helpers.randomString(6)));
 			orderData.add(DataMapping.getInstance("table_id", String.valueOf(TableModel.tableId)));
-			orderData.add(DataMapping.getInstance("user_id", String.valueOf(this.userId)));
+			orderData.add(DataMapping.getInstance("user_id", String.valueOf(serverId)));
 			orderData.add(DataMapping.getInstance("total_amount", String.valueOf(Math.round(this.totalPlace))));
 			OrderModel.currentOrderId = this.orderModel.createOrder(orderData);
 			this.totalPlace = 0;
@@ -1088,6 +1102,8 @@ public class CustomerHomeController implements Initializable {
 			ArrayList<CompareOperator> condition = new ArrayList<CompareOperator>();
 			condition.add(CompareOperator.getInstance("orders.id", "=", String.valueOf( OrderModel.currentOrderId)));
 			this.renderUpdatedOrderList(condition, null);
+			HandleNotifications.getInstance().sendMessage("SERVER#SERVER_NEW_ORDER#"+tableId+"#New order received!#"+serverId);
+			System.out.println("SERVER#SERVER_NEW_ORDER#"+tableId+"#New order received!#"+serverId);
 			return OrderModel.currentOrderId;
 		} catch (Exception e) {
 			e.printStackTrace();

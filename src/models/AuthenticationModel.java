@@ -6,6 +6,7 @@ public class AuthenticationModel {
 	public static int id;
 	public static String name;
 	public static String roleName;
+	public static String roleCode;
 	public static ArrayList<PermissionModel> permissions;
 	
 	public static boolean hasPermission(String permissionCode) {

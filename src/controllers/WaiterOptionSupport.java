@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import com.google.zxing.Result;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,13 +20,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import models.OrderDetailModel;
+import models.OrderModel;
 import utils.DataMapping;
+import utils.HandleNotifications;
 import utils.Helpers;
 
 public class WaiterOptionSupport {
 	@FXML ComboBox<DataMapping> cbStatus;
 	private OrderDetailModel odModel = new OrderDetailModel();
-	
 	private int orderID;
 	private String orderName;
 	

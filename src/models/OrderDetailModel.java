@@ -165,7 +165,7 @@ public class OrderDetailModel extends BaseModel {
 	
 	public ResultSet getById(int id) {
 		try {
-			String[] selects = {"order_details.id", "orders.code as code", "servings.name as serName",
+			String[] selects = {"order_details.id", "order_details.order_id", "orders.code as code", "servings.name as serName",
 					"order_details.size", "order_details.quantity", "order_details.price",
 					"order_details.total", "users.code as uCode", "order_details.user_id","time(order_details.created_at) as time", "order_details.serving_status"};
 			
