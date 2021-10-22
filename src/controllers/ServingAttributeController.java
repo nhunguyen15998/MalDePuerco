@@ -98,7 +98,7 @@ public class ServingAttributeController implements Initializable{
 			colAttribute.setCellValueFactory(new PropertyValueFactory<ServingAttributeModel, Integer>("attribute"));
 			colQuantity.setCellValueFactory(new PropertyValueFactory<ServingAttributeModel, Integer>("quantity"));
 			colPrice.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(Helpers.formatNumber(null).format(cellData.getValue().getPrice())));
-			colCreated.setCellValueFactory(new PropertyValueFactory<ServingAttributeModel, LocalDate>("createAt"));
+			colCreated.setCellValueFactory(new PropertyValueFactory<ServingAttributeModel, LocalDate>("createdAt"));
 			
 			//get data form db
 			ResultSet servingatt = this.serattModel.getSerAttList(conditions);
@@ -209,7 +209,7 @@ public class ServingAttributeController implements Initializable{
 			try {
 				String code = tfFind.getText();
 				ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
-				conditions.add(CompareOperator.getInstance("servings.name or attributes.name"," like ", "%"+ code + "%"));
+				conditions.add(CompareOperator.getInstance("servings.name"," like ", "%"+ code + "%"));
 				return conditions;
 			} catch (Exception e) {
 				e.printStackTrace();

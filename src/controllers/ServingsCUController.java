@@ -136,7 +136,7 @@ public class ServingsCUController implements Initializable{
 				data.add(new ValidationDataMapping("category", category, "lblCategoryError", "required"));
 				data.add(new ValidationDataMapping("descriptions", descriptions, "lblDesError", "required|string|min:20"));
 				data.add(new ValidationDataMapping("price", price, "lblPriceError", "required"));
-				data.add(new ValidationDataMapping("quantity", quantity, "lblQuantityError", "required|numberic"));
+				data.add(new ValidationDataMapping("quantity", quantity, "lblQuantityError", "required|min:0|numberic"));
 				data.add(new ValidationDataMapping("type", type, "lblTypeError", "required"));
 				
 				ArrayList<DataMapping> message = Validations.validated(data);
@@ -204,11 +204,11 @@ public class ServingsCUController implements Initializable{
 				
 				if(validated(name, cate, des, price, quantity, type)) {
 					ArrayList<DataMapping> servings = new ArrayList<DataMapping>();
-					servings.add(DataMapping.getInstance("nameSer", name));
-					servings.add(DataMapping.getInstance("cateName", cate));
+					servings.add(DataMapping.getInstance("name", name));
+					servings.add(DataMapping.getInstance("category_id", cate));
 					servings.add(DataMapping.getInstance("descriptions", des));
 					servings.add(DataMapping.getInstance("price", price));
-					servings.add(DataMapping.getInstance("stock_quantity", quantity));
+					servings.add(DataMapping.getInstance("quantity", quantity));
 					servings.add(DataMapping.getInstance("thumbnail", path));
 					servings.add(DataMapping.getInstance("type", type));
 					
@@ -285,25 +285,25 @@ public class ServingsCUController implements Initializable{
 						tfName.setText(currentSer.getString("name"));
 						tfDesc.setText(currentSer.getString("descriptions"));
 						tfPrice.setText(currentSer.getString("price"));
-						tfQuantity.setText(currentSer.getString("quantity"));
+						tfQuantity.setText(currentSer.getString("servings.quantity"));
 						
 						//load ccb cate, status
 						for(DataMapping cate : cbCate.getItems()) {
-							if(cate.key != null && Integer.parseInt(cate.key) == currentSer.getInt("category_id")) {
+							if(cate.key != null && Integer.parseInt(cate.key) == currentSer.getInt("cateName")) {
 								cbCate.setValue(cate);
 								break;
 							}
 						}
 						
 						for(DataMapping type : cbType.getItems()) {
-							if(type.key != null && Integer.parseInt(type.key) == currentSer.getInt("type")) {
+							if(type.key != null && Integer.parseInt(type.key) == currentSer.getInt("servings.type")) {
 								cbType.setValue(type);
 								break;
 							}
 						}
 						
 						for(DataMapping status : cbStatus.getItems()) {
-							if(status.key != null && Integer.parseInt(status.key) == currentSer.getInt("status")) {
+							if(status.key != null && Integer.parseInt(status.key) == currentSer.getInt("servings.status")) {
 								cbStatus.setValue(status);
 								break;
 							}

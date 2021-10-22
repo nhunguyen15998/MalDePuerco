@@ -1,6 +1,5 @@
 package controllers;
 
-import java.awt.TextField;
 import java.awt.geom.Rectangle2D;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -25,6 +24,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -138,11 +138,11 @@ public class ServingsController  implements Initializable {
 				Servingslist.add(new ServingModel(
 						servings.getRow(),
 						servings.getInt("id"),
-						servings.getString("nameSer"), 
+						servings.getString("name"), 
 						servings.getString("cateName"),
 						servings.getInt("type"), 
 						servings.getString("descriptions"),
-						servings.getInt("stock_quantity"),
+						servings.getInt("quantity"),
 						servings.getInt("price"),
 						servings.getDate("created_at").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy")),
 						servings.getInt("status"),
@@ -169,6 +169,7 @@ public class ServingsController  implements Initializable {
 
 	@FXML
     void btnCreateAction(ActionEvent event) {
+		System.out.println("create");
 		try {
 			this.setServingId(0);
 			this.showCreateForm();
@@ -217,7 +218,6 @@ public class ServingsController  implements Initializable {
 	
 //		//show create form
 		public void showCreateForm() {
-			System.out.println("create form");
 			try {
 				
 				FXMLLoader root = new FXMLLoader(getClass().getResource("/views/servingsCU.fxml"));

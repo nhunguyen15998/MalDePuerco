@@ -222,7 +222,7 @@ public class OrderWaiterController implements Initializable {
 	 @FXML
 	    void btnOrderDetail(ActionEvent event) {
 			 try {
-					if(this.orderId != 0 && this.status != 3) {
+					if(this.orderId != 0) {
 						if(OrderDetailModel.isShown != true) {
 							OrderDetailModel.isShown = true;
 							this.showODForm();

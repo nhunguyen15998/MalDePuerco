@@ -33,22 +33,22 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <Button id="0" fx:id="btnPen" alignment="CENTER" layoutX="13.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#tabPending" prefHeight="30.0" prefWidth="82.0" styleClass="All" stylesheets="@../css/orderChef.css" text="Pending" textFill="WHITE" visible="false">
+            <Button id="0" fx:id="btnPen" alignment="CENTER" layoutX="13.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#tabPending" prefHeight="30.0" prefWidth="82.0" styleClass="All" stylesheets="@../css/orderChef.css" text="Pending" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button id="1" fx:id="btnCook" alignment="CENTER" layoutX="14.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#tabCooking" prefHeight="30.0" prefWidth="82.0" styleClass="Doing" stylesheets="@../css/orderChef.css" text="Cooking" textFill="WHITE">
+            <Button id="1" fx:id="btnCook" alignment="CENTER" layoutX="105.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#tabCooking" prefHeight="30.0" prefWidth="82.0" styleClass="Doing" stylesheets="@../css/orderChef.css" text="Cooking" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button id="2" fx:id="btnReady" alignment="CENTER" layoutX="107.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#tabReady" prefHeight="30.0" prefWidth="82.0" styleClass="Complete" stylesheets="@../css/orderChef.css" text="Ready" textFill="WHITE">
+            <Button id="2" fx:id="btnReady" alignment="CENTER" layoutX="198.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#tabReady" prefHeight="30.0" prefWidth="82.0" styleClass="Complete" stylesheets="@../css/orderChef.css" text="Ready" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button id="3" fx:id="btnServing" alignment="CENTER" layoutX="199.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#tabServing" prefHeight="30.0" prefWidth="82.0" styleClass="Serving" stylesheets="@../css/orderChef.css" text="Serving" textFill="WHITE">
+            <Button id="3" fx:id="btnServing" alignment="CENTER" layoutX="290.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#tabServing" prefHeight="30.0" prefWidth="82.0" styleClass="Serving" stylesheets="@../css/orderChef.css" text="Serving" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -70,12 +70,12 @@
                   </VBox>
                </children>
             </Pane>
-            <Button id="4" fx:id="btnServed" alignment="CENTER" layoutX="293.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#tabServed" prefHeight="30.0" prefWidth="82.0" styleClass="Served" stylesheets="@../css/orderChef.css" text="Served" textFill="WHITE">
+            <Button id="4" fx:id="btnServed" alignment="CENTER" layoutX="384.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#tabServed" prefHeight="30.0" prefWidth="82.0" styleClass="Served" stylesheets="@../css/orderChef.css" text="Served" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button id="5" fx:id="btnCanceled" alignment="CENTER" layoutX="387.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#tabCanceled" prefHeight="30.0" prefWidth="82.0" styleClass="Cancel" stylesheets="@../css/orderChef.css" text="Canceled" textFill="WHITE">
+            <Button id="5" fx:id="btnCanceled" alignment="CENTER" layoutX="478.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#tabCanceled" prefHeight="30.0" prefWidth="82.0" styleClass="Cancel" stylesheets="@../css/orderChef.css" text="Canceled" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -99,7 +99,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button layoutX="487.0" layoutY="96.0" mnemonicParsing="false" onAction="#refreshAction" prefHeight="30.0" prefWidth="82.0" style="-fx-background-color: linear-gradient(to right, #dbd9d5, #a39e96); -fx-border-radius: 50px; -fx-background-radius: 50px;" text="Refresh">
+            <Button layoutX="578.0" layoutY="96.0" mnemonicParsing="false" onAction="#refreshAction" prefHeight="30.0" prefWidth="82.0" style="-fx-background-color: linear-gradient(to right, #dbd9d5, #a39e96); -fx-border-radius: 50px; -fx-background-radius: 50px;" text="Refresh">
                <font>
                   <Font size="14.0" />
                </font>

@@ -73,7 +73,7 @@ public class OrderWaiterModel extends BaseModel{
 			
 			String[] selects = {"orders.id", "orders.code", "tables.name as tblNameID",
 								"reservations.code as reservationCode", "orders.tip", 
-								"orders.total_amount", "payment_method.name as payment_id", 
+								"orders.total_amount", "payment_method.code as payment_id", 
 								"sum(order_details.quantity) as orderQuantity", "orders.status", "users.name as userID"};
 			ArrayList<CompareOperator> tableJoin = new ArrayList<CompareOperator>();
 			tableJoin.add(CompareOperator.getInstance("tables.id", "=", "orders.table_id"));

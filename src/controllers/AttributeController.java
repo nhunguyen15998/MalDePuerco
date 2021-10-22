@@ -19,11 +19,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import models.AttributeModel;
 import models.AuthenticationModel;
 import utils.DataMapping;
@@ -81,9 +83,6 @@ public class AttributeController implements Initializable{
 
     @FXML
     private Label lblNameError;
-
-    @FXML
-    private Label lblParentError;
 
     @FXML AnchorPane serattHolder;
 
@@ -208,7 +207,6 @@ public class AttributeController implements Initializable{
     	btnUpdate.setDisable(true);
     	btnDelete.setDisable(true);
     	lblNameError.setText("");
-    	lblParentError.setText("");
     	tfName.setText("");
     	cbParent.getEditor().clear();
     }
@@ -317,9 +315,10 @@ public class AttributeController implements Initializable{
 	public ResultSet getParentList() {
 		try {
 			ArrayList<DataMapping> parentOptions = new ArrayList<DataMapping>();
+			
 			ResultSet parent = attModel.getAttributeList(null);
 			while(parent.next() ) {
-				parentOptions.add(DataMapping.getInstance(parent.getInt("id"), parent.getString("parent_id")));
+				parentOptions.add(DataMapping.getInstance(parent.getInt("id"), parent.getString("name")));
 			}
 			cbParent.getItems().setAll(parentOptions);
 			return parent;
@@ -337,10 +336,13 @@ public class AttributeController implements Initializable{
 	public void showSerAtt() {
 		try {
   			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/serattributes.fxml"));
-  			AnchorPane chef = root.load();
-			ServingAttributeController control = root.getController();
-			control.parseMaster(masterController);
-			this.masterController.masterHolder.getChildren().setAll(chef);
+  			serattHolder = root.load();
+  			
+  			Scene scene = new Scene(serattHolder, 838, 550);
+  			Stage st = new Stage();
+  			st.setScene(scene);
+  			st.show();
+			
   		} catch (Exception e) {
   			e.printStackTrace();
   		}

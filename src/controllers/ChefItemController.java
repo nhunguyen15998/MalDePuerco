@@ -69,12 +69,12 @@ public class ChefItemController {
     	lblUser.setText(String.valueOf(item.getUserCode()));
     	//pending, cooking, ready, serving, served, canceled
     	DataMapping status = OrderDetailModel.isPending;
-    	
-    	if(items.getStatus() == 1) {
+    	if (items.getStatus() == 1){
     		status = OrderDetailModel.isCooking;
     		lblStatus.getStyleClass().add("Cooking");
     		anchor.getStyleClass().add("btnCooking");
-    	} else if(items.getStatus() == 2) {
+    	}
+    	else if(items.getStatus() == 2) {
     		status = OrderDetailModel.isReady;
     		lblStatus.getStyleClass().add("Ready");
     		anchor.getStyleClass().add("btnReady");
