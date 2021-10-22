@@ -58,8 +58,16 @@ public class WaiterOptionController implements Initializable {
     			while(tableOrder.next()) {
     				orderTableId = tableOrder.getInt("table_id");
     			}
-    			HandleNotifications.getInstance().sendMessage("CHEF#CHEF_NEW_DISH#"+orderTableId+"#New item(s) requested!#"+0);
-    			System.out.println("CHEF#CHEF_NEW_DISH#"+orderTableId+"#New item(s) requested!#"+0);
+    			System.out.println("st "+st+" "+OrderModel.isCompleted);
+    			if(st.equals(String.valueOf(OrderModel.PROCESSING))) {
+    				HandleNotifications.getInstance().sendMessage("CHEF#CHEF_NEW_DISH#"+orderTableId+"#New item(s) requested!#"+0);
+        			System.out.println("CHEF#CHEF_NEW_DISH#"+orderTableId+"#New item(s) requested!#"+0);
+    			}
+    			if(st.equals(String.valueOf(OrderModel.COMPLETED))) {
+    				HandleNotifications.getInstance().sendMessage("CUSTOMER#CUSTOMER_CASH_PAYMENT_SUCESS#"+orderTableId+"#Your order has been successfully paid!#"+0);
+        			System.out.println("CUSTOMER#CUSTOMER_CASH_PAYMENT_SUCESS#"+orderTableId+"#Your order has been successfully paid!#"+0);
+    			}
+    			
     		}
     		ODController.loadData(null);
     		this.close();
@@ -71,7 +79,7 @@ public class WaiterOptionController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		ObservableList<DataMapping> status = FXCollections.observableArrayList(OrderModel.isPending, OrderModel.isProcessing, OrderModel.isServed, OrderModel.isCompleted);
+		ObservableList<DataMapping> status = FXCollections.observableArrayList(OrderModel.isPending, OrderModel.isProcessing, OrderModel.isServed, OrderModel.isRequestPayment,OrderModel.isCompleted);
 		cbStatus.setItems(status);
 	}
     

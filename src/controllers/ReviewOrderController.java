@@ -17,6 +17,7 @@ import models.ReviewOrderModel;
 import utils.DataMapping;
 
 public class ReviewOrderController implements Initializable{
+	public static CustomerHomeController customerHomeController = new CustomerHomeController();
 	private ReviewOrderModel reviewOrderModel = new ReviewOrderModel();
 	private CustomerPaymentController customerPaymentController = new CustomerPaymentController();
 	private int orderId;
@@ -77,6 +78,7 @@ public class ReviewOrderController implements Initializable{
 	//load order
 	public int loadOrder(CustomerPaymentController customerPaymentController) {
 		this.customerPaymentController = customerPaymentController;
+		this.customerHomeController = customerPaymentController.customerHomeController;
 		return this.orderId = this.customerPaymentController.orderId;
 	}
 	
@@ -104,14 +106,15 @@ public class ReviewOrderController implements Initializable{
 		this.customerPaymentController.close();
 //		CustomerHomeController.updatedList.clear();
 //		CustomerHomeController.vboxOrderList.getChildren().clear();
-		close();		
+		close();
+		customerHomeController.customerMasterHolder.setDisable(false);
 		return reviewId;
 	}
 	//btnCancelAction
 	public void btnCancelAction() {
 		//close CustomerPaymentController + clear basket
 		this.customerPaymentController.close();
-		CustomerPaymentController.customerHomeController.customerMasterHolder.setDisable(false);
+		customerHomeController.customerMasterHolder.setDisable(false);
 //		CustomerPaymentController.customerHomeController.emptyOrderList();
 //		OrderModel.currentOrderId = 0;
 //		CustomerPaymentController.customerHomeController.lblOrderCode.setText("");

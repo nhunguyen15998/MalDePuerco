@@ -54,7 +54,7 @@ import webcam.Pos;
 
 
 public class CustomerPaymentController implements Initializable {
-	public static CustomerHomeController customerHomeController = new CustomerHomeController();
+	public static CustomerHomeController customerHomeController;
 	private DiscountModel discountModel = new DiscountModel();
 	private PaymentMethodModel paymentMethodModel = new PaymentMethodModel();
 	private ReservationModel reservationModel = new ReservationModel();
@@ -336,10 +336,11 @@ public class CustomerPaymentController implements Initializable {
 			System.out.println("payment "+selectedPayment);
 			//cash -> change to view pending, send noti to server -> server respond
 			//-> server confirm payment -> view payment success -> clear order basket
-			String path = "cash-payment-request.fxml";
+			String path = "";
 			if(selectedPayment.equals("Cash")) { //->send noti to server
 				this.loadView(path, 358, 272);
-				this.fpRequestPayment.setDisable(true);				
+				this.fpRequestPayment.setDisable(true);
+				this.paymentConfirmed = true;
 			}
 			//momo -> change to momo view -> scan qr -> momo sucess -> view payment success, noti server
 			//->server confirm -> clear order basket

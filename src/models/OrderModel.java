@@ -37,6 +37,7 @@ public class OrderModel extends BaseModel {
 	public static DataMapping isPending = DataMapping.getInstance(PENDING, "Pending"); 
 	public static DataMapping isProcessing = DataMapping.getInstance(PROCESSING, "Processing"); 
 	public static DataMapping isServed = DataMapping.getInstance(SERVED, "Served"); 
+	public static DataMapping isRequestPayment = DataMapping.getInstance(REQUEST_PAYMENT, "Request Payment"); 
 	public static DataMapping isCompleted = DataMapping.getInstance(COMPLETED, "Completed"); 
 
 	//shown 

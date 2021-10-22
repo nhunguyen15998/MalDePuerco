@@ -134,8 +134,7 @@ public class HandleNotifications {
 											}
 											break;
 										case HandleNotifications.CUSTOMER_CASH_PAYMENT_SUCESS:
-											handleMessage(root, role, type, table, message, logged);
-											// load lai man create order
+											//controller
 											
 											break;
 									}
