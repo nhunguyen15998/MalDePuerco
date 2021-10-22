@@ -116,17 +116,16 @@ public class ChangePassController implements Initializable{
 			Optional<ButtonType> option1 = alert.showAndWait();
 			
 			if (option1.get() == ButtonType.OK) {
+				Preferences preference = Preferences.userNodeForPackage(SignInController.class);
+			    preference.putInt("remind", 0);
+			    session.deleteLoginSession();
+			    AuthenticationModel.id=0;
+			    AuthenticationModel.roleName=null;
+                AuthenticationModel.name = null;
 			    Platform.runLater( () -> new Main().start( new Stage() ) );
-			    Preferences preference = Preferences.userNodeForPackage(SignInController.class);
-			    preference.putInt("remind", 0);
-			    session.deleteLoginSession();
+			    
 			    close();
-			}else if(option1.get()==ButtonType.FINISH) {
-				Platform.runLater( () -> new Main().start( new Stage() ) );
-			    Preferences preference = Preferences.userNodeForPackage(SignInController.class);
-			    preference.putInt("remind", 0);
-			    session.deleteLoginSession();
-			    close();
+			
 			}
 		}
 		}

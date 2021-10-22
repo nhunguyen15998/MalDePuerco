@@ -61,11 +61,13 @@ public class OrderChefController implements Initializable {
     @FXML
     private Pane pane=new Pane();
 
+
     @FXML
     private VBox vbox = new VBox();
 
     @FXML
     private GridPane grid=new GridPane();
+
     
     private List<ChefItemModel> item = new ArrayList<>();
 	
@@ -121,7 +123,7 @@ public class OrderChefController implements Initializable {
 			item.addAll(getData(status));
 		} catch (Exception e1) {
 			e1.printStackTrace();
-		} 
+		}
 		int col = 0;
 		int row = 0;
 		try {

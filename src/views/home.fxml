@@ -276,6 +276,7 @@
                               <String fx:value="btnOther" />
                               <String fx:value="btnHelp" />
                            </styleClass>
+
                         </Button>
                         <ImageView fitHeight="53.0" fitWidth="50.0" layoutX="17.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>

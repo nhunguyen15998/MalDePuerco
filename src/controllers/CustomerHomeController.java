@@ -309,6 +309,7 @@ public class CustomerHomeController implements Initializable {
 		setButtonStyle();
 		btnAll.getStyleClass().add("btnHomeFocused");
 		btnAll.getStyleClass().add("btnAllFocused");
+
 		try {
 			//category
 			ArrayList<CompareOperator> subCategoryCondition = new ArrayList<CompareOperator>();
@@ -328,6 +329,7 @@ public class CustomerHomeController implements Initializable {
 		setButtonStyle();
 		btnAppetizer.getStyleClass().add("btnHomeFocused");
 		btnAppetizer.getStyleClass().add("btnAppetizerFocused");
+
 		try {
 			//category
 			ArrayList<CompareOperator> subCategoryCondition = new ArrayList<CompareOperator>();
@@ -349,6 +351,7 @@ public class CustomerHomeController implements Initializable {
 		setButtonStyle();
 		btnSideOrder.getStyleClass().add("btnHomeFocused");
 		btnSideOrder.getStyleClass().add("btnSideOrderFocused");
+
 		try {
 			ArrayList<CompareOperator> subCategoryCondition = new ArrayList<CompareOperator>();
 			subCategoryCondition.add(CompareOperator.getInstance("sc.name", "=", CustomerHomeController.SIDE_ORDERS));
@@ -369,6 +372,7 @@ public class CustomerHomeController implements Initializable {
 		setButtonStyle();
 		btnALaCarte.getStyleClass().add("btnHomeFocused");
 		btnALaCarte.getStyleClass().add("btnALaCarteFocused");
+
 		try {
 			ArrayList<CompareOperator> subCategoryCondition = new ArrayList<CompareOperator>();
 			subCategoryCondition.add(CompareOperator.getInstance("sc.name", "=", CustomerHomeController.A_LA_CARTE));
@@ -389,6 +393,7 @@ public class CustomerHomeController implements Initializable {
 		setButtonStyle();
 		btnDessert.getStyleClass().add("btnHomeFocused");
 		btnDessert.getStyleClass().add("btnDessertFocused");
+
 		try {
 			ArrayList<CompareOperator> subCategoryCondition = new ArrayList<CompareOperator>();
 			subCategoryCondition.add(CompareOperator.getInstance("sc.name", "=", CustomerHomeController.DESSERTS));
@@ -409,6 +414,7 @@ public class CustomerHomeController implements Initializable {
 		setButtonStyle();
 		btnBeverage.getStyleClass().add("btnHomeFocused");
 		btnBeverage.getStyleClass().add("btnBeverageFocused");
+
 		try {
 			ArrayList<CompareOperator> subCategoryCondition = new ArrayList<CompareOperator>();
 			subCategoryCondition.add(CompareOperator.getInstance("sc.name", "=", CustomerHomeController.BEVERAGES));
@@ -424,6 +430,7 @@ public class CustomerHomeController implements Initializable {
 	//btnhelp
 	public void btnHelpAction() {
 		setButtonStyle();
+
 		try {
 			
 		} catch (Exception e) {
@@ -1090,6 +1097,7 @@ public class CustomerHomeController implements Initializable {
 			orderData.add(DataMapping.getInstance("code", "OC"+Helpers.randomString(6)));
 			orderData.add(DataMapping.getInstance("table_id", String.valueOf(TableModel.tableId)));
 			orderData.add(DataMapping.getInstance("user_id", String.valueOf(serverId)));
+
 			orderData.add(DataMapping.getInstance("total_amount", String.valueOf(Math.round(this.totalPlace))));
 			OrderModel.currentOrderId = this.orderModel.createOrder(orderData);
 			this.totalPlace = 0;
@@ -1282,4 +1290,5 @@ public class CustomerHomeController implements Initializable {
         btnServer.getStyleClass().remove("btnOtherFocused");
         btnServer.getStyleClass().remove("btnServerFocused");
    }
+
 }

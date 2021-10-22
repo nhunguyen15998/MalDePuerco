@@ -305,7 +305,9 @@ public class AttributeController implements Initializable{
 			attID = item.getId();
 			
 			tfName.setText(item.getName());
-			cbParent.setValue(DataMapping.getInstance(item.getParent_id(), item.getParent()));
+
+		//	cbParent.setValue();
+
 		} else {
 			System.out.println("not click in table");
 			attID = 0;

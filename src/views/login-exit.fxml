@@ -10,6 +10,7 @@
 
 <AnchorPane fx:id="apOption" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="349.0" prefWidth="307.0" style="-fx-background-color: #2B2B2B;" stylesheets="@../css/home-component.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CustomerOptionController">
    <children>
+
       <Pane layoutX="9.0" layoutY="10.0" prefHeight="30.0" prefWidth="289.0" style="-fx-background-color: #3B3F40;">
          <children>
             <Label layoutX="19.0" layoutY="6.0" text="Choose an option" textFill="#c6c4c4">

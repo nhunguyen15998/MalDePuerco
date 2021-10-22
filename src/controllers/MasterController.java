@@ -93,11 +93,7 @@ public class MasterController implements Initializable {
     @FXML
     private Button btnUser;
     @FXML
-//<<<<<<< HEAD
-//    private Button btnOrder;
-//=======
     private Button btnOrderChef;
-//>>>>>>> tram
 	@FXML
 	public AnchorPane settingHolder;
     @FXML
@@ -280,6 +276,8 @@ public class MasterController implements Initializable {
     private void logoutAction() {
         FXMLLoader loader = new FXMLLoader(MasterController.this.getClass().getResource("/views/home.fxml"));
                                   try{
+
+                      			   
                                       FlowPane managerPane = loader.load();
                           			  Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
                                       Stage substage = new Stage();

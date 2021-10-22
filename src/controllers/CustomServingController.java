@@ -297,6 +297,7 @@ public class CustomServingController implements Initializable {
 	}
 	
 	//btnCancelAction
+	@FXML
 	public void btnCancelAction() {
 		Stage stage = (Stage) btnCancel.getScene().getWindow();
 		CustomServingController.customerHomeController.customerMasterHolder.setDisable(false);

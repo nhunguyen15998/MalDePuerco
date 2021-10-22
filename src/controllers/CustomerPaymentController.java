@@ -53,6 +53,8 @@ import utils.Helpers;
 import webcam.Pos;
 
 
+import webcam.Pos;
+
 public class CustomerPaymentController implements Initializable {
 	public static CustomerHomeController customerHomeController;
 	private DiscountModel discountModel = new DiscountModel();
@@ -159,7 +161,6 @@ public class CustomerPaymentController implements Initializable {
 		System.out.println(this.tableName);
 		//set table code
 		this.lblTableCode.setText(this.tableName);
-
 		//getsubtotal
 		this.subtotal = CustomerPaymentController.customerHomeController.totalPlace;
 		this.lblSubtotal.setText(Helpers.formatNumber(null).format(this.subtotal));
@@ -220,6 +221,7 @@ public class CustomerPaymentController implements Initializable {
 	}
 	
 	//chbDepositChecked
+	@FXML
 	public void chbDepositChecked() {
 		try {
 			if(chbDeposit.isSelected()) {
@@ -329,6 +331,7 @@ public class CustomerPaymentController implements Initializable {
 	}
 	
 	//btnPayAction
+	@FXML
 	public void btnPayAction() {
 		try {
 			Pos.momoCode = null;
@@ -423,7 +426,6 @@ public class CustomerPaymentController implements Initializable {
 		}
 	}
 	
-
 	//load view
 	public FXMLLoader loadView(String path, double width, double height) {
 		try {
@@ -447,6 +449,7 @@ public class CustomerPaymentController implements Initializable {
 	}
 		
 	//btnClearAllAction
+	@FXML
 	public double btnClearAllAction() {
 		if(chbDeposit.isSelected()) {
 			tfPhone.setText("");
@@ -461,6 +464,7 @@ public class CustomerPaymentController implements Initializable {
 		return total;
 	}
 	
+
 	//btnOKTimeOutAction
 	public void btnOKTimeOutAction() {
 		Stage stage = (Stage) btnOKTimeOut.getScene().getWindow();
