@@ -9,9 +9,9 @@ import utils.JoinCondition;
 public class AttributeModel extends BaseModel {
 	private static String table = "attributes";
 	private static String[] columns = {"id, name, parent_id, created_at"};
-	
+	 
 	private int id;
-	private int sequence;
+	private int sequence, parent_id;
 	private String name;
 	private String parent;
 	private String createdAt;
@@ -35,7 +35,7 @@ public class AttributeModel extends BaseModel {
 	//get list
 	public ResultSet getAttributeList(ArrayList<CompareOperator> conditions) {
 		try {
-			String[] selects = {"attributes.*, att.name as parent_name"};
+			String[] selects = {"attributes.*, att.name as parent_name", "attributes.parent_id"};
 			ArrayList<CompareOperator> parentCondition = new ArrayList<CompareOperator>();
 			parentCondition.add(CompareOperator.getInstance("attributes.parent_id", "=", "att.id"));
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
