@@ -13,7 +13,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ServingAttributeController">
+<AnchorPane id="AnchorPane" fx:id="serattHolder" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ServingAttributeController">
 
    <children>
       <AnchorPane prefHeight="141.0" prefWidth="838.0" styleClass="anchorTop" stylesheets="@../css/serattributes.css">
@@ -108,7 +108,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <TextField fx:id="tfFind" layoutX="31.0" layoutY="24.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#onSearch" prefHeight="30.0" prefWidth="245.0" promptText="Find by serving , attribute" style="-fx-background-radius: 50px;" />
+            <TextField fx:id="tfFind" layoutX="31.0" layoutY="24.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#onSearch" prefHeight="30.0" prefWidth="245.0" promptText="Find by serving " style="-fx-background-radius: 50px;" />
             <Pane layoutX="208.0" layoutY="24.0" prefHeight="30.0" prefWidth="30.0" />
             <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="251.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                <image>

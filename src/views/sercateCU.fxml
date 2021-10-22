@@ -65,7 +65,7 @@
                </image>
             </ImageView>
             <Button layoutX="534.0" layoutY="248.0" mnemonicParsing="false" onAction="#upload" prefHeight="25.0" prefWidth="107.0" text="Choose File" />
-            <Label fx:id="lblNameError" layoutX="198.0" layoutY="106.0" prefHeight="17.0" prefWidth="256.0" />
+            <Label fx:id="lblNameError" layoutX="198.0" layoutY="106.0" prefHeight="17.0" prefWidth="256.0" textFill="RED" />
             <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutX="475.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>

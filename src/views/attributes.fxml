@@ -125,8 +125,7 @@
                </font>
             </TextField>
             <ComboBox fx:id="cbParent" layoutX="143.0" layoutY="126.0" prefHeight="27.0" prefWidth="204.0" styleClass="text" stylesheets="@../css/servingsCU.css" />
-            <Label fx:id="lblNameError" layoutX="143.0" layoutY="71.0" prefHeight="17.0" prefWidth="204.0" />
-            <Label fx:id="lblParentError" layoutX="143.0" layoutY="150.0" prefHeight="17.0" prefWidth="204.0" />
+            <Label fx:id="lblNameError" layoutX="143.0" layoutY="71.0" prefHeight="17.0" prefWidth="204.0" textFill="RED" />
          </children>
       </AnchorPane>
       <Button fx:id="btnDelete" alignment="CENTER" layoutX="381.0" layoutY="112.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: #FB6E67; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnReser" stylesheets="@../css/attributes.css" text="    Delete" textFill="WHITE">

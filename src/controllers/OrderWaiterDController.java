@@ -247,17 +247,28 @@ public class OrderWaiterDController implements Initializable{
 		
 		@FXML
 	    void btnUpdateAction(ActionEvent event) {
-			try {
-				if(this.odID != 0 && status == 0) {
-					this.showUpdateFrom();
-				} else {
-					Alert al = new Alert(AlertType.WARNING);
-					al.setHeaderText(null);
-					al.setContentText("Cannot be edited");
-					al.showAndWait();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
+			 if(odID != 0 && status == 1) {
+				Alert al = new Alert(AlertType.WARNING);
+				al.setHeaderText(null);
+				al.setContentText("Cannot be edited");
+				al.showAndWait();
+			} if(odID != 0 && status == 2) {
+				Alert al = new Alert(AlertType.WARNING);
+				al.setHeaderText(null);
+				al.setContentText("Cannot be edited");
+				al.showAndWait();
+			} if(odID != 0 && status == 3) {
+				Alert al = new Alert(AlertType.WARNING);
+				al.setHeaderText(null);
+				al.setContentText("Cannot be edited");
+				al.showAndWait();
+			} if(odID != 0 && status == 4) {
+				Alert al = new Alert(AlertType.WARNING);
+				al.setHeaderText(null);
+				al.setContentText("Cannot be edited");
+				al.showAndWait();
+			} else if (odID != 0 ){
+				this.showUpdateFrom();
 			}
 	    }
 		

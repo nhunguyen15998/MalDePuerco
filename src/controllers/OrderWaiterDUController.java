@@ -119,7 +119,7 @@ public class OrderWaiterDUController implements Initializable{
 				tfNote.setText(rs.getString("order_details.serving_note"));
 				
 				for(DataMapping size : cbSize.getItems()) {
-					if(size.key != null & Integer.parseInt(size.key) == rs.getInt("order_details.size"));
+					if(size.key != null & Integer.parseInt(size.key) == Integer.valueOf(rs.getString("order_details.size")));
 					cbSize.setValue(size);
 					break;
 				}
