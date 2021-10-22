@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.InvoiceDetailsController">
+   <children>
+      <Pane prefHeight="115.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to right, #ff304f,#ffabb7);">
+         <children>
+            <Label fx:id="lblUser" layoutX="53.0" layoutY="35.0" prefHeight="30.0" prefWidth="526.0" text="View invoices" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="41.0" layoutY="70.0" prefHeight="488.0" prefWidth="517.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(212, 165, 174,0.5),30, 0,10, 10);">
+         <children>
+            <TableView fx:id="tableInvoices" editable="true" layoutX="12.0" layoutY="217.0" maxHeight="-Infinity" maxWidth="2080.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="219.0" prefWidth="493.0" stylesheets="@../css/user.css">
+               <columns>
+                  <TableColumn fx:id="colOrder" maxWidth="66.0" minWidth="0.0" prefWidth="30.0" text="#" />
+                  <TableColumn fx:id="colId" prefWidth="53.0" text="Id" visible="false" />
+                  <TableColumn fx:id="colSerName" prefWidth="139.99993896484375" text="Serving name" />
+                  <TableColumn fx:id="colSize" prefWidth="80.800048828125" text="Size" />
+                  <TableColumn fx:id="colQuantity" prefWidth="58.39996337890625" text="Quantity" />
+                  <TableColumn fx:id="colPrice" prefWidth="95.99993896484375" text="Price" />
+                  <TableColumn fx:id="colTotal" prefWidth="88.20001220703125" text="Total" />
+               </columns>
+            </TableView>
+            <Label fx:id="lblOrderCode" layoutX="92.0" layoutY="21.0" text="OC00000001" textFill="#a65151">
+               <font>
+                  <Font name="Cambria" size="13.5" />
+               </font>
+            </Label>
+            <Label fx:id="lblTotal" layoutX="54.0" layoutY="44.0" text="5 000 000 VND" textFill="#a65151">
+               <font>
+                  <Font name="Cambria" size="13.5" />
+               </font>
+            </Label>
+            <Label layoutX="16.0" layoutY="20.0" text="Order code:" textFill="#e11b46">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="16.0" layoutY="43.0" text="Total:" textFill="#e11b46">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="17.0" layoutY="68.0" text="Date:" textFill="#e11b46">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblDate" layoutX="54.0" layoutY="69.0" text="21-10-2021" textFill="#a65151">
+               <font>
+                  <Font name="Cambria" size="13.5" />
+               </font>
+            </Label>
+            <Button fx:id="btnCancel" alignment="CENTER" layoutX="414.0" layoutY="444.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: linear-gradient(to right, #fbc6c4, #f4a29f, #fb8b87, #FB6E67); -fx-border-radius: 50px; -fx-background-radius: 50px; -fx-cursor: hand;" text="Close" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#fb6e677d" />
+               </effect>
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
+                     <image>
+                        <Image url="@../assets/close.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

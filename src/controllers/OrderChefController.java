@@ -14,10 +14,12 @@ import java.util.ResourceBundle;
 import db.MySQLJDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
@@ -25,7 +27,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import models.ChefItemModel;
 import models.OrderDetailModel;
 import utils.Helpers;
@@ -33,6 +36,8 @@ import utils.Helpers;
 
 public class OrderChefController implements Initializable {
 	private static OrderDetailModel odetailModel = new OrderDetailModel();
+	public MasterController masterController;
+	private ChefItemController chefItem = new ChefItemController();
 	
 	private int chefID;
 	@FXML
@@ -72,7 +77,7 @@ public class OrderChefController implements Initializable {
 	
 	public static ResultSet getDataOrderDetails(String condition) throws SQLException {
 		String sql = "select order_details.id, orders.code as orderCode, servings.name as serName, size,"
-				+ " order_details.serving_status, order_details.quantity, time(order_details.created_at) as time, users.name as userName from order_details"
+				+ " order_details.serving_status, order_details.quantity, time(order_details.created_at) as time, users.name as userName, order_details.serving_note from order_details"
 				+ " LEFT JOIN orders on orders.id = order_details.order_id LEFT JOIN servings on servings.id = order_details.serving_id"
 				+ " LEFT JOIN users on users.id = order_details.user_id"+condition;
 		Statement stm = MySQLJDBC.connection.createStatement();
@@ -94,6 +99,7 @@ public class OrderChefController implements Initializable {
 			items.setId(rs.getInt("order_details.id"));
 			items.setOderCode(rs.getString("orderCode"));
 			items.setServingName(rs.getString("serName"));
+			items.setNote(rs.getString("order_details.serving_note"));
 			items.setSize(rs.getString("order_details.size"));
 			items.setQuantity("x" + rs.getInt("order_details.quantity"));
 			items.setCreatedAt(rs.getString("time"));
@@ -108,7 +114,7 @@ public class OrderChefController implements Initializable {
 	}
 	
 	//load data
-	private void loadData(String status) {
+	public void loadData(String status) {
 		grid.getChildren().clear();
 		item.removeAll(item);
 		try {
@@ -151,6 +157,9 @@ public class OrderChefController implements Initializable {
 		}
 	}
 	
+	@FXML void refreshAction(ActionEvent event) {
+		this.loadData("");
+	}
 	
 	@FXML void tabPending(MouseEvent event) {
 		loadData(btnPen.getId());
@@ -175,6 +184,32 @@ public class OrderChefController implements Initializable {
 	@FXML void tabCanceled(MouseEvent event) {
 		loadData(btnCanceled.getId());
 	}
+	
+	//btnServerViewAction
+	@FXML
+	public void btnServerViewAction() {
+		showServerView();
+	}
+	
+	//show form assign
+  	public void showServerView() {
+  		try {
+  			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/orderWaiter.fxml"));
+  			AnchorPane server = root.load();
+  			
+  			OrderWaiterController controller = root.getController();
+			controller.parseMaster(this.masterController);
+			this.masterController.masterHolder.getChildren().setAll(server);			
+  		} catch (Exception e) {
+  			e.printStackTrace();
+  		}
+  	}
+  	
+  	//parse master
+  	public MasterController parseMaster(MasterController masterController) {
+  		this.masterController = masterController;
+  		return this.masterController;
+  	}
 
 	public int getChefID() {
 		return chefID;

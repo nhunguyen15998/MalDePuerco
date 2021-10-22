@@ -26,8 +26,6 @@ public class OrderModel extends BaseModel {
 	private int orderQuantity;
 	
 	public static int currentOrderId = 0;
-	public static final int tableId = 1;
-	public static final String tableName = "Table 1";
 	
 	//status
 	public static final int PENDING = 0;
@@ -79,7 +77,7 @@ public class OrderModel extends BaseModel {
 	}
 	
 	//get data - orders - tables - reservations - payment_method
-	public ResultSet getOrderList(ArrayList<CompareOperator> conditions, String[] groupBys) {
+	public ResultSet getOrderList(ArrayList<CompareOperator> conditions) {
 		try {
 			String[] selects = {"orders.*, tables.code as table_code, reservations.code as reservations_code,"
 								+ "payment_method.code as payment_method_code, tables.name,"
@@ -107,13 +105,42 @@ public class OrderModel extends BaseModel {
 			joins.add(JoinCondition.getInstance("left join", "users", userCondition));
 			joins.add(JoinCondition.getInstance("left join", "order_details", orderDetailCondition));
 
-			return this.getData(selects, conditions, joins, groupBys, null);
+			return this.getData(selects, conditions, joins, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 	
+	//get by id
+	public ResultSet getOrderById(int id) {
+		try {		
+			ArrayList<CompareOperator> condition = new ArrayList<CompareOperator>();
+			condition.add(CompareOperator.getInstance("id", " = ", String.valueOf(id)));
+			return this.getData(columns, condition, null, null, null, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	//load combobox
+	public ResultSet getStatus(int status) {
+		try {
+			String[] selects = {"orders.status"};
+			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
+			conditions.add(CompareOperator.getInstance("status", "=", "0"));
+			conditions.add(CompareOperator.getInstance("status", "=", "1"));
+			conditions.add(CompareOperator.getInstance("status", "=", "2"));
+			conditions.add(CompareOperator.getInstance("status", "=", "3"));
+			
+			return this.getData(selects, conditions, null, null, null, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	
 	//create
 	public int createOrder(ArrayList<DataMapping> data) {

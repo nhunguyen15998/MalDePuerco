@@ -98,7 +98,7 @@ public class OrderWaiterModel extends BaseModel{
 			joins.add(JoinCondition.getInstance("left join", "users", userJoin));
 			joins.add(JoinCondition.getInstance("left join", "order_details", orderdetailJoin));
 			
-			return this.getData(selects, conditions, joins, groupBys, null);
+			return this.getData(selects, conditions, joins, groupBys, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -109,13 +109,24 @@ public class OrderWaiterModel extends BaseModel{
 		try {		
 			ArrayList<CompareOperator> condition = new ArrayList<CompareOperator>();
 			condition.add(CompareOperator.getInstance("id", " = ", String.valueOf(id)));
-			return this.getData(columns, condition, null, null, null);
+			return this.getData(columns, condition, null, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 	
+	//update
+		public boolean updateOrder(int id, ArrayList<DataMapping> data) {
+			try {
+				ArrayList<CompareOperator> condition = new ArrayList<CompareOperator>();
+				condition.add(CompareOperator.getInstance("orders.id", "=", String.valueOf(id)));
+				return this.update(data, condition);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
 	
 	public int getId() {
 		return id;

@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -56,11 +57,6 @@
                   <Font name="Consolas" size="14.0" />
                </font>
             </TextField>
-            <TextField fx:id="tfDes" alignment="TOP_LEFT" layoutX="30.0" layoutY="177.0" prefHeight="99.0" prefWidth="276.0" promptText="Description" styleClass="text" stylesheets="@../css/servingsCU.css">
-               <font>
-                  <Font name="Consolas" size="14.0" />
-               </font>
-            </TextField>
             <TextField fx:id="tfPrice" layoutX="337.0" layoutY="67.0" prefHeight="28.0" prefWidth="107.0" promptText="Price" styleClass="text" stylesheets="@../css/servingsCU.css">
                <font>
                   <Font name="Consolas" size="14.0" />
@@ -91,7 +87,7 @@
             <Button layoutX="517.0" layoutY="223.0" mnemonicParsing="false" onAction="#upload" prefHeight="25.0" prefWidth="107.0" styleClass="btnSave" text="Choose File" />
             <Label fx:id="lblNameError" layoutX="30.0" layoutY="92.0" prefHeight="17.0" prefWidth="276.0" />
             <Label fx:id="lblCategoryError" layoutX="30.0" layoutY="147.0" prefHeight="17.0" prefWidth="276.0" />
-            <Label fx:id="lblDesError" layoutX="30.0" layoutY="277.0" prefHeight="17.0" prefWidth="276.0" />
+            <Label fx:id="lblDesError" layoutX="30.0" layoutY="295.0" prefHeight="17.0" prefWidth="276.0" />
             <Label fx:id="lblPriceError" layoutX="338.0" layoutY="92.0" prefHeight="17.0" prefWidth="157.0" />
             <ImageView fx:id="imageView" fitHeight="170.0" fitWidth="200.0" layoutX="471.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" />
             <Label layoutX="339.0" layoutY="104.0" text="Quantity:" textFill="#e11b46">
@@ -112,6 +108,7 @@
             </Label>
             <ComboBox fx:id="cbType" layoutX="337.0" layoutY="175.0" prefHeight="27.0" prefWidth="107.0" styleClass="text" stylesheets="@../css/servingsCU.css" />
             <Label fx:id="lblTypeError" layoutX="339.0" layoutY="202.0" prefHeight="17.0" prefWidth="157.0" />
+            <TextArea fx:id="tfDesc" layoutX="30.0" layoutY="177.0" prefHeight="115.0" prefWidth="276.0" styleClass="text" stylesheets="@../css/servingsCU.css" />
          </children>
       </AnchorPane>
    </children>

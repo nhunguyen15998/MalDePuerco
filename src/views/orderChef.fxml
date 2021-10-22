@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,6 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OrderChefController">
@@ -31,22 +33,22 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <Button id="0" fx:id="btnPen" alignment="CENTER" layoutX="13.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#tabPending" prefHeight="30.0" prefWidth="82.0" styleClass="All" stylesheets="@../css/orderChef.css" text="Pending" textFill="WHITE">
+            <Button id="0" fx:id="btnPen" alignment="CENTER" layoutX="13.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#tabPending" prefHeight="30.0" prefWidth="82.0" styleClass="All" stylesheets="@../css/orderChef.css" text="Pending" textFill="WHITE" visible="false">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button id="1" fx:id="btnCook" alignment="CENTER" layoutX="105.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#tabCooking" prefHeight="30.0" prefWidth="82.0" styleClass="Doing" stylesheets="@../css/orderChef.css" text="Cooking" textFill="WHITE">
+            <Button id="1" fx:id="btnCook" alignment="CENTER" layoutX="14.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#tabCooking" prefHeight="30.0" prefWidth="82.0" styleClass="Doing" stylesheets="@../css/orderChef.css" text="Cooking" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button id="2" fx:id="btnReady" alignment="CENTER" layoutX="198.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#tabReady" prefHeight="30.0" prefWidth="82.0" styleClass="Complete" stylesheets="@../css/orderChef.css" text="Ready" textFill="WHITE">
+            <Button id="2" fx:id="btnReady" alignment="CENTER" layoutX="107.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#tabReady" prefHeight="30.0" prefWidth="82.0" styleClass="Complete" stylesheets="@../css/orderChef.css" text="Ready" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button id="3" fx:id="btnServing" alignment="CENTER" layoutX="290.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#tabServing" prefHeight="30.0" prefWidth="82.0" styleClass="Serving" stylesheets="@../css/orderChef.css" text="Serving" textFill="WHITE">
+            <Button id="3" fx:id="btnServing" alignment="CENTER" layoutX="199.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#tabServing" prefHeight="30.0" prefWidth="82.0" styleClass="Serving" stylesheets="@../css/orderChef.css" text="Serving" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -68,12 +70,36 @@
                   </VBox>
                </children>
             </Pane>
-            <Button id="4" fx:id="btnServed" alignment="CENTER" layoutX="384.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#tabServed" prefHeight="30.0" prefWidth="82.0" styleClass="Served" stylesheets="@../css/orderChef.css" text="Served" textFill="WHITE">
+            <Button id="4" fx:id="btnServed" alignment="CENTER" layoutX="293.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#tabServed" prefHeight="30.0" prefWidth="82.0" styleClass="Served" stylesheets="@../css/orderChef.css" text="Served" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button id="5" fx:id="btnCanceled" alignment="CENTER" layoutX="478.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#tabCanceled" prefHeight="30.0" prefWidth="82.0" styleClass="Cancel" stylesheets="@../css/orderChef.css" text="Canceled" textFill="WHITE">
+            <Button id="5" fx:id="btnCanceled" alignment="CENTER" layoutX="387.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#tabCanceled" prefHeight="30.0" prefWidth="82.0" styleClass="Cancel" stylesheets="@../css/orderChef.css" text="Canceled" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button alignment="CENTER" layoutX="673.0" layoutY="91.0" mnemonicParsing="false" onAction="#btnServerViewAction" prefHeight="40.0" prefWidth="141.0" styleClass="btnCreate" stylesheets="@../css/servings.css" text="Servers' view" textFill="WHITE">
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.1725490242242813" green="0.4745098054409027" blue="0.8196078538894653" opacity="0.49000000953674316" />
+                     </color>
+                  </DropShadow>
+               </effect>
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/menu.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button layoutX="487.0" layoutY="96.0" mnemonicParsing="false" onAction="#refreshAction" prefHeight="30.0" prefWidth="82.0" style="-fx-background-color: linear-gradient(to right, #dbd9d5, #a39e96); -fx-border-radius: 50px; -fx-background-radius: 50px;" text="Refresh">
                <font>
                   <Font size="14.0" />
                </font>

@@ -29,7 +29,7 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <TableView fx:id="tblOrderD" layoutX="35.0" layoutY="120.0" prefHeight="360.0" prefWidth="762.0" stylesheets="@../css/orderWaiter.css">
+      <TableView fx:id="tblOrderD" layoutX="12.0" layoutY="120.0" prefHeight="360.0" prefWidth="820.0" stylesheets="@../css/orderWaiter.css">
          <columns>
             <TableColumn fx:id="col_id" prefWidth="75.0" text="Id" visible="false" />
             <TableColumn fx:id="col_no" prefWidth="23.0" text="#" />
@@ -37,16 +37,17 @@
             <TableColumn fx:id="col_serving" prefWidth="108.0" text="Serving" />
             <TableColumn fx:id="col_size" prefWidth="42.0" text="Size" />
             <TableColumn fx:id="col_quantity" prefWidth="58.0" text="Quantity" />
-            <TableColumn fx:id="col_price" prefWidth="58.0" text="Price" />
-            <TableColumn fx:id="col_total" prefWidth="49.0" text="Total" />
-            <TableColumn fx:id="col_user" prefWidth="124.0" text="User " />
-            <TableColumn fx:id="col_created" prefWidth="128.0" text="Created At" />
-            <TableColumn fx:id="col_status" prefWidth="82.0" text="Status" />
+            <TableColumn fx:id="col_price" prefWidth="46.0" text="Price" />
+            <TableColumn fx:id="col_total" prefWidth="45.0" text="Total" />
+            <TableColumn fx:id="col_user" prefWidth="92.0" text="User " />
+            <TableColumn fx:id="col_created" prefWidth="132.0" text="Created At" />
+            <TableColumn fx:id="col_status" prefWidth="98.0" text="Status" />
+            <TableColumn fx:id="colNote" prefWidth="86.0" text="Note" />
          </columns>
          <contextMenu>
             <ContextMenu>
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#handleStatusOption" text="Edit" />
+                <MenuItem mnemonicParsing="false" onAction="#btnOption" text="Status" />
               </items>
             </ContextMenu>
          </contextMenu>
@@ -63,12 +64,12 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label fx:id="lblCode" layoutX="35.0" layoutY="500.0" prefHeight="17.0" prefWidth="93.0" text="Code : ABCD">
+      <Label fx:id="lblCode" layoutX="14.0" layoutY="498.0" prefHeight="20.0" prefWidth="215.0" text="Code : ABCD">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="691.0" layoutY="74.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="99.0" styleClass="btnDelete" stylesheets="@../css/serattributes.css" text="     Delete " textFill="WHITE">
+      <Button fx:id="btnDel" layoutX="691.0" layoutY="74.0" mnemonicParsing="false" onAction="#btnDelete" prefHeight="33.0" prefWidth="99.0" styleClass="btnDelete" stylesheets="@../css/serattributes.css" text="     Delete " textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
@@ -97,7 +98,7 @@
             </DropShadow>
          </effect>
       </Button>
-      <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="581.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="581.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/edit.png" />
          </image>

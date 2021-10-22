@@ -1,0 +1,31 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+.btnPermission:hover{
+-fx-cursor:hand;
+}
+
+.check-box .box {
+
+-fx-background-color:  white;
+-fx-border-color:#d91f48;
+-fx-border-radius:5px; 
+
+}
+
+
+.check-box:selected .mark {
+
+-fx-background-color: #d91f48;
+
+}
+
+.check-box:hover  {
+
+-fx-cursor:hand;
+
+}

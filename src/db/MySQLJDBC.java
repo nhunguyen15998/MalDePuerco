@@ -65,7 +65,7 @@ public class MySQLJDBC {
 	
 	//1366 x
 	//get data
-	public ResultSet getData(String[] selects, ArrayList<CompareOperator> conditions, ArrayList<JoinCondition> joins, String[] groupBys, String orderBys) {
+	public ResultSet getData(String[] selects, ArrayList<CompareOperator> conditions, ArrayList<JoinCondition> joins, String[] groupBys, String orderBys, String limit) {
 		try {
 			String conditionsStr = "";
     		String joinStr = "";
@@ -109,9 +109,14 @@ public class MySQLJDBC {
     			query += " group by " +  String.join(", ", groupBys);
     		}
     		
-    		//orderby
+    		//orderby 
     		if(orderBys != null) {
     			query += " order by " + orderBys;
+    		}
+    		    		
+    		//limit
+    		if(limit != null) {
+    			query += " limit " + limit;
     		}
     		
     		System.out.println(query);
@@ -241,15 +246,5 @@ public class MySQLJDBC {
 			return false;
 		}
     }
-	
-	 public static MySQLJDBC Instance() {
-			if(db==null) {
-				db=new MySQLJDBC();
-			}
-			return db;
-		}
-		    public final Connection getConn() {
-		            return connection;
-		    }
-	
+
 }

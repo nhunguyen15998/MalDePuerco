@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" stylesheets="@../css/reservation.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ReservationController">
+   <children>
+      <Pane layoutX="38.0" layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="737.0">
+         <children>
+            <Label layoutX="52.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="685.0" text="Reservation">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: linear-gradient(to right, #D586F9, #BA6BF8, #A056F7); -fx-background-radius: 5;">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/reservation.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="paneSchedule" layoutX="12.0" layoutY="109.0" prefHeight="426.0" prefWidth="219.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.5),30, 0,10, 10);" />
+      <Pane layoutX="238.0" layoutY="72.0" prefHeight="463.0" prefWidth="586.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.8),30, 0,10, 10); -fx-background-radius: 20 0 0 0;">
+         <children>
+            <TableView fx:id="tblReser" layoutX="2.0" layoutY="83.0" onMouseClicked="#getRowSelected" prefHeight="174.0" prefWidth="506.0" stylesheets="@../css/tables.css">
+               <columns>
+                  <TableColumn fx:id="colNo" prefWidth="30.0" text="#" />
+                  <TableColumn fx:id="colID" prefWidth="75.0" text="ID" visible="false" />
+                  <TableColumn fx:id="colCode" prefWidth="68.79998779296875" text="Code" />
+                  <TableColumn fx:id="colCusName" prefWidth="107.199951171875" text="Customer name" />
+                  <TableColumn fx:id="colPhone" prefWidth="78.40008544921875" text="Phone" visible="false" />
+                  <TableColumn fx:id="colEmail" prefWidth="78.40008544921875" text="Email" visible="false" />
+                  <TableColumn fx:id="colSeats" prefWidth="36.79998779296875" text="Seats" />
+                  <TableColumn fx:id="colDate" prefWidth="84.0" text="Date" />
+                  <TableColumn fx:id="colStart" prefWidth="55.199951171875" text="Start" />
+                  <TableColumn fx:id="colEnd" prefWidth="48.00006103515625" text="End" />
+                  <TableColumn fx:id="colDeposit" prefWidth="60.0" text="Deposit" visible="false" />
+                  <TableColumn fx:id="colCreated" prefWidth="68.0" text="Created at" visible="false" />
+                  <TableColumn fx:id="colStatus" prefWidth="75.5999755859375" text="Status" />
+               </columns>
+            </TableView>
+            <Button alignment="CENTER_RIGHT" layoutX="5.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnCreateAction" prefHeight="30.0" prefWidth="68.0" style="-fx-background-color: #2B79D3; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnReser" stylesheets="@../css/reservation.css" text="Create" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#2b79d37d" />
+               </effect>
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnDelete" alignment="CENTER_RIGHT" layoutX="451.0" layoutY="267.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="30.0" prefWidth="57.0" style="-fx-background-color: #FB6E67; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnReser" stylesheets="@../css/reservation.css" text="Delete" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#fb6e677d" />
+               </effect>
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <padding>
+                  <Insets right="6.0" />
+               </padding>
+            </Button>
+            <Button fx:id="btnUpdate" alignment="CENTER_RIGHT" layoutX="307.0" layoutY="268.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="30.0" prefWidth="68.0" style="-fx-background-color: #62A38D; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnReser" stylesheets="@../css/reservation.css" text="Update" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#62a38d7d" />
+               </effect>
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Button>
+            <Button layoutX="208.0" layoutY="44.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnClearAction" prefHeight="30.0" prefWidth="31.0" style="-fx-background-color: #9C5978; -fx-background-radius: 50px;" styleClass="btnReser" stylesheets="@../css/reservation.css" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/delete_key.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <TextField fx:id="tfTable" layoutX="5.0" layoutY="43.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#onSearch" prefHeight="30.0" prefWidth="196.0" promptText="Find by customer name" style="-fx-background-radius: 50px;" />
+            <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" layoutX="312.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/edit.png" />
+               </image>
+            </ImageView>
+            <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" layoutX="13.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/add.png" />
+               </image>
+            </ImageView>
+            <ImageView disable="true" fitHeight="15.0" fitWidth="18.0" layoutX="453.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/delete.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="339.0" layoutY="50.0" text="To:" textFill="#bfaeae" />
+            <DatePicker fx:id="dpTo" focusTraversable="false" layoutX="378.0" layoutY="46.0" onAction="#findOnClick" prefHeight="26.0" prefWidth="126.0" />
+            <Label layoutX="339.0" layoutY="21.0" text="From:" textFill="#bfaeae" />
+            <DatePicker fx:id="dpFrom" focusTraversable="false" layoutX="378.0" layoutY="16.0" onAction="#findOnClick" prefHeight="26.0" prefWidth="126.0" />
+            <VBox alignment="CENTER_RIGHT" layoutX="512.0" layoutY="83.0" prefHeight="266.0" prefWidth="68.0" style="-fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.5),30, 0,10, 10);">
+               <children>
+                  <VBox prefHeight="32.0" prefWidth="68.0" style="-fx-background-color: #eddfe9;">
+                     <children>
+                        <RadioButton id="1" fx:id="rdNew" focusTraversable="false" mnemonicParsing="false" onAction="#findOnClick" prefHeight="18.0" prefWidth="17.0" styleClass="btnReser" stylesheets="@../css/reservation.css">
+                           <VBox.margin>
+                              <Insets left="25.0" right="10.0" top="4.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="72.0" text="New">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </VBox>
+                  <VBox prefHeight="22.0" prefWidth="66.0" style="-fx-background-color: #d5edce;">
+                     <children>
+                        <RadioButton id="2" fx:id="rdConfirm" focusTraversable="false" mnemonicParsing="false" onAction="#findOnClick" prefHeight="18.0" prefWidth="17.0" styleClass="btnReser" stylesheets="@../css/reservation.css">
+                           <VBox.margin>
+                              <Insets left="25.0" right="10.0" top="4.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="72.0" text="Confirmed">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <VBox prefHeight="22.0" prefWidth="66.0" style="-fx-background-color: #f0eec2;">
+                     <children>
+                        <RadioButton id="3" fx:id="rdDeposit" focusTraversable="false" mnemonicParsing="false" onAction="#findOnClick" prefHeight="18.0" prefWidth="17.0" styleClass="btnReser" stylesheets="@../css/reservation.css">
+                           <VBox.margin>
+                              <Insets left="25.0" right="10.0" top="4.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="72.0" text="Deposited">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <VBox prefHeight="22.0" prefWidth="66.0" style="-fx-background-color: #f2c5c2;">
+                     <children>
+                        <RadioButton id="4" fx:id="rdPresent" focusTraversable="false" mnemonicParsing="false" onAction="#findOnClick" prefHeight="18.0" prefWidth="17.0" styleClass="btnReser" stylesheets="@../css/reservation.css">
+                           <VBox.margin>
+                              <Insets left="25.0" right="10.0" top="4.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="72.0" text="Present">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <VBox prefHeight="22.0" prefWidth="66.0" style="-fx-background-color: #d3e8e6;">
+                     <children>
+                        <RadioButton id="5" fx:id="rdExpried" focusTraversable="false" mnemonicParsing="false" onAction="#findOnClick" prefHeight="18.0" prefWidth="17.0" styleClass="btnReser" stylesheets="@../css/reservation.css">
+                           <VBox.margin>
+                              <Insets left="25.0" right="10.0" top="4.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="72.0" text="Expired">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <VBox prefHeight="22.0" prefWidth="66.0" style="-fx-background-color: #dadef5;">
+                     <children>
+                        <RadioButton id="0" fx:id="rdCancel" focusTraversable="false" mnemonicParsing="false" onAction="#findOnClick" prefHeight="18.0" prefWidth="17.0" styleClass="btnReser" stylesheets="@../css/reservation.css">
+                           <VBox.margin>
+                              <Insets left="25.0" right="10.0" top="4.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="72.0" text="Cancelled">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </VBox>
+               </children>
+            </VBox>
+            <Button alignment="CENTER" layoutX="513.0" layoutY="44.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#resetInput" prefHeight="30.0" prefWidth="66.0" style="-fx-background-color: linear-gradient(to right, #dbd9d5, #a39e96); -fx-border-radius: 50px; -fx-background-radius: 50px; -fx-effect: none;" styleClass="btnReser" stylesheets="@../css/reservation.css" text="Reset" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#62a38d7d" />
+               </effect>
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/reset.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Pane fx:id="paneDetails" focusTraversable="true" layoutX="13.0" layoutY="259.0" prefHeight="205.0" prefWidth="296.0" visible="false">
+               <children>
+                  <VBox prefHeight="205.0" prefWidth="296.0">
+                     <children>
+                        <Label fx:id="lblcode1" prefHeight="18.0" prefWidth="345.0" text="RESERVATION DETAILS:" textFill="#9e3c3c">
+                           <font>
+                              <Font name="Cambria" size="12.8" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblCode" prefHeight="0.0" prefWidth="410.0" textFill="#9c6d6d">
+                           <font>
+                              <Font name="Cambria" size="13.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="lblCusName" prefHeight="0.0" prefWidth="347.0" textFill="#9c6d6d">
+                           <font>
+                              <Font name="Cambria" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblTablePick" layoutX="10.0" layoutY="174.0" prefHeight="15.0" prefWidth="306.0" textFill="#9c6d6d">
+                           <font>
+                              <Font name="Cambria" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblSeats" prefHeight="0.0" prefWidth="359.0" textFill="#9c6d6d">
+                           <font>
+                              <Font name="Cambria" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblTime" prefHeight="0.0" prefWidth="359.0" textFill="#9c6d6d">
+                           <font>
+                              <Font name="Cambria" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblPhone" prefHeight="0.0" prefWidth="359.0" textFill="#9c6d6d">
+                           <font>
+                              <Font name="Cambria" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblEmail" prefHeight="0.0" prefWidth="359.0" textFill="#9c6d6d">
+                           <font>
+                              <Font name="Cambria" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblDeposit" prefHeight="15.0" prefWidth="333.0" textFill="#9c6d6d">
+                           <font>
+                              <Font name="Cambria" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblStatus" prefHeight="15.0" prefWidth="330.0" textFill="#9c6d6d">
+                           <font>
+                              <Font name="Cambria" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblCreated" layoutX="10.0" layoutY="189.0" prefHeight="15.0" prefWidth="353.0" textFill="#9c6d6d">
+                           <font>
+                              <Font name="Cambria" size="13.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+            <Button fx:id="btnPut" alignment="CENTER_RIGHT" layoutX="378.0" layoutY="267.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#putMore" prefHeight="30.0" prefWidth="71.0" style="-fx-background-color: #9758b0; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnTables" stylesheets="@../css/tables.css" text="Put more" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#fb6e677d" />
+               </effect>
+               <font>
+                  <Font size="11.86" />
+               </font>
+               <padding>
+                  <Insets right="4.0" />
+               </padding>
+            </Button>
+            <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" layoutX="380.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/order.png" />
+               </image>
+            </ImageView>
+            <Button alignment="CENTER" layoutX="80.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#refresh" prefHeight="30.0" prefWidth="31.0" style="-fx-background-color: linear-gradient(to right, #dbd9d5, #a39e96); -fx-border-radius: 50px; -fx-background-radius: 50px; -fx-effect: none;" styleClass="btnReser" stylesheets="@../css/reservation.css" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#62a38d7d" />
+               </effect>
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/reset.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+      <Button id="1" fx:id="btnReserSche" layoutX="12.0" layoutY="72.0" mnemonicParsing="false" onAction="#showPane" prefHeight="30.0" prefWidth="219.0" styleClass="btnShow" stylesheets="@../css/reservation.css" text="Show Reservations Schedule" textFill="WHITE" />
+      <Button id="0" fx:id="btnTablesSche" layoutX="12.0" layoutY="72.0" mnemonicParsing="false" onAction="#showPane" prefHeight="30.0" prefWidth="219.0" style="-fx-background-radius: 15;" styleClass="btnShow" stylesheets="@../css/reservation.css" text="Show Tables Schedule" textFill="WHITE" />
+   </children>
+</AnchorPane>

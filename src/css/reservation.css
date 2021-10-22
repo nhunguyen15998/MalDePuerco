@@ -1,0 +1,21 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+
+
+.btnReser:hover{
+-fx-cursor:hand;
+}
+ .btnShow:hover{
+-fx-effect:  dropshadow(two-pass-box, rgba(212, 165, 174,0.3),10, 0,0, 0);
+-fx-cursor:hand;
+}
+.btnShow{
+-fx-background-color: linear-gradient(to left,#b5a9de,#d3cce8);
+-fx-background-radius:15;
+-fx-effect:  dropshadow(two-pass-box, rgba(212, 165, 174,0.5),10, 0,0, 0);
+}

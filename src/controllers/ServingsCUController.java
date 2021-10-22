@@ -30,6 +30,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -55,7 +56,7 @@ public class ServingsCUController implements Initializable{
     private TextField tfName;
 
     @FXML
-    private TextField tfDes;
+    private TextArea tfDesc;
 
     @FXML
     private TextField tfPrice;
@@ -111,7 +112,7 @@ public class ServingsCUController implements Initializable{
 			ObservableList<DataMapping> status = FXCollections.observableArrayList(ServingModel.isActivated, ServingModel.isDeactivated);
 			cbStatus.setItems(status);
 			
-			ObservableList<DataMapping> type = FXCollections.observableArrayList(ServingModel.isFood, ServingModel.isHotDrink, ServingModel.isColdDrink);
+			ObservableList<DataMapping> type = FXCollections.observableArrayList(ServingModel.isFood, ServingModel.isDrink);
 			cbType.setItems(type);
 			
 			fileChooser = new FileChooser();
@@ -196,18 +197,18 @@ public class ServingsCUController implements Initializable{
 			try {
 				String name = tfName.getText();
 				String cate = cbCate.getValue() != null ? cbCate.getValue().key : null;
-				String des = tfDes.getText();
+				String des = tfDesc.getText();
 				String price = tfPrice.getText();
 				String quantity = tfQuantity.getText();
 				String type = cbType.getValue() != null ? cbType.getValue().key : null;
 				
 				if(validated(name, cate, des, price, quantity, type)) {
 					ArrayList<DataMapping> servings = new ArrayList<DataMapping>();
-					servings.add(DataMapping.getInstance("name", name));
-					servings.add(DataMapping.getInstance("category_id", cate));
+					servings.add(DataMapping.getInstance("nameSer", name));
+					servings.add(DataMapping.getInstance("cateName", cate));
 					servings.add(DataMapping.getInstance("descriptions", des));
 					servings.add(DataMapping.getInstance("price", price));
-					servings.add(DataMapping.getInstance("quantity", quantity));
+					servings.add(DataMapping.getInstance("stock_quantity", quantity));
 					servings.add(DataMapping.getInstance("thumbnail", path));
 					servings.add(DataMapping.getInstance("type", type));
 					
@@ -282,7 +283,7 @@ public class ServingsCUController implements Initializable{
 					re.add(DataMapping.getInstance("path", path));
 					if(currentSer.next()) {
 						tfName.setText(currentSer.getString("name"));
-						tfDes.setText(currentSer.getString("descriptions"));
+						tfDesc.setText(currentSer.getString("descriptions"));
 						tfPrice.setText(currentSer.getString("price"));
 						tfQuantity.setText(currentSer.getString("quantity"));
 						

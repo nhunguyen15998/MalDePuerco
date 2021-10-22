@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: #f0e9ec;" stylesheets="@../css/setting.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SettingController">
+   <children>
+      <Pane prefHeight="70.0" prefWidth="546.0" style="-fx-background-color: linear-gradient(to right, #ff304f,#ffabb7);">
+         <children>
+            <Label fx:id="lblRole" layoutX="10.0" layoutY="20.0" prefHeight="30.0" prefWidth="526.0" text="Setting" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnClose" layoutX="490.0" mnemonicParsing="false" onAction="#close" prefHeight="48.0" prefWidth="45.0" style="-fx-background-color: transparent;" styleClass="btnSetting" stylesheets="@../css/setting.css">
+               <graphic>
+                  <ImageView disable="true" fitHeight="40.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/close.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+      <Label fx:id="lblStatus" layoutX="170.0" layoutY="202.0" prefHeight="83.0" prefWidth="206.0" text="You have not set&#10; the number for this tablet&#10;&#10;" textAlignment="CENTER" textFill="#b4153a" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="170.0">
+         <font>
+            <Font name="Cambria" size="18.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="imgStatus" fitHeight="130.0" fitWidth="130.0" layoutX="208.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../my_java/eclipse-workspace/MalDePuerco/src/assets/tablet_no.png" />
+         </image>
+      </ImageView>
+      <ComboBox fx:id="cbbCode" layoutX="145.0" layoutY="347.0" onAction="#getTableInfo" prefHeight="26.0" prefWidth="166.0" promptText="code" style="-fx-background-color: linear-gradient(to right, #fcebee,#fcd7dd);" />
+      <Label layoutX="42.0" layoutY="351.0" text="Select table code:" textFill="#ac2424" />
+      <Label fx:id="lblTableInfo" layoutX="42.0" layoutY="375.0" prefHeight="51.0" prefWidth="274.0" text="&#10;" />
+      <Button fx:id="btnClear" alignment="CENTER" layoutX="425.0" layoutY="344.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnClearAction" prefHeight="30.0" prefWidth="78.0" style="-fx-background-color: linear-gradient(to right, #fbc6c4, #f4a29f, #fb8b87, #FB6E67); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnSetting" stylesheets="@../css/setting.css" text="Clear" textFill="WHITE">
+         <effect>
+            <DropShadow color="#fb6e677d" />
+         </effect>
+         <font>
+            <Font size="12.0" />
+         </font>
+         <graphic>
+            <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
+               <image>
+                  <Image url="@../assets/close.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnSave" alignment="CENTER" layoutX="330.0" layoutY="345.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: linear-gradient(to right, #8DC9F8, #69B5F2, #4BA4EC, #3292E6); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnSetting" stylesheets="@../css/setting.css" text="Save" textFill="WHITE">
+         <effect>
+            <DropShadow color="#5873de7d" />
+         </effect>
+         <font>
+            <Font size="12.0" />
+         </font>
+         <graphic>
+            <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
+               <image>
+                  <Image url="@../assets/save.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label fx:id="lblWarn" layoutX="145.0" layoutY="327.0" prefHeight="18.0" prefWidth="340.0" textFill="#a17064">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="42.0" layoutY="289.0" text="Time to book:       after " textFill="#ac2424" />
+      <TextField fx:id="tfBook" focusTraversable="false" layoutX="167.0" layoutY="284.0"  prefHeight="27.0" prefWidth="56.0" promptText="hour(s)" styleClass="tfUserUC" stylesheets="@../css/useruc.css" />
+      <Label fx:id="lblBookError" layoutX="42.0" layoutY="311.0" prefHeight="9.0" prefWidth="234.0" textFill="#a17064">
+         <font>
+            <Font name="System Italic" size="11.0" />
+         </font>
+      </Label>
+      <Label layoutX="317.0" layoutY="289.0" text="Time to cancel:   within" textFill="#ac2424" />
+      <TextField fx:id="tfCancel" focusTraversable="false" layoutX="442.0" layoutY="284.0"  prefHeight="27.0" prefWidth="56.0" promptText="hour(s)" styleClass="tfUserUC" stylesheets="@../css/useruc.css" />
+      <Label fx:id="lblCancelError" layoutX="321.0" layoutY="311.0" prefHeight="16.0" prefWidth="225.0" textFill="#a17064">
+         <font>
+            <Font name="System Italic" size="11.0" />
+         </font>
+      </Label>
+      
+   </children>
+</AnchorPane>

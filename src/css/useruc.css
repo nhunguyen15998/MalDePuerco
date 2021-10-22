@@ -1,0 +1,18 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+.tfUserUC{
+-fx-background-color: #fcf7f9;
+-fx-border-color: linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1)linear-gradient(to left,#de3c60,  #eb758f,#fcb1c1);
+-fx-border-width:0 0 1.5 0;
+}
+.cbbUserUC{
+-fx-background-color: linear-gradient(to right, #fcebee,#fcd7dd);
+}
+.btnUserUC:hover{
+-fx-cursor:hand;
+}

@@ -2,9 +2,6 @@ package models;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import utils.CompareOperator;
 import utils.DataMapping;
 import utils.JoinCondition;
@@ -12,10 +9,9 @@ import utils.JoinCondition;
 public class AttributeModel extends BaseModel {
 	private static String table = "attributes";
 	private static String[] columns = {"id, name, parent_id, created_at"};
-	private static AttributeModel attModel;
 	
 	private int id;
-	private int sequence;
+	private int sequence, parent_id;
 	private String name;
 	private String parent;
 	private String createdAt;
@@ -25,9 +21,6 @@ public class AttributeModel extends BaseModel {
 
 	public AttributeModel() {
 		super(table, columns);
-		if(attModel != null) {
-			AttributeModel item = new AttributeModel();
-		}
 	}
 	
 	public AttributeModel(int id, int sequence, String name, String parent, String createdAt) {
@@ -42,22 +35,19 @@ public class AttributeModel extends BaseModel {
 	//get list
 	public ResultSet getAttributeList(ArrayList<CompareOperator> conditions) {
 		try {
-			String[] selects = {"attributes.id", "attributes.name","att.name as parent_name", "attributes.created_at"};
+			String[] selects = {"attributes.*, att.name as parent_name"};
 			ArrayList<CompareOperator> parentCondition = new ArrayList<CompareOperator>();
 			parentCondition.add(CompareOperator.getInstance("attributes.parent_id", "=", "att.id"));
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
-			joins.add(JoinCondition.getInstance(" join", "attributes att", parentCondition));
-			return this.getData(selects, conditions, joins, null, null);
+			joins.add(JoinCondition.getInstance("left join", "attributes att", parentCondition));
+			return this.getData(selects, conditions, joins, null, null, null);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-//	
-//	public ResultSet getAttById(int id) {
-//		
-//	}
-	
+
 	//create
 	public int createAttribute(ArrayList<DataMapping> data) {
 		try {
@@ -79,6 +69,7 @@ public class AttributeModel extends BaseModel {
 			return false;
 		}
 	}
+
 	
 	public boolean updateAttributeById(int id) {
 		try {
@@ -90,6 +81,7 @@ public class AttributeModel extends BaseModel {
 			return false;
 		}
 	}
+
 		
 	//delete
 	public boolean deleteAttribute(int id) {
@@ -141,6 +133,14 @@ public class AttributeModel extends BaseModel {
 
 	public void setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
+	}
+
+	public int getParent_id() {
+		return parent_id;
+	}
+
+	public void setParent_id(int parent_id) {
+		this.parent_id = parent_id;
 	}
 
 }

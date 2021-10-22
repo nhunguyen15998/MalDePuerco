@@ -1,17 +1,22 @@
 package models;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import utils.CompareOperator;
 import utils.DataMapping;
+import utils.Helpers;
 import utils.JoinCondition;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
+import db.MySQLJDBC;
 public class UserModel extends BaseModel {
 	public static String table = "users";
 	public static String[] columns = {"id", "code", "name", "email", "phone", "password", "role_id", "created_at", "status"};
-	private UserModel userModel;
-	
+	private static UserModel userModel;
 	private int id;
 	private int sequence;
 	private String code;
@@ -48,30 +53,51 @@ public class UserModel extends BaseModel {
 		}
 	}
 	
-	public UserModel(int id, int sequence, String code, String name, int gender, String birth, double salary, String email, String phone, String role, String createdAt, int status) {
+	public UserModel(int id, int sequence, String code, String name, String email,
+			String phone, String role, String createdAt, int status) {
 		super(table, columns);
-		this.setId(id);
-		this.setSequence(sequence);
-		this.setCode(code);
-		this.setName(name);
-		this.setEmail(email);
-		this.setPhone(phone);
-		this.setRole(role);
-		this.setCreatedAt(createdAt);
-		this.setStatus(status);
+		this.id = id;
+		this.sequence = sequence;
+		this.code = code;
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+		this.role = role;
+		this.createdAt = createdAt;
+		this.status = status;
 	}
+
 	
 	//login
-	public ResultSet doLogin(String phone, String password) {
+	public boolean doLogin(String phone, String password) {
+		boolean check= false;
 		try {
-			//String hashPassword = Helpers.sha256(password);
+			String[] selects = {"phone", "password"};
+			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
+			conditions.add(CompareOperator.getInstance("phone", "=", phone));
+			ResultSet rs = this.getData(selects, conditions, null, null, null, null);
+			if(rs.next()) { 
+				boolean checkpass = BCrypt.checkpw(password,rs.getString("password"));
+				System.out.println("check pass:"+checkpass);
+				if(checkpass) {
+					check=true;
+					loginSupport(rs.getString("phone"));
+				}
+			}
+			
+		} catch (Exception eLogin) {
+			eLogin.printStackTrace();
+		}
+		return check;
+	}
+	public ResultSet loginSupport(String phone) {
+		try {
 			
 			String[] selects = {"id", "name"};
 			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
 			conditions.add(CompareOperator.getInstance("phone", "=", phone));
-			//conditions.add(CompareOperator.getInstance("password", "=", hashPassword));
 			conditions.add(CompareOperator.getInstance("status", "=", String.valueOf(USER_ACTIVATED)));
-			ResultSet results = this.getData(selects, conditions, null, null, null);
+			ResultSet results = this.getData(selects, conditions, null, null, null, null);
 			return results;
 		} catch (Exception eLogin) {
 			eLogin.printStackTrace();
@@ -85,14 +111,14 @@ public class UserModel extends BaseModel {
 			String[] selects = {"users.id", "users.name as user_name", "users.code", 
 								"users.email", "users.phone", "users.password", 
 								"users.created_at", "users.status",
-								"roles.name as role_name"};
+								"roles.name as role_name", "roles.code as role_code"};
 			
 			ArrayList<CompareOperator> joinRole = new ArrayList<CompareOperator>();
 			joinRole.add(CompareOperator.getInstance("users.role_id", " = ", "roles.id"));
 			
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
 			joins.add(JoinCondition.getInstance(" join ", " roles ", joinRole));
-			return this.getData(selects, conditions, joins, null, null);
+			return this.getData(selects, conditions, joins, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -115,7 +141,7 @@ public class UserModel extends BaseModel {
 			
 			
 			
-			return this.getData(selects, conditions, joins, null, null);
+			return this.getData(selects, conditions, joins, null, null, null);
 		} catch (Exception eGetUserById) {
 			eGetUserById.printStackTrace();
 			return null;
@@ -129,7 +155,7 @@ public class UserModel extends BaseModel {
 			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
 			conditions.add(CompareOperator.getInstance("role_id", "=", "4"));
 			
-			return this.getData(selects, conditions, null, null, null);
+			return this.getData(selects, conditions, null, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

@@ -34,11 +34,10 @@ public class ServingModel extends BaseModel {
 	
 	//type
 	public static final int FOOD = 0;
-	public static final int HOT_DRINK = 1;
-	public static final int COLD_DRINK = 2;
+	public static final int DRINK = 1;
+
 	public static DataMapping isFood = DataMapping.getInstance(FOOD, "Food");
-	public static DataMapping isHotDrink = DataMapping.getInstance(HOT_DRINK, "Hot Drink");
-	public static DataMapping isColdDrink = DataMapping.getInstance(COLD_DRINK, "Cold Drink");
+	public static DataMapping isDrink = DataMapping.getInstance(DRINK, "Drink");
 	
 	public static boolean isShown = false;
 	
@@ -68,19 +67,20 @@ public class ServingModel extends BaseModel {
 	//get list
 	public ResultSet getServingList(ArrayList<CompareOperator> conditions) {
 		try {
-			String[] selects = {"servings.id", "servings.name as nameSer", "sc.name as cateName",
-					"servings.type", "servings.descriptions","servings.quantity",
-					"servings.price", "servings.created_at", "servings.status", "servings.thumbnail"};
-			ArrayList<CompareOperator> joinCondition = new ArrayList<CompareOperator>();
-			joinCondition.add(CompareOperator.getInstance("servings.category_id", "=", "sc.id"));
-//			joinCondition.add(CompareOperator.getInstance("servings.thumbnail", "=", "si.path"));
-			
+			String[] selects = {"servings.*, sc.name as category_name, scs.name as category_parent_name, "
+					+ "(servings.quantity - servings.quantity_sold) as stock_quantity, "
+					+ "servings.name as nameSer", "sc.name as cateName"};
+			ArrayList<CompareOperator> cateCondition = new ArrayList<CompareOperator>();
+			cateCondition.add(CompareOperator.getInstance("servings.category_id", "=", "sc.id"));
+			ArrayList<CompareOperator> cateParentCondition = new ArrayList<CompareOperator>();
+			cateParentCondition.add(CompareOperator.getInstance("scs.id", "=", "sc.parent_id"));
+			ArrayList<CompareOperator> attributeCondition = new ArrayList<CompareOperator>();
+			attributeCondition.add(CompareOperator.getInstance("servings.id", "=", "serving_attributes.serving_id"));
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
-			joins.add(JoinCondition.getInstance("join", "serving_categories sc", joinCondition));
-			
-//			joins.add(JoinCondition.getInstance("join", "serving_image si", joinCondition));
-			
-			return this.getData(selects, conditions, joins, null, null);
+			joins.add(JoinCondition.getInstance("left join", "serving_categories sc", cateCondition));
+			joins.add(JoinCondition.getInstance("left join", "serving_categories scs", cateParentCondition));
+
+			return this.getData(selects, conditions, joins, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -102,7 +102,7 @@ public class ServingModel extends BaseModel {
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
 			joins.add(JoinCondition.getInstance("join", "serving_categories sc", joinConditions));
 			
-			return this.getData(selects, joinConditions, joins, null, null);
+			return this.getData(selects, joinConditions, joins, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

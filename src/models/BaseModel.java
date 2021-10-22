@@ -1,5 +1,6 @@
 package models;
 
+
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -21,8 +22,8 @@ public class BaseModel {
 	}
 	
 	//get data
-	public ResultSet getData(String[] selects, ArrayList<CompareOperator> conditions, ArrayList<JoinCondition> joins, String[] groupBys, String orderBys) {
-		return db.getData(selects, conditions, joins, groupBys, orderBys);
+	public ResultSet getData(String[] selects, ArrayList<CompareOperator> conditions, ArrayList<JoinCondition> joins, String[] groupBys, String orderBys, String limit) {
+		return db.getData(selects, conditions, joins, groupBys, orderBys, limit);
 	}
 	
 	//edit

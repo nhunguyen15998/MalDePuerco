@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="838.0" styleClass="mainFxmlClass" stylesheets="@../css/tables.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.TablesController">
+   <children>
+      <Label layoutX="92.0" layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="685.0" text="Tables management">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="38.0" layoutY="18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: linear-gradient(to right, #D586F9, #BA6BF8, #A056F7); -fx-background-radius: 5;" />
+      <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="47.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/table.png" />
+         </image>
+      </ImageView>
+      <Pane fx:id="paneSchedule" layoutX="10.0" layoutY="67.0" prefHeight="426.0" prefWidth="219.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.5),30, 0,10, 10);" />
+      <Pane layoutX="235.0" layoutY="67.0" prefHeight="426.0" prefWidth="596.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(211, 204, 255,0.8),30, 0,10, 10);">
+         <children>
+            <TableView fx:id="tblTables" layoutX="4.0" layoutY="67.0" onMouseClicked="#getTableDataByClick" prefHeight="294.0" prefWidth="586.0" stylesheets="@../css/tables.css">
+              <columns>
+                <TableColumn fx:id="colNo" prefWidth="30.0" text="#" />
+                <TableColumn fx:id="colID" prefWidth="75.0" text="colID" visible="false" />
+                  <TableColumn fx:id="colCode" prefWidth="100.0" text="Code" />
+                  <TableColumn fx:id="colName" prefWidth="116.0" text="Name" />
+                  <TableColumn fx:id="colSeats" minWidth="9.5999755859375" prefWidth="40.79998779296875" text="Seats" />
+                  <TableColumn fx:id="colCreated" prefWidth="103.20001220703125" text="Created at" />
+                  <TableColumn fx:id="colSet" prefWidth="35.20001220703125" text="Is Set" />
+                  <TableColumn fx:id="colShift" prefWidth="85.60003662109375" text="Shift of" />
+                  <TableColumn fx:id="colStatus" prefWidth="75.20001220703125" text="Status" />
+                  <TableColumn fx:id="colUserID" prefWidth="85.60003662109375" text="UserID" visible="false" />
+              </columns>
+            </TableView>
+            <Button fx:id="btnCreate" alignment="CENTER_RIGHT" layoutX="332.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnCreateAction" prefHeight="30.0" prefWidth="68.0" style="-fx-background-color: #2B79D3; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnTables" stylesheets="@../css/tables.css" text="Create" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#2b79d37d" />
+               </effect>
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnDelete" alignment="CENTER_RIGHT" layoutX="407.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="30.0" prefWidth="66.0" style="-fx-background-color: #FB6E67; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnTables" stylesheets="@../css/tables.css" text="Delete" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#fb6e677d" />
+               </effect>
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnUpdate" alignment="CENTER_RIGHT" layoutX="257.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="30.0" prefWidth="68.0" style="-fx-background-color: #62A38D; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnTables" stylesheets="@../css/tables.css" text="Update" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#62a38d7d" />
+               </effect>
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Button>
+            <Button layoutX="176.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnClearAction" prefHeight="30.0" prefWidth="31.0" style="-fx-background-color: #9C5978; -fx-background-radius: 50px;" styleClass="btnTables" stylesheets="@../css/tables.css" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/delete_key.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <TextField fx:id="tfTable" layoutX="14.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#onSearch" prefHeight="30.0" prefWidth="155.0" promptText="Find by code, name, seats" style="-fx-background-radius: 50px;" />
+            <Button fx:id="btnOrder" alignment="CENTER_RIGHT" layoutX="480.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnMakeOrder" prefHeight="30.0" prefWidth="92.0" style="-fx-background-color: #9758b0; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnTables" stylesheets="@../css/tables.css" text="Make order" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#fb6e677d" />
+               </effect>
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Button>
+            <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" layoutX="262.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/edit.png" />
+               </image>
+            </ImageView>
+            <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" layoutX="339.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/add.png" />
+               </image>
+            </ImageView>
+            <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" layoutX="413.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/delete.png" />
+               </image>
+            </ImageView>
+            <ImageView disable="true" fitHeight="15.0" fitWidth="15.0" layoutX="485.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/order.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnChange" alignment="CENTER" layoutX="464.0" layoutY="367.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnChangeShift" prefHeight="30.0" prefWidth="118.0" style="-fx-background-color: #2B79D3; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnTables" stylesheets="@../css/tables.css" text="     Change shift" textFill="WHITE">
+               <effect>
+                  <DropShadow color="#2b79d37d" />
+               </effect>
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Button>
+            <ImageView disable="true" fitHeight="18.0" fitWidth="29.0" layoutX="477.0" layoutY="374.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/roles.png" />
+               </image>
+            </ImageView>
+            <CheckBox fx:id="chkShift" layoutX="4.0" layoutY="365.0" mnemonicParsing="false" onAction="#checkShift" style="-fx-cursor: hand;" styleClass="box" stylesheets="@../css/sign_in.css" text="Table(s) of my shift">
+               <font>
+                  <Font name="Cambria" size="11.0" />
+               </font>
+            </CheckBox>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

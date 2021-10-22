@@ -4,6 +4,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import utils.CompareOperator;
 
@@ -14,10 +15,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -32,8 +36,9 @@ public class OrderWaiterDController implements Initializable{
 	private OrderDetailModel odModel = new OrderDetailModel();
 	
 	public int odID;
-	private String odCode;
-	private String odName;
+	public String odCode;
+	public String odName;
+	private int status;
 	
 	private OrderWaiterController orderController;
 	
@@ -73,11 +78,17 @@ public class OrderWaiterDController implements Initializable{
     @FXML
     private TableColumn<OrderDetailModel, String> col_status;
     
+    @FXML private TableColumn<OrderDetailModel, String> colNote;
+    
     @FXML private Button btnCancel;
+    
+    @FXML private Button btnUpdate;
+    @FXML private Button btnDel;
     
     @FXML private Label lblCode;
 
     @FXML AnchorPane createHolder;
+    @FXML AnchorPane option;
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -114,13 +125,14 @@ public class OrderWaiterDController implements Initializable{
 									)
 								)
 					));
+			colNote.setCellValueFactory(new PropertyValueFactory<OrderDetailModel, String>("servingNote"));
 			
 			ResultSet rsList = this.odModel.getOrderDetailListD(conditions);
 			while(rsList.next()) {
 				odList.add(new OrderDetailModel(
 						rsList.getInt("id"),
 						rsList.getRow(),
-						rsList.getString("code"), 
+						rsList.getString("orders.code"), 
 						rsList.getString("serName"), 
 						rsList.getString("size"), 
 						rsList.getInt("quantity"),
@@ -128,7 +140,8 @@ public class OrderWaiterDController implements Initializable{
 						rsList.getInt("total"),
 						rsList.getString("uCode"),
 						rsList.getString("time"), 
-						rsList.getInt("serving_status")
+						rsList.getInt("serving_status"),
+						rsList.getString("serving_note")
 						));
 			}
 			tblOrderD.setItems(odList);
@@ -144,8 +157,10 @@ public class OrderWaiterDController implements Initializable{
 			this.odID = this.orderController.getOrderId();
 			System.out.println("code:"+this.odID);
 			this.odCode = this.orderController.getOrderCode();
+			this.odName = this.orderController.getOrderName();
+			this.status = this.orderController.getStatus();
 			
-			lblCode.setText("Code:" + this.odCode);
+			lblCode.setText("Code: " + this.odCode);
 			
 			ArrayList<CompareOperator> code = new ArrayList<CompareOperator>();
 			code.add(CompareOperator.getInstance("orders.id", "=", String.valueOf(this.odID)));
@@ -173,23 +188,6 @@ public class OrderWaiterDController implements Initializable{
 				e.printStackTrace();
 			}
 		}
-	
-		@FXML private void handleStatusOption(ActionEvent event) {
-			String status = col_status.getTypeSelector();
-			if(status == null) {
-				System.out.println("select row");
-				return ;
-			}
-			try {
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/optionWaiter.fxml"));
-	    		Parent root = loader.load();
-				Stage stage = new Stage();
-				stage.setScene(new Scene(root));
-				stage.show();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 		
 		//update from
 		public void showUpdateFrom() {
@@ -198,8 +196,8 @@ public class OrderWaiterDController implements Initializable{
 				FXMLLoader root = new FXMLLoader(getClass().getResource("/views/orderDetailsUpdate.fxml"));
 				createHolder = root.load();
 				
-//				OrderWaiterDUController DUcontroller = root.<OrderWaiterDUController>getController();
-//				DCcontroller.loadDataById(this);
+				OrderWaiterDUController DUcontroller = root.<OrderWaiterDUController>getController();
+				DUcontroller.loadDataById(this);
 				
 				Scene scene = new Scene(createHolder, 600, 400);
 				Stage create = new Stage();
@@ -212,19 +210,76 @@ public class OrderWaiterDController implements Initializable{
 			}
 		}
 		
-		@FXML
-	    void btnUpdateAction(ActionEvent event) {
+		public void showOption() {
+			try {
+				FXMLLoader root = new FXMLLoader(getClass().getResource("/views/optionWaiter-Support.fxml"));
+				option = root.load();
+				
+				WaiterOptionSupport control = root.<WaiterOptionSupport>getController();
+				control.loadDataById(this);
+				
+				Scene scene = new Scene(option, 260, 140);
+				Stage option = new Stage();
+				option.initStyle(StageStyle.UNDECORATED);
+				option.setScene(scene);
+				option.show();
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(e);
+			}
+		}
+		
+		@FXML void btnOption(ActionEvent event) {
 			try {
 				if(this.odID != 0) {
-					this.showUpdateFrom();
+					this.showOption();
 				} else {
 					Helpers.status("error");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}
+		
+		@FXML
+	    void btnUpdateAction(ActionEvent event) {
+			try {
+				if(this.odID != 0 && status == 0) {
+					this.showUpdateFrom();
+				} else {
+					Alert al = new Alert(AlertType.WARNING);
+					al.setHeaderText(null);
+					al.setContentText("Cannot be edited");
+					al.showAndWait();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 	    }
 		
+		@FXML void btnDelete(ActionEvent event) {
+			try {
+				
+				if(odID != 0 && status == 0) {
+					Alert al = new Alert(AlertType.CONFIRMATION);
+					al.setHeaderText("Are you sure you want delete this item? ");
+					
+					Optional<ButtonType> options = al.showAndWait();
+					if(options.get() == ButtonType.OK) {
+						this.odModel.deleteOrderDetail(odID);
+						this.getOrderCode(orderController);
+					}
+				} else {
+					Alert al = new Alert(AlertType.WARNING);
+					al.setHeaderText(null);
+					al.setContentText("Cannot be edited");
+					al.showAndWait();
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	//get & set
 	
 	public int getOdID() {
@@ -249,6 +304,14 @@ public class OrderWaiterDController implements Initializable{
 
 	public void setOdName(String odName) {
 		this.odName = odName;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	
 	

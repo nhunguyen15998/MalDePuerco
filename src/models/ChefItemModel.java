@@ -1,7 +1,7 @@
 package models;
 
 public class ChefItemModel {
-	private String oderCode, servingName, quantity, userCode, createdAt, size;
+	private String oderCode, servingName, userCode, quantity,  createdAt, size, note;
 	private int id, status;
 	
 	public int getId() {
@@ -59,6 +59,14 @@ public class ChefItemModel {
 	}
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 	
 	

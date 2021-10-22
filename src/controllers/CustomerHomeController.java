@@ -4,6 +4,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
@@ -41,21 +43,22 @@ import javafx.stage.StageStyle;
 import models.OrderDetailModel;
 import models.OrderListModel;
 import models.OrderModel;
+import models.ServingAttributeModel;
 import models.ServingCategoryModel;
 import models.ServingModel;
+import models.TableModel;
 import utils.CompareOperator;
 import utils.DataMapping;
 import utils.Helpers;
 
 public class CustomerHomeController implements Initializable {
-<<<<<<< HEAD
-	public static boolean isSelected = false;
-	private int btnId;
-=======
 	private ServingCategoryModel servingCategoryModel = new ServingCategoryModel();
 	private ServingModel servingModel = new ServingModel();
 	private OrderModel orderModel = new OrderModel();
 	private OrderDetailModel orderDetailModel = new OrderDetailModel();
+	private ServingAttributeModel servingAttributeModel = new ServingAttributeModel();
+	public MasterController masterController;
+	private TableModel tableModel = new TableModel();
 
 //	private TableModel tableModel = ;
 	public static boolean isActive = false;
@@ -71,18 +74,17 @@ public class CustomerHomeController implements Initializable {
 	private String mainCategorySelected;
 	private String categorySelected;
 		
-	private static ObservableList<OrderListModel> createdList = FXCollections.observableArrayList();
-	private static ObservableList<OrderDetailModel> updatedList = FXCollections.observableArrayList();
+	public static ObservableList<OrderListModel> createdList = FXCollections.observableArrayList();
+	public static ObservableList<OrderDetailModel> updatedList = FXCollections.observableArrayList();
 
 	private OrderListModel selected;
 	
 	private int userId = 3;
-	private double totalPlace;
-	public int orderDetailId = 0;
-	private String orderCode = "";
+	public double totalPlace;
+	public String orderCode = "";
 	private int servingId;
+	private String tableName;
 	
->>>>>>> super
 	//sidebar btn
 	@FXML
 	private Button btnAll;
@@ -111,7 +113,7 @@ public class CustomerHomeController implements Initializable {
 	@FXML
 	private Button btnReloadUpdated;
 	@FXML
-	private Label lblOrderCode;
+	public Label lblOrderCode;
 	
 	//pane
 	@FXML
@@ -129,10 +131,10 @@ public class CustomerHomeController implements Initializable {
 	//1
 	private Pane titlePane = new Pane();
 	//2
-	private ScrollPane spOrderList = new ScrollPane();//has children: vboxOrderList,
-	private VBox vboxOrderList = new VBox();//has children order list
+	public ScrollPane spOrderList = new ScrollPane();//has children: vboxOrderList,
+	public AnchorPane anchorPane = new AnchorPane();
+	public static VBox vboxOrderList = new VBox();//has children order list
 	//order list
-	private Pane vboxPane = new Pane();
 	private ImageView ivImageView;
 	private Label lblServingName;
 	private Label lblItemPrice;
@@ -140,14 +142,13 @@ public class CustomerHomeController implements Initializable {
 	private TextField tfNote;
 	private TextField tfQuantity;
 	private Button btnDelete;
-	//private ImageView ivServingStatus;
 	private Label lblCreatedAt;
-	//private Button statusPane;
+	private Label lblAttribute;
 
 	//3
 	private Button btnPlace = new Button();//has child: lblPlaceTotal
 	private Label lblPlaceTotal = new Label();
-	private Button btnPay = new Button();
+	public Button btnPay = new Button();
 	private Label lblPayTotal = new Label();
 	
 	//hbox
@@ -171,35 +172,87 @@ public class CustomerHomeController implements Initializable {
 	//--------------METHODS---------------------
 	//----------initialize & search-------------
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	public void initialize(URL arg0, ResourceBundle arg1){
+		// connect to socket
+//		try {
+//			HandleNotifications.getInstance().handleReceivedMessage();
+//			//this.customerMasterHolder.setVisible(false);
+//		} catch (IOException e1) {
+//			e1.printStackTrace();
+//		}
+
+		
 		try {
-<<<<<<< HEAD
-			//empty order list
-			emptyOrderList = FXMLLoader.load(getClass().getResource("/views/emptycart.fxml"));	
-			orderListPane.getChildren().setAll(emptyOrderList);
-=======
-			this.lblTableName.setText(OrderModel.tableName);
 			this.vboxOrderList.getChildren().clear();
 			this.addItemToOrderList();
 			this.btnAllAction();
-			this.btnReloadUpdated.setVisible(false);
-			this.lblOrderCode.setText(null);
+						
 			//btns
 			
 			btnServer.setOnMouseClicked(event -> {
 				
 			});
-			btnNoti.setOnMouseClicked(event -> {
-				
-			});
 			btnHelp.setOnMouseClicked(event -> {
 				
 			});
-			btnHelp.setOnMouseClicked(event -> {
-				
-			});
+
+			loadOrderByTable();
+
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	//load order by table
+	public void loadOrderByTable() {
+		Preferences preferences = Preferences.userNodeForPackage(getClass());
+		TableModel.tableId = preferences.getInt("tabletId", SettingController.tableId);
+		System.out.println("home table id "+TableModel.tableId);
+		if(TableModel.tableId != 0) { 
+			getTableName(TableModel.tableId);
+			String code = this.loadLatestUnpaidOrder();
+			if(OrderModel.currentOrderId != 0) {
+				this.lblOrderCode.setText("#"+code);
+			} else {
+				this.lblOrderCode.setText("");
+			}
+		} else {
+			this.lblTableName.setText("");
+			this.lblOrderCode.setText("");
+		}
+	}
+	
+	//load latest unpaid order - get updated data -> add to updated list, draw updated list -> render
+	public String loadLatestUnpaidOrder() {
+		try {
+			ArrayList<CompareOperator> unpaidOrder =  new ArrayList<CompareOperator>();
+			unpaidOrder.add(CompareOperator.getInstance("orders.table_id", "=", String.valueOf(TableModel.tableId)));//TableModel.tableId
+			unpaidOrder.add(CompareOperator.getInstance("orders.status", "!=", String.valueOf(OrderModel.COMPLETED)));
+			String orderBys = "order_details.id desc";
+			this.renderUpdatedOrderList(unpaidOrder, orderBys);
+			System.out.println(">>> OrderId:"+OrderModel.currentOrderId);
+			ResultSet code = this.orderModel.getOrderById(OrderModel.currentOrderId);
+			while(code.next()) {
+				this.orderCode = code.getString("code");
+			}
+			return this.orderCode;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	//get table name
+	public String getTableName(int id) {
+		try {
+			ResultSet name = this.tableModel.getTableById(id);
+			while(name.next()) {
+				lblTableName.setText(name.getString("name"));
+			}
+			return this.tableName;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 	
@@ -251,7 +304,7 @@ public class CustomerHomeController implements Initializable {
 
 	//btnappetizer
 	public void btnAppetizerAction() {
-		this.mainCategorySelected = this.APPETIZERS;
+		this.mainCategorySelected = CustomerHomeController.APPETIZERS;
 		this.categorySelected = "";
 		this.categoryHBox.getChildren().clear();
 		this.servingGridPane.getChildren().clear();
@@ -269,7 +322,7 @@ public class CustomerHomeController implements Initializable {
 
 	//btnsideorder
 	public void btnSideOrderAction() {
-		this.mainCategorySelected = this.SIDE_ORDERS;
+		this.mainCategorySelected = CustomerHomeController.SIDE_ORDERS;
 		this.categorySelected = "";
 		this.categoryHBox.getChildren().clear();
 		this.servingGridPane.getChildren().clear();
@@ -286,7 +339,7 @@ public class CustomerHomeController implements Initializable {
 	
 	//btnalacarte
 	public void btnALaCarteAction() {
-		this.mainCategorySelected = this.A_LA_CARTE;
+		this.mainCategorySelected = CustomerHomeController.A_LA_CARTE;
 		this.categorySelected = "";
 		this.categoryHBox.getChildren().clear();
 		this.servingGridPane.getChildren().clear();
@@ -345,10 +398,32 @@ public class CustomerHomeController implements Initializable {
 		}
 	}
 	
+	//load master
+	public MasterController loadMaster(MasterController masterController) {
+		this.masterController = masterController;
+		return this.masterController;
+	}
+	
 	//btnsetting
 	public void btnSettingAction() {
 		try {
+			AnchorPane customerHolder;
+			Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/login-exit.fxml")); 
+			customerHolder = root.load();
 			
+			//controller
+			CustomerOptionController controller = root.getController();
+			controller.showForm(this);
+			
+			
+			Scene scene = new Scene(customerHolder, 307, 349);
+			Stage stage = new Stage();
+			stage.setX((screenBounds.getWidth() - 307)/2);
+			stage.setY((screenBounds.getHeight() - 349)/2);
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.setScene(scene);
+			stage.show();			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -356,11 +431,7 @@ public class CustomerHomeController implements Initializable {
 	
 	//btnnoti
 	public void btnNotiAction() {
-		try {
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 	}
 	
 	//btnserver
@@ -408,7 +479,7 @@ public class CustomerHomeController implements Initializable {
 	//draw gridpane showing servings
 	public void gridPaneLayout(Pane servingPane, ImageView servingImage, Text servingName, Label servingPrice, Text servingStock) {
 		try {
-			servingGridPane.getStylesheets().add(getClass().getResource("/css/gridpane.css").toExternalForm());
+			servingGridPane.getStylesheets().add(getClass().getResource("/css/home-component.css").toExternalForm());
 			
 			//servingpane
 			servingPane.setPrefWidth(130);
@@ -449,7 +520,6 @@ public class CustomerHomeController implements Initializable {
 			servingStock.setStrokeWidth(0);
 			servingStock.setTextAlignment(TextAlignment.CENTER);
 			servingStock.setWrappingWidth(110);
->>>>>>> super
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -525,40 +595,17 @@ public class CustomerHomeController implements Initializable {
 				Image image = new Image(thumbnail);
 				servingImage.setImage(image);
 				servingPrice.setText("$"+price);
-				servingStock.setText(servings.getInt("quantity") + " bowls in stock");
+				int qty = servings.getInt("quantity");
+				servingStock.setText(qty + " item(s) in stock");
 				//add
 				//onclick to add				 
 				addItem.setOnMouseClicked(event -> {
 					//draw custom serving
 					this.servingId = id;
 					this.customServingLayout(id);
-//					//CustomerHomeController.isCreated = true;
-//					boolean isExisted = false;
-//					for(OrderListModel item : createdList) {
-//						if(item.getServingId() == id) {
-//							int indexItem = createdList.indexOf(item);
-//							OrderListModel currentItem = createdList.get(indexItem);
-//							currentItem.setQuantity(currentItem.getQuantity()+1);
-//							currentItem.setTotalPrice(currentItem.getItemPrice()*currentItem.getQuantity());
-//							isExisted = true;
-//						} 	
-//					}
-//					if(!isExisted) {
-//						createdList.add(new OrderListModel(id, 
-//								thumbnail, 
-//								name, 
-//								price, 
-//								price, 
-//								note, 
-//								quantity));	
-//					}	
-//
-//					this.addItemToOrderList();
 				});
 				servingPane.getChildren().addAll(prodId, servingImage, servingName, servingPrice, servingStock, addItem);
-				this.servingGridPane.add(servingPane, x, y);//0,0 1,0 2,0 3,0
-															//0,1 1,0 1,1 2,1 
-															//0,2 2,0 1,2 2,2 
+				this.servingGridPane.add(servingPane, x, y);
 				count++;
 				x++;
 				if(count % 4 == 0) {
@@ -571,6 +618,22 @@ public class CustomerHomeController implements Initializable {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public int totalServingQuantity(int id) {
+		try {
+			ArrayList<CompareOperator> condition  = new ArrayList<CompareOperator>();
+			condition.add(CompareOperator.getInstance("servings.id", "=", String.valueOf(id)));//servingid
+			ResultSet qties = this.servingAttributeModel.getStock(condition);
+			int qty = 0;
+			while(qties.next()) {
+				qty = qties.getInt("qty");
+			}
+			return qty;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
 		}
 	}
 	
@@ -633,7 +696,7 @@ public class CustomerHomeController implements Initializable {
 		spOrderList.setLayoutY(28);
 		spOrderList.setPrefSize(275, 440);
 		spOrderList.setStyle("-fx-background-color: #2B2B2B; -fx-border-color: #2B2B2B");
-		AnchorPane anchorPane = new AnchorPane();
+		anchorPane = new AnchorPane();
 		anchorPane.setPrefSize(272, 703);
 		anchorPane.setStyle("-fx-background-color: #2B2B2B;");
 		
@@ -672,7 +735,6 @@ public class CustomerHomeController implements Initializable {
 			ivServingStatus.setFitWidth(15);
 			ivServingStatus.setLayoutX(8);
 			ivServingStatus.setLayoutY(8);
-			//statusPane.setGraphic(ivServingStatus);
 			
 			//Label 
 			lblServingName.setPrefSize(139, 20);
@@ -685,9 +747,9 @@ public class CustomerHomeController implements Initializable {
 			lblItemPrice.setTextFill(Color.web("#ea7c69"));
 			lblItemPrice.setFont(Font.font("System Bold", 9));
 			
-			lblCreatedAt.setLayoutX(100);
+			lblCreatedAt.setLayoutX(16);
 			lblCreatedAt.setPrefWidth(100);
-			lblCreatedAt.setLayoutY(28);
+			lblCreatedAt.setLayoutY(87);
 			lblCreatedAt.setTextFill(Color.WHITE);
 			lblCreatedAt.setFont(Font.font("System Italic", 9));
 			
@@ -695,6 +757,14 @@ public class CustomerHomeController implements Initializable {
 			lblTotalPrice.setLayoutY(19);
 			lblTotalPrice.setTextFill(Color.web("#ea7c69"));
 			lblTotalPrice.setFont(Font.font("System Bold", 14));
+
+			lblAttribute = new Label();
+			lblAttribute.setLayoutX(75);
+			lblAttribute.setPrefWidth(140);
+			lblAttribute.setLayoutY(28);
+			lblAttribute.setFont(Font.font("System Bold", 9));
+			lblAttribute.setTextFill(Color.web("#dfe5e7c2"));
+
 			//TextField 
 			tfNote.setPrefSize(205, 30);
 			tfNote.setLayoutX(16);
@@ -737,24 +807,20 @@ public class CustomerHomeController implements Initializable {
 			deleteIcon.setFitWidth(15);
 			btnDelete.setGraphic(deleteIcon);
 			
-//			Button btnRefresh = new Button("reload");
-//			btnRefresh.setOnMouseClicked(event -> {
-//				CustomerHomeController.updatedList.clear();
-//				this.getUpdated();
-//			});
 			//Pane
 			Pane vboxPane = new Pane();
-			vboxPane.setPrefSize(275, 90);
+			vboxPane.setPrefSize(275, 100);
 			
 			if(CustomerHomeController.isCreated) {
 				vboxPane.getChildren().addAll(ivImageView, lblServingName, lblItemPrice, lblTotalPrice, 
-												   tfNote, tfQuantity, btnDelete);
+												   tfNote, tfQuantity, btnDelete, lblAttribute);
 			} else {
 				CustomerHomeController.isCreated = false;
 				tfNote.setDisable(true);
 				tfQuantity.setDisable(true);
 				//set icon status
-				
+				ObservableList<Node> nodes = FXCollections.observableArrayList(ivImageView, lblServingName, lblItemPrice, lblTotalPrice, 
+						tfNote, tfQuantity, statusPane, lblCreatedAt, lblAttribute);
 				switch(detail.getServingStatus()) {
 					case OrderDetailModel.PENDING:
 						ivServingStatus.setImage(new Image(getClass().getResource("/assets/sandclock.png").toExternalForm()));
@@ -762,37 +828,31 @@ public class CustomerHomeController implements Initializable {
 						tfNote.setDisable(false);
 						tfQuantity.setDisable(false);
 						vboxPane.getChildren().addAll(ivImageView, lblServingName, lblItemPrice, lblTotalPrice, 
-								   tfNote, tfQuantity, btnDelete);
+								   tfNote, tfQuantity, btnDelete, lblAttribute);
 						break;
 					case OrderDetailModel.COOKING:
 						ivServingStatus.setImage(new Image(getClass().getResource("/assets/cooking.png").toExternalForm()));
 						statusPane.setStyle("-fx-background-color: #ff2351 !important; -fx-background-radius: 5px");
-						vboxPane.getChildren().addAll(ivImageView, lblServingName, lblItemPrice, lblTotalPrice, 
-								tfNote, tfQuantity, statusPane, lblCreatedAt);
+						vboxPane.getChildren().addAll(nodes);
 						break;
 					case OrderDetailModel.READY:
 						ivServingStatus.setImage(new Image(getClass().getResource("/assets/ready.png").toExternalForm()));
 						statusPane.setStyle("-fx-background-color: #34a853 !important; -fx-background-radius: 5px");
-						vboxPane.getChildren().addAll(ivImageView, lblServingName, lblItemPrice, lblTotalPrice, 
-								tfNote, tfQuantity, statusPane, lblCreatedAt);
+						vboxPane.getChildren().addAll(nodes);
 						break;
 					case OrderDetailModel.SERVING:
 						ivServingStatus.setImage(new Image(getClass().getResource("/assets/serving.png").toExternalForm()));
 						statusPane.setStyle("-fx-background-color: #6F71C2 !important; -fx-background-radius: 5px");
-						vboxPane.getChildren().addAll(ivImageView, lblServingName, lblItemPrice, lblTotalPrice, 
-								tfNote, tfQuantity, statusPane, lblCreatedAt);
+						vboxPane.getChildren().addAll(nodes);
 						break;
 					case OrderDetailModel.SERVED:
 						ivServingStatus.setImage(new Image(getClass().getResource("/assets/served.png").toExternalForm()));
 						statusPane.setStyle("-fx-background-color: #F07613 !important; -fx-background-radius: 5px");
-						vboxPane.getChildren().addAll(ivImageView, lblServingName, lblItemPrice, lblTotalPrice, 
-								tfNote, tfQuantity, statusPane, lblCreatedAt);
+						vboxPane.getChildren().addAll(nodes);
 						break;
 				}
 				statusPane.setGraphic(ivServingStatus);
-
 			}
-			
 			vboxOrderList.getChildren().addAll(vboxPane);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -827,6 +887,12 @@ public class CustomerHomeController implements Initializable {
 	public void renderVBoxPaneWithSetCreatedContent(OrderListModel item) {
 		CustomerHomeController.isCreated = true;
 		this.vboxLayout(item, null);
+		String sugar = "", ice = "";
+		if(!item.getSugar().isEmpty() && !item.getIce().isEmpty()) {
+			sugar = "S:"+item.getSugar();
+			ice = "I:"+ item.getIce();
+		}
+		lblAttribute.setText(item.getSize() + " " + sugar + " " + ice);
 		lblServingName.setText(item.getServingName());
 		lblItemPrice.setText("$"+ Helpers.formatNumber(null).format(item.getItemPrice()));
 		lblTotalPrice.setText("$"+Helpers.formatNumber(null).format(item.getTotalPrice()));
@@ -852,7 +918,7 @@ public class CustomerHomeController implements Initializable {
 		lblPayTotal.setFont(Font.font("System Bold", 14));		
 		btnPay.setGraphic(lblPayTotal);
 		btnPay.setOnMouseClicked(event -> {
-			this.btnPlaceAction();
+			this.btnPayAction();
 		});
 		//pane
 		this.titlePaneSPOrderLayout();
@@ -863,6 +929,12 @@ public class CustomerHomeController implements Initializable {
 	public void renderVBoxPaneWithSetUpdatedContent(OrderDetailModel item) {
 		CustomerHomeController.isCreated = false;
 		this.vboxLayout(null, item);
+		String sugar = "S:"+item.getSugar();
+		String ice = "I:"+ item.getIce();
+		if(item.getSugar() == null && item.getIce() == null) {
+			sugar = ""; ice = "";
+		}
+		lblAttribute.setText(item.getSize() + " " + sugar + " " + ice);				
 		lblCreatedAt.setText(item.getCreatedAt());
 		lblServingName.setText(item.getServingName());
 		lblItemPrice.setText("$"+ Helpers.formatNumber(null).format(item.getPrice()));
@@ -870,6 +942,7 @@ public class CustomerHomeController implements Initializable {
 		tfNote.setText(item.getServingNote());
 		tfQuantity.setText(String.valueOf(item.getQuantity()));
 		ivImageView.setImage(new Image(CustomerHomeController.class.getResourceAsStream(item.getThumbnail())));
+		this.lblPayTotal.setText("$"+this.totalPlace);
 	}
 	
 	
@@ -897,15 +970,23 @@ public class CustomerHomeController implements Initializable {
 		}
 	}
 	
+	//load updated 
+	public ArrayList<CompareOperator> loadUpdatedData() {
+		ArrayList<CompareOperator> updated = new ArrayList<CompareOperator>();
+		updated.add(CompareOperator.getInstance("orders.table_id", "=", String.valueOf(TableModel.tableId)));
+		updated.add(CompareOperator.getInstance("orders.id", "=", String.valueOf(OrderModel.currentOrderId)));
+		return updated;
+	}
+	
 	//render update order list
-	public void getUpdated() {
+	public int getUpdated(ArrayList<CompareOperator> updated, String orderBys) {
 		try {
-			ArrayList<CompareOperator> updated = new ArrayList<CompareOperator>();
-			updated.add(CompareOperator.getInstance("orders.table_id", "=", String.valueOf(OrderModel.tableId)));
-			updated.add(CompareOperator.getInstance("orders.id", "=", String.valueOf(OrderModel.currentOrderId)));
-			ResultSet orderDetails = this.orderDetailModel.getOrderDetailList(updated);
+			int orderId = 0;
+			ResultSet orderDetails = this.orderDetailModel.getOrderDetailList(updated, orderBys);
 			while(orderDetails.next()) {
 				this.orderCode = orderDetails.getString("orders.code");
+				this.totalPlace = orderDetails.getDouble("orders.total_amount");
+				orderId = orderDetails.getInt("orders.id");
 				updatedList.add(new OrderDetailModel(
 						orderDetails.getInt("order_details.serving_id"),
 						orderDetails.getString("servings.thumbnail"),
@@ -915,33 +996,42 @@ public class CustomerHomeController implements Initializable {
 						orderDetails.getString("order_details.serving_note"),
 						orderDetails.getInt("order_details.quantity"),
 						orderDetails.getInt("order_details.serving_status"),
-						orderDetails.getString("order_details.created_at")
-					
+						orderDetails.getString("order_details.created_at"),
+						orderDetails.getString("order_details.ice") != null ? orderDetails.getString("order_details.ice") : null,
+						orderDetails.getString("order_details.sugar") != null ? orderDetails.getString("order_details.sugar") : null,
+						orderDetails.getString("order_details.size")
 				));
 			}
-			this.lblOrderCode.setText(this.orderCode);
-
+			this.lblOrderCode.setText("#"+this.orderCode);
+			System.out.println(">>>after updated: "+this.totalPlace);
+			return orderId;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return 0;
 		}
 	}
 	
-	public void renderUpdatedOrderList() {
+	//render update
+	public int renderUpdatedOrderList(ArrayList<CompareOperator> updated, String orderBys) {
 		try {
 			//get order detail from db
-			this.getUpdated();
+			OrderModel.currentOrderId = this.getUpdated(updated, orderBys);
 			if(updatedList.size() > 0) {
 				this.updateOrderListLayout();
 				vboxOrderList.getChildren().clear();
 				for(OrderDetailModel item : updatedList) {
 					this.renderVBoxPaneWithSetUpdatedContent(item);//servingname, thumbnail, quantity, total, serving note, 
-					   											   //sevingstatus, createdat, servingid, price
+																	//sevingstatus, createdat, servingid, price
 				}
+				CustomerHomeController.updatedList.clear();
 			} else {
 				this.emptyOrderList();
+				this.lblOrderCode.setText("");
 			}	
+			return OrderModel.currentOrderId;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return 0;
 		}
 	}
 
@@ -953,68 +1043,80 @@ public class CustomerHomeController implements Initializable {
 	}
 				
 	//click btn place
-	public void btnPlaceAction() {
+	public int btnPlaceAction() {
 		try {
-<<<<<<< HEAD
-//			if(CustomerHomeController.isSelected != true) {
-//				CustomerHomeController.isSelected = true;
-//				btnAll.setStyle("-fx-background-color: #EA7C69 !important;\r\n"
-//						+ "	-fx-background-radius: 10px !important;\r\n"
-//						+ "	-fx-border-color:  #EA7C69;\r\n"
-//						+ "	-fx-border-radius: 10px;\r\n"
-//						+ "	-fx-text-fill: #fff;\r\n"
-//						+ "	-fx-background-size: 20px 20px; \r\n"
-//						+ " -fx-background-repeat: no-repeat; \r\n"
-//						+ " -fx-background-position: 25px 10px; "
-//						+ " -fx-background-image: url(\"../assets/menu.png\");");
-//			}
-			
-=======
 			ArrayList<DataMapping> orderData = new ArrayList<DataMapping>();
 			orderData.add(DataMapping.getInstance("code", "OC"+Helpers.randomString(6)));
-			orderData.add(DataMapping.getInstance("table_id", String.valueOf(OrderModel.tableId)));
+			orderData.add(DataMapping.getInstance("table_id", String.valueOf(TableModel.tableId)));
 			orderData.add(DataMapping.getInstance("user_id", String.valueOf(this.userId)));
 			orderData.add(DataMapping.getInstance("total_amount", String.valueOf(this.totalPlace)));
 			OrderModel.currentOrderId = this.orderModel.createOrder(orderData);
-			ArrayList<DataMapping> orderDetailData = new ArrayList<DataMapping>();
-			int result = 0;
-			for(OrderListModel item : createdList) {
-				orderDetailData.add(DataMapping.getInstance("order_id", String.valueOf(OrderModel.currentOrderId)));
-				orderDetailData.add(DataMapping.getInstance("serving_id", String.valueOf(item.getServingId())));
-				orderDetailData.add(DataMapping.getInstance("serving_note", item.getNote().isEmpty() ? null : item.getNote()));
-				orderDetailData.add(DataMapping.getInstance("serving_status", String.valueOf(OrderDetailModel.READY)));
-				orderDetailData.add(DataMapping.getInstance("quantity", String.valueOf(item.getQuantity())));
-				orderDetailData.add(DataMapping.getInstance("price", String.valueOf(Helpers.formatNumber(null).format(item.getItemPrice()))));
-				orderDetailData.add(DataMapping.getInstance("total", String.valueOf(Helpers.formatNumber(null).format(item.getTotalPrice()))));
-				result = this.orderDetailModel.createOrderDetail(orderDetailData);
-				orderDetailData.clear();
-			}
+			this.totalPlace = 0;
+			int result = this.insertOrderDetails();
 			if(result != 0) {
 				createdList.clear();
 				this.emptyOrderList();
 			}
 			CustomerHomeController.isCreated = false;
-			this.renderUpdatedOrderList();
-			
+			ArrayList<CompareOperator> condition = new ArrayList<CompareOperator>();
+			condition.add(CompareOperator.getInstance("orders.id", "=", String.valueOf( OrderModel.currentOrderId)));
+			this.renderUpdatedOrderList(condition, null);
+			return OrderModel.currentOrderId;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return 0;
 		}
 	}
->>>>>>> super
+	
+	//order detail
+	public int insertOrderDetails() {
+		try {
+			int result = 0; 
+			ArrayList<DataMapping> orderDetailData = new ArrayList<DataMapping>();
+			for(OrderListModel item : createdList) {
+				orderDetailData.add(DataMapping.getInstance("order_id", String.valueOf(OrderModel.currentOrderId)));
+				orderDetailData.add(DataMapping.getInstance("serving_id", String.valueOf(item.getServingId())));
+				orderDetailData.add(DataMapping.getInstance("serving_note", item.getNote().isEmpty() ? null : item.getNote()));
+				orderDetailData.add(DataMapping.getInstance("serving_status", String.valueOf(OrderDetailModel.READY)));
+				orderDetailData.add(DataMapping.getInstance("size", item.getSize()));
+				orderDetailData.add(DataMapping.getInstance("sugar", item.getSugar() != "" ? item.getSugar() : null));
+				orderDetailData.add(DataMapping.getInstance("ice", item.getIce() != "" ? item.getIce() : null));
+				orderDetailData.add(DataMapping.getInstance("quantity", String.valueOf(item.getQuantity())));
+				orderDetailData.add(DataMapping.getInstance("price", String.valueOf(Helpers.formatNumber(null).format(item.getItemPrice()))));
+				orderDetailData.add(DataMapping.getInstance("total", String.valueOf(Helpers.formatNumber(null).format(item.getTotalPrice()))));
+				this.totalPlace+=item.getTotalPrice();
+				result = this.orderDetailModel.createOrderDetail(orderDetailData);
+				System.out.println("SUM: "+this.totalPlace);
+				this.updateOrderTotal(item);
+				orderDetailData.clear();
+			}
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	//update order total
+	public void updateOrderTotal(OrderListModel item) {
+		ArrayList<DataMapping> updateTotalOrder = new ArrayList<DataMapping>();
+		updateTotalOrder.add(DataMapping.getInstance("total_amount", String.valueOf(Helpers.formatNumber(null).format(this.totalPlace))));
+		this.orderModel.updateOrder(OrderModel.currentOrderId, updateTotalOrder);
+	}
 
 	//load data from orderdetail by order id
-	public void btnReloadUpdatedAction(){
-		try {
-			//has order id
-			if(OrderModel.currentOrderId != 0) {
-				this.renderUpdatedOrderList();
-			} else {
-				this.btnReloadUpdated.setDisable(true);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	public void btnReloadUpdatedAction(){
+//		try {
+//			//has order id
+//			if(OrderModel.currentOrderId != 0) {
+//				this.renderUpdatedOrderList(null, null);
+//			} else {
+//				this.btnReloadUpdated.setDisable(true);
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 	
 	//draw custom serving
 	public void customServingLayout(int id) {
@@ -1039,8 +1141,33 @@ public class CustomerHomeController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-
 	
+	//btnPayAction
+	public void btnPayAction() {
+		try {
+			if(OrderModel.currentOrderId != 0) {
+				FlowPane requestPayment;
+				Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+				FXMLLoader root = new FXMLLoader(getClass().getResource("/views/request-payment.fxml"));
+				requestPayment = root.load();
+
+				//controller
+				CustomerPaymentController controller = root.getController();
+				controller.loadDataToRequestPayment(this);
+				
+				Scene scene = new Scene(requestPayment, 600, 400);
+				Stage stage = new Stage();
+				stage.setX((screenBounds.getWidth() - 600)/2);
+				stage.setY((screenBounds.getHeight() - 400)/2);
+				stage.initStyle(StageStyle.UNDECORATED);
+				stage.setScene(scene);
+				stage.show();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+	}
+		
 	//get
 	public int getServingId() {
 		return servingId;
@@ -1048,6 +1175,32 @@ public class CustomerHomeController implements Initializable {
 
 	public void setServingId(int servingId) {
 		this.servingId = servingId;
+	}
+	
+	
+	public void handleMessage() {
+		try {
+			AnchorPane apNotiAlert;
+			Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/notification-alert.fxml"));
+			apNotiAlert = root.load();
+
+			//controller
+			NotificationController controller = root.getController();
+			controller.initialize(null, null);
+			
+			Scene scene = new Scene(apNotiAlert, 340, 460);
+			Stage stage = new Stage();
+			stage.initStyle(StageStyle.TRANSPARENT);
+			scene.setFill(Color.TRANSPARENT);
+			stage.setX((screenBounds.getWidth() - 340)/2);
+			stage.setY((screenBounds.getHeight() - 460)/2);
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.setScene(scene);
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

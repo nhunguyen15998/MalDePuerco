@@ -18,6 +18,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -30,9 +32,13 @@ import utils.CompareOperator;
 import utils.Helpers;
 
 public class OrderWaiterController implements Initializable {
+	private MasterController masterController;
 	private OrderWaiterModel orderModel = new OrderWaiterModel();
 	private int orderId;
 	private String orderCode;
+	private int status;
+	private String orderName;
+	
 	@FXML private AnchorPane odHolder;
 	@FXML private AnchorPane optionHolder;
 
@@ -202,7 +208,7 @@ public class OrderWaiterController implements Initializable {
 	
 	@FXML void btnOption(ActionEvent event) {
 		try {
-			if(this.orderId != 0) {
+			if(this.orderId != 0 ) {
 				this.showOption();
 			} else {
 				Helpers.status("error");
@@ -212,22 +218,28 @@ public class OrderWaiterController implements Initializable {
 		}
 	}
 	
-	public void btnOrderDetail() {
-		try {
-			if(this.orderId != 0) {
-				if(OrderDetailModel.isShown != true) {
-					OrderDetailModel.isShown = true;
-					this.showODForm();
-				} else {
-					System.out.println("id == 0");
+	 @FXML
+	    void btnOrderDetail(ActionEvent event) {
+			 try {
+					if(this.orderId != 0 && this.status != 3) {
+						if(OrderDetailModel.isShown != true) {
+							OrderDetailModel.isShown = true;
+							this.showODForm();
+						} else {
+							Alert al = new Alert(AlertType.WARNING);
+							al.setHeaderText(null);
+							al.setContentText("Order completed");
+							al.showAndWait();
+							
+						}
+					} else {
+						System.out.println("select a row");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-			} else {
-				System.out.println("select a row");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	    }
+	
 	
 	public int getOrderId() {
 		return orderId;
@@ -245,5 +257,43 @@ public class OrderWaiterController implements Initializable {
 		this.orderCode = orderCode;
 	}
 	
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public String getOrderName() {
+		return orderName;
+	}
+
+	public void setOrderName(String orderName) {
+		this.orderName = orderName;
+	}
+
+	//btnChefViewAction
+	@FXML
+	public void btnChefViewAction() {
+		showChefView();
+	}
 	
+	//parse master
+	public void parseMaster(MasterController masterController) {
+		this.masterController = masterController;
+	}
+	
+	//show form assign
+  	public void showChefView() {
+  		try {
+  			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/orderChef.fxml"));
+  			AnchorPane chef = root.load();
+			OrderChefController controller = root.getController();
+			controller.masterController = this.masterController;		
+			this.masterController.masterHolder.getChildren().setAll(chef);
+  		} catch (Exception e) {
+  			e.printStackTrace();
+  		}
+  	}
 }

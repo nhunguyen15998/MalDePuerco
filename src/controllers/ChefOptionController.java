@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import db.MySQLJDBC;
+import utils.CompareOperator;
 import utils.DataMapping;
 import utils.Helpers;
 import javafx.collections.FXCollections;
@@ -17,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
@@ -33,12 +35,15 @@ public class ChefOptionController implements Initializable{
 	private OrderDetailModel odModel = new OrderDetailModel();
 	
 	private int orderID;
-	private String userCode;
+	private String orderCode;
 	private String chefID;
 
 	ChefItemController citemControl = new ChefItemController();
+	OrderChefController chefControl = new OrderChefController();
+	OrderWaiterDController odControl = new OrderWaiterDController();
 	
 	@FXML private Button btnCancel;
+	@FXML Label lblCode;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -49,7 +54,10 @@ public class ChefOptionController implements Initializable{
 	public ResultSet getChefList() {
 		try {
 			ArrayList<DataMapping> chefList = new ArrayList<DataMapping>();
-			ResultSet chef = userModel.getUserList(null);
+
+			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
+			conditions.add(CompareOperator.getInstance("roles.code", "=","CHEF"));
+			ResultSet chef = userModel.getUserList(conditions);
 			while(chef.next()) {
 				chefList.add(DataMapping.getInstance(chef.getInt("id"), chef.getString("user_name")));
 			}
@@ -74,28 +82,30 @@ public class ChefOptionController implements Initializable{
 				odModel.updateOrderDetail(orderID, option);
 				Helpers.status("success");
 			}
-			citemControl.setData(null);
+			chefControl.refreshAction(event);
 			this.close();
 		} catch (Exception e) {
 			
 			e.printStackTrace();
 		}
 	}
-
+	
 	//load by id
 	public void loadDataById(ChefItemController citemControl) {
 		try {
 			this.citemControl = citemControl;
 			this.orderID = citemControl.getChefID();
-			ResultSet rs = this.userModel.getChefById(orderID);
+			this.orderCode = citemControl.getOrderCode();
+			lblCode.setText("Code: " + this.orderCode);
+			
+			ResultSet rs = this.odModel.getById(orderID);
 			if(rs.next()) {
-				System.out.println(orderID);
-				
-				//ccb
+				System.out.println(rs.getInt("order_details.user_id"));
 				for(DataMapping chef : cbChef.getItems()) {
-					if(chef.key != null && Integer.parseInt(chef.key) == Integer.valueOf("user_name"));
-					cbChef.setValue(chef);
-					break;
+					if(chef.key != null && Integer.parseInt(chef.key) == rs.getInt("order_details.user_id")) {
+						cbChef.setValue(chef);
+						break;
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -130,11 +140,11 @@ public class ChefOptionController implements Initializable{
 	}
 
 	public String getUserCode() {
-		return userCode;
+		return orderCode;
 	}
 
-	public void setUserCode(String userCode) {
-		this.userCode = userCode;
+	public void setUserCode(String orderCode) {
+		this.orderCode = orderCode;
 	}
 
 	public String getChefID() {

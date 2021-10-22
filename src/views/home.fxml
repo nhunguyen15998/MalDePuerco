@@ -49,12 +49,9 @@
                            <font>
                               <Font name="Georgia" size="8.0" />
                            </font>
-<<<<<<< HEAD
-=======
                            <tooltip>
                               <Tooltip text="Empty Tooltip" />
                            </tooltip>
->>>>>>> super
                         </Button>
                         <Button fx:id="btnNoti" layoutX="1.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnNotiAction" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;" textFill="#263854">
                            <font>
@@ -87,11 +84,7 @@
                <content>
                   <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="2000.0" prefWidth="629.0" style="-fx-background-color: #3B3F40;">
                      <children>
-<<<<<<< HEAD
-                        <GridPane alignment="CENTER" layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="672.0" prefWidth="623.0">
-=======
                         <GridPane fx:id="servingGridPane" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="623.0" vgap="20.0">
->>>>>>> super
                           <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -203,8 +196,6 @@
                            <font>
                               <Font name="Georgia" size="8.0" />
                            </font>
-<<<<<<< HEAD
-=======
                            <tooltip>
                               <Tooltip anchorX="20.0" anchorY="10.0" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="100.0" text="How to use">
                                  <font>
@@ -212,7 +203,6 @@
                                  </font>
                               </Tooltip>
                            </tooltip>
->>>>>>> super
                         </Button>
                         <ImageView fitHeight="53.0" fitWidth="50.0" layoutX="17.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -232,33 +222,26 @@
          <children>
             <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="72.0" prefWidth="275.0">
                <children>
-                  <Label fx:id="lblTitle" layoutX="15.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="143.0" text="Order List" textFill="WHITE">
+                  <Label fx:id="lblTitle" layoutX="25.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="143.0" text="Order List" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="19.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblTableName" layoutX="15.0" layoutY="48.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="80.0" text="Table 1" textFill="#dfe5e7">
+                  <Label fx:id="lblTableName" layoutX="25.0" layoutY="48.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="80.0" text="Table 1" textFill="#dfe5e7">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblOrderCode" alignment="CENTER_RIGHT" layoutX="124.0" layoutY="48.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="137.0" text="Order: #OC098762" textFill="#dfe5e7">
+                  <Label fx:id="lblOrderCode" alignment="CENTER_RIGHT" layoutX="120.0" layoutY="48.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="137.0" text="Order: #OC098762" textFill="#dfe5e7">
+
                      <font>
                         <Font name="System Italic" size="12.0" />
                      </font>
                   </Label>
-                  <Button fx:id="btnReloadUpdated" layoutX="236.0" layoutY="18.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnReloadUpdatedAction" prefHeight="25.0" prefWidth="25.0">
-                     <graphic>
-                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../assets/importance.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
                </children>
             </Pane>
             <AnchorPane fx:id="orderListPane" layoutY="73.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="528.0" prefWidth="275.0" style="-fx-background-color: #2B2B2B;" />
+
          </children></AnchorPane>
    </children>
 </FlowPane>

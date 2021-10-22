@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="537.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ReservationCUController">
+   <children>
+      <AnchorPane id="AnchorPane" fx:id="cuHolder" prefHeight="537.0" prefWidth="680.0" style="-fx-background-color: #f0e9ec;" styleClass="mainFxmlClass">
+         <stylesheets>
+            <URL value="@/css/useruc.css" />
+         </stylesheets>
+         <children>
+            <Pane layoutX="-7.0" layoutY="-7.0" prefHeight="115.0" prefWidth="686.0" style="-fx-background-color: linear-gradient(to right, #ff304f,#ffabb7);">
+               <children>
+                  <Label fx:id="lblReser" layoutX="53.0" layoutY="35.0" prefHeight="30.0" prefWidth="526.0" text="Create update reser" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane layoutX="45.0" layoutY="69.0" prefHeight="418.0" prefWidth="587.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(212, 165, 174,0.5),30, 0,10, 10);">
+               <children>
+                  <TextField fx:id="tfName" focusTraversable="false" layoutX="47.0" layoutY="31.0" prefHeight="25.0" prefWidth="211.0" promptText="Name" styleClass="tfUserUC" stylesheets="@../css/useruc.css" />
+                  <TextField fx:id="tfCode" disable="true" focusTraversable="false" layoutX="331.0" layoutY="31.0" prefHeight="25.0" prefWidth="211.0" promptText="Code will be ramdom" styleClass="tfUserUC" stylesheets="@../css/useruc.css" />
+                  <TextField fx:id="tfEmail" focusTraversable="false" layoutX="47.0" layoutY="84.0" prefHeight="25.0" prefWidth="211.0" promptText="Email" styleClass="tfUserUC" stylesheets="@../css/useruc.css" />
+                  <TextField fx:id="tfPhone" focusTraversable="false" layoutX="47.0" layoutY="136.0" prefHeight="25.0" prefWidth="211.0" promptText="Phone" styleClass="tfUserUC" stylesheets="@../css/useruc.css" />
+                  <Label layoutX="47.0" layoutY="14.0" text="Customer name:" />
+                  <Label layoutX="331.0" layoutY="14.0" text="Code:" />
+                  <Label layoutX="47.0" layoutY="68.0" text="Email:" />
+                  <Label layoutX="47.0" layoutY="122.0" prefHeight="17.0" prefWidth="63.0" text="Phone:" />
+                  <Label layoutX="47.0" layoutY="273.0" text="Status:" />
+                  <ComboBox fx:id="cbStatus" focusTraversable="false" layoutX="47.0" layoutY="291.0" prefHeight="25.0" prefWidth="211.0" styleClass="cbbUserUC" stylesheets="@../css/useruc.css" />
+                  <Button alignment="CENTER" layoutX="206.0" layoutY="356.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: linear-gradient(to right, #8DC9F8, #69B5F2, #4BA4EC, #3292E6); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnUserUC" stylesheets="@../css/useruc.css" text="Save" textFill="WHITE">
+                     <effect>
+                        <DropShadow color="#5873de7d" />
+                     </effect>
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
+                           <image>
+                              <Image url="@../assets/save.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnCancel" alignment="CENTER" layoutX="294.0" layoutY="356.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="30.0" prefWidth="88.0" style="-fx-background-color: linear-gradient(to right, #fbc6c4, #f4a29f, #fb8b87, #FB6E67); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnUserUC" stylesheets="@../css/useruc.css" text="Cancel" textFill="WHITE">
+                     <effect>
+                        <DropShadow color="#fb6e677d" />
+                     </effect>
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
+                           <image>
+                              <Image url="@../assets/close.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label fx:id="lblNameError" layoutX="50.0" layoutY="56.0" prefHeight="9.0" prefWidth="234.0" textFill="#a17064">
+                     <font>
+                        <Font name="System Italic" size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblEmailError" layoutX="51.0" layoutY="108.0" prefHeight="9.0" prefWidth="234.0" textFill="#a17064">
+                     <font>
+                        <Font name="System Italic" size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblPhoneError" layoutX="52.0" layoutY="162.0" prefHeight="9.0" prefWidth="234.0" textFill="#a17064">
+                     <font>
+                        <Font name="System Italic" size="11.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfDeposit" focusTraversable="false" layoutX="47.0" layoutY="190.0" onKeyTyped="#changeStatus" prefHeight="25.0" prefWidth="211.0" promptText="Deposit" styleClass="tfUserUC" stylesheets="@../css/useruc.css" />
+                  <TextField fx:id="tfSeat" focusTraversable="false" layoutX="331.0" layoutY="84.0" onKeyTyped="#checkTime" prefHeight="25.0" prefWidth="211.0" promptText="Seats" styleClass="tfUserUC" stylesheets="@../css/useruc.css" />
+                  <Label layoutX="47.0" layoutY="173.0" text="Deposit:" />
+                  <Label layoutX="333.0" layoutY="68.0" prefHeight="17.0" prefWidth="63.0" text="Seat(s) pick:" />
+                  <Label fx:id="lblDepoError" layoutX="53.0" layoutY="216.0" prefHeight="9.0" prefWidth="234.0" textFill="#a17064">
+                     <font>
+                        <Font name="System Italic" size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblSeatError" layoutX="333.0" layoutY="112.0" prefHeight="9.0" prefWidth="234.0" textFill="#a17064">
+                     <font>
+                        <Font name="System Italic" size="11.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfStart" focusTraversable="false" layoutX="331.0" layoutY="136.0" onKeyTyped="#checkTime" prefHeight="27.0" prefWidth="63.0" promptText="hh:ss" styleClass="tfUserUC" stylesheets="@../css/useruc.css" />
+                  <Label layoutX="333.0" layoutY="122.0" text="Time:" />
+                  <TextField fx:id="tfEnd" focusTraversable="false" layoutX="415.0" layoutY="136.0" onKeyTyped="#checkTime" prefHeight="27.0" prefWidth="63.0" promptText="hh:ss" styleClass="tfUserUC" stylesheets="@../css/useruc.css" />
+                  <Label layoutX="398.0" layoutY="133.0" text="-" textFill="#e46c7c">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="dpDate" focusTraversable="false" layoutX="47.0" layoutY="239.0" onAction="#dateAction" prefHeight="25.0" prefWidth="211.0" promptText="Date" style="-fx-background-color: pink;" />
+                  <Label layoutX="47.0" layoutY="224.0" text="Date pick:" />
+                  <Label fx:id="lblTimeError" layoutX="336.0" layoutY="163.0" prefHeight="9.0" prefWidth="234.0" textFill="#a17064">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="333.0" layoutY="173.0" text="Table:" />
+                  <ComboBox fx:id="cbbTable" focusTraversable="false" layoutX="331.0" layoutY="190.0" prefHeight="25.0" prefWidth="147.0" styleClass="cbbUserUC" stylesheets="@../css/useruc.css" />
+                  <Button fx:id="btnAdd" alignment="CENTER" graphicTextGap="0.0" layoutX="482.0" layoutY="192.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addTable" prefHeight="25.0" prefWidth="43.0" style="-fx-background-color: linear-gradient(to right, #8DC9F8, #69B5F2, #4BA4EC, #3292E6); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnUserUC" stylesheets="@../css/useruc.css" text="Add" textFill="WHITE">
+                     <effect>
+                        <DropShadow color="#5873de7d" />
+                     </effect>
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnClear" alignment="CENTER" contentDisplay="CENTER" layoutX="521.0" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#deleteTable" prefHeight="27.0" prefWidth="43.0" style="-fx-background-color: linear-gradient(to right, #fbc6c4, #f4a29f, #fb8b87, #FB6E67); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnUserUC" stylesheets="@../css/useruc.css" textAlignment="CENTER" textFill="WHITE">
+                     <effect>
+                        <DropShadow color="#fb6e677d" />
+                     </effect>
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
+                           <image>
+                              <Image url="@../assets/close.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label fx:id="lblTableError" layoutX="336.0" layoutY="217.0" prefHeight="9.0" prefWidth="234.0" textFill="#a17064">
+                     <font>
+                        <Font name="System Italic" size="10.5" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="tfTable" disable="true" layoutX="333.0" layoutY="233.0" prefHeight="51.0" prefWidth="189.0" promptText="Dont have table selected" styleClass="tfUserUC" stylesheets="@../css/useruc.css">
+                     <font>
+                        <Font size="10.7" />
+                     </font></TextArea>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

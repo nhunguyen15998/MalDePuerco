@@ -1,0 +1,6 @@
+#servingGridPane > * {
+    -fx-min-height: 165 ;
+}
+#cbSize, #cbSugar, #cbIce {
+	 -fx-background-color: #FFF !important;
+}

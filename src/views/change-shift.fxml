@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="327.0" prefWidth="522.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.ShiftController">
+   <children>
+      <AnchorPane id="AnchorPane" prefHeight="349.0" prefWidth="522.0" style="-fx-background-color: #f0e9ec;" styleClass="mainFxmlClass" stylesheets="@../css/table-cu.css">
+         <children>
+            <Pane prefHeight="118.0" prefWidth="522.0" style="-fx-background-color: linear-gradient(to right, #ff304f,#ffabb7);">
+               <children>
+                  <Label fx:id="lblTable" layoutX="38.0" layoutY="37.0" prefHeight="30.0" prefWidth="487.0" text="Change shift" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane layoutX="38.0" layoutY="74.0" prefHeight="214.0" prefWidth="446.0" style="-fx-background-color: white; -fx-effect: dropshadow(two-pass-box, rgba(212, 165, 174,0.5),30, 0,10, 10);">
+               <children>
+                  <Label layoutX="60.0" layoutY="27.0" text="Table name:" textFill="#e11b46">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <Button alignment="CENTER" layoutX="135.0" layoutY="154.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnSaveAction" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: linear-gradient(to right, #8DC9F8, #69B5F2, #4BA4EC, #3292E6); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnCUTable" stylesheets="@../css/table-cu.css" text="Save" textFill="WHITE">
+                     <effect>
+                        <DropShadow color="#5873de7d" />
+                     </effect>
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
+                           <image>
+                              <Image url="@../assets/save.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnCancel" alignment="CENTER" layoutX="223.0" layoutY="154.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnCancelAction" prefHeight="30.0" prefWidth="88.0" style="-fx-background-color: linear-gradient(to right, #fbc6c4, #f4a29f, #fb8b87, #FB6E67); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnCUTable" stylesheets="@../css/table-cu.css" text="Cancel" textFill="WHITE">
+                     <effect>
+                        <DropShadow color="#fb6e677d" />
+                     </effect>
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
+                           <image>
+                              <Image url="@../assets/close.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label layoutX="60.0" layoutY="79.0" text="Shift of:" textFill="#e11b46">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="60.0" layoutY="53.0" text="Table code:" textFill="#e11b46">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblTableName" layoutX="142.0" layoutY="27.0" text="Tram Vo" textFill="#912b2b">
+                     <font>
+                        <Font name="Cambria" size="13.5" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblTableCode" layoutX="142.0" layoutY="52.0" text="Tram Vo" textFill="#912b2b">
+                     <font>
+                        <Font name="Cambria" size="13.5" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cbbServer" layoutX="142.0" layoutY="75.0" onAction="#showInfo" prefHeight="25.0" prefWidth="169.0" styleClass="cbbDiscount" stylesheets="@../css/discount.css" />
+                  <Label fx:id="lblSupport" layoutX="142.0" layoutY="114.0" text="User code:" textFill="#e11b46" visible="false">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblUserCode" layoutX="212.0" layoutY="115.0" textFill="#912b2b">
+                     <font>
+                        <Font name="Cambria" size="13.5" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btnClear" alignment="CENTER" layoutX="319.0" layoutY="76.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#clearAction" prefHeight="25.0" prefWidth="69.0" style="-fx-background-color: linear-gradient(to right, #fbc6c4, #f4a29f, #fb8b87, #FB6E67); -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnCUTable" stylesheets="@../css/table-cu.css" text="Clear" textFill="WHITE">
+                     <effect>
+                        <DropShadow color="#fb6e677d" />
+                     </effect>
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
+                           <image>
+                              <Image url="@../assets/close.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

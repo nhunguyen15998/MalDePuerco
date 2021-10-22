@@ -1,0 +1,79 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.lblStatus{
+-fx-background-color: green;
+-fx-text-fill: white;
+-fx-background-radius:15;
+-fx-padding: 1 5;
+}
+
+.mainClass {
+-fx-background-color: transparent;
+}
+.new{
+-fx-background-color: #3cc6e8;
+-fx-text-fill: white;
+-fx-background-radius:15;
+-fx-padding: 1 5;
+}
+.hboxNew{
+-fx-border-width:0 0 0 4;
+-fx-border-color:#3cc6e8;
+}
+
+.confirm{
+-fx-background-color: #ebe53f;
+-fx-text-fill: white;
+-fx-background-radius:15;
+-fx-padding: 1 5;
+}
+.hboxConfirm{
+-fx-border-width:0 0 0 4;
+-fx-border-color:#ebe53f;
+}
+.diposit{
+-fx-background-color: green;
+-fx-text-fill: white;
+-fx-background-radius:15;
+-fx-padding: 1 5;
+}
+.hboxDeposit{
+-fx-border-width:0 0 0 4;
+-fx-border-color:green;
+}
+.present{
+-fx-background-color: #eb38bb;
+-fx-text-fill: white;
+-fx-background-radius:15;
+-fx-padding: 1 5;
+}
+.hboxPresent{
+-fx-border-width:0 0 0 4;
+-fx-border-color:#eb38bb;
+}
+.expired{
+-fx-background-color: #f79e3e;
+-fx-text-fill: white;
+-fx-background-radius:15;
+-fx-padding: 1 5;
+}
+.hboxExpired{
+-fx-border-width:0 0 0 4;
+-fx-border-color: #f79e3e;
+}
+
+.cancel{
+-fx-background-color: #f23a3a;
+-fx-text-fill: white;
+-fx-background-radius:15;
+-fx-padding: 1 5;
+}
+.hboxCancel{
+-fx-border-width:0 0 0 4;
+-fx-border-color: #f23a3a;
+}
+.btnSchedule:hover{
+-fx-cursor:hand;
+}

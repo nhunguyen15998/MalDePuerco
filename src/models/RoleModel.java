@@ -32,24 +32,22 @@ public class RoleModel extends BaseModel {
 		}
 	}
 	
-	public static RoleModel getInstance(int id, int sequence, String code, String name, String createdAt, int status) {
-		if(roleModel != null) {
-			roleModel = new RoleModel();
-			roleModel.setId(id);
-			roleModel.setSequence(sequence);
-			roleModel.setCode(code);
-			roleModel.setName(name);
-			roleModel.setCreatedAt(createdAt);
-			roleModel.setStatus(status);
-			return roleModel;
-		}
-		return roleModel;
+	public RoleModel( int id, int sequence, String code, String name, String createdAt,
+			int status) {
+		super(table, columns);
+		this.id = id;
+		this.sequence = sequence;
+		this.code = code;
+		this.name = name;
+		this.createdAt = createdAt;
+		this.status = status;
 	}
+
 
 	//get
 	public ResultSet getRoleList(ArrayList<CompareOperator> conditions) {
 		try {	
-			return this.getData(columns, conditions, null, null, null);
+			return this.getData(columns, conditions, null, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -62,7 +60,7 @@ public class RoleModel extends BaseModel {
 			ArrayList<CompareOperator> joinRole = new ArrayList<CompareOperator>();
 			joinRole.add(CompareOperator.getInstance("id", " = ", String.valueOf(id)));
 			
-			return this.getData(columns, joinRole, null, null, null);
+			return this.getData(columns, joinRole, null, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

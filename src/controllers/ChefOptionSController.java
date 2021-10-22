@@ -26,8 +26,6 @@ import models.OrderDetailModel;
 import models.UserModel;
 
 public class ChefOptionSController implements Initializable{
-	@FXML
-    private ComboBox<DataMapping> cbChef;
 	@FXML private ComboBox<DataMapping> cbStatus;
 	private UserModel userModel = new UserModel();
 	private OrderDetailModel odModel = new OrderDetailModel();
@@ -37,22 +35,24 @@ public class ChefOptionSController implements Initializable{
 	private String chefID;
 
 	ChefItemController citemControl = new ChefItemController();
+	OrderChefController chefControl = new OrderChefController();
+	OrderWaiterDController odControl = new OrderWaiterDController();
 	
 	@FXML private Button btnCancel;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		ObservableList<DataMapping> status = FXCollections.observableArrayList(OrderDetailModel.isPending, OrderDetailModel.isCooking, OrderDetailModel.isReady, OrderDetailModel.isServing, OrderDetailModel.isServed, OrderDetailModel.isCanceled);
+		ObservableList<DataMapping> status = FXCollections.observableArrayList(OrderDetailModel.isCooking, OrderDetailModel.isReady, OrderDetailModel.isCanceled);
 		cbStatus.setItems(status);
 	}
 	
 	@FXML void btnStatusOption(ActionEvent event1) {
 		try {
-			String statusOp = cbStatus.getValue() != null ? cbStatus.getValue().key : null;
+			Integer statusOp = Integer.valueOf(cbStatus.getValue() != null ? cbStatus.getValue().key : null);
 			
 			ArrayList<DataMapping> option1 = new ArrayList<DataMapping>();
-			option1.add(DataMapping.getInstance("status", statusOp));
+			option1.add(DataMapping.getInstance("serving_status", String.valueOf(statusOp)));
 			
 			Alert al1 = new Alert(AlertType.CONFIRMATION);
 			Optional<ButtonType> opti1 = al1.showAndWait();
@@ -60,7 +60,7 @@ public class ChefOptionSController implements Initializable{
 				odModel.updateOrderDetail(orderID, option1);
 				Helpers.status("success");
 			}
-			citemControl.setData(null);
+			odControl.loadData(null);
 			this.close();
 		} catch (Exception e ) {
 			e.printStackTrace();
@@ -72,14 +72,14 @@ public class ChefOptionSController implements Initializable{
 		try {
 			this.citemControl = citemControl;
 			this.orderID = citemControl.getChefID();
-			ResultSet rs = this.userModel.getChefById(orderID);
+			ResultSet rs = this.odModel.getID(orderID);
 			if(rs.next()) {
-				System.out.println(orderID);
+				System.out.println("order_details.serving_status");
 				
 				//ccb
-				for(DataMapping chef : cbChef.getItems()) {
-					if(chef.key != null && Integer.parseInt(chef.key) == Integer.valueOf("user_name"));
-					cbChef.setValue(chef);
+				for(DataMapping chef : cbStatus.getItems()) {
+					if(chef.key != null && Integer.parseInt(chef.key) == Integer.valueOf("order_details.serving_status"));
+					cbStatus.setValue(chef);
 					break;
 				}
 			}

@@ -10,41 +10,58 @@ import utils.JoinCondition;
 public class ServingAttributeModel extends BaseModel {
 
 	private static String table = "serving_attributes";
-	private static String[] columns = {"id", "serving_id", "attribute_id", "quantity", "price", "created_at"};
-	private static ServingAttributeModel SerAttModel;
+	private static String[] columns = {"id, serving_id, attribute_id, quantity, price, created_at"};
 	
 	private int id;
+//	private int servingId;
+//	private int attributeId;
+	private int quantity;
+	private double price;
+	private String createdAt;
 	private int sequence;
 	private String servingName;
 	private String attribute;
-	private double price;
-	private String createAt;
-	private int quantity;
-	
 	
 	public static boolean isShown = false;
 
 	//constructor - overloading
 	public ServingAttributeModel() {
 		super(table, columns);
-		if(SerAttModel != null) {
-			ServingAttributeModel item = new ServingAttributeModel();
-		}
 	}
 
-	public ServingAttributeModel (int sequence, int id, String servingName, String attribute, int quantity, double price, String createAt) {
+	public ServingAttributeModel (int sequence, int id, String servingName, String attribute, int quantity, 
+			double price, String createAt) {
 		super(table, columns);
-		this.sequence = sequence;
-		this.id = id;
-		this.servingName = servingName;
-		this.attribute = attribute;
-		this.quantity = quantity;
-		this.price = price;
-		this.createAt = createAt;
-		
+		this.setSequence(sequence);
+		this.setId(id);
+		this.setServingName(servingName);
+		this.setAttribute(attribute);
+		this.setQuantity(quantity);
+		this.setPrice(price);
+		this.setCreatedAt(createAt);
 	}
 	
 	//get data
+	public ResultSet getServingAttributeList(ArrayList<CompareOperator> conditions) {//nhu
+		try {
+			String[] selects = {"serving_attributes.*, servings.name as serving_name, attributes.name as attribute_name,"
+					+ "(servings.price + serving_attributes.price) as price_of_item_with_attribute"};
+			
+			ArrayList<CompareOperator> servingJoin = new ArrayList<CompareOperator>();
+			servingJoin.add(CompareOperator.getInstance("serving_attributes.serving_id", "=", "servings.id"));
+			ArrayList<CompareOperator> attributeJoin = new ArrayList<CompareOperator>();
+			attributeJoin.add(CompareOperator.getInstance("serving_attributes.attribute_id", "=", "attributes.id"));
+			
+			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
+			joins.add(JoinCondition.getInstance("left join", "servings", servingJoin));
+			joins.add(JoinCondition.getInstance("inner join", "attributes", attributeJoin));
+			return this.getData(selects, conditions, joins, null, null, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	public ResultSet getSerAttList(ArrayList<CompareOperator> conditions) {
 		try {
 			String[] selects = {"serving_attributes.id", "servings.name as servingID",
@@ -59,7 +76,7 @@ public class ServingAttributeModel extends BaseModel {
 			joins.add(JoinCondition.getInstance("join", "servings", joinServings));
 			joins.add(JoinCondition.getInstance("join", "attributes", joinAttribute));
 			
-			return this.getData(selects, conditions, joins, null, null);
+			return this.getData(selects, conditions, joins, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -69,17 +86,37 @@ public class ServingAttributeModel extends BaseModel {
 	//get by id
 	public ResultSet getSerAttById(int id) {
 		try {
-			String[] selects = {"serving_attributes.*", "servings.id as serName"};
-			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
-			conditions.add(CompareOperator.getInstance("serving_attributes.id", "=", String.valueOf(id)));
+			String[] selects = {"serving_attributes.*, servings.name as serving_name, attributes.name as attribute_name,"
+					+ "(servings.price + serving_attributes.price) as price_of_item_with_attribute"};
 			
-			ArrayList<CompareOperator> joinConditions = new ArrayList<CompareOperator>();
-			joinConditions.add(CompareOperator.getInstance("serving_attributes.serving_id", "=", "servings.id"));
+			ArrayList<CompareOperator> servingJoin = new ArrayList<CompareOperator>();
+			servingJoin.add(CompareOperator.getInstance("serving_attributes.serving_id", "=", "servings.id"));
+			ArrayList<CompareOperator> attributeJoin = new ArrayList<CompareOperator>();
+			attributeJoin.add(CompareOperator.getInstance("serving_attributes.attribute_id", "=", "attributes.id"));
 			
 			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
-			joins.add(JoinCondition.getInstance("join", "servings", joinConditions));
+			joins.add(JoinCondition.getInstance("left join", "servings", servingJoin));
+			joins.add(JoinCondition.getInstance("inner join", "attributes", attributeJoin));
+			return this.getData(selects, null, joins, null, null, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	//get stock
+	public ResultSet getStock(ArrayList<CompareOperator> conditions) {
+		try {
+			String[] selects = {"servings.id, servings.name, sum(serving_attributes.quantity) as qty,"
+					+ "serving_attributes.*, servings.id as serName"};
 			
-			return this.getData(selects, conditions, joins, null, null);
+			ArrayList<CompareOperator> servingJoin = new ArrayList<CompareOperator>();
+			servingJoin.add(CompareOperator.getInstance("serving_attributes.serving_id", "=", "servings.id"));
+			
+			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
+			joins.add(JoinCondition.getInstance("left join", "servings", servingJoin));
+			return this.getData(selects, conditions, joins, null, null, null);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -146,28 +183,12 @@ public class ServingAttributeModel extends BaseModel {
 		this.servingName = servingName;
 	}
 
-	public String getAttribute() {
-		return attribute;
-	}
-
-	public void setAttribute(String attribute) {
-		this.attribute = attribute;
-	}
-
 	public double getPrice() {
 		return price;
 	}
 
 	public void setPrice(double price) {
 		this.price = price;
-	}
-
-	public String getCreateAt() {
-		return createAt;
-	}
-
-	public void setCreateAt(String createAt) {
-		this.createAt = createAt;
 	}
 
 	public int getQuantity() {
@@ -177,6 +198,22 @@ public class ServingAttributeModel extends BaseModel {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
+
+	public String getAttribute() {
+		return attribute;
+	}
+
+	public void setAttribute(String attribute) {
+		this.attribute = attribute;
+	}
+
+	public String getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(String createdAt) {
+		this.createdAt = createdAt;
+	}
+
 	
 }

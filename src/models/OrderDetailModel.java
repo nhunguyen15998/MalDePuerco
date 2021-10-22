@@ -9,8 +9,8 @@ import utils.JoinCondition;
 
 public class OrderDetailModel extends BaseModel {
 	private static String table = "order_details";
-	private static String[] columns = {"id, order_id, serving_id, size, serving_note, serving_status, quantity, "
-										+ "price, total, user_id, created_at"};
+	private static String[] columns = {"id, order_id, serving_id, serving_note, serving_status, quantity, "
+										+ "price, total, user_id, created_at, ice, sugar, size"};
 	
 	private int id;
 	private int sequence;
@@ -26,6 +26,8 @@ public class OrderDetailModel extends BaseModel {
 	private double total;
 	private String userCode;
 	private String createdAt;
+	private String ice;
+	private String sugar;
 	private String size;
 	
 	//status
@@ -67,7 +69,7 @@ public class OrderDetailModel extends BaseModel {
 	
 	//overloading of updated order list
 	public OrderDetailModel(int servingId, String thumbnail, String servingName, double price, double total,
-			String servingNote, int quantity, int servingStatus, String createdAt) {
+			String servingNote, int quantity, int servingStatus, String createdAt, String ice, String sugar, String size) {
 		super(table, columns);	
 		this.setServingId(servingId);
 		this.setThumbnail(thumbnail);
@@ -78,10 +80,13 @@ public class OrderDetailModel extends BaseModel {
 		this.setQuantity(quantity);
 		this.setServingStatus(servingStatus);
 		this.setCreatedAt(createdAt);
+		this.setIce(ice);
+		this.setSugar(sugar);
+		this.setSize(size);
 	}
 	
 	public OrderDetailModel(int id, int sequence, String ordercode, String servingName, String size,
-			int quantity, int price, int total, String userCode, String createdAt, int servingStatus) {
+			int quantity, int price, int total, String userCode, String createdAt, int servingStatus, String servingNote) {
 		super(table, columns);
 		this.id = id;
 		this.sequence = sequence;
@@ -94,12 +99,13 @@ public class OrderDetailModel extends BaseModel {
 		this.userCode = userCode;
 		this.createdAt = createdAt;
 		this.servingStatus = servingStatus;
+		this.servingNote = servingNote;
 	}
 	
 	//get data order_details - orders - servings - users - serving_image -tables
-	public ResultSet getOrderDetailList(ArrayList<CompareOperator> conditions) {
+	public ResultSet getOrderDetailList(ArrayList<CompareOperator> conditions, String orderBys) {
 		try {
-			String[] selects = {"order_details.*, orders.id, orders.table_id, orders.code, orders.status,"
+			String[] selects = {"order_details.*, orders.id, orders.table_id, orders.code, orders.status, orders.total_amount,"
 								+ "servings.thumbnail, servings.name, users.code"};
 			//orders
 			ArrayList<CompareOperator> orderCondition = new ArrayList<CompareOperator>();
@@ -119,7 +125,7 @@ public class OrderDetailModel extends BaseModel {
 			joins.add(JoinCondition.getInstance("left join", "servings", servingCondition));
 			joins.add(JoinCondition.getInstance("left join", "users", userCondition));
 			joins.add(JoinCondition.getInstance("left join", "tables", tableCondition));
-			return this.getData(selects, conditions, joins, null, null);
+			return this.getData(selects, conditions, joins, null, orderBys, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -130,7 +136,8 @@ public class OrderDetailModel extends BaseModel {
 		try {
 			String[] selects = {"order_details.id", "orders.code as code", "servings.name as serName",
 								"order_details.size", "order_details.quantity", "order_details.price",
-								"order_details.total", "users.code as uCode", "time(order_details.created_at) as time", "order_details.serving_status"};
+								"order_details.total", "users.code as uCode", "time(order_details.created_at) as time",
+								"order_details.serving_status", "order_details.serving_note"};
 			//orders
 			ArrayList<CompareOperator> orderCondition = new ArrayList<CompareOperator>();
 			orderCondition.add(CompareOperator.getInstance("orders.id", "=", "order_details.order_id"));
@@ -149,7 +156,7 @@ public class OrderDetailModel extends BaseModel {
 			joins.add(JoinCondition.getInstance("left join", "servings", servingCondition));
 			joins.add(JoinCondition.getInstance("left join", "users", userCondition));
 			joins.add(JoinCondition.getInstance("left join", "tables", tableCondition));
-			return this.getData(selects, conditions, joins, null, null);
+			return this.getData(selects, conditions, joins, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -160,13 +167,42 @@ public class OrderDetailModel extends BaseModel {
 		try {
 			String[] selects = {"order_details.id", "orders.code as code", "servings.name as serName",
 					"order_details.size", "order_details.quantity", "order_details.price",
-					"order_details.total", "users.code as uCode", "time(order_details.created_at) as time", "order_details.serving_status"};
+					"order_details.total", "users.code as uCode", "order_details.user_id","time(order_details.created_at) as time", "order_details.serving_status"};
 			
+			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
+			conditions.add(CompareOperator.getInstance("order_details.id", "=", String.valueOf(id)));
+			//orders
+			ArrayList<CompareOperator> orderCondition = new ArrayList<CompareOperator>();
+			orderCondition.add(CompareOperator.getInstance("orders.id", "=", "order_details.order_id"));
+			//servings
+			ArrayList<CompareOperator> servingCondition = new ArrayList<CompareOperator>();
+			servingCondition.add(CompareOperator.getInstance("servings.id", "=", "order_details.serving_id"));
+			//user
+			ArrayList<CompareOperator> userCondition = new ArrayList<CompareOperator>();
+			userCondition.add(CompareOperator.getInstance("users.id", "=", "order_details.user_id"));
+			//tables
+			ArrayList<CompareOperator> tableCondition = new ArrayList<CompareOperator>();
+			tableCondition.add(CompareOperator.getInstance("tables.id", "=", "orders.table_id"));
+			//join
+			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
+			joins.add(JoinCondition.getInstance("left join", "orders", orderCondition));
+			joins.add(JoinCondition.getInstance("left join", "servings", servingCondition));
+			joins.add(JoinCondition.getInstance("left join", "users", userCondition));
+			joins.add(JoinCondition.getInstance("left join", "tables", tableCondition));
+			return this.getData(selects, conditions, joins, null, null, null);
+		} catch (Exception e) {
+			e.printStackTrace(); 
+			return null;
+		}
+	}
+	
+	public ResultSet getID(int id) {
+		try {
 			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
 			conditions.add(CompareOperator.getInstance("order_details.id", "=", String.valueOf(id)));
 			
 			
-			return this.getData(selects, conditions, null, null, null);
+			return this.getData(columns, conditions, null, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -320,6 +356,21 @@ public class OrderDetailModel extends BaseModel {
 		this.createdAt = createdAt;
 	}
 
+	public String getIce() {
+		return ice;
+	}
+
+	public void setIce(String ice) {
+		this.ice = ice;
+	}
+
+	public String getSugar() {
+		return sugar;
+	}
+
+	public void setSugar(String sugar) {
+		this.sugar = sugar;
+	}
 	public String getSize() {
 		return size;
 	}
