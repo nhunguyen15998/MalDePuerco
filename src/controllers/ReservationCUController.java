@@ -374,7 +374,6 @@ public class ReservationCUController implements Initializable {
 	  						cbStatus.setValue(ReservationModel.isNew);
 	  						stt=ReservationModel.isNew;
 	  						cbStatus.setDisable(true);
-	  						
 	  					}
 	  					
 	  				
@@ -646,7 +645,7 @@ public class ReservationCUController implements Initializable {
 	           int month= (now.get(Calendar.MONTH) + 1);
 	           int day= + now.get(Calendar.DATE);
 	        LocalDate nowLocal = LocalDate.of(year,month,day);
-	        if(reserId==0&&dpDate.getValue().compareTo(nowLocal)==0) {
+	        if(dpDate.getValue().compareTo(nowLocal)==0) {
 	        	checkTimeToUpdate= Validations.checkTimeUpdate(time, lblTimeError, "unachievable!");
 	        }
 	        if(!checkTime||!checkTimeToUpdate) {
