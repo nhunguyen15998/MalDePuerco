@@ -56,7 +56,7 @@
                   <TableColumn fx:id="colStatus" prefWidth="75.5999755859375" text="Status" />
                </columns>
             </TableView>
-            <Button alignment="CENTER_RIGHT" layoutX="5.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnCreateAction" prefHeight="30.0" prefWidth="68.0" style="-fx-background-color: #2B79D3; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnReser" stylesheets="@../css/reservation.css" text="Create" textFill="WHITE">
+            <Button fx:id="btnCreate" alignment="CENTER_RIGHT" layoutX="5.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnCreateAction" prefHeight="30.0" prefWidth="68.0" style="-fx-background-color: #2B79D3; -fx-border-radius: 50px; -fx-background-radius: 50px;" styleClass="btnReser" stylesheets="@../css/reservation.css" text="Create" textFill="WHITE">
                <effect>
                   <DropShadow color="#2b79d37d" />
                </effect>

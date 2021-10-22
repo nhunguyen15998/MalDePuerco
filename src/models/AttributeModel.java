@@ -9,9 +9,9 @@ import utils.JoinCondition;
 public class AttributeModel extends BaseModel {
 	private static String table = "attributes";
 	private static String[] columns = {"id, name, parent_id, created_at"};
-	
+
 	private int id;
-	private int sequence;
+	private int sequence, parent_id;
 	private String name;
 	private String parent;
 	private String createdAt;

@@ -109,7 +109,7 @@ public class ChefItemController {
     		Stage optionStage = new Stage();
     		optionStage.initStyle(StageStyle.UNDECORATED);
     		optionStage.setScene(scene);
-    		optionStage.show();
+    		optionStage.show(); 
     	} catch (Exception e) {
     		e.printStackTrace();
     	    System.out.println(e);

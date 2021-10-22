@@ -13,7 +13,6 @@ import payments.momo.mservice.shared.sharedmodels.PartnerInfo;
 import payments.momo.mservice.shared.utils.Encoder;
 import payments.momo.mservice.shared.utils.LogUtils;
 import webcam.Pos;
-
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +22,6 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
-
 import java.awt.image.BufferedImage;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -32,6 +30,7 @@ import java.util.concurrent.ThreadFactory;
 public class Pay {
 	
     public static String payAction(String posCode, long total) throws Exception {
+
 
         String publicKey = "MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAz4r6huNXk2zNk1/TC/e8SlSIaFhKI5A0Ef89anlBgvUG79Z03d05ItJXHtX49SjqicygOtRKdfJ43XBgtN7PpeZX8fnwMo/D//z39SgacfdeaCBgRVpiupcuPtvuGXqZUsRwr62Fh3qkjSjyUqqk7O8hdi0UoOs+WQU1HGHuVIwG0uINOVJHuIlMjBx0+2qoFtyME3MP3i+la4XL2MW7Su3X+DJjbpoBgSRGtGnNsUCKOiF5W9a2K+QKY0UDxRTp9YGqhYX8B3RgbtU6whlP2Y+0+fAJKX0JP0KrCDVWvNP7u3ekc45Ulg3th3WxMF2n2piGQnpU/y/aEyWzgzqAQUsnRX5WljFTlE4bwdAHuLVKISsUzDImojJkRKcRcmFFgtrAljjfiRWX6pFRz0Y29LzrQYXMEfFukmmCOeAxcXGaHILM+SPSLx8bfYa+2MT1oYsbM3KtTt9ANixyIkWwNJ/PWMaqLIJpDtXuF05HzCij8ff3X168oascrBoB3plj22RF87Ot4kiYnBolrXuz4iLP1xSWFaumawyJepVqLQIt0ukVC8+S4KQK/sspd3mRVE/bWkTRTij+1ZANEJCaJQu08RPNzSx8/4UmWEc/UIhIOiq8a1H3of59DJFfvCzxlRI2XMvJOWDp5H8XolEk1OlQlFyV86b3yjKeQInBcgMCAwEAAQ==";
 
@@ -55,6 +54,7 @@ public class Pay {
 
 
 
+
         // Uncomment to use the processes you need
         // Make sure you are using the correct environment for each processes
         // Change to valid IDs and information to use AppPay, POS, Refund processes.
@@ -67,6 +67,7 @@ public class Pay {
 		System.out.println(posProcessResponse);
 		//return rs
 		return description;
+
 //
 //        PayConfirmationResponse payConfirmationResponse = PayConfirmation.process(Environment.selectEnv("dev", Environment.ProcessType.PAY_CONFIRM), "35646", rollback, requestId, "2305062978", "", "");
 //

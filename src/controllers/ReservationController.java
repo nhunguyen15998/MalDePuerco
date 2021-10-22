@@ -47,6 +47,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import models.AuthenticationModel;
 import models.DiscountModel;
 import models.ReservationModel;
 import models.TableModel;
@@ -87,7 +88,7 @@ public class ReservationController implements Initializable {
     private TableColumn<ReservationModel, String> colEmail  = new TableColumn<ReservationModel, String>();
 
     @FXML
-    private TableColumn<ReservationModel, Integer> colSeats  = new TableColumn<ReservationModel, Integer>();
+    private TableColumn<ReservationModel, Integer> colSeats  = new TableColumn<ReservationModel, Integer>(); 
 
     @FXML
     private TableColumn<ReservationModel, LocalDate> colDate  = new TableColumn<ReservationModel, LocalDate>();
@@ -182,6 +183,8 @@ public class ReservationController implements Initializable {
     @FXML
     private Button btnPut= new Button();
     @FXML
+    private Button btnCreate= new Button();
+    @FXML
     private Button btnUpdate= new Button();
     
 
@@ -191,7 +194,6 @@ public class ReservationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
   		updateStatus();
-  		btnPut.setDisable(true);
   		LocalDate now = LocalDate.now();
     	dpFrom.setValue(now.withDayOfMonth(1));
     	dpTo.setValue(now.withDayOfMonth(now.lengthOfMonth()));
@@ -199,6 +201,29 @@ public class ReservationController implements Initializable {
 		btnTablesSche.setVisible(true);
     	this.parseData(null);
 		this.loadSchedule("schedule.fxml");
+		//create
+		btnCreate.setDisable(true);
+		//btnPut
+		btnPut.setDisable(true);
+		//update
+		btnUpdate.setDisable(true);
+		
+		//delete
+		btnDelete.setDisable(true);
+		
+
+		
+		if(AuthenticationModel.hasPermission("CREATE_RESERVATION") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnCreate.setDisable(false);
+		}
+		
+		if(AuthenticationModel.hasPermission("UPDATE_RESERVATION") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnUpdate.setDisable(false);
+		}
+		
+		if(AuthenticationModel.hasPermission("DELETE_RESERVATION") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnDelete.setDisable(false);
+		}
     }  
  
     
@@ -275,6 +300,7 @@ public class ReservationController implements Initializable {
 	 this.updateStatus();
 	 this.parseData(null);
 	 this.loadSchedule("schedule.fxml");
+	 reserId=0;
  }
     @FXML
     public void btnCreateAction() {
@@ -312,7 +338,7 @@ public class ReservationController implements Initializable {
   	@FXML
   	void putMore() {
   			try {
-  			
+  			if(reserId!=0) {
   			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/reservation-cu.fxml"));
   			createHolder = root.load();
   			
@@ -325,7 +351,9 @@ public class ReservationController implements Initializable {
   			createStage.initStyle(StageStyle.UNDECORATED);
   			createStage.setScene(scene);
   			createStage.show();			
-  			
+  			}else {
+  				Helpers.status("error");
+  			}
   		} catch (Exception e) {
   			e.printStackTrace();
   		}
@@ -452,30 +480,30 @@ public class ReservationController implements Initializable {
     public void getRowSelected(MouseEvent event) {
     	btnDelete.setDisable(true);
 		paneDetails.setVisible(true);
-		btnPut.setDisable(false);
+		if(AuthenticationModel.hasPermission("CREATE_RESERVATION") || AuthenticationModel.roleName.equals("Super Admin")) {
+			btnPut.setDisable(false);
+		}
+		
     	try {
 			if(event.getClickCount() > 0) {
 				ReservationModel item = tblReser.getSelectionModel().getSelectedItem();
 				if(item != null) {
 					DataMapping status=ReservationModel.isCancelled;
-					btnUpdate.setDisable(true);
 					if(item.getStatus()==1) {
 						status=ReservationModel.isNew;
-						btnUpdate.setDisable(false);
 					}else if(item.getStatus()==2) {
 						status=ReservationModel.isConfirmed;
-						btnUpdate.setDisable(false);
 					}else if(item.getStatus()==3) {
 						status=ReservationModel.isDeposited;
-						btnUpdate.setDisable(false);
 					}else if(item.getStatus()==4) {
 						status=ReservationModel.isPresent;
-						btnUpdate.setDisable(true);
 					}else if(item.getStatus()==5) {
 						status=ReservationModel.isExpried;
-						btnUpdate.setDisable(true);
 					}
-					
+					btnUpdate.setDisable(true);
+					if(item.getStatus()!=4&&item.getStatus()!=5&&item.getStatus()!=0&&AuthenticationModel.hasPermission("UPDATE_RESERVATION")) {
+						btnUpdate.setDisable(false);
+					}
 					lblCode.setText("Code: \t"+item.getCode());
 					lblCusName.setText("Customer name: "+item.getName());
 					lblSeats.setText("Seat(s) pick: "+item.getSeats());
@@ -496,8 +524,11 @@ public class ReservationController implements Initializable {
 						
 					}
 					lblTablePick.setText("Table(s) pick: "+tablePick);
+					
 				}
-				if(checkToDelete(item.getId())) {
+				
+				
+				if((checkToDelete(item.getId())&&AuthenticationModel.hasPermission("CREATE_RESERVATION")) || AuthenticationModel.roleName.equals("Super Admin")) {
 					btnDelete.setDisable(false);
 				}
 			}

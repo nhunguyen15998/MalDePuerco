@@ -31,6 +31,7 @@ import javafx.stage.StageStyle;
 import models.AuthenticationModel;
 import models.UserModel;
 import utils.CompareOperator;
+import utils.DataMapping;
 import utils.Helpers;
 
 public class UserController  implements Initializable {
@@ -103,6 +104,7 @@ public class UserController  implements Initializable {
 		
 		//load data
 		this.parseData(null);
+	
 	}
 	
 	//load data

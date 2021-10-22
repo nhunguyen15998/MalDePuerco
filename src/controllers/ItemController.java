@@ -25,7 +25,7 @@ public class ItemController {
 		lblTime.setText(item.getStart()+" - "+items.getEnd());
 		lblTable.setText(item.getTable()+"");
 		lblCusName.setText(items.getCusName());
-		DataMapping status=ReservationModel.isCancelled;
+		DataMapping status=ReservationModel.isCancelled; 
 		
 		if(items.getStatus()==1) {
 			status=ReservationModel.isNew;

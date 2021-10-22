@@ -109,7 +109,7 @@
                   <Font name="System Italic" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="lblCodeError" layoutX="110.0" layoutY="293.0" prefHeight="9.0" prefWidth="234.0" textFill="#a17064">
+            <Label fx:id="lblCodeError" layoutX="123.0" layoutY="293.0" prefHeight="9.0" prefWidth="234.0" textFill="#a17064">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font>

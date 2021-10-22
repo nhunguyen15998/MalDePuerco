@@ -9,6 +9,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import db.MySQLJDBC;
+
+import utils.CompareOperator;
 import utils.DataMapping;
 import utils.Helpers;
 import javafx.collections.FXCollections;
@@ -49,7 +51,10 @@ public class ChefOptionController implements Initializable{
 	public ResultSet getChefList() {
 		try {
 			ArrayList<DataMapping> chefList = new ArrayList<DataMapping>();
-			ResultSet chef = userModel.getUserList(null);
+
+			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
+			conditions.add(CompareOperator.getInstance("roles.code", "=","CHEF"));
+			ResultSet chef = userModel.getUserList(conditions);
 			while(chef.next()) {
 				chefList.add(DataMapping.getInstance(chef.getInt("id"), chef.getString("user_name")));
 			}
@@ -74,7 +79,7 @@ public class ChefOptionController implements Initializable{
 				odModel.updateOrderDetail(orderID, option);
 				Helpers.status("success");
 			}
-			citemControl.setData(null);
+
 			this.close();
 		} catch (Exception e) {
 			
@@ -87,15 +92,14 @@ public class ChefOptionController implements Initializable{
 		try {
 			this.citemControl = citemControl;
 			this.orderID = citemControl.getChefID();
-			ResultSet rs = this.userModel.getChefById(orderID);
+			ResultSet rs = this.odModel.getById(orderID);
 			if(rs.next()) {
-				System.out.println(orderID);
-				
-				//ccb
+				System.out.println(rs.getInt("order_details.user_id"));
 				for(DataMapping chef : cbChef.getItems()) {
-					if(chef.key != null && Integer.parseInt(chef.key) == Integer.valueOf("user_name"));
-					cbChef.setValue(chef);
-					break;
+					if(chef.key != null && Integer.parseInt(chef.key) == rs.getInt("order_details.user_id")) {
+						cbChef.setValue(chef);
+						break;
+					}
 				}
 			}
 		} catch (Exception e) {

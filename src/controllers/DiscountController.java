@@ -293,7 +293,7 @@ public class DiscountController implements Initializable {
   			}
   			if(!checkDate||!codeDup) {
 					return false;
-				}else {
+				}else { 
 
   			return true;
 				}

@@ -15,7 +15,7 @@ public class Helpers {
 	//format money
 	public static DecimalFormat formatNumber(String pattern) {
 		if(pattern == null) {
-			pattern = "###,###.###";
+			pattern = "###,###.##";
 		}
 		DecimalFormat decimalFormat = new DecimalFormat(pattern);
 		return decimalFormat;	

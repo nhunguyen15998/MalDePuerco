@@ -172,7 +172,9 @@ public class ScheduleController implements Initializable {
 
         MenuItem item = new MenuItem("Update this reservation");
         item.setOnAction(eh->{
-       	 btnUpdateAction();
+        	ReservationController ctr = new ReservationController();
+  			ctr.setReserId(reserId);
+  			ctr.btnUpdateAction();
         });
         contextMenu.getItems().addAll(item);
    		anchor.setOnMouseClicked(eh->{
@@ -213,37 +215,6 @@ public class ScheduleController implements Initializable {
 	   }
    }
    
-   void btnUpdateAction() {
-   	try {
-			if(this.reserId != 0) {
-					this.shoUpdateForm();
-			} 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-   }
-	public void shoUpdateForm() {
-  		try {
-  			
-  			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/reservation-cu.fxml"));
-  			AnchorPane createHolder =  new AnchorPane();
-  			createHolder = root.load();
-  			
-  			//controller
-  			ReservationCUController controller = root.<ReservationCUController>getController();
-  			ReservationController ctr = new ReservationController();
-  			ctr.setReserId(reserId);
-  			controller.loadDataUpdateById(ctr);
-  			Scene scene = new Scene(createHolder, 680, 532);
-  			Stage createStage = new Stage();
-  			createStage.initStyle(StageStyle.UNDECORATED);
-  			createStage.setScene(scene);
-  			createStage.show();			
-  			
-  		} catch (Exception e) {
-  			e.printStackTrace();
-  		}
-  	}
     @FXML
     void dateChoose() {
     	
@@ -254,7 +225,7 @@ public class ScheduleController implements Initializable {
 
     @FXML
     void tabAll() {
-    	this.dateChoose();
+    	this.dateChoose(); 
     
     }
 

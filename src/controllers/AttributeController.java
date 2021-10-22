@@ -108,7 +108,7 @@ public class AttributeController implements Initializable{
 
     @FXML
     void btnDeleteAction(ActionEvent event) {
-    	try {
+    	try { 
 			if(this.attID != 0) {
 				Alert alert = new Alert(AlertType.CONFIRMATION);
 				alert.setTitle("Delete Attribute Confirmation");
@@ -277,7 +277,7 @@ public class AttributeController implements Initializable{
 			attID = item.getId();
 			
 			tfName.setText(item.getName());
-			cbParent.getParent();
+		//	cbParent.setValue();
 		} else {
 			System.out.println("not click in table");
 			attID = 0;

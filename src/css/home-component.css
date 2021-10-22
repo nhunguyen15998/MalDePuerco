@@ -4,3 +4,6 @@
 #cbSize, #cbSugar, #cbIce {
 	 -fx-background-color: #FFF !important;
 }
+.btnOption{
+-fx-cursor:hand;
+}

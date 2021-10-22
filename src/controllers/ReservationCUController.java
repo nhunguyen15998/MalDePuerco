@@ -114,6 +114,7 @@ public class ReservationCUController implements Initializable {
 	boolean checkTable=true;
 	private int timeCancel;
 	private DataMapping stt;
+	private ArrayList<DataMapping> table = new ArrayList<DataMapping>();
 	@FXML
 	public void btnSaveAction(ActionEvent event) {
 		try {
@@ -534,7 +535,7 @@ public class ReservationCUController implements Initializable {
 
 		lblDepoError.setText("");
 		    	ArrayList<ValidationDataMapping> data = new ArrayList<ValidationDataMapping>();
-		    	data.add(new ValidationDataMapping("deposit", depo, "lblDepoError", "numeric|min:10"));
+		    	data.add(new ValidationDataMapping("deposit", depo, "lblDepoError", "numeric|min:100000"));
 				ArrayList<DataMapping> messages = Validations.validated(data);
 		    	if(messages.size() > 0) {
 					for(DataMapping message : messages) {
@@ -574,12 +575,12 @@ public class ReservationCUController implements Initializable {
 	    	if(seat>4) {
 	    		tfDeposit.setDisable(false);
 	    		if(tfDeposit.getText().isEmpty()) {
-	    		lblDepoError.setText("You have to deposit at least 10$");
+	    		lblDepoError.setText("You have to deposit at least 100 000 VND");
 		    	}
 	    		if(!tfDeposit.getText().isEmpty()) {
 	    			int depo = Integer.parseInt(tfDeposit.getText());
 		    		if(tfDeposit.getText().isEmpty()||depo<10) {
-		    			lblDepoError.setText("You have to deposit at least 10$");
+		    			lblDepoError.setText("You have to deposit at least 100 000 VND");
 			    	}
 	    		}
 	    	}
@@ -656,7 +657,8 @@ public class ReservationCUController implements Initializable {
 	    	if(!(seats>=Integer.parseInt(tfSeat.getText()))) {
 	    	String value = cbbTable.getValue().value;
 			if(checkExists(DataMapping.getInstance(cbbTable.getValue().key, value))) {
-				listTable.add(DataMapping.getInstance(cbbTable.getValue().key, value));
+				DataMapping list = DataMapping.getInstance(cbbTable.getValue().key, value);
+				listTable.add(returnData(list));
 				tfTable.setText(statusSelected());
 				
 				seats+=seatsCheck(Integer.parseInt(cbbTable.getValue().key));
@@ -707,7 +709,17 @@ public class ReservationCUController implements Initializable {
 	    	System.out.println("check: "+check);
 			return check;
 	    }
-	    
+	    private DataMapping returnData(DataMapping ob) {
+	    	DataMapping a = null;
+	    	int k = 0;
+	    	for(DataMapping item : table) {
+				if(item.key.equals(ob.key)) {
+					a=DataMapping.getInstance(item.key, item.value);
+					k++;
+				}
+	    	}
+			return a;
+	    }
 	    //return String add "," after result
 	    private String statusSelected() {
 	    	int count = 0;
@@ -753,6 +765,7 @@ public class ReservationCUController implements Initializable {
 	  	public void dateAction() {
 	  		seats=0;
 	    	listTable.clear();
+	    	lblTableError.setText("You must fill in date,time,seats to select a table(s)");
 	    	tfTable.setText("");
 	    	btnAdd.setDisable(false);
 	  		if(reserId==0) {
@@ -769,12 +782,13 @@ public class ReservationCUController implements Initializable {
 	  			try {
 	  				
 	  				ArrayList<DataMapping> options = new ArrayList<DataMapping>();
-	  				String sql = "select id, name from tables where id not in (select table_id from tables_reservation where status =1 "+cond+" and reservation_id in (select id from reservations where  ((start_time<='"+st+"' and '"+st+"'<end_time and end_time<='"+et+"') or ('"+st+"'<=start_time and start_time<=end_time and end_time<='"+et+"' ) or ('"+st+"'<=start_time and start_time<=end_time and end_time<='"+et+"' ) or ('"+st+"'<=start_time and start_time<'"+et+"' and '"+et+"'<=end_time) or (start_time<='"+st+"' and end_time>='"+et+"') or (start_time>='"+st+"' and end_time<'"+et+"')) and date_pick = '"+ date+"' ))";
+	  				String sql = "select id, name, seats from tables where id not in (select table_id from tables_reservation where status =1 "+cond+" and reservation_id in (select id from reservations where  ((start_time<='"+st+"' and '"+st+"'<end_time and end_time<='"+et+"') or ('"+st+"'<=start_time and start_time<=end_time and end_time<='"+et+"' ) or ('"+st+"'<=start_time and start_time<=end_time and end_time<='"+et+"' ) or ('"+st+"'<=start_time and start_time<'"+et+"' and '"+et+"'<=end_time) or (start_time<='"+st+"' and end_time>='"+et+"') or (start_time>='"+st+"' and end_time<'"+et+"')) and date_pick = '"+ date+"' ))";
 	  				Statement ps = MySQLJDBC.connection.createStatement();
 	  				System.out.println(sql);
 	  				ResultSet rs = ps.executeQuery(sql);
 	  				while(rs.next()) {
-	  					options.add(DataMapping.getInstance(rs.getInt("id"), rs.getString("name")));
+	  					options.add(DataMapping.getInstance(rs.getInt("id"), rs.getString("name")+"  -  seat(s): "+ rs.getInt("seats")));
+	  					table.add(DataMapping.getInstance(rs.getInt("id"), rs.getString("name")));
 	  				}
 	  				cbbTable.getItems().setAll(options);
 	  				return rs;

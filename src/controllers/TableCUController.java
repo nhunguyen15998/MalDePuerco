@@ -96,7 +96,7 @@ public class TableCUController implements Initializable {
   				if(currentTable.next()) {
   					tfCode.setText(currentTable.getString("code"));
   					tfName.setText(currentTable.getString("name"));
-  					tfSeats.setText(currentTable.getInt("seats")+"");
+  					tfSeats.setText(currentTable.getInt("seats")+""); 
   					
   					
   					
