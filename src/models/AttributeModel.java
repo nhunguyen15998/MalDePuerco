@@ -135,4 +135,12 @@ public class AttributeModel extends BaseModel {
 		this.createdAt = createdAt;
 	}
 
+	public int getParent_id() {
+		return parent_id;
+	}
+
+	public void setParent_id(int parent_id) {
+		this.parent_id = parent_id;
+	}
+
 }

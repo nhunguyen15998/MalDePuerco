@@ -46,4 +46,7 @@
 	-fx-background-color :  #9C5978;
 	-fx-background-radius : 50px;
 }
+.btnServing:hover{
+	-fx-cursor:hand;
+}
 

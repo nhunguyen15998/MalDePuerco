@@ -10,7 +10,7 @@ import utils.JoinCondition;
 public class OrderWaiterModel extends BaseModel{
 	private static String table = "orders";
 	private static String[] columns = {"id, code, table_id, reservation_id, tip, total_amount, "
-									  + "payment_method_id, created_at, status, user_id"};
+									  + "payment_method, created_at, status, user_id"};
 	
 	private static OrderWaiterModel orderWModel;
 	
@@ -82,7 +82,7 @@ public class OrderWaiterModel extends BaseModel{
 			reserJoin.add(CompareOperator.getInstance("reservations.id", "=", "orders.reservation_id"));
 			
 			ArrayList<CompareOperator> payJoin = new ArrayList<CompareOperator>();
-			payJoin.add(CompareOperator.getInstance("payment_method.id", "=", "orders.payment_method_id"));
+			payJoin.add(CompareOperator.getInstance("payment_method.id", "=", "orders.payment_method"));
 			
 			ArrayList<CompareOperator> userJoin = new ArrayList<CompareOperator>();
 			userJoin.add(CompareOperator.getInstance("users.id", "=", "orders.user_id"));
@@ -116,6 +116,17 @@ public class OrderWaiterModel extends BaseModel{
 		}
 	}
 	
+	//update
+		public boolean updateOrder(int id, ArrayList<DataMapping> data) {
+			try {
+				ArrayList<CompareOperator> condition = new ArrayList<CompareOperator>();
+				condition.add(CompareOperator.getInstance("orders.id", "=", String.valueOf(id)));
+				return this.update(data, condition);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
 	
 	public int getId() {
 		return id;

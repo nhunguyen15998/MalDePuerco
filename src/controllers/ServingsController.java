@@ -1,8 +1,6 @@
 package controllers;
 
-import java.awt.Button;
 import java.awt.TextField;
-import java.awt.event.ActionEvent;
 import java.awt.geom.Rectangle2D;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -23,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -38,6 +37,11 @@ import models.ServingModel;
 import utils.CompareOperator;
 import utils.DataMapping;
 import utils.Helpers;
+import javafx.event.ActionEvent;
+import models.AuthenticationModel;
+import javafx.scene.Node;
+
+
 
 public class ServingsController  implements Initializable {
 	private ServingModel servingModel = new ServingModel();
@@ -83,7 +87,27 @@ public class ServingsController  implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		this.loadData(null);
-		
+		//create
+				btnCreate.setDisable(true);
+				//update
+				btnUpdate.setDisable(true);
+				
+				//delete
+				btnDelete.setDisable(true);
+				
+
+				
+				if(AuthenticationModel.hasPermission("CREATE_SERVING") || AuthenticationModel.roleName.equals("Super Admin")) {
+					btnCreate.setDisable(false);
+				}
+				
+				if(AuthenticationModel.hasPermission("UPDATE_SERVING") || AuthenticationModel.roleName.equals("Super Admin")) {
+					btnUpdate.setDisable(false);
+				}
+				
+				if(AuthenticationModel.hasPermission("DELETE_SERVING") || AuthenticationModel.roleName.equals("Super Admin")) {
+					btnDelete.setDisable(false);
+				}
 		
 	}
 
@@ -97,14 +121,15 @@ public class ServingsController  implements Initializable {
 			col_name.setCellValueFactory(new PropertyValueFactory<ServingModel, String>("name"));
 			col_cate.setCellValueFactory(new PropertyValueFactory<ServingModel, Integer>("categoryName"));
 			col_type.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(
-					cellData.getValue().getType() == ServingModel.FOOD ? String.valueOf(ServingModel.isFood) : ServingModel.isDrink))));
+					cellData.getValue().getType() == ServingModel.FOOD ? String.valueOf(ServingModel.isFood) : String.valueOf(ServingModel.isDrink))
+					);
 			col_des.setCellValueFactory(new PropertyValueFactory<ServingModel, String>("descriptions"));
 			colQuantity.setCellValueFactory(new PropertyValueFactory<ServingModel, Integer>("quantity"));
 			col_price.setCellValueFactory(new PropertyValueFactory<ServingModel, String>("price"));
 			col_created.setCellValueFactory(new PropertyValueFactory<ServingModel, LocalDate>("createAt"));
 			col_status.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(				
 					cellData.getValue().getStatus() == ServingModel.SERVING_ACTIVATED ? String.valueOf(ServingModel.isActivated) : String.valueOf(ServingModel.isDeactivated)));
-			colPath.setVisible(true);
+			colPath.setVisible(false);
 			//get data form db
 			ResultSet servings = this.servingModel.getServingList(conditions);
 			while (servings.next()) {
@@ -117,7 +142,7 @@ public class ServingsController  implements Initializable {
 						servings.getString("cateName"),
 						servings.getInt("type"), 
 						servings.getString("descriptions"),
-						servings.getInt("quantity"),
+						servings.getInt("stock_quantity"),
 						servings.getInt("price"),
 						servings.getDate("created_at").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy")),
 						servings.getInt("status"),
@@ -142,35 +167,20 @@ public class ServingsController  implements Initializable {
 		}
 	}
 
-	//create 
-	public void btnCreateAction() {
+	@FXML
+    void btnCreateAction(ActionEvent event) {
 		try {
-				this.setServingId(0);
-				this.showCreateForm();
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println(e);
-		}
+			this.setServingId(0);
+			this.showCreateForm();
+	} catch (Exception e) {
+		e.printStackTrace();
+		System.out.println(e);
 	}
-	
-//	//update
-	public void btnUpdateAction() {
-		System.out.println("update");
-		try {
-			if (this.servingId != 0) {
-				this.showCreateForm();
-			} else {
-				//error
-				Helpers.status("error");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-//	//delete 
-	public void btnDeleteAction() {
-		try {
+    }
+
+    @FXML
+    void btnDeleteAction(ActionEvent event) {
+    	try {
 			if (this.servingId != 0) {
 				Alert alert = new Alert(AlertType.CONFIRMATION);
 				alert.setTitle("Delete Serving Confirmation");
@@ -188,7 +198,22 @@ public class ServingsController  implements Initializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+    }
+
+    @FXML
+    void btnUpdateAction(ActionEvent event) {
+    	System.out.println("update");
+		try {
+			if (this.servingId != 0) {
+				this.showCreateForm();
+			} else {
+				//error
+				Helpers.status("error");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
 	
 //		//show create form
 		public void showCreateForm() {
@@ -217,7 +242,7 @@ public class ServingsController  implements Initializable {
 			try {
 				String code = tfFind.getText();
 				ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
-				conditions.add(CompareOperator.getInstance("name or sc.name", " like ", "%"+ code + "%"));
+				conditions.add(CompareOperator.getInstance("servings.name or sc.name", " like ", "%"+ code + "%"));
 				return conditions;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -243,10 +268,6 @@ public class ServingsController  implements Initializable {
 			}
 		}
 		
-	//btnAddAttributesAction
-	public void btnAddAttributesAction() {
-		
-	}
 		
 		
 	//get&set

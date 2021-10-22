@@ -1,6 +1,8 @@
 package controllers;
 
 import java.awt.event.KeyEvent;
+import models.AuthenticationModel;
+import javafx.scene.Node;
 import java.io.FileInputStream;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -22,6 +24,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -65,10 +68,41 @@ public class ServingCateController implements Initializable {
     @FXML private TableColumn<ServingCategoryModel, String> colPath;
     @FXML private AnchorPane createHolder;
     @FXML private TextField tfFind;
+    
+    @FXML
+    private Button btnDelete;
+
+    @FXML
+    private Button btnCreate;
+
+    @FXML
+    private Button btnUpdate;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
     	this.loadData(null);
+    	
+    	//create
+    			btnCreate.setDisable(true);
+    			//update
+    			btnUpdate.setDisable(true);
+    			
+    			//delete
+    			btnDelete.setDisable(true);
+    			
+
+    			
+    			if(AuthenticationModel.hasPermission("CREATE_SERCATE") || AuthenticationModel.roleName.equals("Super Admin")) {
+    				btnCreate.setDisable(false);
+    			}
+    			
+    			if(AuthenticationModel.hasPermission("UPDATE_SERCATE") || AuthenticationModel.roleName.equals("Super Admin")) {
+    				btnUpdate.setDisable(false);
+    			}
+    			
+    			if(AuthenticationModel.hasPermission("DELETE_SERCATE") || AuthenticationModel.roleName.equals("Super Admin")) {
+    				btnDelete.setDisable(false);
+    			}
     }
     
     //loadData
@@ -83,7 +117,7 @@ public class ServingCateController implements Initializable {
     		colCreate.setCellValueFactory(new PropertyValueFactory<ServingCategoryModel, LocalDate>("createdAt"));
     		colStatus.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(				
 					cellData.getValue().getStatus() == ServingCategoryModel.SERVING_CATEGORY_ACTIVATED ? String.valueOf(ServingCategoryModel.isActivated) : String.valueOf(ServingCategoryModel.isDeactivated)));
-    		colPath.setVisible(true);
+    		colPath.setVisible(false);
     		//get row from db
     		ResultSet sercate = servingcateModel.getServingCategoryList(conditions);
     		while(sercate.next()) {

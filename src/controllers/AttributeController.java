@@ -1,6 +1,7 @@
 package controllers;
 
 import java.awt.Component;
+import models.AuthenticationModel;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
@@ -17,6 +18,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -90,6 +92,12 @@ public class AttributeController implements Initializable{
     @FXML
     private Label lblParentError;
 
+    @FXML AnchorPane serattHolder;
+
+	private MasterController masterController;
+	
+	@FXML private Button btnSA;
+    
     @FXML
     void btnClearAction(ActionEvent event) {
     	try {
@@ -230,6 +238,33 @@ public class AttributeController implements Initializable{
 		this.loadData(null);
 		this.getParentList();
 		resetInput(null);
+		//create
+				btnAdd.setDisable(true);
+				//update
+				btnUpdate.setDisable(true);
+				
+				//delete
+				btnDelete.setDisable(true);
+				
+
+				
+				if(AuthenticationModel.hasPermission("CREATE_ATTRIBUTE") || AuthenticationModel.roleName.equals("Super Admin")) {
+					btnAdd.setDisable(false);
+				}
+				
+				if(AuthenticationModel.hasPermission("UPDATE_ATTRIBUTE") || AuthenticationModel.roleName.equals("Super Admin")) {
+					btnUpdate.setDisable(false);
+				}
+				
+				if(AuthenticationModel.hasPermission("DELETE_ATTRIBUTE") || AuthenticationModel.roleName.equals("Super Admin")) {
+					btnDelete.setDisable(false);
+				}
+				
+				
+				btnSA.setDisable(true);
+		if(AuthenticationModel.hasPermission("VIEW_SER_ATTRIBUTES") || AuthenticationModel.roleName.equals("Super Admin")) {
+					btnSA.setDisable(false);
+				}
 	}
 	
 	//load data
@@ -277,7 +312,7 @@ public class AttributeController implements Initializable{
 			attID = item.getId();
 			
 			tfName.setText(item.getName());
-		//	cbParent.setValue();
+			cbParent.setValue(DataMapping.getInstance(item.getParent_id(), item.getParent()));
 		} else {
 			System.out.println("not click in table");
 			attID = 0;
@@ -289,7 +324,7 @@ public class AttributeController implements Initializable{
 			ArrayList<DataMapping> parentOptions = new ArrayList<DataMapping>();
 			ResultSet parent = attModel.getAttributeList(null);
 			while(parent.next() ) {
-				parentOptions.add(DataMapping.getInstance(parent.getInt("id"), parent.getString("name")));
+				parentOptions.add(DataMapping.getInstance(parent.getInt("id"), parent.getString("parent_id")));
 			}
 			cbParent.getItems().setAll(parentOptions);
 			return parent;
@@ -297,6 +332,27 @@ public class AttributeController implements Initializable{
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public void parseMaster(MasterController masterController) {
+		this.masterController = masterController;
+	}
+	
+	//show view ser att
+	public void showSerAtt() {
+		try {
+  			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/serattributes.fxml"));
+  			AnchorPane chef = root.load();
+			ServingAttributeController control = root.getController();
+			control.parseMaster(masterController);
+			this.masterController.masterHolder.getChildren().setAll(chef);
+  		} catch (Exception e) {
+  			e.printStackTrace();
+  		}
+	}
+	
+	@FXML public void btnSerAtt() {
+		showSerAtt();
 	}
 	public int getAttID() {
 		return attID;

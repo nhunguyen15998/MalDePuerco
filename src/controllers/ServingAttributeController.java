@@ -77,6 +77,7 @@ public class ServingAttributeController implements Initializable{
 	@FXML private TextField tfFind;
 	
 	@FXML private AnchorPane createHolder;
+	private MasterController masterController;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -234,6 +235,12 @@ public class ServingAttributeController implements Initializable{
 				e.printStackTrace();
 			}
 		}
+		
+		//parse master
+	  	public MasterController parseMaster(MasterController masterController) {
+	  		this.masterController = masterController;
+	  		return this.masterController;
+	  	}
 		
 	//get&set
 	public int getServingattId() {

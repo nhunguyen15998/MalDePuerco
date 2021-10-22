@@ -21,6 +21,7 @@ import utils.Helpers;
 public class ChefItemController {
 	private int chefID;
 	private String table;
+	private String orderCode;
 	
 	@FXML
     private AnchorPane anchor;
@@ -48,6 +49,7 @@ public class ChefItemController {
     
     @FXML
     private Label lblChef;
+    @FXML private Label lblNote;
     
     private ChefItemModel item;
     
@@ -60,10 +62,11 @@ public class ChefItemController {
     	this.item = items;
     	lblCode.setText(item.getOderCode());
     	lblSerName.setText(item.getServingName());
+    	lblNote.setText(item.getNote());
     	lblSize.setText(item.getSize());
     	lblQuantity.setText(item.getQuantity());
     	lblCreate.setText(item.getCreatedAt());
-    	lblUser.setText(item.getUserCode());
+    	lblUser.setText(String.valueOf(item.getUserCode()));
     	//pending, cooking, ready, serving, served, canceled
     	DataMapping status = OrderDetailModel.isPending;
     	
@@ -94,10 +97,9 @@ public class ChefItemController {
     	lblStatus.setText(status+"");
     }
     
-
     @FXML
     private void handleChefOption(ActionEvent event) {
-    	System.out.println("Chef Option");
+    	System.out.println("Chef Optio n");
     	try {
     		FXMLLoader root = new FXMLLoader(getClass().getResource("/views/optionChef.fxml"));
     		optionHolder = root.load();
@@ -122,7 +124,7 @@ public class ChefItemController {
     		FXMLLoader root = new FXMLLoader(getClass().getResource("/views/optionChefS.fxml"));
     		Holder = root.load();
     		
-    		ChefOptionController control = root.<ChefOptionController>getController();
+    		ChefOptionSController control = root.<ChefOptionSController>getController();
     		control.loadDataById(this);
     		
     		Scene scene = new Scene(Holder, 260, 140);
@@ -165,6 +167,14 @@ public class ChefItemController {
 
 	public void setTable(String table) {
 		this.table = table;
+	}
+
+	public String getOrderCode() {
+		return orderCode;
+	}
+
+	public void setOrderCode(String orderCode) {
+		this.orderCode = orderCode;
 	}
     
     

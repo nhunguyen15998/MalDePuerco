@@ -91,7 +91,7 @@
                   </DropShadow>
                </effect>
             </Button>
-            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="140.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="143.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/edit.png" />
                </image>
@@ -142,5 +142,10 @@
             <Image url="@../assets/delete.png" />
          </image>
       </ImageView>
+      <Button fx:id="btnSA" layoutX="685.0" layoutY="104.0" mnemonicParsing="false" onAction="#btnSerAtt" prefHeight="31.0" prefWidth="136.0" styleClass="btnCreate" stylesheets="@../css/servings.css" text="Serving Attribute " textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

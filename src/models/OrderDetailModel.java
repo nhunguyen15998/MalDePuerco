@@ -86,7 +86,7 @@ public class OrderDetailModel extends BaseModel {
 	}
 	
 	public OrderDetailModel(int id, int sequence, String ordercode, String servingName, String size,
-			int quantity, int price, int total, String userCode, String createdAt, int servingStatus) {
+			int quantity, int price, int total, String userCode, String createdAt, int servingStatus, String servingNote) {
 		super(table, columns);
 		this.id = id;
 		this.sequence = sequence;
@@ -99,6 +99,7 @@ public class OrderDetailModel extends BaseModel {
 		this.userCode = userCode;
 		this.createdAt = createdAt;
 		this.servingStatus = servingStatus;
+		this.servingNote = servingNote;
 	}
 	
 	//get data order_details - orders - servings - users - serving_image -tables
@@ -135,7 +136,8 @@ public class OrderDetailModel extends BaseModel {
 		try {
 			String[] selects = {"order_details.id", "orders.code as code", "servings.name as serName",
 								"order_details.size", "order_details.quantity", "order_details.price",
-								"order_details.total", "users.code as uCode", "time(order_details.created_at) as time", "order_details.serving_status"};
+								"order_details.total", "users.code as uCode", "time(order_details.created_at) as time",
+								"order_details.serving_status", "order_details.serving_note"};
 			//orders
 			ArrayList<CompareOperator> orderCondition = new ArrayList<CompareOperator>();
 			orderCondition.add(CompareOperator.getInstance("orders.id", "=", "order_details.order_id"));
@@ -188,6 +190,20 @@ public class OrderDetailModel extends BaseModel {
 			joins.add(JoinCondition.getInstance("left join", "users", userCondition));
 			joins.add(JoinCondition.getInstance("left join", "tables", tableCondition));
 			return this.getData(selects, conditions, joins, null, null, null);
+
+		} catch (Exception e) {
+			e.printStackTrace(); 
+			return null;
+		}
+	}
+	
+	public ResultSet getID(int id) {
+		try {
+			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
+			conditions.add(CompareOperator.getInstance("order_details.id", "=", String.valueOf(id)));
+			
+			
+			return this.getData(columns, conditions, null, null, null, null);
 		} catch (Exception e) {
 			e.printStackTrace(); 
 			return null;

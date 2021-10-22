@@ -9,7 +9,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import db.MySQLJDBC;
-
 import utils.CompareOperator;
 import utils.DataMapping;
 import utils.Helpers;
@@ -19,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
@@ -35,12 +35,15 @@ public class ChefOptionController implements Initializable{
 	private OrderDetailModel odModel = new OrderDetailModel();
 	
 	private int orderID;
-	private String userCode;
+	private String orderCode;
 	private String chefID;
 
 	ChefItemController citemControl = new ChefItemController();
+	OrderChefController chefControl = new OrderChefController();
+	OrderWaiterDController odControl = new OrderWaiterDController();
 	
 	@FXML private Button btnCancel;
+	@FXML Label lblCode;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -80,18 +83,22 @@ public class ChefOptionController implements Initializable{
 				Helpers.status("success");
 			}
 
+			chefControl.refreshAction(event);
 			this.close();
 		} catch (Exception e) {
 			
 			e.printStackTrace();
 		}
 	}
-
+	
 	//load by id
 	public void loadDataById(ChefItemController citemControl) {
 		try {
 			this.citemControl = citemControl;
 			this.orderID = citemControl.getChefID();
+			this.orderCode = citemControl.getOrderCode();
+			lblCode.setText("Code: " + this.orderCode);
+			
 			ResultSet rs = this.odModel.getById(orderID);
 			if(rs.next()) {
 				System.out.println(rs.getInt("order_details.user_id"));
@@ -134,11 +141,11 @@ public class ChefOptionController implements Initializable{
 	}
 
 	public String getUserCode() {
-		return userCode;
+		return orderCode;
 	}
 
-	public void setUserCode(String userCode) {
-		this.userCode = userCode;
+	public void setUserCode(String orderCode) {
+		this.orderCode = orderCode;
 	}
 
 	public String getChefID() {

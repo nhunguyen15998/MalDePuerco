@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.paint.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="550.0" prefWidth="838.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OrderWaiterController">
+<AnchorPane prefHeight="550.0" prefWidth="838.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OrderWaiterController">
    <children>
       <AnchorPane prefHeight="141.0" prefWidth="838.0" styleClass="anchorTop" stylesheets="@../css/orderWaiter.css">
          <children>
@@ -50,13 +45,20 @@
                   <TableColumn fx:id="col_total" prefWidth="50.0" text="Total" />
                   <TableColumn fx:id="col_pay" prefWidth="100.0" text="Payment" />
                   <TableColumn fx:id="col_quantity" prefWidth="61.0" text="Quantity" />
-                  <TableColumn fx:id="col_status" minWidth="0.0" prefWidth="120.0" text="Status" />
-                  <TableColumn fx:id="col_user" prefWidth="94.0" text="User" />
+                  <TableColumn fx:id="col_status" minWidth="0.0" prefWidth="98.0" text="Status">
+                     <contextMenu>
+                        <ContextMenu>
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                          </items>
+                        </ContextMenu>
+                     </contextMenu></TableColumn>
+                  <TableColumn fx:id="col_user" prefWidth="117.0" text="User" />
               </columns>
                <contextMenu>
                   <ContextMenu>
                     <items>
-                      <MenuItem mnemonicParsing="false" onAction="#btnOption" text="Unspecified Action" />
+                      <MenuItem mnemonicParsing="false" onAction="#btnOption" text="Status" />
                     </items>
                   </ContextMenu>
                </contextMenu>
@@ -77,7 +79,7 @@
                <effect>
                   <DropShadow>
                      <color>
-                        <Color blue="0.8196078538894653" green="0.4745098054409027" opacity="0.49000000953674316" red="0.1725490242242813" />
+                        <Color red="0.1725490242242813" green="0.4745098054409027" blue="0.8196078538894653" opacity="0.49000000953674316" />
                      </color>
                   </DropShadow>
                </effect>

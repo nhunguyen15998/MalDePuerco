@@ -10,31 +10,27 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import models.OrderDetailModel;
-import models.OrderModel;
-import models.OrderWaiterModel;
-import utils.CompareOperator;
 import utils.DataMapping;
 import utils.Helpers;
 
-public class WaiterOptionController implements Initializable {
+public class WaiterOptionSupport {
 	@FXML ComboBox<DataMapping> cbStatus;
-	private OrderWaiterModel oModel = new OrderWaiterModel();
+	private OrderDetailModel odModel = new OrderDetailModel();
 	
 	private int orderID;
 	private String orderName;
 	
 	@FXML
     private Label lblCode;
-	private OrderWaiterController ODController;
+	private OrderWaiterDController ODDController;
 	
 	@FXML private Button btnCancel;
 
@@ -44,40 +40,39 @@ public class WaiterOptionController implements Initializable {
     		String st = cbStatus.getValue() != null ? cbStatus.getValue().key : null;
     		
     		ArrayList<DataMapping> option = new ArrayList<DataMapping>();
-    		option.add(DataMapping.getInstance("status", st));
+    		option.add(DataMapping.getInstance("serving_status", st));
     		
     		Alert al = new Alert(AlertType.CONFIRMATION);
     		Optional<ButtonType> opti = al.showAndWait();
     		if(opti.get() == ButtonType.OK) {
-    			oModel.updateOrder(orderID, option);
+    			odModel.updateOrderDetail(orderID, option);
     			Helpers.status("success");
     		}
-    		ODController.loadData(null);
+    		ODDController.loadData(null);
     		this.close();
     	} catch (Exception e) {
     		e.printStackTrace();
     	}
     }
     
-	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		ObservableList<DataMapping> status = FXCollections.observableArrayList(OrderModel.isPending, OrderModel.isProcessing, OrderModel.isServed, OrderModel.isCompleted);
+		ObservableList<DataMapping> status = FXCollections.observableArrayList(OrderDetailModel.isServing, OrderDetailModel.isServed);
 		cbStatus.setItems(status);
 	}
     
 	//load data
-	public void loadDataById(OrderWaiterController ODController) {
+	public void loadDataById(OrderWaiterDController ODController) {
 		try {
-			this.ODController = ODController;
-			this.orderID = ODController.getOrderId();
-			this.orderName = ODController.getOrderCode();
+			this.ODDController = ODController;
+			this.orderID = ODController.getOdID();
+			this.orderName = ODController.getOdCode();
 			lblCode.setText("Code: " +this.getOrderName());
 			
-			ResultSet rs = this.oModel.getOrderById(orderID);
+			ResultSet rs = this.odModel.getID(orderID);
 			if(rs.next()) {
 				for(DataMapping status : cbStatus.getItems()) {
-					if(status.key != null & Integer.parseInt(status.key) == rs.getInt("status"));
+					if(status.key != null & Integer.parseInt(status.key) == rs.getInt("order_details.serving_status"));
 					cbStatus.setValue(status);
 					break;
 				}
@@ -121,5 +116,4 @@ public class WaiterOptionController implements Initializable {
 	public void setOrderName(String orderName) {
 		this.orderName = orderName;
 	}
-	
 }

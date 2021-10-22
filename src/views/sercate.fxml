@@ -44,12 +44,12 @@
                 <TableColumn fx:id="colId" prefWidth="118.0" text="id" visible="false" />
                   <TableColumn fx:id="colName" prefWidth="170.0" text="Name" />
                   <TableColumn fx:id="colParent" prefWidth="213.0" text="Parent" />
-                  <TableColumn fx:id="colCreate" prefWidth="163.0" text="Created At" />
-                  <TableColumn fx:id="colStatus" prefWidth="140.0" text="Status" />
+                  <TableColumn fx:id="colCreate" prefWidth="124.0" text="Created At" />
+                  <TableColumn fx:id="colStatus" prefWidth="185.0" text="Status" />
                   <TableColumn fx:id="colPath" minWidth="2.0" prefWidth="22.0" visible="false" />
               </columns>
             </TableView>
-            <Button layoutX="670.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="31.0" prefWidth="87.0" styleClass="btnDelete" stylesheets="@../css/sercate.css" text="     Delete " textFill="WHITE">
+            <Button fx:id="btnDelete" layoutX="670.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnDeleteAction" prefHeight="31.0" prefWidth="87.0" styleClass="btnDelete" stylesheets="@../css/sercate.css" text="     Delete " textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -66,7 +66,7 @@
                   <Image url="@../assets/delete.png" />
                </image>
             </ImageView>
-            <Button layoutX="462.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnCreateAction" prefHeight="31.0" prefWidth="87.0" styleClass="btnCreate" stylesheets="@../css/sercate.css" text="     Create" textFill="WHITE">
+            <Button fx:id="btnCreate" layoutX="462.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnCreateAction" prefHeight="31.0" prefWidth="87.0" styleClass="btnCreate" stylesheets="@../css/sercate.css" text="     Create" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -83,7 +83,7 @@
                   <Image url="@../assets/save.png" />
                </image>
             </ImageView>
-            <Button layoutX="565.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="31.0" prefWidth="87.0" styleClass="btnUpdate" stylesheets="@../css/sercate.css" text="     Update" textFill="WHITE">
+            <Button fx:id="btnUpdate" layoutX="565.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnUpdateAction" prefHeight="31.0" prefWidth="87.0" styleClass="btnUpdate" stylesheets="@../css/sercate.css" text="     Update" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>

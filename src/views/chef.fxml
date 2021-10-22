@@ -16,17 +16,18 @@
                   <Font name="Consolas Bold" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="lblSerName" alignment="CENTER" layoutX="10.0" prefHeight="18.0" prefWidth="352.0" text="Copycat Chicken Lettuce Wraps">
+            <Label fx:id="lblSerName" alignment="CENTER" layoutX="10.0" prefHeight="18.0" prefWidth="253.0" text="Copycat Chicken Lettuce Wraps">
                <font>
                   <Font name="Consolas" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="lblSize" alignment="CENTER" prefHeight="18.0" prefWidth="80.0" text="Size M">
+            <Label fx:id="lblNote" alignment="CENTER" prefHeight="17.0" prefWidth="175.0" text="Serving Note" />
+            <Label fx:id="lblSize" alignment="CENTER" prefHeight="18.0" prefWidth="65.0" text="Size M">
                <font>
                   <Font name="Consolas" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="lblQuantity" alignment="CENTER" prefHeight="18.0" prefWidth="51.0" text="2">
+            <Label fx:id="lblQuantity" alignment="CENTER" prefHeight="18.0" prefWidth="29.0" text="2">
                <font>
                   <Font name="Consolas" size="12.0" />
                </font>
@@ -37,7 +38,7 @@
                   <ContextMenu>
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#handleChefOption" text="Chef" />
-                      <MenuItem mnemonicParsing="false" text="Status" />
+                      <MenuItem mnemonicParsing="false" onAction="#handleStatusOption" text="Status" />
                     </items>
                   </ContextMenu>
                </contextMenu></Label>

@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import db.MySQLJDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -36,6 +37,7 @@ import utils.Helpers;
 public class OrderChefController implements Initializable {
 	private static OrderDetailModel odetailModel = new OrderDetailModel();
 	public MasterController masterController;
+	private ChefItemController chefItem = new ChefItemController();
 	
 	private int chefID;
 	@FXML
@@ -75,7 +77,7 @@ public class OrderChefController implements Initializable {
 	
 	public static ResultSet getDataOrderDetails(String condition) throws SQLException {
 		String sql = "select order_details.id, orders.code as orderCode, servings.name as serName, size,"
-				+ " order_details.serving_status, order_details.quantity, time(order_details.created_at) as time, users.name as userName from order_details"
+				+ " order_details.serving_status, order_details.quantity, time(order_details.created_at) as time, users.name as userName, order_details.serving_note from order_details"
 				+ " LEFT JOIN orders on orders.id = order_details.order_id LEFT JOIN servings on servings.id = order_details.serving_id"
 				+ " LEFT JOIN users on users.id = order_details.user_id"+condition;
 		Statement stm = MySQLJDBC.connection.createStatement();
@@ -97,6 +99,7 @@ public class OrderChefController implements Initializable {
 			items.setId(rs.getInt("order_details.id"));
 			items.setOderCode(rs.getString("orderCode"));
 			items.setServingName(rs.getString("serName"));
+			items.setNote(rs.getString("order_details.serving_note"));
 			items.setSize(rs.getString("order_details.size"));
 			items.setQuantity("x" + rs.getInt("order_details.quantity"));
 			items.setCreatedAt(rs.getString("time"));
@@ -154,6 +157,9 @@ public class OrderChefController implements Initializable {
 		}
 	}
 	
+	@FXML void refreshAction(ActionEvent event) {
+		this.loadData("");
+	}
 	
 	@FXML void tabPending(MouseEvent event) {
 		loadData(btnPen.getId());
