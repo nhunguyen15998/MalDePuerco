@@ -89,6 +89,7 @@ public class MasterController implements Initializable {
     private Button btnUser;
     @FXML
     private Button btnOrderChef;
+
 	@FXML
 	public AnchorPane settingHolder;
     @FXML
@@ -259,6 +260,8 @@ public class MasterController implements Initializable {
     private void logoutAction() {
         FXMLLoader loader = new FXMLLoader(MasterController.this.getClass().getResource("/views/home.fxml"));
                                   try{
+
+                      			   
                                       FlowPane managerPane = loader.load();
                           			  Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
                                       Stage substage = new Stage();
@@ -388,12 +391,15 @@ public class MasterController implements Initializable {
     	setBtn();
     	try {
 			//draw
+			Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 			FXMLLoader root = new FXMLLoader(getClass().getResource("/views/setting.fxml"));
 			settingHolder = root.load();
 			//controller
 			SettingController controller = root.<SettingController>getController();
 			Scene scene = new Scene(settingHolder, 546, 512);
 			Stage createStage = new Stage();
+			createStage.setX((screenBounds.getWidth() - 546)/2);
+			createStage.setY((screenBounds.getHeight() - 512)/2);
 			createStage.initStyle(StageStyle.UNDECORATED);
 			createStage.setScene(scene);
 			createStage.show();			

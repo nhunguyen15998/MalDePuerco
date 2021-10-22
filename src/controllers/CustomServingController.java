@@ -132,8 +132,8 @@ public class CustomServingController implements Initializable {
 				txtServingName.setText(name);
 				ivThumbnail.setImage(new Image(getClass().getResourceAsStream(thumbnail)));
 				lblStockQuantity.setText(stock + " item(s) available");
-				lblPrice.setText("$" + price);
-				lblTotal.setText("$" + (Double.parseDouble(tfQuantity.getText())*price));
+				lblPrice.setText(Helpers.formatNumber(null).format(price)+"vnd");
+				lblTotal.setText(Helpers.formatNumber(null).format(Double.parseDouble(tfQuantity.getText())*price)+"vnd");
 				System.out.println("price:" + price);
 				System.out.println("total:" + this.price);
 				
@@ -297,6 +297,7 @@ public class CustomServingController implements Initializable {
 	}
 	
 	//btnCancelAction
+	@FXML
 	public void btnCancelAction() {
 		Stage stage = (Stage) btnCancel.getScene().getWindow();
 		CustomServingController.customerHomeController.customerMasterHolder.setDisable(false);

@@ -278,6 +278,7 @@ public class AttributeController implements Initializable{
 			
 			tfName.setText(item.getName());
 		//	cbParent.setValue();
+
 		} else {
 			System.out.println("not click in table");
 			attID = 0;

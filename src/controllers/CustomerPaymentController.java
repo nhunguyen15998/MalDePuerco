@@ -1,14 +1,16 @@
 package controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
-import camera.Camera;
+import javax.annotation.processing.RoundEnvironment;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,7 +18,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -33,6 +38,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import models.DiscountModel;
+import models.InvoiceModel;
 import models.OrderListModel;
 import models.OrderModel;
 import models.PaymentMethodModel;
@@ -42,11 +48,15 @@ import utils.CompareOperator;
 import utils.DataMapping;
 import utils.Helpers;
 
+import webcam.Pos;
+
 public class CustomerPaymentController implements Initializable {
 	public static CustomerHomeController customerHomeController = new CustomerHomeController();
 	private DiscountModel discountModel = new DiscountModel();
 	private PaymentMethodModel paymentMethodModel = new PaymentMethodModel();
 	private ReservationModel reservationModel = new ReservationModel();
+	private OrderModel orderModel = new OrderModel();
+	private InvoiceModel invoiceModel = new InvoiceModel();
 	private static double subtotal;
 	private double total;
 	private float discount = 0;
@@ -55,8 +65,10 @@ public class CustomerPaymentController implements Initializable {
 	private double deposit = 0;
 	private String selectedPayment = "";
 	private boolean paymentConfirmed = false;
-	
+	private int reservationId = 0;
 	public int orderId;
+	public String tableName;
+	
 	//xml
 	@FXML
 	private FlowPane fpRequestPayment;
@@ -74,6 +86,8 @@ public class CustomerPaymentController implements Initializable {
 	private Button btnPay;
 	@FXML
 	private Button btnCancel;
+	@FXML
+	private Button btnOKTimeOut;
 	@FXML
 	private Label lblSubtotal;
 	@FXML
@@ -96,9 +110,6 @@ public class CustomerPaymentController implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		//set table code
-		this.lblTableCode.setText("");
-		this.tableId = SettingController.tableId;
 		//radio
 		this.renderPaymentMethodGrid();
 		//cancel
@@ -138,6 +149,12 @@ public class CustomerPaymentController implements Initializable {
 		CustomerPaymentController.customerHomeController = customerHomeController;
 		this.setPaymentComponent();
 		this.orderId = OrderModel.currentOrderId;
+		this.tableId = CustomerHomeController.tableId;
+		this.tableName = customerHomeController.getTableName(tableId);
+		System.out.println(this.tableId);
+		System.out.println(this.tableName);
+		//set table code
+		this.lblTableCode.setText(this.tableName);
 		//getsubtotal
 		this.subtotal = CustomerPaymentController.customerHomeController.totalPlace;
 		this.lblSubtotal.setText("$"+this.subtotal);
@@ -198,6 +215,7 @@ public class CustomerPaymentController implements Initializable {
 	}
 	
 	//chbDepositChecked
+	@FXML
 	public void chbDepositChecked() {
 		try {
 			if(chbDeposit.isSelected()) {
@@ -250,6 +268,7 @@ public class CustomerPaymentController implements Initializable {
 			ResultSet validReserved = this.reservationModel.getReserList(reservation);
 			while(validReserved.next()) {
 				deposit = validReserved.getInt("reservations.deposit");
+				reservationId = validReserved.getInt("reservations.id");
 			} 
 			return deposit;
 		} catch (Exception e) {
@@ -286,6 +305,7 @@ public class CustomerPaymentController implements Initializable {
 			rbPaymentMethod.setText(method.value);
 			rbPaymentMethod.setToggleGroup(group);//method.key
 			if(count == 1) {
+				selectedPayment = method.value;
 				rbPaymentMethod.setSelected(true);
 				lblPaymentMethod.setText("with "+method.value);
 			}
@@ -303,8 +323,10 @@ public class CustomerPaymentController implements Initializable {
 	}
 	
 	//btnPayAction
+	@FXML
 	public void btnPayAction() {
 		try {
+			Pos.momoCode = null;
 			System.out.println("payment "+selectedPayment);
 			//cash -> change to view pending, send noti to server -> server respond
 			//-> server confirm payment -> view payment success -> clear order basket
@@ -313,32 +335,86 @@ public class CustomerPaymentController implements Initializable {
 				this.loadView(path, 358, 272);
 				this.fpRequestPayment.setDisable(true);				
 			}
-			
 			//momo -> change to momo view -> scan qr -> momo sucess -> view payment success, noti server
 			//->server confirm -> clear order basket
-			if(selectedPayment.equals("Momo")) { 
-//				Pay abc = new Pay();
-//				abc.payAction();
-				Camera camera = new Camera();
-				Stage stage = new Stage();
-				camera.start(stage);
+			if(selectedPayment.equals("Momo")) {
+				String momo = Pos.posAction();			
+				if(momo == null) {
+					//Thoi gian thanh toan het han
+					Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setHeaderText("Time out");
+					alert.setContentText("Webcam has not screened any QRCode. Please try again!");
+					alert.setX(screenBounds.getWidth() - 800);
+					alert.setX(screenBounds.getHeight() - 300);
+					Optional<ButtonType> option = alert.showAndWait();
+					if(option.get() == ButtonType.OK) {
+						Pos.webcam.close();
+					}
+				}else {
+					long total = Long.parseLong(String.valueOf(Math.round(this.total)));
+					String description = Pay.payAction(momo, total);
+					if(description == "Thành công") {
+						this.paymentConfirmed = true; 
+					}
+				}
 			}
-			
-			this.paymentConfirmed = false; 
-//			if(this.paymentConfirmed = true) { //noti server 
-//				path = "payment-success.fxml";
-//				FXMLLoader root = this.loadView(path, 690, 361);
-//				//controller review
-//				ReviewOrderController controller = root.getController();
-//				controller.loadOrder(this);
-//				//clear
-//			} else {
-//				path = "payment-failure.fxml";
-//				this.loadView(path, 690, 361);
-//			}
+			if(this.paymentConfirmed = true) { //noti server 
+				//clear + update order total, deposit, tip discount
+				boolean updated = updateOrderPrice();
+				if(!updated) {
+					path = "payment-failure.fxml";
+					this.loadView(path, 690, 361);
+				}
+				this.createInvoice();
+				close();//close payment view
+				CustomerPaymentController.customerHomeController.loadOrderByTable();
+				path = "payment-success.fxml";
+				FXMLLoader root = this.loadView(path, 690, 361);
+				//controller review
+				ReviewOrderController controller = root.getController();
+				controller.loadOrder(this);
+			} else {
+				path = "payment-failure.fxml";
+				this.loadView(path, 690, 361);
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+
+	//update order
+	public boolean updateOrderPrice() {
+		try {
+			ArrayList<DataMapping> data = new ArrayList<DataMapping>();
+			data.add(DataMapping.getInstance("orders.tip", String.valueOf(this.tip)));
+			data.add(DataMapping.getInstance("orders.reservation_id", String.valueOf(this.reservationId)));
+			data.add(DataMapping.getInstance("orders.discount", String.valueOf(this.discount)));
+			data.add(DataMapping.getInstance("orders.payment_method", selectedPayment));
+			data.add(DataMapping.getInstance("orders.total_amount", String.valueOf(this.total)));
+			data.add(DataMapping.getInstance("orders.status", String.valueOf(OrderModel.COMPLETED)));
+			orderModel.updateOrder(orderId, data);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	//create invoice
+	public int createInvoice() {
+		try {
+			ArrayList<DataMapping> data = new ArrayList<DataMapping>();
+			data.add(DataMapping.getInstance("code", "IV"+Helpers.randomString(6)));
+			data.add(DataMapping.getInstance("order_id", String.valueOf(orderId)));
+			data.add(DataMapping.getInstance("payment_status", String.valueOf(InvoiceModel.PAID)));
+			int bill = invoiceModel.createInvoice(data);
+			return bill;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
 		}
 	}
 	
@@ -365,6 +441,7 @@ public class CustomerPaymentController implements Initializable {
 	}
 		
 	//btnClearAllAction
+	@FXML
 	public double btnClearAllAction() {
 		if(chbDeposit.isSelected()) {
 			tfPhone.setText("");
@@ -377,6 +454,13 @@ public class CustomerPaymentController implements Initializable {
 		this.lblDiscount.setText("0");
 		double total = this.totalAmount(subtotal, tip, this.deposit, this.discount);
 		return total;
+	}
+	
+
+	//btnOKTimeOutAction
+	public void btnOKTimeOutAction() {
+		Stage stage = (Stage) btnOKTimeOut.getScene().getWindow();
+		stage.close();
 	}
 	
 	//btnCancelAction

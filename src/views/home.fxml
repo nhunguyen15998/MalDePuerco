@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<FlowPane fx:id="customerMasterHolder" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #3B3F40;" stylesheets="@../css/customer-home.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CustomerHomeController">
+<FlowPane fx:id="customerMasterHolder" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #3B3F40;" stylesheets="@../css/customer-home.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CustomerHomeController">
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="725.0" style="-fx-background-color: #3B3F40; -fx-border-color: #3B3F40;">
          <children>
@@ -258,6 +258,7 @@
                               <String fx:value="btnOther" />
                               <String fx:value="btnHelp" />
                            </styleClass>
+
                         </Button>
                         <ImageView fitHeight="53.0" fitWidth="50.0" layoutX="17.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>

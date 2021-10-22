@@ -369,6 +369,13 @@ public class ReservationCUController implements Initializable {
 	  							break;
 	  						}
 	  					}
+	  					cbStatus.setDisable(false);
+	  					if( re.getInt("status")==1) {
+	  						cbStatus.setValue(ReservationModel.isNew);
+	  						stt=ReservationModel.isNew;
+	  						cbStatus.setDisable(true);
+	  						
+	  					}
 	  					
 	  				
 	  		  			DataMapping content = getTableName(reserId);

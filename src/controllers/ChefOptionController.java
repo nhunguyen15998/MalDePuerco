@@ -50,7 +50,6 @@ public class ChefOptionController implements Initializable{
 	public ResultSet getChefList() {
 		try {
 			ArrayList<DataMapping> chefList = new ArrayList<DataMapping>();
-
 			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
 			conditions.add(CompareOperator.getInstance("roles.code", "=","CHEF"));
 			ResultSet chef = userModel.getUserList(conditions);
@@ -78,7 +77,6 @@ public class ChefOptionController implements Initializable{
 				odModel.updateOrderDetail(orderID, option);
 				Helpers.status("success");
 			}
-			
 			this.close();
 		} catch (Exception e) {
 			

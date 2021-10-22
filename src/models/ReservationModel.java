@@ -10,37 +10,31 @@ import utils.JoinCondition;
 public class ReservationModel extends BaseModel{
 	private static String table = "reservations";
 	private static String[] columns = {"id, code, customer_name, phone,email, start_time,end_time, deposit, date_pick, seats_pick, created_at, status"};
-	private static ReservationModel reserModel;
 	
 	private int id, status, seats, no;
 	private double deposit;
 	private String code, name, phone, email, start_time, end_time, date_pick, createdAt;
 	
 	//status
-		public static final int RESER_NEW = 1;
-		public static final int RESER_CANCELLED = 0;
-		public static final int RESER_CONFIRMED = 2;
-		public static final int RESER_DEPOSITED = 3;
-		public static final int RESER_PRESENT = 4;
-		public static final int RESER_EXPIRED = 5;
-		
-		public static DataMapping isNew = DataMapping.getInstance(RESER_NEW, "New");
-		public static DataMapping isCancelled = DataMapping.getInstance(RESER_CANCELLED, "Cancelled");
-		public static DataMapping isConfirmed = DataMapping.getInstance(RESER_CONFIRMED, "Confirmed");
-		public static DataMapping isDeposited = DataMapping.getInstance(RESER_DEPOSITED, "Deposited");
-		public static DataMapping isPresent = DataMapping.getInstance(RESER_PRESENT, "Present");
-		public static DataMapping isExpried = DataMapping.getInstance(RESER_EXPIRED, "Expired");
-		
-		
-		public ReservationModel() {
-			super(table, columns);
-			if(reserModel != null) {
-				reserModel = new ReservationModel();
-			}
-		}
-		
-		
-		
+	public static final int RESER_NEW = 1;
+	public static final int RESER_CANCELLED = 0;
+	public static final int RESER_CONFIRMED = 2;
+	public static final int RESER_DEPOSITED = 3;
+	public static final int RESER_PRESENT = 4;
+	public static final int RESER_EXPIRED = 5;
+	
+	public static DataMapping isNew = DataMapping.getInstance(RESER_NEW, "New");
+	public static DataMapping isCancelled = DataMapping.getInstance(RESER_CANCELLED, "Cancelled");
+	public static DataMapping isConfirmed = DataMapping.getInstance(RESER_CONFIRMED, "Confirmed");
+	public static DataMapping isDeposited = DataMapping.getInstance(RESER_DEPOSITED, "Deposited");
+	public static DataMapping isPresent = DataMapping.getInstance(RESER_PRESENT, "Present");
+	public static DataMapping isExpried = DataMapping.getInstance(RESER_EXPIRED, "Expired");
+	
+	
+	public ReservationModel() {
+		super(table, columns);
+	}
+	
 	public ReservationModel( int id,int no, double deposit, int status,
 			int seats, String code, String name, String phone, String email, String start_time, String end_time,
 			String date_pick, String createdAt) {
@@ -58,7 +52,7 @@ public class ReservationModel extends BaseModel{
 			this.end_time = end_time;
 			this.date_pick = date_pick;
 			this.createdAt = createdAt;
-		}
+	}
 
 
 
@@ -74,21 +68,63 @@ public class ReservationModel extends BaseModel{
 				return null;
 			}
 		}
-		
-		//get user by id
-		public ResultSet getReserById(int id) {
-			try {
-				ArrayList<CompareOperator> cond = new ArrayList<CompareOperator>();
-				cond.add(CompareOperator.getInstance("id", " = ", String.valueOf(id)));
+
+	public ResultSet getCustomerReserList(ArrayList<CompareOperator> conditions) {
+		try {
 			
-				return this.getData(columns, cond, null,null,null,null);
+			String[] selects = {"reservations.*"};
+			
+			//table
+			ArrayList<CompareOperator> joinTable = new ArrayList<CompareOperator>();
+			joinTable.add(CompareOperator.getInstance("tables_reservation.table_id", " = ", "tables.id"));			
+			//table_reser
+			ArrayList<CompareOperator> joinTableReservation = new ArrayList<CompareOperator>();
+			joinTableReservation.add(CompareOperator.getInstance("tables_reservation.reservation_id", " = ", "reservations.id"));
+			
+			
+			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
+			joins.add(JoinCondition.getInstance("left join", "tables_reservation", joinTableReservation));
+			joins.add(JoinCondition.getInstance("left join", "tables", joinTable));		
+			return this.getData(selects, conditions, joins, null, null, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public ResultSet getReserById(int id) {
+		try {
+
+			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
+			conditions.add(CompareOperator.getInstance("reservations.id", "=", String.valueOf(id)));
+				return this.getData(columns, conditions, null,null,null,null);
 			} catch (Exception eGetUserById) {
 				eGetUserById.printStackTrace();
 				return null;
 			}
+	}
+	//get user by id
+	public ResultSet getCustomerReserById(int id) {
+		try {
+			String[] selects = {"reservations.*", "discounts.decrease"};
+			ArrayList<CompareOperator> conditions = new ArrayList<CompareOperator>();
+			conditions.add(CompareOperator.getInstance("reservations.id", "=", String.valueOf(id)));
+	
+			
+			ArrayList<CompareOperator> joinConditions = new ArrayList<CompareOperator>();
+			joinConditions.add(CompareOperator.getInstance("reservations.discount_id", "=", "discounts.id"));
+			
+			ArrayList<JoinCondition> joins = new ArrayList<JoinCondition>();
+			joins.add(JoinCondition.getInstance("left join", "discounts", joinConditions));
+			
+			
+			 
+			return this.getData(selects, conditions, joins, null, null, null);
+		} catch (Exception eGetUserById) {
+			eGetUserById.printStackTrace();
+			return null;
 		}
-		
-		
+	}
+
 		//create
 		public int createReser(ArrayList<DataMapping> data) {
 			try {
@@ -124,6 +160,7 @@ public class ReservationModel extends BaseModel{
 				return false;
 			}
 		}
+
 	public int getId() {
 		return id;
 	}
@@ -200,20 +237,12 @@ public class ReservationModel extends BaseModel{
 		this.createdAt = createdAt;
 	}
 
-
-
-
-
-
 	public int getNo() {
 		return no;
 	}
 
-
-
 	public void setNo(int no) {
 		this.no = no;
 	}
-	
 	
 }
