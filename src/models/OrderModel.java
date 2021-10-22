@@ -9,7 +9,7 @@ import utils.JoinCondition;
 
 public class OrderModel extends BaseModel {
 	private static String table = "orders";
-	private static String[] columns = {"id, code, table_id, reservation_id,	tip, total_amount, payment_method_id, "
+	private static String[] columns = {"id, code, table_id, reservation_id,	tip, total_amount, payment_method, "
 										+ "created_at, status, user_id"};
 	
 	private int id;
@@ -19,7 +19,7 @@ public class OrderModel extends BaseModel {
 	private String reservationCode;
 	private double tip;
 	private double total;
-	private String paymentMethodCode;
+	private String paymentMethod;
 	private String createdAt;
 	private int status;
 	private String userCode;
@@ -46,7 +46,7 @@ public class OrderModel extends BaseModel {
 	}
 	
 	public OrderModel(int id, int sequence, String orderCode, String tableCode, String reservationCode, double tip,
-					  int orderQuantity, double total, String paymentMethodCode, String createdAt, int status, String userCode) {
+					  int orderQuantity, double total, String paymentMethod, String createdAt, int status, String userCode) {
 		super(table, columns);	
 		this.setId(id);
 		this.setSequence(sequence);
@@ -55,14 +55,14 @@ public class OrderModel extends BaseModel {
 		this.setReservationCode(reservationCode);
 		this.setTip(tip);
 		this.setTotal(total);
-		this.setPaymentMethodCode(paymentMethodCode);
+		this.setPaymentMethod(paymentMethod);
 		this.setCreatedAt(createdAt);
 		this.setStatus(status);
 		this.setUserCode(userCode);
 	}
 	
 	public OrderModel(int id, String orderCode, String tableCode, String reservationCode, double tip, int orderQuantity, 
-					  double total, String paymentMethodCode, int status, String userCode) {
+					  double total, String paymentMethod, int status, String userCode) {
 		super(table, columns);
 		this.setId(id);
 		this.setOrderCode(orderCode);
@@ -71,7 +71,7 @@ public class OrderModel extends BaseModel {
 		this.setTip(tip);
 		this.setOrderQuantity(orderQuantity);
 		this.setTotal(total);
-		this.setPaymentMethodCode(paymentMethodCode);
+		this.setPaymentMethod(paymentMethod);
 		this.setStatus(status);
 		this.setUserCode(userCode);
 	}
@@ -234,12 +234,12 @@ public class OrderModel extends BaseModel {
 		this.total = total;
 	}
 
-	public String getPaymentMethodCode() {
-		return paymentMethodCode;
+	public String getPaymentMethod() {
+		return paymentMethod;
 	}
 
-	public void setPaymentMethodCode(String paymentMethodCode) {
-		this.paymentMethodCode = paymentMethodCode;
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
 	}
 
 	public String getCreatedAt() {
