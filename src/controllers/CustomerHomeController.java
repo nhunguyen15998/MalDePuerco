@@ -425,7 +425,7 @@ public class CustomerHomeController implements Initializable {
 	}
 	
 	//btnsetting
-	public void btnSettingAction() {
+	public void btnSettingAction() { 
 		setButtonStyle();
 		try {
 			AnchorPane customerHolder;
@@ -1239,7 +1239,7 @@ public class CustomerHomeController implements Initializable {
 	    btnSideOrder.getStyleClass().remove("btnSideOrderFocused");
 	    
 	   	btnALaCarte.getStyleClass().remove("btnHomeFocused");
-	   	btnALaCarte.getStyleClass().remove("btnAlaCarteFocused");
+	   	btnALaCarte.getStyleClass().remove("btnALaCarteFocused");
 	   	
 	   	btnDessert.getStyleClass().remove("btnHomeFocused");
 	   	btnDessert.getStyleClass().remove("btnDessertFocused");
