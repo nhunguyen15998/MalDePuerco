@@ -110,10 +110,12 @@ public class ReservationCUController implements Initializable {
 	@FXML
 	private Label lblTimeError;
 	ArrayList<DataMapping> listTable = new ArrayList<DataMapping>();
+	ArrayList<DataMapping> listTableAuth = new ArrayList<DataMapping>();
 	private static int seats = 0;
 	boolean checkTable=true;
 	private int timeCancel;
 	private DataMapping stt;
+	private boolean checkType = true;
 	private ArrayList<DataMapping> table = new ArrayList<DataMapping>();
 	@FXML
 	public void btnSaveAction(ActionEvent event) {
@@ -290,6 +292,7 @@ public class ReservationCUController implements Initializable {
 
 			seats=0;
 			listTable.clear();
+			listTableAuth.clear();
 			this.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -560,7 +563,9 @@ public class ReservationCUController implements Initializable {
 }
 	    @FXML
 	    void checkTime() { 
+	    	checkType=false;
 	    	seats=0;
+	    	listTableAuth.clear();
 	    	listTable.clear();
 	    	tfTable.setText("");
 	    	btnAdd.setDisable(false);
@@ -645,7 +650,7 @@ public class ReservationCUController implements Initializable {
 	           int month= (now.get(Calendar.MONTH) + 1);
 	           int day= + now.get(Calendar.DATE);
 	        LocalDate nowLocal = LocalDate.of(year,month,day);
-	        if(dpDate.getValue().compareTo(nowLocal)==0) {
+	        if(!checkType&&dpDate.getValue().compareTo(nowLocal)==0) {
 	        	checkTimeToUpdate= Validations.checkTimeUpdate(time, lblTimeError, "unachievable!");
 	        }
 	        if(!checkTime||!checkTimeToUpdate) {
@@ -664,6 +669,7 @@ public class ReservationCUController implements Initializable {
 	    	String value = cbbTable.getValue().value;
 			if(checkExists(DataMapping.getInstance(cbbTable.getValue().key, value))) {
 				DataMapping list = DataMapping.getInstance(cbbTable.getValue().key, value);
+				listTableAuth.add(list);
 				listTable.add(returnData(list));
 				tfTable.setText(statusSelected());
 				
@@ -704,7 +710,7 @@ public class ReservationCUController implements Initializable {
 	    private boolean checkExists(DataMapping ob) {
 	    	boolean check = true;
 	    	int k = 0;
-	    	for(DataMapping item : listTable) {
+	    	for(DataMapping item : listTableAuth) {
 				if(item.value.equals(ob.value)) {
 					k++;
 				}
@@ -749,7 +755,7 @@ public class ReservationCUController implements Initializable {
     }
 	    @FXML
 	    void deleteTable() { 
-	    		
+	    				listTableAuth.clear();
 		    			listTable.clear();
 						tfTable.setText("");
 						seats=0;
@@ -770,6 +776,7 @@ public class ReservationCUController implements Initializable {
 	  	@FXML
 	  	public void dateAction() {
 	  		seats=0;
+	  		listTableAuth.clear();
 	    	listTable.clear();
 	    	lblTableError.setText("You must fill in date,time,seats to select a table(s)");
 	    	tfTable.setText("");
