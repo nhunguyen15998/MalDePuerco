@@ -86,6 +86,7 @@ public class OrderWaiterDUController implements Initializable{
     			odModel.updateOrderDetail(oduID, odu);
     			Helpers.status("success");
     		}
+    		this.close();
     	} catch (Exception e) {
     		e.printStackTrace();
     	}
@@ -103,6 +104,7 @@ public class OrderWaiterDUController implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
+		odControl.setStatus(0);
 		this.getAttrList();
 	}
 	
@@ -119,7 +121,7 @@ public class OrderWaiterDUController implements Initializable{
 				tfNote.setText(rs.getString("order_details.serving_note"));
 				
 				for(DataMapping size : cbSize.getItems()) {
-					if(size.key != null & Integer.parseInt(size.key) == Integer.valueOf(rs.getString("order_details.size")));
+					if(size.key != null & Integer.parseInt(size.key) == Integer.valueOf(rs.getString("size")));
 					cbSize.setValue(size);
 					break;
 				}

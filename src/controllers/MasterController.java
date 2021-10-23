@@ -46,6 +46,7 @@ import models.UserModel;
  * @author LENOVO
  */
 public class MasterController implements Initializable {
+	public static OrderWaiterController orderWaiterController;
 	private UserModel userModel = new UserModel();
 	private PermissionModel permissionModel = new PermissionModel();
 	private CustomerHomeController customerHomeController = new CustomerHomeController();

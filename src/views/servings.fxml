@@ -50,8 +50,8 @@
                   <TableColumn fx:id="col_des" prefWidth="151.0" text="Description" />
                   <TableColumn fx:id="colQuantity" prefWidth="58.0" text="Quantity" />
                   <TableColumn fx:id="col_price" minWidth="0.0" prefWidth="56.0" text="Price" />
-                  <TableColumn fx:id="col_created" prefWidth="109.0" text="Created At" />
-                  <TableColumn fx:id="col_status" prefWidth="75.199951171875" text="Status" />
+                  <TableColumn fx:id="col_created" prefWidth="92.0" text="Created At" />
+                  <TableColumn fx:id="col_status" prefWidth="79.0" text="Status" />
                   <TableColumn fx:id="colPath" editable="false" prefWidth="75.0" sortable="false" visible="false" />
               </columns>
             </TableView>

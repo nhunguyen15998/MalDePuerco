@@ -87,7 +87,7 @@ public class AttributeModel extends BaseModel {
 	public boolean deleteAttribute(int id) {
 		try {
 			ArrayList<CompareOperator> condition = new ArrayList<CompareOperator>();
-			condition.add(CompareOperator.getInstance("attributes.id", "=", String.valueOf(id)));
+			condition.add(CompareOperator.getInstance("id", "=", String.valueOf(id)));
 			return this.delete(condition);
 		} catch (Exception e) {
 			e.printStackTrace();

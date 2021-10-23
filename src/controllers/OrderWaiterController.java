@@ -86,6 +86,7 @@ public class OrderWaiterController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		MasterController.orderWaiterController = this;
 		// TODO Auto-generated method stub
 		this.loadData(null);
 	}
@@ -93,7 +94,7 @@ public class OrderWaiterController implements Initializable {
     //load data
 	//id, sequence, code, table, res, tip, total, pay, created, status
 	public void loadData(ArrayList<CompareOperator> conditions) {
-		
+		System.out.println("metqua");
 		try {
 			ObservableList<OrderWaiterModel> orderList = FXCollections.observableArrayList();
 			
@@ -221,7 +222,7 @@ public class OrderWaiterController implements Initializable {
 	 @FXML
 	    void btnOrderDetail(ActionEvent event) {
 			 try {
-					if(this.orderId != 0) {
+					if(this.orderId != 0 && status == 0) {
 						if(OrderDetailModel.isShown != true) {
 							OrderDetailModel.isShown = true;
 							this.showODForm();

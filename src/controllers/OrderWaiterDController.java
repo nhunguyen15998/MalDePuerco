@@ -247,50 +247,45 @@ public class OrderWaiterDController implements Initializable{
 		
 		@FXML
 	    void btnUpdateAction(ActionEvent event) {
-			 if(odID != 0 && status == 1) {
-				Alert al = new Alert(AlertType.WARNING);
-				al.setHeaderText(null);
-				al.setContentText("Cannot be edited");
-				al.showAndWait();
-			} if(odID != 0 && status == 2) {
-				Alert al = new Alert(AlertType.WARNING);
-				al.setHeaderText(null);
-				al.setContentText("Cannot be edited");
-				al.showAndWait();
-			} if(odID != 0 && status == 3) {
-				Alert al = new Alert(AlertType.WARNING);
-				al.setHeaderText(null);
-				al.setContentText("Cannot be edited");
-				al.showAndWait();
-			} if(odID != 0 && status == 4) {
-				Alert al = new Alert(AlertType.WARNING);
-				al.setHeaderText(null);
-				al.setContentText("Cannot be edited");
-				al.showAndWait();
-			} else if (odID != 0 ){
-				this.showUpdateFrom();
-			}
+			 try {
+				 if(this.odID != 0 && status == 0) {
+					 if(OrderDetailModel.isShown != true) {
+						 OrderDetailModel.isShown = true;
+						 this.showUpdateFrom();
+					 } else {
+						 Alert al = new Alert(AlertType.WARNING);
+							al.setHeaderText(null);
+							al.setContentText("Cannot be edited");
+							al.showAndWait();
+					 }
+				 }
+			 } catch (Exception e) {
+				 e.printStackTrace();
+			 }
 	    }
 		
 		@FXML void btnDelete(ActionEvent event) {
 			try {
 				
 				if(odID != 0 && status == 0) {
-					Alert al = new Alert(AlertType.CONFIRMATION);
-					al.setHeaderText("Are you sure you want delete this item? ");
-					
-					Optional<ButtonType> options = al.showAndWait();
-					if(options.get() == ButtonType.OK) {
-						this.odModel.deleteOrderDetail(odID);
-						this.getOrderCode(orderController);
+					if (OrderDetailModel.isShown != true){
+						OrderDetailModel.isShown = true;
+						Alert al = new Alert(AlertType.CONFIRMATION);
+						al.setHeaderText("Are you sure you want delete this item? ");
+						
+						Optional<ButtonType> options = al.showAndWait();
+						if(options.get() == ButtonType.OK) {
+							this.odModel.deleteOrderDetail(odID);
+							this.getOrderCode(orderController);
+						
 					}
 				} else {
 					Alert al = new Alert(AlertType.WARNING);
 					al.setHeaderText(null);
-					al.setContentText("Cannot be edited");
+					al.setContentText("Cannot be delete");
 					al.showAndWait();
+					}
 				}
-				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

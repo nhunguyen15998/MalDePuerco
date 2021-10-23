@@ -65,8 +65,8 @@ public class ServingAttributeModel extends BaseModel {
 	public ResultSet getSerAttList(ArrayList<CompareOperator> conditions) {
 		try {
 			String[] selects = {"serving_attributes.id", "servings.name as servingID",
-								"attributes.name as attName", "serving_attributes.quantity",
-								"serving_attributes.price", "serving_attributes.created_at"};
+								"attributes.name as attribute_name", "serving_attributes.quantity",
+								"(servings.price + serving_attributes.price) as price_of_item_with_attribute", "serving_attributes.created_at"};
 			ArrayList<CompareOperator> joinServings = new ArrayList<CompareOperator>();
 			joinServings.add(CompareOperator.getInstance("serving_attributes.serving_id", "=", "servings.id"));
 			ArrayList<CompareOperator> joinAttribute = new ArrayList<CompareOperator>();

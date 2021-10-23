@@ -101,17 +101,17 @@ public class ServingAttributeController implements Initializable{
 			colCreated.setCellValueFactory(new PropertyValueFactory<ServingAttributeModel, LocalDate>("createdAt"));
 			
 			//get data form db
-			ResultSet servingatt = this.serattModel.getSerAttList(conditions);
+			ResultSet servingatt = this.serattModel.getServingAttributeList(conditions);
 			while (servingatt.next()) {
 				//int no, int id, String serving_id, String attribute
 				//double price, String created_at
 				serattList.add(new ServingAttributeModel(
 						servingatt.getRow(), 
 						servingatt.getInt("id"),
-						servingatt.getString("servingID"),
-						servingatt.getString("attName"),
+						servingatt.getString("serving_name"),
+						servingatt.getString("attribute_name"),
 						servingatt.getInt("quantity"), 
-						servingatt.getInt("price"), 
+						servingatt.getInt("price_of_item_with_attribute"), 
 						servingatt.getDate("created_at").toLocalDate().format(Helpers.formatDate("dd-My-yyyy"))
 						));
 			}

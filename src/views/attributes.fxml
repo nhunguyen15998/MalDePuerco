@@ -41,7 +41,7 @@
                 <TableColumn fx:id="col_id" prefWidth="20.0" text="Name" visible="false" />
                   <TableColumn fx:id="col_name" prefWidth="123.0" text="Name" />
                   <TableColumn fx:id="col_parent" prefWidth="123.0" text="Parent" />
-                  <TableColumn fx:id="col_created" prefWidth="126.0" text="Created At" />
+                  <TableColumn fx:id="col_created" prefWidth="130.0" text="Created At" />
               </columns>
             </TableView>
          </children>
