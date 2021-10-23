@@ -206,7 +206,6 @@ public class MasterController implements Initializable {
 		//attribute
 		btnAttributes.setVisible(false);
 		btnAttributes.setManaged(false);
-		
 		if(AuthenticationModel.hasPermission("VIEW_ATTRIBUTES") || AuthenticationModel.roleName.equals("Super Admin")) {
 			btnAttributes.setVisible(true);
 			btnAttributes.setManaged(true);
