@@ -212,7 +212,7 @@ public class CustomerPaymentController implements Initializable {
 		DataMapping item = cbDiscount.getSelectionModel().getSelectedItem();
 		if(item != null) {
 			float discount = Float.parseFloat(item.key);
-			this.discount = Float.parseFloat(Helpers.formatNumber(null).format(discount*this.subtotal));
+			this.discount = Float.parseFloat(String.valueOf(discount*this.subtotal));
 			this.lblDiscount.setText("("+Helpers.formatNumber(null).format(this.discount)+")");
 			this.totalAmount(subtotal, tip, deposit, this.discount);
 			System.out.println("key: "+item.key);	
@@ -221,10 +221,10 @@ public class CustomerPaymentController implements Initializable {
 	}
 	
 	//chbDepositChecked
-	@FXML
 	public void chbDepositChecked() {
 		try {
 			if(chbDeposit.isSelected()) {
+				System.out.println("here: lllls");	
 				tfPhone.setDisable(false);
 				tfPhone.setOnKeyPressed(event -> {
 					if(event.getCode().equals(KeyCode.ENTER)) {
@@ -343,7 +343,7 @@ public class CustomerPaymentController implements Initializable {
 			if(selectedPayment.equals("Cash")) { //->send noti to server
 				this.loadView(path, 358, 272);
 				this.fpRequestPayment.setDisable(true);
-				this.paymentConfirmed = true;
+				//this.paymentConfirmed = true;
 			}
 			//momo -> change to momo view -> scan qr -> momo sucess -> view payment success, noti server
 			//->server confirm -> clear order basket
@@ -361,12 +361,15 @@ public class CustomerPaymentController implements Initializable {
 					if(option.get() == ButtonType.OK) {
 						Pos.webcam.close();
 					}
+					this.paymentConfirmed = false; 
 				}else {
 					long total = Long.parseLong(String.valueOf(Math.round(this.total)));
 					String description = Pay.payAction(momo, total);
 					if(description == "Thành công") {
 						this.paymentConfirmed = true; 
 					}
+					this.paymentConfirmed = true; 
+					System.out.println(this.paymentConfirmed);
 				}
 			}
 			if(this.paymentConfirmed == true) { //noti server 
@@ -379,6 +382,7 @@ public class CustomerPaymentController implements Initializable {
 				this.createInvoice();
 				close();//close payment view
 				CustomerPaymentController.customerHomeController.loadOrderByTable();
+				CustomerHomeController.vboxOrderList.getChildren().clear();
 				path = "payment-success.fxml";
 				FXMLLoader root = this.loadView(path, 690, 361);
 				//controller review

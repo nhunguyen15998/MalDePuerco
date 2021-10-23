@@ -1071,7 +1071,7 @@ public class CustomerHomeController implements Initializable {
 					
 					this.renderVBoxPaneWithSetUpdatedContent(item);//servingname, thumbnail, quantity, total, serving note, 											//sevingstatus, createdat, servingid, price
 				}
-				CustomerHomeController.updatedList.clear();
+				//CustomerHomeController.updatedList.clear();
 			} else {
 				this.emptyOrderList();
 				this.lblOrderCode.setText("");
@@ -1088,6 +1088,11 @@ public class CustomerHomeController implements Initializable {
 		System.out.println(createdList.indexOf(item));
 		createdList.remove(item);
 		this.addItemToOrderList();
+	}
+	
+	//delete item from updated list
+	public void deleteItemFromUpdatedList() {
+		
 	}
 				
 	//click btn place
@@ -1127,8 +1132,9 @@ public class CustomerHomeController implements Initializable {
 			for(OrderListModel item : createdList) {
 				orderDetailData.add(DataMapping.getInstance("order_id", String.valueOf(OrderModel.currentOrderId)));
 				orderDetailData.add(DataMapping.getInstance("serving_id", String.valueOf(item.getServingId())));
+				
 				orderDetailData.add(DataMapping.getInstance("serving_note", item.getNote().isEmpty() ? null : item.getNote()));
-				orderDetailData.add(DataMapping.getInstance("serving_status", String.valueOf(OrderDetailModel.READY)));
+				orderDetailData.add(DataMapping.getInstance("serving_status", String.valueOf(OrderDetailModel.PENDING)));
 				orderDetailData.add(DataMapping.getInstance("size", item.getSize()));
 				orderDetailData.add(DataMapping.getInstance("sugar", item.getSugar() != "" ? item.getSugar() : null));
 				orderDetailData.add(DataMapping.getInstance("ice", item.getIce() != "" ? item.getIce() : null));

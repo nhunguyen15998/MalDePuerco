@@ -17,7 +17,7 @@ import models.ReviewOrderModel;
 import utils.DataMapping;
 
 public class ReviewOrderController implements Initializable{
-	public static CustomerHomeController customerHomeController = new CustomerHomeController();
+	public static CustomerHomeController customerHomeController;
 	private ReviewOrderModel reviewOrderModel = new ReviewOrderModel();
 	private CustomerPaymentController customerPaymentController = new CustomerPaymentController();
 	private int orderId;
@@ -108,6 +108,7 @@ public class ReviewOrderController implements Initializable{
 //		CustomerHomeController.vboxOrderList.getChildren().clear();
 		close();
 		customerHomeController.customerMasterHolder.setDisable(false);
+		customerHomeController.loadOrderByTable();
 		return reviewId;
 	}
 	//btnCancelAction
