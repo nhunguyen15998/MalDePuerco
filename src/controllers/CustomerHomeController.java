@@ -188,26 +188,7 @@ public class CustomerHomeController implements Initializable {
 			HandleNotifications.getInstance().handleReceivedMessage();//
 			//this.customerMasterHolder.setVisible(false);
 		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-
-		
-		try {
-			
-						
-			//btns
-			
-			btnServer.setOnMouseClicked(event -> {
-				
-			});
-			btnHelp.setOnMouseClicked(event -> {
-				
-			});
-
-			//load server
-			
-		} catch (Exception e) {
-			e.printStackTrace();
+			e1.printStackTrace();			
 		}
 	}
 	
@@ -1071,7 +1052,7 @@ public class CustomerHomeController implements Initializable {
 					
 					this.renderVBoxPaneWithSetUpdatedContent(item);//servingname, thumbnail, quantity, total, serving note, 											//sevingstatus, createdat, servingid, price
 				}
-				//CustomerHomeController.updatedList.clear();
+				CustomerHomeController.updatedList.clear();
 			} else {
 				this.emptyOrderList();
 				this.lblOrderCode.setText("");
@@ -1134,7 +1115,7 @@ public class CustomerHomeController implements Initializable {
 				orderDetailData.add(DataMapping.getInstance("serving_id", String.valueOf(item.getServingId())));
 				
 				orderDetailData.add(DataMapping.getInstance("serving_note", item.getNote().isEmpty() ? null : item.getNote()));
-				orderDetailData.add(DataMapping.getInstance("serving_status", String.valueOf(OrderDetailModel.PENDING)));
+				orderDetailData.add(DataMapping.getInstance("serving_status", String.valueOf(OrderDetailModel.COOKING)));
 				orderDetailData.add(DataMapping.getInstance("size", item.getSize()));
 				orderDetailData.add(DataMapping.getInstance("sugar", item.getSugar() != "" ? item.getSugar() : null));
 				orderDetailData.add(DataMapping.getInstance("ice", item.getIce() != "" ? item.getIce() : null));

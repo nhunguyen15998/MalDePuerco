@@ -129,13 +129,15 @@ public class CustomServingController implements Initializable {
 				String name = serving.getString("servings.name");
 				double price = this.price != 0 ? this.price : serving.getDouble("servings.price");
 				int stock = serving.getInt("servings.quantity");
+				double total = Double.parseDouble(tfQuantity.getText())*price;
 				txtServingName.setText(name);
 				ivThumbnail.setImage(new Image(getClass().getResourceAsStream(thumbnail)));
 				lblStockQuantity.setText(stock + " item(s) available");
 				lblPrice.setText(Helpers.formatNumber(null).format(price)+"vnd");
-				lblTotal.setText(Helpers.formatNumber(null).format(Double.parseDouble(tfQuantity.getText())*price)+"vnd");
+				lblTotal.setText(Helpers.formatNumber(null).format(total)+"vnd");
 				System.out.println("price:" + price);
 				System.out.println("total:" + this.price);
+				System.out.println("total:" + total);
 				
 				tfQuantity.setOnKeyPressed(event -> {
 					this.changeQuantityOnEnter(event, stock, price);
@@ -216,9 +218,8 @@ public class CustomServingController implements Initializable {
 				tfQuantity.setText(String.valueOf(qty));
 			}
         }
-		double total = this.price != 0 ? Double.parseDouble(Helpers.formatNumber(null).format(this.price * qty)):
-			Double.parseDouble(Helpers.formatNumber(null).format(price * qty));
-		lblTotal.setText("$" + total);
+		double total = this.price != 0 ? this.price * qty: price * qty;
+		lblTotal.setText(Helpers.formatNumber(null).format(total)+"vnd");
 		System.out.println("price:" + price);
 		System.out.println("tfqty:" + this.price);
 	}
@@ -226,9 +227,8 @@ public class CustomServingController implements Initializable {
 	//btn- btn+
 	public void changeQuantity(double price) {
 		tfQuantity.setText(String.valueOf(this.qty));
-		double total = this.price != 0 ? Double.parseDouble(Helpers.formatNumber(null).format(this.price * this.qty)):
-		Double.parseDouble(Helpers.formatNumber(null).format(price * this.qty));
-		lblTotal.setText("$"+Double.parseDouble(Helpers.formatNumber(null).format(total)));						
+		double total = this.price != 0 ? this.price * qty: price * qty;
+		lblTotal.setText(Helpers.formatNumber(null).format(total)+"vnd");						
 		System.out.println("price:" + price);
 		System.out.println("btn-:" + this.price);
 	}
@@ -243,7 +243,7 @@ public class CustomServingController implements Initializable {
 			while(serving.next()) {
 				String size = "", sugar = "", ice = "";
 				if(serving.getInt("servings.type") == ServingModel.DRINK) {
-					sugar = cbIce.getValue().value;
+					sugar = cbSugar.getValue().value;
 					ice = cbIce.getValue().value;
 				}
 				size = cbSize.getValue().value;
@@ -329,7 +329,6 @@ public class CustomServingController implements Initializable {
 			ResultSet sizes = this.servingAttributeModel.getServingAttributeList(servingCondition);
 			ObservableList<DataMapping> attributes = FXCollections.observableArrayList();
 			while(sizes.next()) {
-				
 				int servingAttributeId = sizes.getInt("serving_attributes.id");
 				String attributeName = sizes.getString("attribute_name");
 				attributes.add(DataMapping.getInstance(servingAttributeId, attributeName));
@@ -340,14 +339,14 @@ public class CustomServingController implements Initializable {
 			String defKey = cbSize.getSelectionModel().getSelectedItem().key;
 			System.out.println("defKey: "+defKey);
 			this.price = this.getPriceByAttributeId(id, defKey);
-			lblPrice.setText("$" + this.price);
+			lblPrice.setText(Helpers.formatNumber(null).format(this.price)+"vnd");
 			System.out.println("first cbsize:" + this.price);
 			
 			cbSize.setOnAction(event -> {
 				String itemSelected = cbSize.getSelectionModel().getSelectedItem().key;
 				this.price = this.getPriceByAttributeId(id, itemSelected);
-				lblPrice.setText("$" + this.price);
-				lblTotal.setText("$"+ this.price*Double.parseDouble(tfQuantity.getText()));
+				lblPrice.setText(Helpers.formatNumber(null).format(this.price)+"vnd");
+				lblTotal.setText(Helpers.formatNumber(null).format(this.price*Double.parseDouble(tfQuantity.getText()))+"vnd");
 				System.out.println("click cbsize:" + this.price);
 			});
 		} catch (Exception e) {

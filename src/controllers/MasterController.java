@@ -50,7 +50,7 @@ import utils.HandleNotifications;
 public class MasterController implements Initializable {
 	private UserModel userModel = new UserModel();
 	private PermissionModel permissionModel = new PermissionModel();
-	public static CustomerHomeController customerHomeController;
+	public static CustomerHomeController customerHomeController = new CustomerHomeController();
 	private CustomerOptionController customerOptionController = new CustomerOptionController();
 	private TableModel tableModel = new TableModel();
 	public static OrderWaiterController orderWaiterController;

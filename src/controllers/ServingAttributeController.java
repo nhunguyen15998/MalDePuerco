@@ -112,7 +112,7 @@ public class ServingAttributeController implements Initializable{
 						servingatt.getString("attName"),
 						servingatt.getInt("quantity"), 
 						servingatt.getInt("price"), 
-						servingatt.getDate("created_at").toLocalDate().format(Helpers.formatDate("dd-My-yyyy"))
+						servingatt.getDate("created_at").toLocalDate().format(Helpers.formatDate("dd-MM-yyyy"))
 						));
 			}
 			tblAttribute.setItems(serattList);

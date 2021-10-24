@@ -56,7 +56,7 @@ import webcam.Pos;
 import webcam.Pos;
 
 public class CustomerPaymentController implements Initializable {
-	public static CustomerHomeController customerHomeController;
+	public static CustomerHomeController customerHomeController = new CustomerHomeController();
 	private DiscountModel discountModel = new DiscountModel();
 	private PaymentMethodModel paymentMethodModel = new PaymentMethodModel();
 	private ReservationModel reservationModel = new ReservationModel();
@@ -331,7 +331,6 @@ public class CustomerPaymentController implements Initializable {
 	}
 	
 	//btnPayAction
-	@FXML
 	public void btnPayAction() {
 		try {
 			Pos.momoCode = null;
@@ -343,7 +342,7 @@ public class CustomerPaymentController implements Initializable {
 			if(selectedPayment.equals("Cash")) { //->send noti to server
 				this.loadView(path, 358, 272);
 				this.fpRequestPayment.setDisable(true);
-				//this.paymentConfirmed = true;
+				this.paymentConfirmed = true;
 			}
 			//momo -> change to momo view -> scan qr -> momo sucess -> view payment success, noti server
 			//->server confirm -> clear order basket
@@ -375,19 +374,18 @@ public class CustomerPaymentController implements Initializable {
 			if(this.paymentConfirmed == true) { //noti server 
 				//clear + update order total, deposit, tip discount
 				boolean updated = updateOrderPrice();
-				if(!updated) {
-					path = "payment-failure.fxml";
-					this.loadView(path, 358, 272);
-				}
+//				if(!updated) {
+//					path = "payment-failure.fxml";
+//					this.loadView(path, 358, 272);
+//				}
 				this.createInvoice();
-				close();//close payment view
-				CustomerPaymentController.customerHomeController.loadOrderByTable();
-				CustomerHomeController.vboxOrderList.getChildren().clear();
+				CustomerPaymentController.customerHomeController.loadLatestUnpaidOrder();
 				path = "payment-success.fxml";
 				FXMLLoader root = this.loadView(path, 690, 361);
 				//controller review
 				ReviewOrderController controller = root.getController();
 				controller.loadOrder(this);
+				close();//close payment view
 			} else {
 				path = "payment-failure.fxml";
 				this.loadView(path, 358, 272);

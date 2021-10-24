@@ -23,7 +23,7 @@ public class AttributeModel extends BaseModel {
 		super(table, columns);
 	}
 	
-	public AttributeModel(int id, int sequence, String name, String parent, String createdAt) {
+	public AttributeModel(int sequence, int id, String name, String parent, String createdAt) {
 		super(table, columns);
 		this.setId(id);
 		this.setSequence(sequence);
